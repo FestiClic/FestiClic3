@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include "accueil.h"
 #include "database.h"
+#include <QtSql>
 
 
 Login::Login(QWidget *parent) :
@@ -9,6 +10,7 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+
 
     if(openConnexion())
     {
@@ -24,7 +26,8 @@ bool Login::openConnexion()
 {
     maBaseDeDonnee=QSqlDatabase::addDatabase("QSQLITE");
     //maBaseDeDonnee.setDatabaseName("Z:/Projet C++/Codes/Fclic/database.db");  //CCI
-    maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/Fclic/database.db");   //Maison
+    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/Fclic/database.db");   //Maison Projet B
+    maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");  //Maison Projet C
 
     if(maBaseDeDonnee.open())
     {

@@ -33,8 +33,6 @@ private slots:
 
     void on_lBtnAnnuler_clicked();
 
-    void on_lBtnSeConnecter_2_clicked();
-
 private:
     Ui::Login *ui;
 };

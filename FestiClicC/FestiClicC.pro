@@ -27,13 +27,16 @@ SOURCES += \
         main.cpp \
         accueil.cpp \
     login.cpp \
-    database.cpp
+    database.cpp \
+    spectacles.cpp
 
 HEADERS += \
         accueil.h \
     login.h \
-    database.h
+    database.h \
+    spectacles.h
 
 FORMS += \
         accueil.ui \
-    login.ui
+    login.ui \
+    spectacles.ui

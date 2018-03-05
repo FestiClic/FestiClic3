@@ -2,6 +2,7 @@
 #define ACCUEIL_H
 
 #include <QMainWindow>
+#include "login.h"
 
 
 namespace Ui {
@@ -15,6 +16,9 @@ class Accueil : public QMainWindow
 public:
     explicit Accueil(QWidget *parent = 0);
     ~Accueil();
+
+private slots:
+    void on_aBtnSpectacles_clicked();
 
 private:
     Ui::Accueil *ui;
