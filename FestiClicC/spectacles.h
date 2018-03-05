@@ -23,6 +23,13 @@ private slots:
 
     void on_sBtnAjouter_clicked();
 
+    void on_sBtnModifier_clicked();
+
+
+    void on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1);
+
+    void on_sBtnSupprimer_clicked();
+
 private:
     Ui::Spectacles *ui;
 };

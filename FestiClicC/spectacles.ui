@@ -18,22 +18,9 @@
     <rect>
      <x>10</x>
      <y>40</y>
-     <width>511</width>
+     <width>461</width>
      <height>411</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="sBtnAjouter">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>470</y>
-     <width>141</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Ajouter</string>
    </property>
   </widget>
   <widget class="QPushButton" name="sBtnModifier">
@@ -75,44 +62,87 @@
     <string>Quitter</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="sTxtSpectacle">
+  <widget class="QComboBox" name="sCBoxIdSpectacle">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>60</y>
-     <width>113</width>
-     <height>20</height>
+     <x>480</x>
+     <y>40</y>
+     <width>221</width>
+     <height>22</height>
     </rect>
-   </property>
-   <property name="placeholderText">
-    <string>Spectacle</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="sTxtDate">
+  <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>100</y>
-     <width>113</width>
-     <height>20</height>
+     <x>480</x>
+     <y>80</y>
+     <width>211</width>
+     <height>371</height>
     </rect>
    </property>
-   <property name="placeholderText">
-    <string>Date</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="sTxtHeure">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>140</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="placeholderText">
-    <string>Heure</string>
-   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Nouveau</string>
+    </attribute>
+    <widget class="QLineEdit" name="sTxtSpectacle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>Spectacle</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="sTxtDate">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>Date</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="sTxtHeure">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>Heure</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="sBtnAjouter">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ajouter</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Tab 2</string>
+    </attribute>
+   </widget>
   </widget>
  </widget>
  <resources/>
