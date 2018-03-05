@@ -20,16 +20,26 @@ Spectacles::Spectacles(QWidget *parent) :
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
     connexion.openConnexion();
+
+    //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query->prepare("SELECT * FROM Spectacles");
-
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
 
+    //Requette pour remplir la ComboBox
+    QSqlQueryModel * modal2 = new QSqlQueryModel();
+
+    QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee);
+    query2->prepare("SELECT Spectacle FROM Spectacles");
+    query2->exec();
+    modal2->setQuery(*query2);
+    ui->sCBoxIdSpectacle->setModel(modal2);
+
     //fermeture de la connexion
     connexion.closeConnexion();
-    qDebug() << (modal->rowCount());
+    qDebug() << (modal2->rowCount());
 }
 
 Spectacles::~Spectacles()
@@ -173,11 +183,12 @@ void Spectacles::on_sBtnModifier_clicked()
 }
 
 
-//Affecter la valeur Spectacle dans ComboBox
-//****Développement en cours****Afinaliser car pas opérationnelle
+//Affecter les valeurs de la table apartir de la comboBox
+//***** champ Jauge a rajouter
 void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
 {
-    QString spectacle = ui->sCBoxIdSpectacle->currentText();
+    QString spectacle;
+    spectacle = ui->sCBoxIdSpectacle->currentText();
 
     Login connexion;
 
@@ -193,7 +204,7 @@ void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
     QSqlQuery query;
 
     //Je prepare ma requete
-    query.prepare("SELECT Spectacle FROM Spectacles WHERE Spectacle = '"+spectacle+"'");	//requete insertion de la valeur spectacle du combobox
+    query.prepare("SELECT * FROM Spectacles WHERE Spectacle = '"+spectacle+"'");	//requete insertion de la valeur spectacle du combobox
 
     if(query.exec())
     {
@@ -216,6 +227,7 @@ void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
 //****Développement en cours****Afinaliser car pas opérationnelle
 void Spectacles::on_sBtnSupprimer_clicked()
 {
+
     Login connexion;
     //Utiliser le nom pour supprimer l'enregistrement
     QString spectacle;
@@ -274,4 +286,5 @@ void Spectacles::on_sBtnSupprimer_clicked()
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
 
     }
+
 }
