@@ -20,6 +20,8 @@ public:
 private slots:
     void on_aBtnSpectacles_clicked();
 
+    void on_aBtnClients_clicked();
+
 private:
     Ui::Accueil *ui;
 };

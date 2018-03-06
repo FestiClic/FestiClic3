@@ -14,13 +14,15 @@ class Database
 public:
     Database();
 
+    //QSqlDatabase maBaseDeDonnee;
+
     //ouverture de la connexion bdd
-//    bool openConnexion();
+    //bool openConnexion();
 
     //fermeture de la connexion bdd
-//    void closeConnexion();
+    //void closeConnexion();
 private:
-    QString maBaseDeDonnee;
+
 
 
 };

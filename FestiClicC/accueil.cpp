@@ -3,6 +3,7 @@
 #include "login.h"
 #include "database.h"
 #include "spectacles.h"
+#include "clients.h"
 
 #include <QTabWidget>
 
@@ -50,4 +51,11 @@ void Accueil::on_aBtnSpectacles_clicked()
     connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 */
+}
+
+void Accueil::on_aBtnClients_clicked()
+{
+    Clients clients;
+    clients.setModal(true);
+    clients.exec();
 }

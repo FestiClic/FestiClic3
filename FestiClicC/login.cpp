@@ -47,6 +47,7 @@ void Login::closeConnexion()
     maBaseDeDonnee.removeDatabase(QSqlDatabase::defaultConnection);
 }
 
+
 Login::~Login()
 {
     delete ui;
