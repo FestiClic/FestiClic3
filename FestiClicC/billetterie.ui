@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>761</width>
-    <height>466</height>
+    <width>900</width>
+    <height>627</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>370</x>
      <y>10</y>
      <width>351</width>
-     <height>151</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="title">
@@ -35,45 +35,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="bLabelRepresentations">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>691</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>110</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
@@ -81,7 +42,7 @@
      <x>10</x>
      <y>10</y>
      <width>351</width>
-     <height>151</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="title">
@@ -101,7 +62,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>60</y>
       <width>121</width>
       <height>23</height>
      </rect>
@@ -115,9 +76,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>180</y>
+     <y>110</y>
      <width>351</width>
-     <height>151</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="title">
@@ -137,8 +98,8 @@
   <widget class="QPushButton" name="bBtnPaiement">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>190</y>
+     <x>20</x>
+     <y>540</y>
      <width>111</width>
      <height>23</height>
     </rect>
@@ -146,6 +107,100 @@
    <property name="text">
     <string>Paiement</string>
    </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>200</y>
+     <width>311</width>
+     <height>251</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="0">
+     <widget class="QLabel" name="bLabelRepresentations">
+      <property name="text">
+       <string>Représentation</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="bLabelNomClt">
+      <property name="text">
+       <string>NomClt</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="bLabelPrix">
+      <property name="text">
+       <string>Prix</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="bLabelPrenomClt">
+      <property name="text">
+       <string>PrenomClt</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="bLabelDateRep">
+      <property name="text">
+       <string>Date</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="bLabelHeureRep">
+      <property name="text">
+       <string>Heure</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="bLabelNbPlaces">
+        <property name="text">
+         <string>Nombre de places</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="bSpBoxNbPlaces"/>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="bLabelAdresse">
+      <property name="text">
+       <string>Adresse</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>450</y>
+     <width>311</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="bLabelTotalPrix">
+      <property name="text">
+       <string>Total Prix</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

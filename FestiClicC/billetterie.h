@@ -26,6 +26,10 @@ private slots:
 
     void on_bBtnAjouter_clicked();
 
+    void on_bCBoxTarif_currentIndexChanged(const QString &arg1);
+
+    void on_bSpBoxNbPlaces_valueChanged(const QString &arg1);
+
 private:
     Ui::Billetterie *ui;
 };
