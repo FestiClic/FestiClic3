@@ -1,9 +1,11 @@
 #include "accueil.h"
 #include "ui_accueil.h"
+
 #include "login.h"
 #include "database.h"
 #include "spectacles.h"
 #include "clients.h"
+#include "billetterie.h"
 
 #include <QTabWidget>
 
@@ -58,4 +60,11 @@ void Accueil::on_aBtnClients_clicked()
     Clients clients;
     clients.setModal(true);
     clients.exec();
+}
+
+void Accueil::on_aBtnBilletterie_clicked()
+{
+    Billetterie billetterie;
+    billetterie.setModal(true);
+    billetterie.exec();
 }

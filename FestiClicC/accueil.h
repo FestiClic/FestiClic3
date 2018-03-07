@@ -18,9 +18,14 @@ public:
     ~Accueil();
 
 private slots:
+    //Ouverture de la liste et fiche spectacles
     void on_aBtnSpectacles_clicked();
 
+    //Ouverture de la liste et fiche Clients
     void on_aBtnClients_clicked();
+
+    //Ouverture de la page billetterie
+    void on_aBtnBilletterie_clicked();
 
 private:
     Ui::Accueil *ui;

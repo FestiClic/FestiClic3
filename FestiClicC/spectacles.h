@@ -30,6 +30,10 @@ private slots:
 
     void on_sBtnSupprimer_clicked();
 
+    void on_sTabV_activated(const QModelIndex &index);
+
+    void on_sBtnViderChamps_clicked();
+
 private:
     Ui::Spectacles *ui;
 };

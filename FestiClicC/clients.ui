@@ -27,13 +27,13 @@
    <property name="geometry">
     <rect>
      <x>630</x>
-     <y>50</y>
+     <y>10</y>
      <width>391</width>
-     <height>371</height>
+     <height>461</height>
     </rect>
    </property>
    <property name="title">
-    <string>Actions sur spectacles</string>
+    <string>Fiche client</string>
    </property>
    <widget class="QLineEdit" name="cltTxtEmail">
     <property name="geometry">
@@ -78,7 +78,7 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>30</y>
+      <y>20</y>
       <width>281</width>
       <height>22</height>
      </rect>
@@ -88,7 +88,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>280</y>
+      <y>320</y>
       <width>361</width>
       <height>71</height>
      </rect>
@@ -186,7 +186,33 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>20</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cltBtnViderChamps">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Vider les champs</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="cltLabelCivilite">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
       <width>47</width>
       <height>13</height>
      </rect>

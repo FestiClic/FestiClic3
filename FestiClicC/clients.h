@@ -29,6 +29,8 @@ private slots:
 
     void on_cltTabV_activated(const QModelIndex &index);
 
+    void on_cltBtnViderChamps_clicked();
+
 private:
     Ui::Clients *ui;
 };

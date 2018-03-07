@@ -29,17 +29,23 @@ SOURCES += \
     login.cpp \
     database.cpp \
     spectacles.cpp \
-    clients.cpp
+    clients.cpp \
+    billetterie.cpp \
+    modepaiement.cpp
 
 HEADERS += \
         accueil.h \
     login.h \
     database.h \
     spectacles.h \
-    clients.h
+    clients.h \
+    billetterie.h \
+    modepaiement.h
 
 FORMS += \
         accueil.ui \
     login.ui \
     spectacles.ui \
-    clients.ui
+    clients.ui \
+    billetterie.ui \
+    modepaiement.ui

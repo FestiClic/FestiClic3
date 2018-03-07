@@ -1,5 +1,6 @@
 #include "spectacles.h"
 #include "ui_spectacles.h"
+
 #include "accueil.h"
 #include "login.h"
 #include <QtSql>
@@ -28,6 +29,8 @@ Spectacles::Spectacles(QWidget *parent) :
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
 
+
+/*
     //Requette pour remplir la ComboBox
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
@@ -36,11 +39,11 @@ Spectacles::Spectacles(QWidget *parent) :
     query2->exec();
     modal2->setQuery(*query2);
     ui->sCBoxIdSpectacle->setModel(modal2);
-
+*/
     //fermeture de la connexion
     connexion.closeConnexion();
-    //qDebug() << (modal->rowCount());
-    qDebug() << (modal2->rowCount());
+    qDebug() << (modal->rowCount());
+    //qDebug() << (modal2->rowCount());
 }
 
 Spectacles::~Spectacles()
@@ -61,10 +64,12 @@ void Spectacles::on_sBtnAjouter_clicked()
     QString spectacle;
     QString date;
     QString heure;
+    QString jauge;
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->sTxtDate->text();
     heure = ui->sTxtHeure->text();
+    jauge = ui->sTxtJauge->text();
 
     if(!connexion.openConnexion())
     {
@@ -75,8 +80,8 @@ void Spectacles::on_sBtnAjouter_clicked()
     connexion.openConnexion();
 
     QSqlQuery query;
-    query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure) "
-                  "VALUES ('"+spectacle+"','"+date+"','"+heure+"')");	//requete insertion dans la bdd
+    query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, Jauge) "
+                  "VALUES ('"+spectacle+"','"+date+"','"+heure+"', '"+jauge+"')");	//requete insertion dans la bdd
 
     if(query.exec())
     {
@@ -122,11 +127,13 @@ void Spectacles::on_sBtnModifier_clicked()
     QString spectacle;
     QString date;
     QString heure;
+    QString jauge;
     QString idSpectacle;
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->sTxtDate->text();
     heure = ui->sTxtHeure->text();
+    jauge = ui->sTxtJauge->text();
 
     //lable pour ID
     idSpectacle = ui->sLabelIdSpectacle->text();
@@ -142,8 +149,8 @@ void Spectacles::on_sBtnModifier_clicked()
 
     QSqlQuery query;
     //Requête de mise à jour
-    query.prepare("UPDATE Utilisateurs SET "
-                  "Spectacle ='"+spectacle+"',Date='"+date+"', Heure ='"+heure+"'"
+    query.prepare("UPDATE Spectacles SET "
+                  "Spectacle ='"+spectacle+"',Date='"+date+"', Heure ='"+heure+"', Jauge = '"+jauge+"'"
                   "WHERE IdSpectacle ='"+idSpectacle+"'");  //???? Acorriger
 
 
@@ -175,6 +182,13 @@ void Spectacles::on_sBtnModifier_clicked()
         //**************************************
 
         connexion.closeConnexion(); //fermeture de la connexion
+
+        //Vider l'ensemble des champs après la modification
+        ui->sLabelIdSpectacle->clear();
+        ui->sTxtSpectacle->clear();
+        ui->sTxtDate->clear();
+        ui->sTxtHeure->clear();
+        ui->sTxtJauge->clear();
     }
     else
     {
@@ -189,7 +203,7 @@ void Spectacles::on_sBtnModifier_clicked()
 //***** champ Jauge a rajouter
 void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
 {
-    QString spectacle;
+/*    QString spectacle;
     spectacle = ui->sCBoxIdSpectacle->currentText();
 
     Login connexion;
@@ -225,6 +239,7 @@ void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
     {
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
     }
+*/
 }
 
 //Suppression d'un spactacle
@@ -281,6 +296,8 @@ void Spectacles::on_sBtnSupprimer_clicked()
         ui->sTxtSpectacle->clear();
         ui->sTxtDate->clear();
         ui->sTxtHeure->clear();
+        ui->sTxtJauge->clear();
+        ui->sLabelIdSpectacle->clear();
 
 
     }
@@ -291,4 +308,59 @@ void Spectacles::on_sBtnSupprimer_clicked()
 
     }
 
+}
+
+
+
+void Spectacles::on_sTabV_activated(const QModelIndex &index)
+{
+    //Affecté les données aux chanps txt apartir de la tableView
+
+        QString valeurs;
+
+        valeurs = ui->sTabV->model()->data(index).toString();
+
+        Login connexion;
+
+        if(!connexion.openConnexion())
+        {
+            qDebug() << "Echec de connexion";
+            return;
+        }
+
+        connexion.openConnexion();
+        QSqlQuery query;
+        query.prepare("SELECT * FROM Spectacles WHERE IdSpectacle = '"+valeurs+"'"
+                                                "OR Spectacle = '"+valeurs+"'"
+                                                "OR Date = '"+valeurs+"'"
+                                                "OR Heure = '"+valeurs+"'"
+                                                "OR Jauge = '"+valeurs+"'");
+        if(query.exec())
+        {
+            while (query.next())
+            {
+                ui->sLabelIdSpectacle->setText(query.value(0).toString());
+                ui->sTxtSpectacle->setText(query.value(1).toString());
+                ui->sTxtDate->setText(query.value(2).toString());
+                ui->sTxtHeure->setText(query.value(3).toString());
+                ui->sTxtJauge->setText(query.value(4).toString());
+
+
+            }
+            connexion.closeConnexion();
+        }
+        else
+        {
+                QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+        }
+
+}
+
+void Spectacles::on_sBtnViderChamps_clicked()
+{
+    ui->sLabelIdSpectacle->clear();
+    ui->sTxtSpectacle->clear();
+    ui->sTxtDate->clear();
+    ui->sTxtHeure->clear();
+    ui->sTxtJauge->clear();
 }

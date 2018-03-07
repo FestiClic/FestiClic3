@@ -70,6 +70,12 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="cursorPosition">
+     <number>0</number>
+    </property>
     <property name="placeholderText">
      <string>Date</string>
     </property>
@@ -154,6 +160,19 @@
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sBtnViderChamps">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Vider champs</string>
     </property>
    </widget>
   </widget>

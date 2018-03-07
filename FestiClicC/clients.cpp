@@ -1,11 +1,23 @@
 #include "clients.h"
 #include "ui_clients.h"
+
 #include "accueil.h"
 #include "login.h"
 #include <QtSql>
 #include <QtDebug>
 #include <QString>
 #include <QMessageBox>
+
+
+//***********
+//*************
+//***************   Modification: changer le label Civilité en combo ou radioButton
+//****************
+//********************
+//**********************
+//*************************
+
+
 
 Clients::Clients(QWidget *parent) :
     QDialog(parent),
@@ -127,13 +139,15 @@ void Clients::on_cltBtnModifier_clicked()
     QString email;
     QString tel;
     QString mob;
+    QString idClient;
 
     nom = ui->cltTxtNom->text();
     prenom = ui->cltTxtPrenom->text();
     adresse = ui->cltTxtAdresse->text();
     email = ui->cltTxtEmail->text();
     tel = ui->cltTxtTel->text();
-    mob =ui->cltTxtMob->text();
+    mob = ui->cltTxtMob->text();
+    idClient = ui->cltLabelIdClient->text();
 
     if(!connexion.openConnexion())
     {
@@ -149,7 +163,7 @@ void Clients::on_cltBtnModifier_clicked()
                                         "NomClient ='"+nom+"',PrenomClient='"+prenom+"',"
                                         "AdresseClient ='"+adresse+"', EmailClient = '"+email+"', "
                                         "TelClient = '"+tel+"', MobClient = '"+mob+"'"
-                  "WHERE NomClient ='"+nom+"'");
+                  "WHERE IdClient ='"+idClient+"'");
 
 
     if(query.exec())
@@ -276,12 +290,14 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
         while (query.next())
         {
             ui->cltLabelIdClient->setText(query.value(0).toString());
-            ui->cltTxtNom->setText(query.value(1).toString());
-            ui->cltTxtPrenom->setText(query.value(2).toString());
-            ui->cltTxtAdresse->setText(query.value(3).toString());
-            ui->cltTxtEmail->setText(query.value(4).toString());
-            ui->cltTxtTel->setText(query.value(5).toString());
-            ui->cltTxtMob->setText(query.value(6).toString());
+            //changer le champ en combo
+            ui->cltLabelCivilite->setText(query.value(1).toString());
+            ui->cltTxtNom->setText(query.value(2).toString());
+            ui->cltTxtPrenom->setText(query.value(3).toString());
+            ui->cltTxtAdresse->setText(query.value(4).toString());
+            ui->cltTxtEmail->setText(query.value(5).toString());
+            ui->cltTxtTel->setText(query.value(6).toString());
+            ui->cltTxtMob->setText(query.value(7).toString());
 
         }
         connexion.closeConnexion();
@@ -290,7 +306,19 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
     {
             QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
+}
 
-
-
+void Clients::on_cltBtnViderChamps_clicked()
+{
+    ui->cltLabelIdClient->clear();
+    //changer le champ en combo
+    ui->cltLabelCivilite->clear();
+    ui->cltTxtNom->clear();
+    ui->cltTxtPrenom->clear();
+    ui->cltTxtAdresse->clear();
+    ui->cltTxtEmail->clear();
+    ui->cltTxtCp->clear();
+    ui->cltTxtVille->clear();
+    ui->cltTxtTel->clear();
+    ui->cltTxtMob->clear();
 }

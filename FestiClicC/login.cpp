@@ -5,6 +5,7 @@
 #include <QtSql>
 
 
+
 Login::Login(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Login)
@@ -101,11 +102,15 @@ void Login::on_lBtnSeConnecter_clicked()
 
 void Login::on_lBtnAnnuler_clicked()
 {
-    this->close();
+    //this->close();
+
     //Si fermer il faut aussi fermer la page Accueil
 
-    Accueil accueil;
-    accueil.close(); //A modifier car ca ne marche pas comme il faut
+    //Accueil accueil;
+    //accueil.close(); //A modifier car ca ne marche pas comme il faut
+    qApp->exit(0);
+
+
 
 
 }
