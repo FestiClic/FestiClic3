@@ -31,7 +31,8 @@ SOURCES += \
     spectacles.cpp \
     clients.cpp \
     billetterie.cpp \
-    modepaiement.cpp
+    modepaiement.cpp \
+    plandesalle.cpp
 
 HEADERS += \
         accueil.h \
@@ -40,7 +41,8 @@ HEADERS += \
     spectacles.h \
     clients.h \
     billetterie.h \
-    modepaiement.h
+    modepaiement.h \
+    plandesalle.h
 
 FORMS += \
         accueil.ui \
@@ -48,4 +50,5 @@ FORMS += \
     spectacles.ui \
     clients.ui \
     billetterie.ui \
-    modepaiement.ui
+    modepaiement.ui \
+    plandesalle.ui

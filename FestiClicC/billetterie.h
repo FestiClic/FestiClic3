@@ -6,6 +6,7 @@
 #include "accueil.h"
 #include "spectacles.h"
 #include <QtSql>
+#include <QInputDialog>
 
 namespace Ui {
 class Billetterie;
@@ -28,7 +29,9 @@ private slots:
 
     void on_bCBoxTarif_currentIndexChanged(const QString &arg1);
 
-    void on_bSpBoxNbPlaces_valueChanged(const QString &arg1);
+    void on_pBtnSuivant_clicked();
+
+    void on_bBtnPaiement_clicked();
 
 private:
     Ui::Billetterie *ui;

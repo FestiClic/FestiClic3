@@ -113,7 +113,7 @@
     <rect>
      <x>20</x>
      <y>200</y>
-     <width>311</width>
+     <width>711</width>
      <height>251</height>
     </rect>
    </property>
@@ -169,9 +169,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QSpinBox" name="bSpBoxNbPlaces"/>
-      </item>
      </layout>
     </item>
     <item row="1" column="0">
@@ -194,6 +191,9 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QLCDNumber" name="lcdNumber"/>
+    </item>
+    <item>
      <widget class="QLabel" name="bLabelTotalPrix">
       <property name="text">
        <string>Total Prix</string>
@@ -201,6 +201,55 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="pBtnSuivant">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>540</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Suivant</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>450</y>
+     <width>401</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QRadioButton" name="bRBtnPlacementPlan">
+      <property name="text">
+       <string>Placement sur plan</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="bRBtnPlacementLibre">
+      <property name="text">
+       <string>Placement libre</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QKeySequenceEdit" name="keySequenceEdit">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>570</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

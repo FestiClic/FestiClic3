@@ -4,6 +4,8 @@
 #include "accueil.h"
 #include "login.h"
 #include "spectacles.h"
+#include "modepaiement.h"
+#include "plandesalle.h"
 #include <QtSql>
 #include <QtDebug>
 #include <QString>
@@ -16,6 +18,8 @@ Billetterie::Billetterie(QWidget *parent) :
     ui(new Ui::Billetterie)
 {
     ui->setupUi(this);
+    //ui->bCheckBPlacePlan->setChecked(true);
+    ui->bRBtnPlacementPlan->setChecked(true);
 
 
 //************************************************************************************************************************
@@ -102,7 +106,9 @@ Billetterie::Billetterie(QWidget *parent) :
     {
         ui->bBtnPaiement->hide();
         ui->bLabelNbPlaces->hide();
-        ui->bSpBoxNbPlaces->hide();
+        ui->pBtnSuivant->hide();
+        ui->bRBtnPlacementLibre->hide();
+        ui->bRBtnPlacementPlan->hide();
     }
 
 
@@ -283,20 +289,15 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
             //ui->bLabelAdresse(query.value(3).toString());
             //Aficher le bouton de paiement
             //ui->bBtnPaiement->show();
+
         }
         connexion.closeConnexion();
 
-        //Aficher SpBox et son label
-        ui->bSpBoxNbPlaces->show();
+
+        ui->pBtnSuivant->show();
         ui->bLabelNbPlaces->show();
-
-        //if(ui->bSpBoxNbPlaces->value() > 0)
-       // {
-            //Aficher le bouton de paiement
-            ui->bBtnPaiement->show();
-            //ui->bLabelTotalPrix->text()=ui->bSpBoxNbPlaces->value(); //pour tester
-       // }
-
+        ui->bRBtnPlacementLibre->show();
+        ui->bRBtnPlacementPlan->show();
 
     }
     else
@@ -306,12 +307,60 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
 }
 
 
-
-//Affecter la valeur du spBox au champs total pour tester avant le calcul
-void Billetterie::on_bSpBoxNbPlaces_valueChanged(const QString &arg1)
+void Billetterie::on_pBtnSuivant_clicked()
 {
-//    int nbPlace;
+    //******************************************
+    //Boite de message pour définir le nombre de place pour le spectacle
+    //La message d'information dans la boucle apparait meme si la condition est remplie !!!!A coder!!!!
 
-//    nbPlace = ui->bSpBoxNbPlaces->cu;
-//      nbPlace=ui->bSpBoxNbPlaces->text();
+    QVariant nbPlaces;
+    do
+        {
+        nbPlaces = QInputDialog::getInt(this, "nbPlaces", "Entrez le nombre de places :", 0, 0, 99, 1);
+        if(false)
+        QMessageBox::information(this, "Info", "Vous devez choisir au minimum 1 place ");
+
+        }
+    while(nbPlaces.toInt()<1);
+
+    QMessageBox::information(this, "Infos", "Vous avez choisi "+nbPlaces.toString()+" place(s)");
+    ui->bBtnPaiement->show();
+    //*************************************
+
+    //Test calcu de prix
+    double prixTotal; //resultat
+
+    double tarif;   //prix
+    tarif = ui->bLabelPrix->text().toDouble(); //valeur a affecter
+    double quantite = nbPlaces.toDouble();        //nbDeplaces
+    prixTotal = (quantite * tarif);
+
+    //prixTotal = (tarif);
+    ui->bLabelNbPlaces->setText(QString::number(quantite));
+    ui->bLabelTotalPrix->setText(QString::number(prixTotal));
+
+    //Cacher le bouton
+    ui->pBtnSuivant->hide();
+
+
+
+
+}
+
+void Billetterie::on_bBtnPaiement_clicked()
+{
+    if(ui->bRBtnPlacementLibre->isChecked())
+    {
+        ModePaiement modePaiement;
+        modePaiement.setModal(true);
+        modePaiement.exec();
+    }
+
+    PlanDeSalle planDeSalle;
+    planDeSalle.setModal(true);
+    planDeSalle.exec();
+
+    //Gestion de l'exception
+
+
 }
