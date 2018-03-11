@@ -11,4 +11,5 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 PlanDeSalle::~PlanDeSalle()
 {
     delete ui;
+    //NbSieges places 666
 }

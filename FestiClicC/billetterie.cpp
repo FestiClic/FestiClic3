@@ -362,7 +362,7 @@ void Billetterie::on_pBtnSuivant_clicked()
     //Cacher le bouton
     ui->pBtnSuivant->hide();
 */
-//**************************************************************************************
+//***********************************************************************************************************************
     // !!!!!!!!!!!! Pas fonctionnel !!!!!!!!!!!!!!!!!!!!!!!!
 //Calcule .....
     int prixTotal, prix, NbPlaces;
@@ -380,7 +380,7 @@ void Billetterie::on_pBtnSuivant_clicked()
     QString xstr = QString::number(prixTotal);
     ui->bTxtPrixTotal->setText(xstr);
 
-//**************************************************************************************
+//***********************************************************************************************************************
     //Ouverture plan de salle
     if(ui->bRBtnPlacementLibre->isChecked())
       {
