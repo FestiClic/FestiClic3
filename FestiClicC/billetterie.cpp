@@ -13,6 +13,7 @@
 #include "clients.h"
 
 
+
 Billetterie::Billetterie(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Billetterie)
@@ -361,21 +362,39 @@ void Billetterie::on_pBtnSuivant_clicked()
     //Cacher le bouton
     ui->pBtnSuivant->hide();
 */
-
+//**************************************************************************************
+    // !!!!!!!!!!!! Pas fonctionnel !!!!!!!!!!!!!!!!!!!!!!!!
 //Calcule .....
     int prixTotal, prix, NbPlaces;
-    //prix = (ui->bTxtPrix->text().toDouble());
-    prix = (ui->bTxtPrix->text().toInt());
-    ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText());
+
+    prix = (ui->bTxtPrix->text().toDouble());
+    ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
 
     NbPlaces = ui->bTxtNbPlaces->text().toInt();
 
     prixTotal = (prix * NbPlaces);
 
+    //QString Result;
+    //Result.sprintf("%f", prixTotal);
+
     QString xstr = QString::number(prixTotal);
-
-
     ui->bTxtPrixTotal->setText(xstr);
+
+//**************************************************************************************
+    //Ouverture plan de salle
+    if(ui->bRBtnPlacementLibre->isChecked())
+      {
+          ModePaiement modePaiement;
+          modePaiement.setModal(true);
+          modePaiement.exec();
+      }
+
+      PlanDeSalle planDeSalle;
+      planDeSalle.setModal(true);
+      planDeSalle.exec();
+
+      //Gestion de l'exception
+
 
 
 
@@ -386,7 +405,7 @@ void Billetterie::on_pBtnSuivant_clicked()
 
 void Billetterie::on_bBtnPaiement_clicked()
 {
-    if(ui->bRBtnPlacementLibre->isChecked())
+/*    if(ui->bRBtnPlacementLibre->isChecked())
     {
         ModePaiement modePaiement;
         modePaiement.setModal(true);
@@ -398,6 +417,6 @@ void Billetterie::on_bBtnPaiement_clicked()
     planDeSalle.exec();
 
     //Gestion de l'exception
-
+*/
 
 }

@@ -191,9 +191,6 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLCDNumber" name="lcdNumber"/>
-    </item>
-    <item>
      <widget class="QLabel" name="bLabelTotalPrix">
       <property name="text">
        <string>Total Prix</string>
