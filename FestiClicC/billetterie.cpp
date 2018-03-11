@@ -62,6 +62,7 @@ Billetterie::Billetterie(QWidget *parent) :
     connexion1.closeConnexion();
     qDebug() << (modal1->rowCount());
 
+
 //************************************************************************************************************************
 
     //Affecter le tarif a la comboBox tarif
@@ -153,6 +154,11 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
             ui->bLabelDateRep->setText(query.value(2).toString());
             ui->bLabelHeureRep->setText(query.value(3).toString());
 
+            //Version avec des zones de text
+            ui->bTxtRepresentation->setText(query.value(1).toString());
+            ui->bTxtDateEtHeure->setText(query.value(2).toString() +" Heure de début "+ query.value(3).toString());
+
+
         }
         connexion.closeConnexion();
     }
@@ -233,6 +239,10 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
             ui->bLabelAdresse->setText(query.value(4).toString());
             //Aficher le bouton de paiement
             //ui->bBtnPaiement->show();
+
+            //Version avec des zones de text
+            ui->bTxtNomClient->setText(query.value(2).toString()+" "+query.value(3).toString());
+            ui->bTxtAdresse->setText(query.value(4).toString());
         }
         connexion.closeConnexion();
     }
@@ -286,6 +296,15 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
         {
             ui->bLabelPrix->setText(query.value(2).toString());
 
+            //Version avec des zones de text
+            ui->bTxtPrix->setText(query.value(2).toString());
+
+            //Remplir combo nbPlaces
+            for(int i = 0; i <=90; i++)
+            {
+                ui->bCBoxNbPlaces->addItem(QString::number(i));
+            }
+
             //ui->bLabelAdresse(query.value(3).toString());
             //Aficher le bouton de paiement
             //ui->bBtnPaiement->show();
@@ -312,7 +331,7 @@ void Billetterie::on_pBtnSuivant_clicked()
     //******************************************
     //Boite de message pour définir le nombre de place pour le spectacle
     //La message d'information dans la boucle apparait meme si la condition est remplie !!!!A coder!!!!
-
+/*
     QVariant nbPlaces;
     do
         {
@@ -325,8 +344,8 @@ void Billetterie::on_pBtnSuivant_clicked()
 
     QMessageBox::information(this, "Infos", "Vous avez choisi "+nbPlaces.toString()+" place(s)");
     ui->bBtnPaiement->show();
-    //*************************************
-
+*/    //*************************************
+/*
     //Test calcu de prix
     double prixTotal; //resultat
 
@@ -341,6 +360,24 @@ void Billetterie::on_pBtnSuivant_clicked()
 
     //Cacher le bouton
     ui->pBtnSuivant->hide();
+*/
+
+//Calcule .....
+    int prixTotal, prix, NbPlaces;
+    //prix = (ui->bTxtPrix->text().toDouble());
+    prix = (ui->bTxtPrix->text().toInt());
+    ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText());
+
+    NbPlaces = ui->bTxtNbPlaces->text().toInt();
+
+    prixTotal = (prix * NbPlaces);
+
+    QString xstr = QString::number(prixTotal);
+
+
+    ui->bTxtPrixTotal->setText(xstr);
+
+
 
 
 
