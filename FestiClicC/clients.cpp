@@ -35,7 +35,7 @@ Clients::Clients(QWidget *parent) :
 
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query->prepare("SELECT (NomClient) AS NOM, (PrenomClient) AS PRENOM , Cp FROM Clients, Villes");
+    query->prepare("SELECT * FROM Clients");
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->cltTabV->setModel(modal);     //Envoyer les données dans la TableView
@@ -75,6 +75,7 @@ void Clients::on_cltBtnAjouter_clicked()
     QString email;
     QString tel;
     QString mob;
+
 
     nom = ui->cltTxtNom->text();
     prenom = ui->cltTxtPrenom->text();

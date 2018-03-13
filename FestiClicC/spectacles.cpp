@@ -35,7 +35,7 @@ Spectacles::Spectacles(QWidget *parent) :
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
     QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee);
-    query2->prepare("SELECT IdSpectacle FROM Spectacles");
+    query2->prepare("SELECT Spectacle FROM Spectacles");
     query2->exec();
     modal2->setQuery(*query2);
     ui->sCBoxIdSpectacle->setModel(modal2);

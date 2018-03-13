@@ -104,11 +104,13 @@ void Login::on_lBtnAnnuler_clicked()
 {
     //this->close();
 
+
     //Si fermer il faut aussi fermer la page Accueil
 
     //Accueil accueil;
     //accueil.close(); //A modifier car ca ne marche pas comme il faut
     qApp->exit(0);
+
 
 
 
