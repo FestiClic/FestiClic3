@@ -35,16 +35,24 @@ Clients::Clients(QWidget *parent) :
 
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query->prepare("SELECT (NomClient) AS NOM, (PrenomClient) AS PRENOM , Cp FROM Clients, Villes");
+    query->prepare("SELECT * FROM Clients");
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->cltTabV->setModel(modal);     //Envoyer les données dans la TableView
+
+    //Redimentionner les colonne en fonction du contenu
+    ui->cltTabV->resizeColumnsToContents();
+
+    //fermeture de la connexion
+
+    qDebug() << (modal->rowCount());
+
 
     //Requette pour remplir la ComboBox
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
     QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee);
-    query2->prepare("SELECT Client FROM Clients");
+    query2->prepare("SELECT * FROM Clients");
     query2->exec();
     modal2->setQuery(*query2);
     ui->cltCBoxIdSpectacle->setModel(modal2);
@@ -69,19 +77,27 @@ void Clients::on_cltBtnAjouter_clicked()
 {
     Login connexion;
 
+    QString civilite;
     QString nom;
     QString prenom;
     QString adresse;
+    QString cp;
+    QString ville;
     QString email;
     QString tel;
     QString mob;
+    QString abonne;
 
+    civilite = ui->cltCBoxCivilite->currentText();
     nom = ui->cltTxtNom->text();
     prenom = ui->cltTxtPrenom->text();
     adresse = ui->cltTxtAdresse->text();
+    cp = ui->cltTxtCp->text();
+    ville = ui->cltTxtVille->text();
     email = ui->cltTxtEmail->text();
     tel = ui->cltTxtTel->text();
     mob = ui->cltTxtMob->text();
+    abonne = ui->cltCBoxAbonne->currentText();
 
     if(!connexion.openConnexion())
     {
@@ -92,8 +108,12 @@ void Clients::on_cltBtnAjouter_clicked()
     connexion.openConnexion();
 
     QSqlQuery query;
-    query.prepare("INSERT INTO Clients (NomClient, PrenomClient, AdresseClient, EmailClient, TelClient, MobClient) "
-                  "VALUES ('"+nom+"','"+prenom+"','"+adresse+"', '"+email+"', '"+tel+"', '"+mob+"')");	//requete insertion dans la bdd
+    query.prepare("INSERT INTO Clients (Civilite, NomClient, PrenomClient, AdresseClient, Cp, Ville, EmailClient, TelClient, MobClient, Abonne) "
+                  "VALUES ('"+civilite+"','"+nom+"','"+prenom+"','"+adresse+"','"+cp+"','"+ville+"','"+email+"', '"+tel+"', '"+mob+"', '"+abonne+"')");	//requete insertion dans la bdd
+
+    //Vider les champs
+
+
 
     if(query.exec())
     {
@@ -120,6 +140,18 @@ void Clients::on_cltBtnAjouter_clicked()
        //**************************************
 
        connexion.closeConnexion();  //Fermeture de la connexion
+
+       //Vider les champs
+       ui->cltCBoxCivilite->clear();
+       ui->cltTxtNom->clear();
+       ui->cltTxtPrenom->clear();
+       ui->cltTxtAdresse->clear();
+       ui->cltTxtCp->clear();
+       ui->cltTxtVille->clear();
+       ui->cltTxtEmail->clear();
+       ui->cltTxtTel->clear();
+       ui->cltTxtMob->clear();
+       ui->cltCBoxAbonne->clear();
     }
     else
     {
@@ -134,20 +166,28 @@ void Clients::on_cltBtnModifier_clicked()
 {
     Login connexion;
 
+    QString civilite;
     QString nom;
     QString prenom;
     QString adresse;
+    QString cp;
+    QString ville;
     QString email;
     QString tel;
     QString mob;
+    QString abonne;
     QString idClient;
 
+    civilite = ui->cltCBoxCivilite->currentText();
     nom = ui->cltTxtNom->text();
     prenom = ui->cltTxtPrenom->text();
     adresse = ui->cltTxtAdresse->text();
+    cp = ui->cltTxtCp->text();
+    ville = ui->cltTxtVille->text();
     email = ui->cltTxtEmail->text();
     tel = ui->cltTxtTel->text();
     mob = ui->cltTxtMob->text();
+    abonne = ui->cltCBoxAbonne->currentText();
     idClient = ui->cltLabelIdClient->text();
 
     if(!connexion.openConnexion())
@@ -161,9 +201,9 @@ void Clients::on_cltBtnModifier_clicked()
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Clients SET "
-                                        "NomClient ='"+nom+"',PrenomClient='"+prenom+"',"
-                                        "AdresseClient ='"+adresse+"', EmailClient = '"+email+"', "
-                                        "TelClient = '"+tel+"', MobClient = '"+mob+"'"
+                                        "Civilite ='"+civilite+"', NomClient ='"+nom+"',PrenomClient='"+prenom+"',"
+                                        "AdresseClient ='"+adresse+"', Cp ='"+cp+"',Ville ='"+ville+"', EmailClient = '"+email+"', "
+                                        "TelClient = '"+tel+"', MobClient = '"+mob+"', Abonne ='"+abonne+"'"
                   "WHERE IdClient ='"+idClient+"'");
 
 
@@ -190,6 +230,19 @@ void Clients::on_cltBtnModifier_clicked()
         //**************************************
 
         connexion.closeConnexion(); //fermeture de la connexion
+
+        //Vider les champs
+        ui->cltCBoxCivilite->clear();
+        ui->cltTxtNom->clear();
+        ui->cltTxtPrenom->clear();
+        ui->cltTxtAdresse->clear();
+        ui->cltTxtCp->clear();
+        ui->cltTxtVille->clear();
+        ui->cltTxtEmail->clear();
+        ui->cltTxtTel->clear();
+        ui->cltTxtMob->clear();
+        ui->cltCBoxAbonne->clear();
+        ui->cltLabelIdClient->clear();
     }
     else
     {
@@ -203,9 +256,12 @@ void Clients::on_cltBtnSupprimer_clicked()
 {
     Login connexion;
     //Utiliser le nom pour supprimer l'enregistrement
-    QString nom;
+    //QString nom;
+    QString idClient;
 
-    nom = ui->cltTxtNom->text();
+    //nom = ui->cltTxtNom->text();
+    idClient = ui->cltLabelIdClient->text();
+
 
     if(!connexion.openConnexion())
     {
@@ -216,7 +272,7 @@ void Clients::on_cltBtnSupprimer_clicked()
     connexion.openConnexion();
 
     QSqlQuery query;
-    query.prepare("DELETE FROM Clients WHERE NomClient ='"+nom+"'"); //requete suppression dans la bdd
+    query.prepare("DELETE FROM Clients WHERE IdClient ='"+idClient+"'"); //requete suppression dans la bdd
 
     if(query.exec())
     {
@@ -244,14 +300,19 @@ void Clients::on_cltBtnSupprimer_clicked()
 
         connexion.closeConnexion();  //Fermeture de la connexion
 
-        //Vider les champs de text
+
+        //Vider les champs
+        ui->cltCBoxCivilite->clear();
         ui->cltTxtNom->clear();
         ui->cltTxtPrenom->clear();
         ui->cltTxtAdresse->clear();
+        ui->cltTxtCp->clear();
+        ui->cltTxtVille->clear();
         ui->cltTxtEmail->clear();
         ui->cltTxtTel->clear();
         ui->cltTxtMob->clear();
-
+        ui->cltCBoxAbonne->clear();
+        ui->cltLabelIdClient->clear();
     }
     else
     {
@@ -262,7 +323,7 @@ void Clients::on_cltBtnSupprimer_clicked()
 
 }
 
-//Affecté les données aux chanps txt apartir de la tableView
+//Affecté les données aux champs txt apartir de la tableView
 void Clients::on_cltTabV_activated(const QModelIndex &index)
 {
     QString valeurs;
@@ -280,25 +341,33 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
     connexion.openConnexion();
     QSqlQuery query;
     query.prepare("SELECT * FROM Clients WHERE IdClient = '"+valeurs+"'"
+                                            "OR Civilite = '"+valeurs+"'"
                                             "OR NomClient = '"+valeurs+"'"
                                             "OR PrenomClient = '"+valeurs+"'"
                                             "OR AdresseClient = '"+valeurs+"'"
+                                            "OR Cp = '"+valeurs+"'"
+                                            "OR Ville = '"+valeurs+"'"
                                             "OR EmailClient = '"+valeurs+"'"
                                             "OR TelClient = '"+valeurs+"'"
-                                            "OR MobClient = '"+valeurs+"'");
+                                            "OR MobClient = '"+valeurs+"'"
+                                            "OR Abonne = '"+valeurs+"'");
     if(query.exec())
     {
         while (query.next())
         {
             ui->cltLabelIdClient->setText(query.value(0).toString());
-            //changer le champ en combo
-            ui->cltLabelCivilite->setText(query.value(1).toString());
+            ui->cltCBoxCivilite->setCurrentText(query.value(1).toString());
             ui->cltTxtNom->setText(query.value(2).toString());
             ui->cltTxtPrenom->setText(query.value(3).toString());
             ui->cltTxtAdresse->setText(query.value(4).toString());
-            ui->cltTxtEmail->setText(query.value(5).toString());
-            ui->cltTxtTel->setText(query.value(6).toString());
-            ui->cltTxtMob->setText(query.value(7).toString());
+            ui->cltTxtCp->setText(query.value(5).toString());
+            ui->cltTxtVille->setText(query.value(6).toString());
+            ui->cltTxtEmail->setText(query.value(7).toString());
+            ui->cltTxtTel->setText(query.value(8).toString());
+            ui->cltTxtMob->setText(query.value(9).toString());
+            ui->cltCBoxAbonne->setCurrentText(query.value(9).toString());
+
+
 
         }
         connexion.closeConnexion();
@@ -312,8 +381,7 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
 void Clients::on_cltBtnViderChamps_clicked()
 {
     ui->cltLabelIdClient->clear();
-    //changer le champ en combo
-    ui->cltLabelCivilite->clear();
+    ui->cltCBoxCivilite->clear();
     ui->cltTxtNom->clear();
     ui->cltTxtPrenom->clear();
     ui->cltTxtAdresse->clear();
@@ -322,4 +390,5 @@ void Clients::on_cltBtnViderChamps_clicked()
     ui->cltTxtVille->clear();
     ui->cltTxtTel->clear();
     ui->cltTxtMob->clear();
+    ui->cltCBoxAbonne->clear();
 }

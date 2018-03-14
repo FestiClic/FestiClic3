@@ -33,6 +33,9 @@ private slots:
 
     void on_bBtnPaiement_clicked();
 
+    void on_bBtnQuitter_clicked();
+
+
 private:
     Ui::Billetterie *ui;
 };

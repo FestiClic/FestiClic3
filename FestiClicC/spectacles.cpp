@@ -29,6 +29,9 @@ Spectacles::Spectacles(QWidget *parent) :
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
 
+    //Redimentionner les colonne en fonction du contenu
+    ui->sTabV->resizeColumnsToContents();
+
 
 /*
     //Requette pour remplir la ComboBox

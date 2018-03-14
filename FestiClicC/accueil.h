@@ -27,6 +27,8 @@ private slots:
     //Ouverture de la page billetterie
     void on_aBtnBilletterie_clicked();
 
+    void on_aBtnPlanDeSalle_clicked();
+
 private:
     Ui::Accueil *ui;
 };

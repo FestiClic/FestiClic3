@@ -39,7 +39,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>150</y>
+      <y>110</y>
       <width>371</width>
       <height>20</height>
      </rect>
@@ -88,7 +88,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>320</y>
+      <y>370</y>
       <width>361</width>
       <height>71</height>
      </rect>
@@ -147,7 +147,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>110</y>
+      <y>150</y>
       <width>371</width>
       <height>20</height>
      </rect>
@@ -192,14 +192,14 @@
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>IdClient</string>
     </property>
    </widget>
    <widget class="QPushButton" name="cltBtnViderChamps">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>280</y>
+      <y>340</y>
       <width>111</width>
       <height>23</height>
      </rect>
@@ -218,8 +218,71 @@
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Civilite</string>
     </property>
+   </widget>
+   <widget class="QComboBox" name="cltCBoxCivilite">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>40</y>
+      <width>69</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mme</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mr</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="cltLabelAbonne">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Abonne</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cltCBoxAbonne">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>290</y>
+      <width>69</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Abonné(e)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Non abonné(e)</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QPushButton" name="cltBtnQuitter">
