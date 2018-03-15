@@ -6,6 +6,7 @@
 #include "spectacles.h"
 #include "clients.h"
 #include "billetterie.h"
+#include "plandesalle.h"
 
 #include <QTabWidget>
 
@@ -67,4 +68,11 @@ void Accueil::on_aBtnBilletterie_clicked()
     Billetterie billetterie;
     billetterie.setModal(true);
     billetterie.exec();
+}
+
+void Accueil::on_aBtnPlanDeSalle_clicked()
+{
+    PlanDeSalle planDeSalle;
+    planDeSalle.setModal(true);
+    planDeSalle.exec();
 }

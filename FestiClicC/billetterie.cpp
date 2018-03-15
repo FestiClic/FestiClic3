@@ -19,11 +19,18 @@ Billetterie::Billetterie(QWidget *parent) :
     ui(new Ui::Billetterie)
 {
     ui->setupUi(this);
+
     //ui->bCheckBPlacePlan->setChecked(true);
     ui->bRBtnPlacementPlan->setChecked(true);
 
 
 //************************************************************************************************************************
+
+// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+    //Adévelopper
+    //Mettre en place un checkBox sur chaque Groupe Box afin de rendre les boton et combobox clicables et charger les données
+    //dans le comboBox en meme temp
+// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
     //Affecter les données des représentations au ComboBox
 
@@ -38,6 +45,7 @@ Billetterie::Billetterie(QWidget *parent) :
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->bCBoxRepresentations->setModel(modal);     //Envoyer les données en combo
+
 
     //fermeture de la connexion
     connexion.closeConnexion();
@@ -86,7 +94,7 @@ Billetterie::Billetterie(QWidget *parent) :
     qDebug() << (modal2->rowCount());
 
 //************************************************************************************************************************
-
+    // a supprimer plus tard
     //Initialisation des Labels
     ui->bLabelAdresse->clear();
     ui->bLabelDateRep->clear();
@@ -96,6 +104,21 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bLabelPrix->clear();
     ui->bLabelRepresentations->clear();
     ui->bLabelTotalPrix->clear();
+
+    //Initialisation des zones de text
+    ui->bTxtDateEtHeure->clear();
+    ui->bTxtInfosClient->clear();
+    ui->bTxtNbPlaces->clear();
+    ui->bTxtNomClient->clear();
+    ui->bTxtPrix->clear();
+    ui->bTxtPrixTotal->clear();
+    ui->bTxtRepresentation->clear();
+    ui->bCBoxNbPlaces->clear();
+
+
+
+
+
 
 
 
@@ -242,8 +265,13 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
             //ui->bBtnPaiement->show();
 
             //Version avec des zones de text
-            ui->bTxtNomClient->setText(query.value(2).toString()+" "+query.value(3).toString());
-            ui->bTxtAdresse->setText(query.value(4).toString());
+            ui->bTxtNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
+
+
+            //Zonne de text avec les infos client
+            ui->bTxtInfosClient->setText(+" "+query.value(5).toString()+"\r "+query.value(6).toString()+" "+query.value(7).toString()
+                                         +"\r Email : "+query.value(4).toString()+"\r Tel : "+query.value(8).toString()+"   Mob : "+query.value(9).toString()
+                                         +"\r Statut spectateur : "+query.value(10).toString());
         }
         connexion.closeConnexion();
     }
@@ -301,7 +329,7 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
             ui->bTxtPrix->setText(query.value(2).toString());
 
             //Remplir combo nbPlaces
-            for(int i = 0; i <=90; i++)
+            for(int i = 1; i <=90; i++)
             {
                 ui->bCBoxNbPlaces->addItem(QString::number(i));
             }
@@ -368,17 +396,19 @@ void Billetterie::on_pBtnSuivant_clicked()
     int prixTotal, prix, NbPlaces;
 
     prix = (ui->bTxtPrix->text().toDouble());
-    ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
+    ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
 
     NbPlaces = ui->bTxtNbPlaces->text().toInt();
 
-    prixTotal = (prix * NbPlaces);
+    prixTotal = (NbPlaces * prix);
+
+
 
     //QString Result;
     //Result.sprintf("%f", prixTotal);
 
-    QString xstr = QString::number(prixTotal);
-    ui->bTxtPrixTotal->setText(xstr);
+    QString tarifTotal = QString::number(prixTotal);
+    ui->bTxtPrixTotal->setText(tarifTotal);
 
 //***********************************************************************************************************************
     //Ouverture plan de salle
@@ -420,3 +450,10 @@ void Billetterie::on_bBtnPaiement_clicked()
 */
 
 }
+
+void Billetterie::on_bBtnQuitter_clicked()
+{
+    this->close();
+}
+
+
