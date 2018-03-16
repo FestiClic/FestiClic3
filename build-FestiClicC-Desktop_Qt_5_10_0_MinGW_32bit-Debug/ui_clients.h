@@ -126,7 +126,7 @@ public:
         cltCBoxCivilite->addItem(QString());
         cltCBoxCivilite->addItem(QString());
         cltCBoxCivilite->setObjectName(QStringLiteral("cltCBoxCivilite"));
-        cltCBoxCivilite->setGeometry(QRect(100, 40, 69, 22));
+        cltCBoxCivilite->setGeometry(QRect(80, 40, 69, 22));
         cltLabelAbonne = new QLabel(groupBox);
         cltLabelAbonne->setObjectName(QStringLiteral("cltLabelAbonne"));
         cltLabelAbonne->setGeometry(QRect(10, 290, 47, 13));

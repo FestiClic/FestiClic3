@@ -224,7 +224,7 @@
    <widget class="QComboBox" name="cltCBoxCivilite">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>80</x>
       <y>40</y>
       <width>69</width>
       <height>22</height>

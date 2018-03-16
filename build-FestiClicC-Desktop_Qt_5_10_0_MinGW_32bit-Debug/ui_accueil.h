@@ -31,6 +31,7 @@ public:
     QPushButton *aBtnClients;
     QPushButton *aBtnBilletterie;
     QPushButton *aBtnPlanDeSalle;
+    QPushButton *aBtnQuitter;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -54,6 +55,9 @@ public:
         aBtnPlanDeSalle = new QPushButton(centralWidget);
         aBtnPlanDeSalle->setObjectName(QStringLiteral("aBtnPlanDeSalle"));
         aBtnPlanDeSalle->setGeometry(QRect(290, 110, 291, 101));
+        aBtnQuitter = new QPushButton(centralWidget);
+        aBtnQuitter->setObjectName(QStringLiteral("aBtnQuitter"));
+        aBtnQuitter->setGeometry(QRect(0, 440, 291, 101));
         Accueil->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Accueil);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -78,6 +82,7 @@ public:
         aBtnClients->setText(QApplication::translate("Accueil", "Clients", nullptr));
         aBtnBilletterie->setText(QApplication::translate("Accueil", "Billetterie", nullptr));
         aBtnPlanDeSalle->setText(QApplication::translate("Accueil", "Plan de salle", nullptr));
+        aBtnQuitter->setText(QApplication::translate("Accueil", "Quitter", nullptr));
     } // retranslateUi
 
 };

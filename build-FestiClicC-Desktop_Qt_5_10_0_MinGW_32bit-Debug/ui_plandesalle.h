@@ -660,7 +660,7 @@ public:
     QPushButton *SiegeB36B;
     QPushButton *pushButton_553;
     QPushButton *pushButton_565;
-    QPushButton *pushButton_568;
+    QPushButton *SiegeB33A;
     QPushButton *SiegeB36A;
     QPushButton *pushButton_854;
     QPushButton *pushButton_855;
@@ -2654,9 +2654,9 @@ public:
         pushButton_565 = new QPushButton(PlanDeSalle);
         pushButton_565->setObjectName(QStringLiteral("pushButton_565"));
         pushButton_565->setGeometry(QRect(690, 270, 21, 23));
-        pushButton_568 = new QPushButton(PlanDeSalle);
-        pushButton_568->setObjectName(QStringLiteral("pushButton_568"));
-        pushButton_568->setGeometry(QRect(770, 300, 21, 23));
+        SiegeB33A = new QPushButton(PlanDeSalle);
+        SiegeB33A->setObjectName(QStringLiteral("SiegeB33A"));
+        SiegeB33A->setGeometry(QRect(770, 300, 21, 23));
         SiegeB36A = new QPushButton(PlanDeSalle);
         SiegeB36A->setObjectName(QStringLiteral("SiegeB36A"));
         SiegeB36A->setGeometry(QRect(830, 300, 21, 23));
@@ -3516,7 +3516,7 @@ public:
         SiegeB36B->setText(QApplication::translate("PlanDeSalle", "36", nullptr));
         pushButton_553->setText(QApplication::translate("PlanDeSalle", "33", nullptr));
         pushButton_565->setText(QApplication::translate("PlanDeSalle", "29", nullptr));
-        pushButton_568->setText(QApplication::translate("PlanDeSalle", "33", nullptr));
+        SiegeB33A->setText(QApplication::translate("PlanDeSalle", "33", nullptr));
         SiegeB36A->setText(QApplication::translate("PlanDeSalle", "36", nullptr));
         pushButton_854->setText(QApplication::translate("PlanDeSalle", "31", nullptr));
         pushButton_855->setText(QApplication::translate("PlanDeSalle", "30", nullptr));
