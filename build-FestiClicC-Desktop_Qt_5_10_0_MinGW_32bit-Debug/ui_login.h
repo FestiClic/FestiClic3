@@ -40,13 +40,13 @@ public:
         Login->resize(761, 610);
         groupBox = new QGroupBox(Login);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(220, 390, 311, 80));
+        groupBox->setGeometry(QRect(250, 390, 261, 80));
         lLabConnexion = new QLabel(groupBox);
         lLabConnexion->setObjectName(QStringLiteral("lLabConnexion"));
-        lLabConnexion->setGeometry(QRect(130, 30, 221, 20));
+        lLabConnexion->setGeometry(QRect(20, 30, 221, 20));
         groupBox_2 = new QGroupBox(Login);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(220, 110, 311, 241));
+        groupBox_2->setGeometry(QRect(250, 110, 261, 241));
         lBtnAnnuler = new QPushButton(groupBox_2);
         lBtnAnnuler->setObjectName(QStringLiteral("lBtnAnnuler"));
         lBtnAnnuler->setGeometry(QRect(170, 150, 75, 23));

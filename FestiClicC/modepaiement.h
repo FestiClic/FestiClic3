@@ -19,6 +19,9 @@ public:
     explicit ModePaiement(QWidget *parent = 0);
     ~ModePaiement();
 
+private slots:
+    void on_MPBtnAnnuler_clicked();
+
 private:
     Ui::ModePaiement *ui;
 };

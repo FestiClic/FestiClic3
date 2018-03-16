@@ -12,8 +12,6 @@
 #include <QMessageBox>
 #include "clients.h"
 
-
-
 Billetterie::Billetterie(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Billetterie)
@@ -393,16 +391,14 @@ void Billetterie::on_pBtnSuivant_clicked()
 //***********************************************************************************************************************
     // !!!!!!!!!!!! Pas fonctionnel !!!!!!!!!!!!!!!!!!!!!!!!
 //Calcule .....
-    int prixTotal, prix, NbPlaces;
+    double prixTotal, prix, NbPlaces;
 
-    prix = (ui->bTxtPrix->text().toDouble());
+    prix = std::stod(ui->bTxtPrix->text().toStdString());
     ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
 
-    NbPlaces = ui->bTxtNbPlaces->text().toInt();
+    NbPlaces = std::stod(ui->bTxtNbPlaces->text().toStdString());
 
     prixTotal = (NbPlaces * prix);
-
-
 
     //QString Result;
     //Result.sprintf("%f", prixTotal);
@@ -414,9 +410,9 @@ void Billetterie::on_pBtnSuivant_clicked()
     //Ouverture plan de salle
     if(ui->bRBtnPlacementLibre->isChecked())
       {
-          ModePaiement modePaiement;
-          modePaiement.setModal(true);
-          modePaiement.exec();
+        ModePaiement modePaiement;
+        modePaiement.setModal(true);
+        modePaiement.exec();
       }
 
       PlanDeSalle planDeSalle;
