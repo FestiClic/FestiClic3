@@ -93,7 +93,7 @@ Billetterie::Billetterie(QWidget *parent) :
 
 //************************************************************************************************************************
     // a supprimer plus tard
-    //Initialisation des Labels
+/*    //Initialisation des Labels
     ui->bLabelAdresse->clear();
     ui->bLabelDateRep->clear();
     ui->bLabelHeureRep->clear();
@@ -102,7 +102,7 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bLabelPrix->clear();
     ui->bLabelRepresentations->clear();
     ui->bLabelTotalPrix->clear();
-
+*/
     //Initialisation des zones de text
     ui->bTxtDateEtHeure->clear();
     ui->bTxtInfosClient->clear();
@@ -116,12 +116,14 @@ Billetterie::Billetterie(QWidget *parent) :
 
 
 
-
+// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+    //A supprimer ou adapter
+// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
 
 
     //Masquer le bouton paiement tant que les champs sont vides
-
+/*
     if(ui->bLabelAdresse->text().isEmpty() && ui->bLabelDateRep->text().isEmpty()
             && ui->bLabelHeureRep->text().isEmpty() && ui->bLabelNomClt->text().isEmpty()
             && ui->bLabelPrenomClt->text().isEmpty() && ui->bLabelPrix->text().isEmpty()
@@ -133,7 +135,7 @@ Billetterie::Billetterie(QWidget *parent) :
         ui->bRBtnPlacementLibre->hide();
         ui->bRBtnPlacementPlan->hide();
     }
-
+*/
 
 }
 //************************************************************************************************************************
@@ -172,9 +174,11 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
+            /*
             ui->bLabelRepresentations->setText(query.value(1).toString());
             ui->bLabelDateRep->setText(query.value(2).toString());
             ui->bLabelHeureRep->setText(query.value(3).toString());
+            */
 
             //Version avec des zones de text
             ui->bTxtRepresentation->setText(query.value(1).toString());
@@ -256,13 +260,15 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
+            /*
             ui->bLabelNomClt->setText(query.value(2).toString());
             ui->bLabelPrenomClt->setText(query.value(3).toString());
             ui->bLabelAdresse->setText(query.value(4).toString());
             //Aficher le bouton de paiement
             //ui->bBtnPaiement->show();
+            */
 
-            //Version avec des zones de text
+            //Version avec EditeLine civilite + nom + prenom
             ui->bTxtNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
 
 
@@ -321,7 +327,7 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
-            ui->bLabelPrix->setText(query.value(2).toString());
+            //ui->bLabelPrix->setText(query.value(2).toString());
 
             //Version avec des zones de text
             ui->bTxtPrix->setText(query.value(2).toString());
@@ -340,10 +346,12 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
         connexion.closeConnexion();
 
 
+        /*
         ui->pBtnSuivant->show();
         ui->bLabelNbPlaces->show();
         ui->bRBtnPlacementLibre->show();
         ui->bRBtnPlacementPlan->show();
+        */
 
     }
     else
@@ -389,7 +397,7 @@ void Billetterie::on_pBtnSuivant_clicked()
     ui->pBtnSuivant->hide();
 */
 //***********************************************************************************************************************
-    // !!!!!!!!!!!! Pas fonctionnel !!!!!!!!!!!!!!!!!!!!!!!!
+
 //Calcule .....
     double prixTotal, prix, NbPlaces;
 
@@ -400,8 +408,6 @@ void Billetterie::on_pBtnSuivant_clicked()
 
     prixTotal = (NbPlaces * prix);
 
-    //QString Result;
-    //Result.sprintf("%f", prixTotal);
 
     QString tarifTotal = QString::number(prixTotal);
     ui->bTxtPrixTotal->setText(tarifTotal);

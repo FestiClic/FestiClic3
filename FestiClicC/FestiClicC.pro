@@ -52,3 +52,6 @@ FORMS += \
     billetterie.ui \
     modepaiement.ui \
     plandesalle.ui
+
+RESOURCES += \
+    images.qrc

@@ -299,6 +299,25 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>cltCBoxCivilite</tabstop>
+  <tabstop>cltTxtNom</tabstop>
+  <tabstop>cltTxtPrenom</tabstop>
+  <tabstop>cltTxtEmail</tabstop>
+  <tabstop>cltTxtAdresse</tabstop>
+  <tabstop>cltTxtCp</tabstop>
+  <tabstop>cltTxtVille</tabstop>
+  <tabstop>cltTxtTel</tabstop>
+  <tabstop>cltTxtMob</tabstop>
+  <tabstop>cltCBoxAbonne</tabstop>
+  <tabstop>cltBtnViderChamps</tabstop>
+  <tabstop>cltBtnAjouter</tabstop>
+  <tabstop>cltBtnModifier</tabstop>
+  <tabstop>cltBtnSupprimer</tabstop>
+  <tabstop>cltBtnQuitter</tabstop>
+  <tabstop>cltTabV</tabstop>
+  <tabstop>cltCBoxIdSpectacle</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

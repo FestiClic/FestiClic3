@@ -23,6 +23,16 @@
       <height>101</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">#aBtnSpectacles{
+    background-color: transparent;
+    border-image: url(:C:/Users/Mourad/Desktop/ADAI/PHOTOS/Spactacle.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+
+}</string>
+    </property>
     <property name="text">
      <string>Spectacles</string>
     </property>
@@ -99,6 +109,17 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

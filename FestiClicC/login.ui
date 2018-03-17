@@ -105,6 +105,12 @@
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lTxtNomUtilisateur</tabstop>
+  <tabstop>lTxtMotDePasse</tabstop>
+  <tabstop>lBtnSeConnecter</tabstop>
+  <tabstop>lBtnAnnuler</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
