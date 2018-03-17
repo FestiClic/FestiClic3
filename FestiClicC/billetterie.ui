@@ -174,9 +174,9 @@
   <widget class="QLineEdit" name="bTxtPrixTotal">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>500</y>
-     <width>331</width>
+     <x>500</x>
+     <y>210</y>
+     <width>211</width>
      <height>20</height>
     </rect>
    </property>
@@ -304,6 +304,42 @@
      <string>Page 2</string>
     </attribute>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="bBtnCb">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>210</y>
+     <width>111</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CB</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="bBtnEspeces">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>250</y>
+     <width>111</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Especes</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="bTxtEspeces">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>250</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <tabstops>

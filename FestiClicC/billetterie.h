@@ -36,6 +36,8 @@ private slots:
     void on_bBtnQuitter_clicked();
 
 
+    void on_bBtnEspeces_clicked();
+
 private:
     Ui::Billetterie *ui;
 };

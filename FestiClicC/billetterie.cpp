@@ -459,3 +459,15 @@ void Billetterie::on_bBtnQuitter_clicked()
 }
 
 
+
+void Billetterie::on_bBtnEspeces_clicked()
+{
+    // //////// a coder /////////////////
+    // /////// pas fonctionnelle ///////
+
+    //Passer la valeur du champ prix total au champ Especes
+    ui->bTxtEspeces->setText(ui->bTxtPrixTotal->text);
+    double especes = std::stod(ui->bTxtPrixTotal->text.toStdString());
+    QString payEspeces = QString::number(especes);
+    ui->bTxtPrixTotal->setText(payEspeces);
+}
