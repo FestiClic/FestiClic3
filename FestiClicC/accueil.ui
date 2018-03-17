@@ -26,11 +26,13 @@
     <property name="styleSheet">
      <string notr="true">#aBtnSpectacles{
     background-color: transparent;
-    border-image: url(:C:/Users/Mourad/Desktop/ADAI/PHOTOS/Spactacle.jpg);
+    border-image: url(:spactacle2.jpg);
     background: none;
     border: none;
     background-repeat: no-repeat 
-
+}
+#aBtnSpectacles:pressed{
+    border-image: url(:spactacle2.jpg);
 }</string>
     </property>
     <property name="text">
