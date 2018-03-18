@@ -104,38 +104,39 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bLabelTotalPrix->clear();
 */
     //Initialisation des zones de text
-    ui->bTxtDateEtHeure->clear();
-    ui->bTxtInfosClient->clear();
-    ui->bTxtNbPlaces->clear();
     ui->bTxtNomClient->clear();
-    ui->bTxtPrix->clear();
-    ui->bTxtCb->clear();
+    ui->bTxtInfosClient->clear();
     ui->bTxtRepresentation->clear();
+    ui->bTxtDateEtHeure->clear();
+    //ui->bTxtNbPlaces->clear();
+    ui->bTxtPrix->clear();
     ui->bCBoxNbPlaces->clear();
 
+    //ui->bTxtCb->clear();
+
+
 
 
 
 // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-    //A supprimer ou adapter
+    //A adapter afin d'afficher le btn suivant des que les champs sont ts remplis
+    // trouver une solution pour masquer le btn car en cas de clic = arret de l'appli
 // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
 
 
-    //Masquer le bouton paiement tant que les champs sont vides
-/*
-    if(ui->bLabelAdresse->text().isEmpty() && ui->bLabelDateRep->text().isEmpty()
-            && ui->bLabelHeureRep->text().isEmpty() && ui->bLabelNomClt->text().isEmpty()
-            && ui->bLabelPrenomClt->text().isEmpty() && ui->bLabelPrix->text().isEmpty()
-            && ui->bLabelRepresentations->text().isEmpty() && ui->bLabelTotalPrix->text().isEmpty())
+    //Masquer le bouton suivant tant que les champs sont vides
+
+    if(ui->bTxtNomClient->text().isEmpty() && /*ui->bTxtInfosClient->().isEmpty()
+            && */ui->bTxtRepresentation->text().isEmpty() && ui->bTxtDateEtHeure->text().isEmpty()
+            && ui->bTxtPrix->text().isEmpty()
+            && ui->bCBoxNbPlaces->currentText().isEmpty())
     {
-        ui->bBtnPaiement->hide();
-        ui->bLabelNbPlaces->hide();
-        ui->pBtnSuivant->hide();
-        ui->bRBtnPlacementLibre->hide();
-        ui->bRBtnPlacementPlan->hide();
+
+        //ui->bBtnSuivant->hide();
+
     }
-*/
+
 
 }
 //************************************************************************************************************************
@@ -346,8 +347,10 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
         connexion.closeConnexion();
 
 
+
+
         /*
-        ui->pBtnSuivant->show();
+        ui->bBtnSuivant->show();
         ui->bLabelNbPlaces->show();
         ui->bRBtnPlacementLibre->show();
         ui->bRBtnPlacementPlan->show();
@@ -361,7 +364,7 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
 }
 
 
-void Billetterie::on_pBtnSuivant_clicked()
+void Billetterie::on_bBtnSuivant_clicked()
 {
     //******************************************
     //Boite de message pour définir le nombre de place pour le spectacle
@@ -394,7 +397,7 @@ void Billetterie::on_pBtnSuivant_clicked()
     ui->bLabelTotalPrix->setText(QString::number(prixTotal));
 
     //Cacher le bouton
-    ui->pBtnSuivant->hide();
+    ui->bBtnSuivant->hide();
 */
 //***********************************************************************************************************************
 
@@ -402,9 +405,10 @@ void Billetterie::on_pBtnSuivant_clicked()
     double prixTotal, prix, NbPlaces;
 
     prix = std::stod(ui->bTxtPrix->text().toStdString());
-    ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
 
-    NbPlaces = std::stod(ui->bTxtNbPlaces->text().toStdString());
+    //ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
+
+    NbPlaces = std::stod(ui->bCBoxNbPlaces->currentText().toStdString());
 
     prixTotal = (NbPlaces * prix);
 
@@ -414,16 +418,15 @@ void Billetterie::on_pBtnSuivant_clicked()
 
 //***********************************************************************************************************************
     //Ouverture plan de salle
-    if(ui->bRBtnPlacementLibre->isChecked())
+    if(ui->bRBtnPlacementPlan->isChecked())
       {
-        ModePaiement modePaiement;
-        modePaiement.setModal(true);
-        modePaiement.exec();
+        PlanDeSalle planDeSalle;
+        planDeSalle.setModal(true);
+        planDeSalle.exec();
       }
 
-      PlanDeSalle planDeSalle;
-      planDeSalle.setModal(true);
-      planDeSalle.exec();
+
+
 
       //Gestion de l'exception
 
@@ -518,6 +521,8 @@ void Billetterie::on_bBtnChCulture_clicked()
 
 
 // ***********************************************************************************************************************
+    //Its Work
+    //A déplacer => requete a effectuer après paiement
     // test decrimentation Jauge dans bdd
 
     Login connexion;
@@ -533,11 +538,13 @@ void Billetterie::on_bBtnChCulture_clicked()
     QSqlQuery query;
 
     //Requete qui décrémente le nb places dans la BDD
-    query.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bTxtNbPlaces->text()+"' "
+    query.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bCBoxNbPlaces->currentText()+"' "
                    "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
     query.exec();
 
     connexion.closeConnexion();
 // **********************************************************************************************************************
 }
+
+
 

@@ -35,19 +35,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="bLabelIdSpectacle">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
@@ -121,7 +108,7 @@
     <string>Paiement</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pBtnSuivant">
+  <widget class="QPushButton" name="bBtnSuivant">
    <property name="geometry">
     <rect>
      <x>510</x>
@@ -139,7 +126,7 @@
     <rect>
      <x>20</x>
      <y>200</y>
-     <width>331</width>
+     <width>71</width>
      <height>20</height>
     </rect>
    </property>
@@ -149,7 +136,7 @@
     <rect>
      <x>20</x>
      <y>370</y>
-     <width>331</width>
+     <width>71</width>
      <height>20</height>
     </rect>
    </property>
@@ -169,17 +156,7 @@
     <rect>
      <x>20</x>
      <y>440</y>
-     <width>161</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="bTxtNbPlaces">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>440</y>
-     <width>161</width>
+     <width>71</width>
      <height>20</height>
     </rect>
    </property>
@@ -407,6 +384,45 @@
     </rect>
    </property>
   </widget>
+  <widget class="QLabel" name="bLabelNomClient">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>200</y>
+     <width>251</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bLabelRepresentation">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>370</y>
+     <width>251</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bLabelPrix">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>440</y>
+     <width>251</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>bCBoxSpectacteur</tabstop>
@@ -414,12 +430,11 @@
   <tabstop>bCBoxTarif</tabstop>
   <tabstop>bRBtnPlacementPlan</tabstop>
   <tabstop>bRBtnPlacementLibre</tabstop>
-  <tabstop>pBtnSuivant</tabstop>
+  <tabstop>bBtnSuivant</tabstop>
   <tabstop>bTxtInfosClient</tabstop>
   <tabstop>pushButton</tabstop>
   <tabstop>bTxtPrix</tabstop>
   <tabstop>bCBoxNbPlaces</tabstop>
-  <tabstop>bTxtNbPlaces</tabstop>
   <tabstop>bBtnPaiement</tabstop>
   <tabstop>bTxtNomClient</tabstop>
   <tabstop>bTxtDateEtHeure</tabstop>

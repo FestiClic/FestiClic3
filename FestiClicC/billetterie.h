@@ -29,7 +29,7 @@ private slots:
 
     void on_bCBoxTarif_currentIndexChanged(const QString &arg1);
 
-    void on_pBtnSuivant_clicked();
+    void on_bBtnSuivant_clicked();
 
     void on_bBtnPaiement_clicked();
 
@@ -43,6 +43,7 @@ private slots:
     void on_bBtnChVacances_clicked();
 
     void on_bBtnChCulture_clicked();
+
 
 private:
     Ui::Billetterie *ui;
