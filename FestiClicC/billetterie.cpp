@@ -109,7 +109,7 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bTxtNbPlaces->clear();
     ui->bTxtNomClient->clear();
     ui->bTxtPrix->clear();
-    ui->bTxtPrixTotal->clear();
+    ui->bTxtCb->clear();
     ui->bTxtRepresentation->clear();
     ui->bCBoxNbPlaces->clear();
 
@@ -410,7 +410,7 @@ void Billetterie::on_pBtnSuivant_clicked()
 
 
     QString tarifTotal = QString::number(prixTotal);
-    ui->bTxtPrixTotal->setText(tarifTotal);
+    ui->bTxtCb->setText(tarifTotal);
 
 //***********************************************************************************************************************
     //Ouverture plan de salle
@@ -462,12 +462,82 @@ void Billetterie::on_bBtnQuitter_clicked()
 
 void Billetterie::on_bBtnEspeces_clicked()
 {
-    // //////// a coder /////////////////
-    // /////// pas fonctionnelle ///////
-
     //Passer la valeur du champ prix total au champ Especes
-    ui->bTxtEspeces->setText(ui->bTxtPrixTotal->text);
-    double especes = std::stod(ui->bTxtPrixTotal->text.toStdString());
-    QString payEspeces = QString::number(especes);
-    ui->bTxtPrixTotal->setText(payEspeces);
+    QString montant = ui->bTxtCb->text();
+    ui->bTxtEspeces->setText(montant);
+    ui->bTxtCb->clear();
 }
+
+void Billetterie::on_bBtnCheque_clicked()
+{
+    QString montant = ui->bTxtCb->text();
+    ui->bTxtCheque->setText(montant);
+    ui->bTxtCb->clear();
+
+/*  //Teter l'ensemble des champs pour recuperer la valeur dans le bon champ
+    if (!ui->bTxtCb->text().isEmpty())
+    {
+        ui->bTxtCheque->setText(montant);
+        ui->bTxtCb->clear();
+    }
+
+    else if (!ui->bTxtEspeces->text().isEmpty())
+    {
+        ui->bTxtCheque->setText(montant);
+        ui->bTxtEspeces->clear();
+    }
+
+    else if (!ui->bTxtChVacances->text().isEmpty())
+    {
+        ui->bTxtCheque->setText(montant);
+        ui->bTxtChVacances->clear();
+    }
+
+    else if (!ui->bTxtChCulture->text().isEmpty())
+    {
+        ui->bTxtCheque->setText(montant);
+        ui->bTxtChCulture->clear();
+    }
+*/
+
+}
+
+void Billetterie::on_bBtnChVacances_clicked()
+{
+    QString montant = ui->bTxtCb->text();
+    ui->bTxtChVacances->setText(montant);
+    ui->bTxtCb->clear();
+}
+
+void Billetterie::on_bBtnChCulture_clicked()
+{
+    QString montant = ui->bTxtCb->text();
+    ui->bTxtChCulture->setText(montant);
+    ui->bTxtCb->clear();
+
+
+
+// ***********************************************************************************************************************
+    // test decrimentation Jauge dans bdd
+
+    Login connexion;
+
+    if(!connexion.openConnexion())
+    {
+        qDebug()<<"Echec de connexion";
+        return;
+    }
+
+    connexion.openConnexion();
+
+    QSqlQuery query;
+
+    //Requete qui décrémente le nb places dans la BDD
+    query.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bTxtNbPlaces->text()+"' "
+                   "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
+    query.exec();
+
+    connexion.closeConnexion();
+// **********************************************************************************************************************
+}
+

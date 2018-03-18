@@ -38,6 +38,12 @@ private slots:
 
     void on_bBtnEspeces_clicked();
 
+    void on_bBtnCheque_clicked();
+
+    void on_bBtnChVacances_clicked();
+
+    void on_bBtnChCulture_clicked();
+
 private:
     Ui::Billetterie *ui;
 };
