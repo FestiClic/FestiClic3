@@ -22,9 +22,16 @@ Accueil::Accueil(QWidget *parent) :
     //ouverture de la page login
     Login login;
     login.setModal(true);
-    login.exec();
-
-
+    if (login.exec() == QDialog::Accepted)
+    {
+        //Ok
+        lanceApp=true;
+    }
+    else
+    {
+        //Echec
+        lanceApp=false;
+    }
 }
 
 Accueil::~Accueil()

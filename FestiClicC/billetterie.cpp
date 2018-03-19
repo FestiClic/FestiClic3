@@ -11,6 +11,8 @@
 #include <QString>
 #include <QMessageBox>
 #include "clients.h"
+#include <QDateTime>
+
 
 Billetterie::Billetterie(QWidget *parent) :
     QDialog(parent),
@@ -381,6 +383,14 @@ void Billetterie::on_bBtnSuivant_clicked()
 */
 //***********************************************************************************************************************
 
+    // Initialiser les champs
+    ui->bTxtCb->clear();
+    ui->bTxtChCulture->clear();
+    ui->bTxtCheque->clear();
+    ui->bTxtChVacances->clear();
+    ui->bTxtEspeces->clear();
+    ui->bTxtVInternet->clear();
+
 //Calcule .....
     double prixTotal, prix, NbPlaces;
 
@@ -422,20 +432,71 @@ void Billetterie::on_bBtnSuivant_clicked()
 
 void Billetterie::on_bBtnPaiement_clicked()
 {
-/*    if(ui->bRBtnPlacementLibre->isChecked())
+    Login connexion;
+
+    //QString numBillet;
+    QString valeur;
+
+
+    //Récuperation date systeme
+    //QDateTime dateSys = QDateTime::currentDateTime();
+    //QString dateSysA = dateSys.toString();
+
+
+    if(!connexion.openConnexion())
     {
-        ModePaiement modePaiement;
-        modePaiement.setModal(true);
-        modePaiement.exec();
+        qDebug()<<"Echec de connexion";
+        return;
     }
 
-    PlanDeSalle planDeSalle;
-    planDeSalle.setModal(true);
-    planDeSalle.exec();
+    connexion.openConnexion();
 
-    //Gestion de l'exception
-*/
+    QSqlQuery query;
 
+    //Requete insertion données dans la table billet -------------- Ne marche pas encore ----------------
+    //Requete a refaire
+
+    query.prepare("INSERT INTO Billets (NumBillet) VALUES "
+                  "(SELECT IdClient "
+                  "FROM Clients) AND"
+                  "(SELECT IdSpectacle"
+                  "FROM Spectacles) AND"
+                  "(SELECT IdTarif"
+                  "FROM Tarifs) AND"
+                  "(SELECT IdPlace"
+                  "FROM Places)"
+                  "WHERE IdBillet = '"+valeur+"' ");
+    query.exec();
+
+    connexion.closeConnexion();
+
+
+
+    // ***********************************************************************************************************************
+  /*      //Its Work (dans btn cheque)
+        //A déplacer => requete a effectuer après paiement
+        // test decrimentation Jauge dans bdd
+
+
+
+        if(!connexion.openConnexion())
+        {
+            qDebug()<<"Echec de connexion";
+            return;
+        }
+
+        connexion.openConnexion();
+
+        QSqlQuery query2;
+
+        //Requete qui décrémente le nb places dans la BDD
+        query2.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bCBoxNbPlaces->currentText()+"' "
+                       "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
+        query2.exec();
+
+        connexion.closeConnexion();
+    */
+    // **********************************************************************************************************************
 }
 
 void Billetterie::on_bBtnQuitter_clicked()
@@ -500,33 +561,12 @@ void Billetterie::on_bBtnChCulture_clicked()
     ui->bTxtChCulture->setText(montant);
     ui->bTxtCb->clear();
 
-
-
-// ***********************************************************************************************************************
-    //Its Work
-    //A déplacer => requete a effectuer après paiement
-    // test decrimentation Jauge dans bdd
-
-    Login connexion;
-
-    if(!connexion.openConnexion())
-    {
-        qDebug()<<"Echec de connexion";
-        return;
-    }
-
-    connexion.openConnexion();
-
-    QSqlQuery query;
-
-    //Requete qui décrémente le nb places dans la BDD
-    query.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bCBoxNbPlaces->currentText()+"' "
-                   "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
-    query.exec();
-
-    connexion.closeConnexion();
-// **********************************************************************************************************************
 }
 
 
 
+
+void Billetterie::on_bBtnCb_clicked()
+{
+
+}

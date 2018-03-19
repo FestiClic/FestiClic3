@@ -95,19 +95,6 @@
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="bBtnPaiement">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>620</y>
-     <width>171</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Paiement</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="bBtnSuivant">
    <property name="geometry">
     <rect>
@@ -436,13 +423,26 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="bBtnPaiement">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>300</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Paiement</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="bGBoxPlanSalle">
    <property name="geometry">
     <rect>
-     <x>379</x>
+     <x>579</x>
      <y>0</y>
-     <width>931</width>
+     <width>731</width>
      <height>781</height>
     </rect>
    </property>

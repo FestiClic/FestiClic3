@@ -91,8 +91,9 @@ void Login::on_lBtnSeConnecter_clicked()
             closeConnexion(); //fermeture de la connexion bdd
 
             //Fermeture de la page login pour afficher l'accueil
-            this->hide();
-
+            //this->hide();
+            this->accept();
+            this->close();
         }
         else
         {
@@ -103,14 +104,15 @@ void Login::on_lBtnSeConnecter_clicked()
 
 void Login::on_lBtnAnnuler_clicked()
 {
-    //this->close();
+    this->reject();
+    this->close();
 
 
     //Si fermer il faut aussi fermer la page Accueil
 
     //Accueil accueil;
     //accueil.close(); //A modifier car ca ne marche pas comme il faut
-    qApp->exit(0);
+    //qApp->exit(0);
 
 
 

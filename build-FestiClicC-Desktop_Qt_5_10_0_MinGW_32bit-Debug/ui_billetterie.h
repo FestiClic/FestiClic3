@@ -35,7 +35,6 @@ public:
     QPushButton *bBtnAjouter;
     QGroupBox *groupBox_3;
     QComboBox *bCBoxTarif;
-    QPushButton *bBtnPaiement;
     QPushButton *bBtnSuivant;
     QLineEdit *bTxtDateEtHeure;
     QComboBox *bCBoxNbPlaces;
@@ -62,6 +61,7 @@ public:
     QPushButton *bBtnCb;
     QLineEdit *bTxtEspeces;
     QLineEdit *bTxtChCulture;
+    QPushButton *bBtnPaiement;
     QGroupBox *bGBoxPlanSalle;
     QPushButton *pushButton_754;
     QPushButton *SiegeB4J;
@@ -800,9 +800,6 @@ public:
         bCBoxTarif = new QComboBox(groupBox_3);
         bCBoxTarif->setObjectName(QStringLiteral("bCBoxTarif"));
         bCBoxTarif->setGeometry(QRect(10, 30, 331, 22));
-        bBtnPaiement = new QPushButton(Billetterie);
-        bBtnPaiement->setObjectName(QStringLiteral("bBtnPaiement"));
-        bBtnPaiement->setGeometry(QRect(180, 620, 171, 51));
         bBtnSuivant = new QPushButton(Billetterie);
         bBtnSuivant->setObjectName(QStringLiteral("bBtnSuivant"));
         bBtnSuivant->setGeometry(QRect(184, 560, 171, 51));
@@ -887,9 +884,12 @@ public:
         bTxtChCulture = new QLineEdit(bGBoxModePaiement);
         bTxtChCulture->setObjectName(QStringLiteral("bTxtChCulture"));
         bTxtChCulture->setGeometry(QRect(130, 180, 91, 20));
+        bBtnPaiement = new QPushButton(bGBoxModePaiement);
+        bBtnPaiement->setObjectName(QStringLiteral("bBtnPaiement"));
+        bBtnPaiement->setGeometry(QRect(20, 300, 171, 51));
         bGBoxPlanSalle = new QGroupBox(Billetterie);
         bGBoxPlanSalle->setObjectName(QStringLiteral("bGBoxPlanSalle"));
-        bGBoxPlanSalle->setGeometry(QRect(379, 0, 931, 781));
+        bGBoxPlanSalle->setGeometry(QRect(579, 0, 731, 781));
         pushButton_754 = new QPushButton(bGBoxPlanSalle);
         pushButton_754->setObjectName(QStringLiteral("pushButton_754"));
         pushButton_754->setGeometry(QRect(120, 140, 21, 23));
@@ -3093,7 +3093,6 @@ public:
         groupBox_2->setTitle(QApplication::translate("Billetterie", "Client", nullptr));
         bBtnAjouter->setText(QApplication::translate("Billetterie", "Ajouter", nullptr));
         groupBox_3->setTitle(QApplication::translate("Billetterie", "Tarif", nullptr));
-        bBtnPaiement->setText(QApplication::translate("Billetterie", "Paiement", nullptr));
         bBtnSuivant->setText(QApplication::translate("Billetterie", "Suivant", nullptr));
         bBtnQuitter->setText(QApplication::translate("Billetterie", "Quitter", nullptr));
         pushButton->setText(QApplication::translate("Billetterie", "Mettre a jour fiche spectateur", nullptr));
@@ -3111,6 +3110,7 @@ public:
         bBtnCbPhone->setText(QApplication::translate("Billetterie", "CB / Phone", nullptr));
         bBtnEspeces->setText(QApplication::translate("Billetterie", "Especes", nullptr));
         bBtnCb->setText(QApplication::translate("Billetterie", "CB", nullptr));
+        bBtnPaiement->setText(QApplication::translate("Billetterie", "Paiement", nullptr));
         bGBoxPlanSalle->setTitle(QApplication::translate("Billetterie", "Plan de salle", nullptr));
         pushButton_754->setText(QApplication::translate("Billetterie", "4", nullptr));
         SiegeB4J->setText(QApplication::translate("Billetterie", "4", nullptr));

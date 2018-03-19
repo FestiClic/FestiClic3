@@ -45,6 +45,8 @@ private slots:
     void on_bBtnChCulture_clicked();
 
 
+    void on_bBtnCb_clicked();
+
 private:
     Ui::Billetterie *ui;
 };

@@ -18,6 +18,7 @@ public:
     ~Accueil();
 
     //int valeur;
+    bool lanceApp;
 
 private slots:
     //Ouverture de la liste et fiche spectacles
