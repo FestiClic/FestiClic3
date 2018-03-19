@@ -43,7 +43,7 @@ public:
         groupBox->setGeometry(QRect(250, 390, 261, 80));
         lLabConnexion = new QLabel(groupBox);
         lLabConnexion->setObjectName(QStringLiteral("lLabConnexion"));
-        lLabConnexion->setGeometry(QRect(20, 30, 221, 20));
+        lLabConnexion->setGeometry(QRect(60, 30, 151, 20));
         groupBox_2 = new QGroupBox(Login);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(250, 110, 261, 241));
@@ -59,6 +59,9 @@ public:
         lTxtNomUtilisateur = new QLineEdit(groupBox_2);
         lTxtNomUtilisateur->setObjectName(QStringLiteral("lTxtNomUtilisateur"));
         lTxtNomUtilisateur->setGeometry(QRect(90, 50, 113, 20));
+        QWidget::setTabOrder(lTxtNomUtilisateur, lTxtMotDePasse);
+        QWidget::setTabOrder(lTxtMotDePasse, lBtnSeConnecter);
+        QWidget::setTabOrder(lBtnSeConnecter, lBtnAnnuler);
 
         retranslateUi(Login);
 

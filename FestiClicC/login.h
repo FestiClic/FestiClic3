@@ -27,6 +27,7 @@ public:
 
     explicit Login(QWidget *parent = 0);
     ~Login();
+    //int valeur = 10;
 
 private slots:
     void on_lBtnSeConnecter_clicked();

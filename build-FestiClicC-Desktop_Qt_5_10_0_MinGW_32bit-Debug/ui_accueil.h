@@ -35,33 +35,44 @@ public:
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QToolBar *toolBar;
 
     void setupUi(QMainWindow *Accueil)
     {
         if (Accueil->objectName().isEmpty())
             Accueil->setObjectName(QStringLiteral("Accueil"));
-        Accueil->resize(776, 632);
+        Accueil->resize(947, 583);
         centralWidget = new QWidget(Accueil);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         aBtnSpectacles = new QPushButton(centralWidget);
         aBtnSpectacles->setObjectName(QStringLiteral("aBtnSpectacles"));
-        aBtnSpectacles->setGeometry(QRect(0, 10, 291, 101));
+        aBtnSpectacles->setGeometry(QRect(0, 10, 291, 201));
+        aBtnSpectacles->setStyleSheet(QLatin1String("#aBtnSpectacles{\n"
+"    background-color: transparent;\n"
+"    border-image: url(:spactacle2.jpg);\n"
+"    background: none;\n"
+"    border: none;\n"
+"    background-repeat: no-repeat \n"
+"}\n"
+"#aBtnSpectacles:pressed{\n"
+"    border-image: url(:spactacle2.jpg);\n"
+"}"));
         aBtnClients = new QPushButton(centralWidget);
         aBtnClients->setObjectName(QStringLiteral("aBtnClients"));
-        aBtnClients->setGeometry(QRect(0, 110, 291, 101));
+        aBtnClients->setGeometry(QRect(0, 210, 291, 201));
         aBtnBilletterie = new QPushButton(centralWidget);
         aBtnBilletterie->setObjectName(QStringLiteral("aBtnBilletterie"));
-        aBtnBilletterie->setGeometry(QRect(290, 10, 291, 101));
+        aBtnBilletterie->setGeometry(QRect(290, 10, 291, 201));
         aBtnPlanDeSalle = new QPushButton(centralWidget);
         aBtnPlanDeSalle->setObjectName(QStringLiteral("aBtnPlanDeSalle"));
-        aBtnPlanDeSalle->setGeometry(QRect(290, 110, 291, 101));
+        aBtnPlanDeSalle->setGeometry(QRect(290, 210, 291, 201));
         aBtnQuitter = new QPushButton(centralWidget);
         aBtnQuitter->setObjectName(QStringLiteral("aBtnQuitter"));
-        aBtnQuitter->setGeometry(QRect(0, 440, 291, 101));
+        aBtnQuitter->setGeometry(QRect(0, 410, 291, 101));
         Accueil->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Accueil);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 776, 21));
+        menuBar->setGeometry(QRect(0, 0, 947, 21));
         Accueil->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Accueil);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -69,6 +80,9 @@ public:
         statusBar = new QStatusBar(Accueil);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         Accueil->setStatusBar(statusBar);
+        toolBar = new QToolBar(Accueil);
+        toolBar->setObjectName(QStringLiteral("toolBar"));
+        Accueil->addToolBar(Qt::TopToolBarArea, toolBar);
 
         retranslateUi(Accueil);
 
@@ -83,6 +97,7 @@ public:
         aBtnBilletterie->setText(QApplication::translate("Accueil", "Billetterie", nullptr));
         aBtnPlanDeSalle->setText(QApplication::translate("Accueil", "Plan de salle", nullptr));
         aBtnQuitter->setText(QApplication::translate("Accueil", "Quitter", nullptr));
+        toolBar->setWindowTitle(QApplication::translate("Accueil", "toolBar", nullptr));
     } // retranslateUi
 
 };

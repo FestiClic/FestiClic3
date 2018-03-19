@@ -18,17 +18,10 @@ Billetterie::Billetterie(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //ui->bCheckBPlacePlan->setChecked(true);
     ui->bRBtnPlacementPlan->setChecked(true);
 
 
 //************************************************************************************************************************
-
-// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-    //Adévelopper
-    //Mettre en place un checkBox sur chaque Groupe Box afin de rendre les boton et combobox clicables et charger les données
-    //dans le comboBox en meme temp
-// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
     //Affecter les données des représentations au ComboBox
 
@@ -93,13 +86,9 @@ Billetterie::Billetterie(QWidget *parent) :
 
 //************************************************************************************************************************
 
-    //Initialisation des zones de text
-    //ui->bTxtNomClient->clear();
+    //Initialisation des EditLine
     ui->bTxtInfosClient->clear();
-    //ui->bTxtRepresentation->clear();
     ui->bTxtDateEtHeure->clear();
-    //ui->bTxtNbPlaces->clear();
-    //ui->bTxtPrix->clear();
     ui->bCBoxNbPlaces->clear();
 
     //ui->bTxtCb->clear();
@@ -108,17 +97,7 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bLabelRepresentation->clear();
     ui->bLabelNomClient->clear();
     ui->bLabelPrix->clear();
-
-
-
-
-
-// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-    //A adapter afin d'afficher le btn suivant des que les champs sont ts remplis
-    // trouver une solution pour masquer le btn car en cas de clic = arret de l'appli
-// §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-
-
+//************************************************************************************************************************
 
     //Masquer le bouton suivant tant que les champs sont vides
 
@@ -126,9 +105,7 @@ Billetterie::Billetterie(QWidget *parent) :
             && ui->bLabelRepresentation->text().isEmpty()
             && ui->bLabelPrix->text().isEmpty())
     {
-
         ui->bBtnSuivant->hide();
-
     }
 
     //Masquer le grpoupeBox Mode paiement a l'ouverture de la billet
@@ -136,9 +113,6 @@ Billetterie::Billetterie(QWidget *parent) :
 
     //Masquer le grpoupeBox Plan de salle a l'ouverture de la billet
     ui->bGBoxPlanSalle->hide();
-
-
-
 }
 //************************************************************************************************************************
 
@@ -431,24 +405,17 @@ void Billetterie::on_bBtnSuivant_clicked()
       {
         // Afficher le groupeBox plan de salle
         ui->bGBoxPlanSalle->show();
+        ui->bGBoxModePaiement->hide();
       }
     else if(ui->bRBtnPlacementLibre->isChecked())
     {
         // Afficher le groupeBox modede paiment
         ui->bGBoxModePaiement->show();
+        ui->bGBoxPlanSalle->hide();
     }
 
 
-
-
-
-
       //Gestion de l'exception
-
-
-
-
-
 
 
 }

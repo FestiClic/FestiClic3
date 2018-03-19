@@ -46,7 +46,7 @@ public:
         ModePaiement->resize(650, 466);
         groupBox = new QGroupBox(ModePaiement);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(30, 20, 561, 281));
+        groupBox->setGeometry(QRect(10, 30, 561, 281));
         MPBtnCB = new QPushButton(groupBox);
         MPBtnCB->setObjectName(QStringLiteral("MPBtnCB"));
         MPBtnCB->setGeometry(QRect(20, 40, 75, 23));

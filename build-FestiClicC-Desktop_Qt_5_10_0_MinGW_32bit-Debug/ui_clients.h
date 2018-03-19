@@ -139,6 +139,22 @@ public:
         cltBtnQuitter = new QPushButton(Clients);
         cltBtnQuitter->setObjectName(QStringLiteral("cltBtnQuitter"));
         cltBtnQuitter->setGeometry(QRect(30, 490, 141, 31));
+        QWidget::setTabOrder(cltCBoxCivilite, cltTxtNom);
+        QWidget::setTabOrder(cltTxtNom, cltTxtPrenom);
+        QWidget::setTabOrder(cltTxtPrenom, cltTxtEmail);
+        QWidget::setTabOrder(cltTxtEmail, cltTxtAdresse);
+        QWidget::setTabOrder(cltTxtAdresse, cltTxtCp);
+        QWidget::setTabOrder(cltTxtCp, cltTxtVille);
+        QWidget::setTabOrder(cltTxtVille, cltTxtTel);
+        QWidget::setTabOrder(cltTxtTel, cltTxtMob);
+        QWidget::setTabOrder(cltTxtMob, cltCBoxAbonne);
+        QWidget::setTabOrder(cltCBoxAbonne, cltBtnViderChamps);
+        QWidget::setTabOrder(cltBtnViderChamps, cltBtnAjouter);
+        QWidget::setTabOrder(cltBtnAjouter, cltBtnModifier);
+        QWidget::setTabOrder(cltBtnModifier, cltBtnSupprimer);
+        QWidget::setTabOrder(cltBtnSupprimer, cltBtnQuitter);
+        QWidget::setTabOrder(cltBtnQuitter, cltTabV);
+        QWidget::setTabOrder(cltTabV, cltCBoxIdSpectacle);
 
         retranslateUi(Clients);
 

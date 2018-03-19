@@ -8,6 +8,8 @@ INPUT(
 ./release\billetterie.o
 ./release\modepaiement.o
 ./release\plandesalle.o
+./release\basededonnee.o
+./release\qrc_images.o
 ./release\moc_accueil.o
 ./release\moc_login.o
 ./release\moc_spectacles.o
@@ -15,4 +17,5 @@ INPUT(
 ./release\moc_billetterie.o
 ./release\moc_modepaiement.o
 ./release\moc_plandesalle.o
+./release\moc_basededonnee.o
 );

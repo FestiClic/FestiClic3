@@ -17,6 +17,8 @@ public:
     explicit Accueil(QWidget *parent = 0);
     ~Accueil();
 
+    //int valeur;
+
 private slots:
     //Ouverture de la liste et fiche spectacles
     void on_aBtnSpectacles_clicked();

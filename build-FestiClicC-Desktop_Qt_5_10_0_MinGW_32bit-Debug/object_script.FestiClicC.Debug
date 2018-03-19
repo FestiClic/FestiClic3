@@ -8,6 +8,8 @@ INPUT(
 ./debug\billetterie.o
 ./debug\modepaiement.o
 ./debug\plandesalle.o
+./debug\basededonnee.o
+./debug\qrc_images.o
 ./debug\moc_accueil.o
 ./debug\moc_login.o
 ./debug\moc_spectacles.o
@@ -15,4 +17,5 @@ INPUT(
 ./debug\moc_billetterie.o
 ./debug\moc_modepaiement.o
 ./debug\moc_plandesalle.o
+./debug\moc_basededonnee.o
 );

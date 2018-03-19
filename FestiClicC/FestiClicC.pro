@@ -32,7 +32,8 @@ SOURCES += \
     clients.cpp \
     billetterie.cpp \
     modepaiement.cpp \
-    plandesalle.cpp
+    plandesalle.cpp \
+    basededonnee.cpp
 
 HEADERS += \
         accueil.h \
@@ -42,7 +43,8 @@ HEADERS += \
     clients.h \
     billetterie.h \
     modepaiement.h \
-    plandesalle.h
+    plandesalle.h \
+    basededonnee.h
 
 FORMS += \
         accueil.ui \
@@ -51,7 +53,8 @@ FORMS += \
     clients.ui \
     billetterie.ui \
     modepaiement.ui \
-    plandesalle.ui
+    plandesalle.ui \
+    basededonnee.ui
 
 RESOURCES += \
     images.qrc
