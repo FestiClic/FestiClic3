@@ -981,7 +981,7 @@
      <x>170</x>
      <y>660</y>
      <width>21</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
@@ -1035,6 +1035,10 @@
      <width>21</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+background-color: rgb(57, 115, 0);</string>
    </property>
    <property name="text">
     <string>1</string>

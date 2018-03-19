@@ -92,27 +92,22 @@ Billetterie::Billetterie(QWidget *parent) :
     qDebug() << (modal2->rowCount());
 
 //************************************************************************************************************************
-    // a supprimer plus tard
-/*    //Initialisation des Labels
-    ui->bLabelAdresse->clear();
-    ui->bLabelDateRep->clear();
-    ui->bLabelHeureRep->clear();
-    ui->bLabelNomClt->clear();
-    ui->bLabelPrenomClt->clear();
-    ui->bLabelPrix->clear();
-    ui->bLabelRepresentations->clear();
-    ui->bLabelTotalPrix->clear();
-*/
+
     //Initialisation des zones de text
-    ui->bTxtNomClient->clear();
+    //ui->bTxtNomClient->clear();
     ui->bTxtInfosClient->clear();
-    ui->bTxtRepresentation->clear();
+    //ui->bTxtRepresentation->clear();
     ui->bTxtDateEtHeure->clear();
     //ui->bTxtNbPlaces->clear();
-    ui->bTxtPrix->clear();
+    //ui->bTxtPrix->clear();
     ui->bCBoxNbPlaces->clear();
 
     //ui->bTxtCb->clear();
+
+    //Initialisation des Label
+    ui->bLabelRepresentation->clear();
+    ui->bLabelNomClient->clear();
+    ui->bLabelPrix->clear();
 
 
 
@@ -127,15 +122,21 @@ Billetterie::Billetterie(QWidget *parent) :
 
     //Masquer le bouton suivant tant que les champs sont vides
 
-    if(ui->bTxtNomClient->text().isEmpty() && /*ui->bTxtInfosClient->().isEmpty()
-            && */ui->bTxtRepresentation->text().isEmpty() && ui->bTxtDateEtHeure->text().isEmpty()
-            && ui->bTxtPrix->text().isEmpty()
-            && ui->bCBoxNbPlaces->currentText().isEmpty())
+    if(ui->bLabelNomClient->text().isEmpty()
+            && ui->bLabelRepresentation->text().isEmpty()
+            && ui->bLabelPrix->text().isEmpty())
     {
 
-        //ui->bBtnSuivant->hide();
+        ui->bBtnSuivant->hide();
 
     }
+
+    //Masquer le grpoupeBox Mode paiement a l'ouverture de la billet
+    ui->bGBoxModePaiement->hide();
+
+    //Masquer le grpoupeBox Plan de salle a l'ouverture de la billet
+    ui->bGBoxPlanSalle->hide();
+
 
 
 }
@@ -175,14 +176,14 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
-            /*
-            ui->bLabelRepresentations->setText(query.value(1).toString());
-            ui->bLabelDateRep->setText(query.value(2).toString());
+
+            ui->bLabelRepresentation->setText(query.value(1).toString());
+            /*ui->bLabelDateRep->setText(query.value(2).toString());
             ui->bLabelHeureRep->setText(query.value(3).toString());
             */
 
             //Version avec des zones de text
-            ui->bTxtRepresentation->setText(query.value(1).toString());
+
             ui->bTxtDateEtHeure->setText(query.value(2).toString() +" Heure de début "+ query.value(3).toString());
 
 
@@ -193,6 +194,14 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
     {
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
     }
+
+    // Tester les Labels pour afficher le BtnSuivant
+    if(!ui->bLabelPrix->text().isEmpty() && !ui->bLabelPrix->text().isEmpty())
+    {
+        ui->bBtnSuivant->show();
+    }
+
+
 /*
     //Affecter le nomClient a la comboBox client
     Login connexion;
@@ -261,16 +270,11 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
-            /*
-            ui->bLabelNomClt->setText(query.value(2).toString());
-            ui->bLabelPrenomClt->setText(query.value(3).toString());
-            ui->bLabelAdresse->setText(query.value(4).toString());
-            //Aficher le bouton de paiement
-            //ui->bBtnPaiement->show();
-            */
+            //Version avec Label civilite + nom + prenom
+            ui->bLabelNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
 
             //Version avec EditeLine civilite + nom + prenom
-            ui->bTxtNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
+            //ui->bTxtNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
 
 
             //Zonne de text avec les infos client
@@ -283,6 +287,12 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
     else
     {
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+    }
+
+    // Tester les Labels pour afficher le BtnSuivant
+    if(!ui->bLabelRepresentation->text().isEmpty() && !ui->bLabelPrix->text().isEmpty())
+    {
+        ui->bBtnSuivant->show();
     }
 
 }
@@ -328,10 +338,11 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
-            //ui->bLabelPrix->setText(query.value(2).toString());
+            //Prix dans Label
+            ui->bLabelPrix->setText(query.value(2).toString());
 
             //Version avec des zones de text
-            ui->bTxtPrix->setText(query.value(2).toString());
+            //ui->bTxtPrix->setText(query.value(2).toString());
 
             //Remplir combo nbPlaces
             for(int i = 1; i <=90; i++)
@@ -345,21 +356,16 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
 
         }
         connexion.closeConnexion();
-
-
-
-
-        /*
-        ui->bBtnSuivant->show();
-        ui->bLabelNbPlaces->show();
-        ui->bRBtnPlacementLibre->show();
-        ui->bRBtnPlacementPlan->show();
-        */
-
     }
     else
     {
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+    }
+
+    // Tester les Labels pour afficher le BtnSuivant
+    if(!ui->bLabelRepresentation->text().isEmpty() && !ui->bLabelNomClient->text().isEmpty())
+    {
+        ui->bBtnSuivant->show();
     }
 }
 
@@ -404,7 +410,7 @@ void Billetterie::on_bBtnSuivant_clicked()
 //Calcule .....
     double prixTotal, prix, NbPlaces;
 
-    prix = std::stod(ui->bTxtPrix->text().toStdString());
+    prix = std::stod(ui->bLabelPrix->text().toStdString());
 
     //ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
 
@@ -416,14 +422,23 @@ void Billetterie::on_bBtnSuivant_clicked()
     QString tarifTotal = QString::number(prixTotal);
     ui->bTxtCb->setText(tarifTotal);
 
+    //******************************************
+
+
 //***********************************************************************************************************************
     //Ouverture plan de salle
     if(ui->bRBtnPlacementPlan->isChecked())
       {
-        PlanDeSalle planDeSalle;
-        planDeSalle.setModal(true);
-        planDeSalle.exec();
+        // Afficher le groupeBox plan de salle
+        ui->bGBoxPlanSalle->show();
       }
+    else if(ui->bRBtnPlacementLibre->isChecked())
+    {
+        // Afficher le groupeBox modede paiment
+        ui->bGBoxModePaiement->show();
+    }
+
+
 
 
 

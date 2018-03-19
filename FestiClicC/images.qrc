@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>spactacle2.jpg</file>
+        <file>BtnBreen.png</file>
+        <file>BtnOrange.png</file>
+        <file>BtnRed.png</file>
     </qresource>
 </RCC>
