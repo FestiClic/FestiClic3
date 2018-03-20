@@ -459,27 +459,31 @@ void Billetterie::on_bBtnPaiement_clicked()
 
     QSqlQuery query;
 
+
     //Requete insertion données dans la table billet
 
     query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
-                  "VALUES ( (SELECT ('2018-') MAX(NumBillet)+1 FROM Billets), "
+                  "VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets), "
                           "(SELECT IdClient FROM Clients WHERE NomClient = '"+client+"'), "
                           "(SELECT IdSpectacle FROM Spectacles WHERE Spectacle = '"+spectacle+"'), "
                           "(SELECT IdTarif FROM Tarifs WHERE Prix = '"+tarif+"'), "
                           "NULL) ");
+     query.exec();
 
+     QSqlQuery query2;
+    // -------------------------
+    query2.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bCBoxNbPlaces->currentText()+"' "
+                   "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
+    // -------------------------
 
-
-
-
-    query.exec();
+    query2.exec();
 
     connexion.closeConnexion();
 
 
 
     // ***********************************************************************************************************************
-  /*      //Its Work (dans btn cheque)
+ /*       //Its Work (dans btn cheque)
         //A déplacer => requete a effectuer après paiement
         // décrémentation Jauge dans bdd T-Spectacle
 
@@ -501,7 +505,7 @@ void Billetterie::on_bBtnPaiement_clicked()
         query2.exec();
 
         connexion.closeConnexion();
-    */
+*/
     // **********************************************************************************************************************
 }
 
