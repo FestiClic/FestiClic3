@@ -25,6 +25,12 @@ Billetterie::Billetterie(QWidget *parent) :
 
 //************************************************************************************************************************
 
+    //§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+    // Amélioration du code ===  Executer l'ensemble des requetes dans la même connexion a la bdd
+
+    //§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
     //Affecter les données des représentations au ComboBox
 
     Login connexion;
@@ -114,6 +120,7 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bLabelRepresentation->clear();
     ui->bLabelNomClient->clear();
     ui->bLabelPrix->clear();
+    ui->bLabelIdClient->clear();
 //************************************************************************************************************************
 
     //Masquer le bouton suivant tant que les champs sont vides
@@ -263,9 +270,10 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
         {
             //Version avec Label civilite + nom + prenom
 
-//Test pour la requete Billet
-    //ui->bLabelNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
-    ui->bLabelNomClient->setText(query.value(2).toString());
+
+            ui->bLabelNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
+
+            ui->bLabelIdClient->setText(query.value(0).toString());
 
             //Version avec EditeLine civilite + nom + prenom
             //ui->bTxtNomClient->setText(+" "+query.value(1).toString()+" "+query.value(2).toString()+" "+query.value(3).toString());
@@ -300,7 +308,7 @@ void Billetterie::on_bBtnAjouter_clicked()
     clients.setModal(true);
     clients.exec();
 
-    this->close();
+
 
 }
 
@@ -455,10 +463,12 @@ void Billetterie::on_bBtnPaiement_clicked()
     QString spectacle;
     QString client;
     QString tarif;
+    QString siege;
 
     spectacle = ui->bLabelRepresentation->text();
-    client = ui->bLabelNomClient->text();
-    tarif = ui->bLabelPrix->text();
+    client = ui->bLabelIdClient->text();
+    tarif = ui->bCBoxTarif->currentText();
+    siege = ui->bCBoxNumSiege->currentText();
 
     //Récuperation date systeme pour l'inclure dans le billet
     //QDateTime dateSys = QDateTime::currentDateTime();
@@ -481,8 +491,8 @@ void Billetterie::on_bBtnPaiement_clicked()
                   "VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets), "
                           "(SELECT IdClient FROM Clients WHERE NomClient = '"+client+"'), "
                           "(SELECT IdSpectacle FROM Spectacles WHERE Spectacle = '"+spectacle+"'), "
-                          "(SELECT IdTarif FROM Tarifs WHERE Prix = '"+tarif+"'), "
-                          "NULL) ");
+                          "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = '"+tarif+"'), "
+                          "(SELECT IdPlace FROM Places WHERE NumPlace = '"+siege+"') ) ");
      query.exec();
 
      // Requête décrémentation Jauge spectacle dans la table Spectacle BDD
