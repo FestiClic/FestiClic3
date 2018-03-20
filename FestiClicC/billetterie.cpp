@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include "clients.h"
 #include <QDateTime>
+#include <QVector>
 
 
 Billetterie::Billetterie(QWidget *parent) :
@@ -137,8 +138,28 @@ Billetterie::Billetterie(QWidget *parent) :
 
     //Masquer le grpoupeBox Plan de salle a l'ouverture de la billet
     ui->bGBoxPlanSalle->hide();
-}
 //************************************************************************************************************************
+    //Affecter liste numero de sieges a la ListView
+    Login connexion4;
+    QSqlQueryModel * modal4 = new QSqlQueryModel();
+    QString spectacle;
+
+    spectacle = ui->bLabelRepresentation->text();
+
+    connexion4.openConnexion();
+
+    QSqlQuery* query4 = new QSqlQuery(connexion.maBaseDeDonnee);
+    query4->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0  ");
+    query4->exec();
+    modal4->setQuery(*query4);
+    ui->bListVNumSiege->setModel(modal4);
+
+    //fermeture de la connexion
+    connexion.closeConnexion();
+
+    qDebug() << (modal->rowCount());
+}
+
 
 Billetterie::~Billetterie()
 {
@@ -307,9 +328,6 @@ void Billetterie::on_bBtnAjouter_clicked()
     Clients clients;
     clients.setModal(true);
     clients.exec();
-
-
-
 }
 
 //************************************************************************************************************************
@@ -450,9 +468,11 @@ void Billetterie::on_bBtnSuivant_clicked()
         ui->bGBoxPlanSalle->hide();
     }
 
+//***********************************************************************************************************************
 
-      //Gestion de l'exception
 
+
+//***********************************************************************************************************************
 
 }
 
@@ -502,6 +522,32 @@ void Billetterie::on_bBtnPaiement_clicked()
                    "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
 
     query2.exec();
+
+
+    //***********************************************************************************************************************
+    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+    // A coder
+    //Stocker la liste de resaPlaces dans un Vector
+    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+
+    // Récupération des éléments de la QlisteWidger
+    //utiliser cette liste pour la décrémentation du nbplace / spectacle
+
+
+    QVector <QString> siegesCommande;
+    for(int i = 0; i < ui->listWidget->count(); ++i)
+    {
+        siegesCommande.push_back(ui->listWidget->item(i)->text());
+
+        qDebug() << siegesCommande; //pour controler l'ajout au vector
+    }
+
+    //Changer l'apparence siege sur plan
+
+    //ui->S_8-setStyleSheet("background-image:url(:BtnRed.png); background-color: cornflowerblue;");
+
+    //***********************************************************************************************************************
 
     connexion.closeConnexion();
 
@@ -574,5 +620,38 @@ void Billetterie::on_bBtnChCulture_clicked()
 
 void Billetterie::on_bBtnCb_clicked()
 {
+
+}
+
+void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
+{
+    QString valeurs;
+
+    valeurs = ui->bListVNumSiege->model()->data(index).toString();
+
+    Login connexion;
+
+    if(!connexion.openConnexion())
+    {
+        qDebug() << "Echec de la connexion";
+        return;
+    }
+
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Places WHERE NumPlace = '"+valeurs+"' ");
+
+    if (query.exec())
+    {
+        while (query.next())
+        {
+            ui->listWidget->addItem(query.value(1).toString());
+        }
+
+        connexion.closeConnexion();
+    }
+    else
+    {
+            QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+    }
 
 }

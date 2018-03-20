@@ -47,6 +47,8 @@ private slots:
 
     void on_bBtnCb_clicked();
 
+    void on_bListVNumSiege_activated(const QModelIndex &index);
+
 private:
     Ui::Billetterie *ui;
 };
