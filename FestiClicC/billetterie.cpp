@@ -82,6 +82,21 @@ Billetterie::Billetterie(QWidget *parent) :
 
 //************************************************************************************************************************
 
+    //Affecter les num sieges a la comboBox numSiege
+    Login connexion3;
+    QSqlQueryModel * modal3 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
+
+    connexion3.openConnexion();
+
+    //Requette pour remplir Combo Spectacles
+    QSqlQuery* query3 = new QSqlQuery(connexion3.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    query3->prepare("SELECT NumPlace FROM Places");
+    query3->exec();  //Execution de la requête
+    modal3->setQuery(*query3);    //Récuperation des valeurs pointeur de requete
+    ui->bCBoxNumSiege->setModel(modal3);     //Envoyer les données en combo
+
+//************************************************************************************************************************
+
     //fermeture de la connexion
     connexion2.closeConnexion();
     qDebug() << (modal2->rowCount());
@@ -470,51 +485,22 @@ void Billetterie::on_bBtnPaiement_clicked()
                           "NULL) ");
      query.exec();
 
+     // Requête décrémentation Jauge spectacle dans la table Spectacle BDD
      QSqlQuery query2;
-    // -------------------------
+
     query2.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bCBoxNbPlaces->currentText()+"' "
                    "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
-    // -------------------------
 
     query2.exec();
 
     connexion.closeConnexion();
 
-
-
-    // ***********************************************************************************************************************
- /*       //Its Work (dans btn cheque)
-        //A déplacer => requete a effectuer après paiement
-        // décrémentation Jauge dans bdd T-Spectacle
-
-
-
-        if(!connexion.openConnexion())
-        {
-            qDebug()<<"Echec de connexion";
-            return;
-        }
-
-        connexion.openConnexion();
-
-        QSqlQuery query2;
-
-        //Requete qui décrémente le nb places dans la BDD
-        query2.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bCBoxNbPlaces->currentText()+"' "
-                       "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
-        query2.exec();
-
-        connexion.closeConnexion();
-*/
-    // **********************************************************************************************************************
 }
 
 void Billetterie::on_bBtnQuitter_clicked()
 {
     this->close();
 }
-
-
 
 void Billetterie::on_bBtnEspeces_clicked()
 {

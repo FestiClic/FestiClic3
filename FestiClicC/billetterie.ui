@@ -98,8 +98,8 @@
   <widget class="QPushButton" name="bBtnSuivant">
    <property name="geometry">
     <rect>
-     <x>184</x>
-     <y>560</y>
+     <x>180</x>
+     <y>610</y>
      <width>171</width>
      <height>51</height>
     </rect>
@@ -121,9 +121,9 @@
   <widget class="QComboBox" name="bCBoxNbPlaces">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>280</x>
      <y>520</y>
-     <width>61</width>
+     <width>71</width>
      <height>22</height>
     </rect>
    </property>
@@ -9739,6 +9739,29 @@
    </property>
    <property name="text">
     <string>€</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="bCBoxNumSiege">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>550</y>
+     <width>69</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bLabelNbPlaces_3">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>550</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Numéro siége</string>
    </property>
   </widget>
  </widget>
