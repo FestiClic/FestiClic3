@@ -9722,7 +9722,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="bLabelPrix_2">
+  <widget class="QLabel" name="bLabelEuro">
    <property name="geometry">
     <rect>
      <x>120</x>

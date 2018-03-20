@@ -27,7 +27,9 @@ bool Login::openConnexion()
 {
     maBaseDeDonnee=QSqlDatabase::addDatabase("QSQLITE");
 
-    maBaseDeDonnee.setDatabaseName("Z:/Projet C++/FestiClic3/database.db");  //CCI
+    //maBaseDeDonnee.setDatabaseName("Z:/Projet C++/FestiClic3/database.db");  //CCI Z:
+    maBaseDeDonnee.setDatabaseName("C:/Users/adai10/Desktop/projet Qt C++/FestiClic3/database.db"); //CCI C:
+
     //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/Fclic/database.db");   //Maison Projet B
     //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");  //Maison Projet C
 

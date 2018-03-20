@@ -462,7 +462,7 @@ void Billetterie::on_bBtnPaiement_clicked()
     //Requete insertion données dans la table billet
 
     query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
-                  "VALUES ( (SELECT ('2018-') MAX(NumBillet)+1 FROM Billets), "
+                  "VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets), "
                           "(SELECT IdClient FROM Clients WHERE NomClient = '"+client+"'), "
                           "(SELECT IdSpectacle FROM Spectacles WHERE Spectacle = '"+spectacle+"'), "
                           "(SELECT IdTarif FROM Tarifs WHERE Prix = '"+tarif+"'), "
