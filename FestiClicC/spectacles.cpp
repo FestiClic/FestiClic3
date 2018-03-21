@@ -24,7 +24,10 @@ Spectacles::Spectacles(QWidget *parent) :
 
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query->prepare("SELECT * FROM Spectacles");
+    query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, Jauge "
+                   "FROM Spectacles s, ConfigSalle c "
+                   "WHERE s.IdConfigSalle = c.IdConfigSalle");
+
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
@@ -33,16 +36,16 @@ Spectacles::Spectacles(QWidget *parent) :
     ui->sTabV->resizeColumnsToContents();
 
 
-/*
-    //Requette pour remplir la ComboBox
+
+    //Requette pour remplir le ComboBox
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
     QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee);
-    query2->prepare("SELECT Spectacle FROM Spectacles");
+    query2->prepare("SELECT IntituleConfigSalle FROM ConfigSalle");
     query2->exec();
     modal2->setQuery(*query2);
-    ui->sCBoxIdSpectacle->setModel(modal2);
-*/
+    ui->sCBoxConfidSalle->setModel(modal2);
+
     //fermeture de la connexion
     connexion.closeConnexion();
     qDebug() << (modal->rowCount());
@@ -202,12 +205,12 @@ void Spectacles::on_sBtnModifier_clicked()
 }
 
 
-//Affecter les valeurs de la table apartir de la comboBox
-//***** champ Jauge a rajouter
-void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
+//Affecter la jauge a partir des donnee conbobox
+
+void Spectacles::on_sCBoxConfidSalle_currentIndexChanged(const QString &arg1)
 {
-/*    QString spectacle;
-    spectacle = ui->sCBoxIdSpectacle->currentText();
+    QString intituleConfig;
+    intituleConfig = ui->sCBoxConfidSalle->currentText();
 
     Login connexion;
 
@@ -216,25 +219,17 @@ void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
         qDebug()<<"Echec de connexion";
         return;
     }
-
-    connexion.openConnexion();
-
-    //Je crée un objet requete de QSqlQuery
     QSqlQuery query;
 
     //Je prepare ma requete
-    query.prepare("SELECT * FROM Spectacles WHERE Spectacle = '"+spectacle+"'");	//requete insertion de la valeur spectacle du combobox
+    query.prepare("SELECT * FROM ConfigSalle WHERE IntituleConfigSalle = '"+intituleConfig+"'");
 
     if(query.exec())
     {
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
-            ui->sLabelIdSpectacle->setText(query.value(0).toString());
-            ui->sTxtSpectacle->setText(query.value(1).toString());
-            ui->sTxtDate->setText(query.value(2).toString());
-            ui->sTxtHeure->setText(query.value(3).toString());
-            ui->sTxtJauge->setText(query.value(4).toString());
+            ui->sTxtJauge->setText(query.value(2).toString());
         }
         connexion.closeConnexion();
     }
@@ -242,7 +237,6 @@ void Spectacles::on_sCBoxIdSpectacle_currentIndexChanged(const QString &arg1)
     {
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
     }
-*/
 }
 
 //Suppression d'un spactacle
@@ -346,7 +340,7 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
                 ui->sTxtSpectacle->setText(query.value(1).toString());
                 ui->sTxtDate->setText(query.value(2).toString());
                 ui->sTxtHeure->setText(query.value(3).toString());
-                ui->sTxtJauge->setText(query.value(4).toString());
+                //ui->sTxtJauge->setText(query.value(4).toString());
 
 
             }
