@@ -108,8 +108,12 @@ void Clients::on_cltBtnAjouter_clicked()
     connexion.openConnexion();
 
     QSqlQuery query;
-    query.prepare("INSERT INTO Clients (Civilite, NomClient, PrenomClient, AdresseClient, Cp, Ville, EmailClient, TelClient, MobClient, Abonne) "
-                  "VALUES ('"+civilite+"','"+nom+"','"+prenom+"','"+adresse+"','"+cp+"','"+ville+"','"+email+"', '"+tel+"', '"+mob+"', '"+abonne+"')");	//requete insertion dans la bdd
+    query.prepare("INSERT INTO Clients (Civilite, NomClient,"
+                                        " PrenomClient, AdresseClient, Cp, Ville,"
+                                        " EmailClient, TelClient, MobClient, Abonne) "
+                  "VALUES ('"+civilite+"','"+nom+"','"+prenom+"',"
+                          "'"+adresse+"','"+cp+"','"+ville+"',"
+                          "'"+email+"', '"+tel+"', '"+mob+"', '"+abonne+"')");	//requete insertion dans la bdd
 
     //Vider les champs
 

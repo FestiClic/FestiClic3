@@ -143,13 +143,14 @@ void Spectacles::on_sBtnModifier_clicked()
     QString spectacle;
     QString date;
     QString heure;
-    //QString jauge;
+    QString intitulConfig;
     QString idSpectacle;
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->sTxtDate->text();
     heure = ui->sTxtHeure->text();
     //jauge = ui->sTxtJauge->text();
+    intitulConfig = ui->sCBoxConfidSalle->currentText();
 
     //lable pour ID
     idSpectacle = ui->sLabelIdSpectacle->text();
@@ -166,8 +167,9 @@ void Spectacles::on_sBtnModifier_clicked()
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Spectacles SET "
-                  "Spectacle ='"+spectacle+"',Date='"+date+"', Heure ='"+heure+"'"
+                  "Spectacle ='"+spectacle+"',Date='"+date+"', Heure ='"+heure+"' "
                   "WHERE IdSpectacle ='"+idSpectacle+"'");
+
 
 
     if(query.exec())
@@ -177,7 +179,7 @@ void Spectacles::on_sBtnModifier_clicked()
 
         QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle midifié avec succes"));
 
-        //*************************************
+/*        //*************************************
         //Réactualiser la TableView
         // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
 
@@ -200,7 +202,7 @@ void Spectacles::on_sBtnModifier_clicked()
         //fermeture de la connexion
 
         qDebug() << (modal->rowCount());
-        //**************************************
+*/        //**************************************
 
         connexion.closeConnexion(); //fermeture de la connexion
 
@@ -282,7 +284,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
         //si ma requete est execté elle doit afficher le message suivant
         QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
-        //*************************************
+ /*       //*************************************
         //Réactualiser la TableView
         // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
 
@@ -305,7 +307,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
         //fermeture de la connexion
 
         qDebug() << (modal->rowCount());
-        //**************************************
+ */       //**************************************
 
         connexion.closeConnexion();  //Fermeture de la connexion
 
