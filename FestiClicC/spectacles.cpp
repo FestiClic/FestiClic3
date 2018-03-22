@@ -280,7 +280,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
     {
         //Afficher l'info si la requete a été executé ou pas dans un messageBox
         //si ma requete est execté elle doit afficher le message suivant
-        QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+/*        QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
         //*************************************
         //Réactualiser la TableView
@@ -305,7 +305,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
         //fermeture de la connexion
 
         qDebug() << (modal->rowCount());
-        //**************************************
+*/        //**************************************
 
         connexion.closeConnexion();  //Fermeture de la connexion
 
