@@ -189,30 +189,42 @@ void Spectacles::on_sBtnModifier_clicked()
 
         QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle midifié avec succes"));
 
- /*       //*************************************
-        //Réactualiser la TableView
-        // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
+       //*************************************
+       //Réactualiser la TableView
+       // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
 
 
-        QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
+       QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
 
-        QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, Jauge "
+       QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+        query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
                        "FROM Spectacles s, ConfigSalle c "
                        "WHERE s.IdConfigSalle = c.IdConfigSalle");
 
-        query->exec();  //Execution de la requête
-        modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-        ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
+       query->exec();  //Execution de la requête
+       modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
+       ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
 
-        //Redimentionner les colonne en fonction du contenu
-        ui->sTabV->resizeColumnsToContents();
+       //Redimentionner les colonne en fonction du contenu
+       ui->sTabV->resizeColumnsToContents();    //Envoyer les données dans la TableView
 
-        //fermeture de la connexion
+       //fermeture de la connexion
 
-        qDebug() << (modal->rowCount());
-  */      //**************************************
+       qDebug() << (modal->rowCount());
+
+       //----------------------------------------------------
+       //Vider les champs
+       ui->sLabelIdSpectacle->clear();
+       ui->sTxtSpectacle->clear();
+       ui->sTxtDate->clear();
+       ui->sTxtHeure->clear();
+       ui->sTxtJauge->clear();
+       ui->sTxtIntituleConfig->clear();
+       ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
+
+       //----------------------------------------------------
+       //**************************************
 
         connexion.closeConnexion(); //fermeture de la connexion
 
@@ -293,7 +305,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
     {
         //Afficher l'info si la requete a été executé ou pas dans un messageBox
         //si ma requete est execté elle doit afficher le message suivant
-/*        QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+        QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
         //*************************************
         //Réactualiser la TableView
@@ -304,21 +316,33 @@ void Spectacles::on_sBtnSupprimer_clicked()
 
 
         QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, Jauge "
-                       "FROM Spectacles s, ConfigSalle c "
-                       "WHERE s.IdConfigSalle = c.IdConfigSalle");
+         query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
+                        "FROM Spectacles s, ConfigSalle c "
+                        "WHERE s.IdConfigSalle = c.IdConfigSalle");
 
         query->exec();  //Execution de la requête
         modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
         ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
 
         //Redimentionner les colonne en fonction du contenu
-        ui->sTabV->resizeColumnsToContents();
+        ui->sTabV->resizeColumnsToContents();    //Envoyer les données dans la TableView
 
         //fermeture de la connexion
 
         qDebug() << (modal->rowCount());
-*/        //**************************************
+
+        //----------------------------------------------------
+        //Vider les champs
+        ui->sLabelIdSpectacle->clear();
+        ui->sTxtSpectacle->clear();
+        ui->sTxtDate->clear();
+        ui->sTxtHeure->clear();
+        ui->sTxtJauge->clear();
+        ui->sTxtIntituleConfig->clear();
+        ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
+
+        //----------------------------------------------------
+      //**************************************
 
         connexion.closeConnexion();  //Fermeture de la connexion
 
