@@ -14,6 +14,8 @@ Spectacles::Spectacles(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    majTableV();
+
 
     //Affecter les données des spectacles dans la TableView
 
@@ -22,18 +24,7 @@ Spectacles::Spectacles(QWidget *parent) :
 
     connexion.openConnexion();
 
-    //Requette pour remplir la TableView
-    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
-                   "FROM Spectacles s, ConfigSalle c "
-                   "WHERE s.IdConfigSalle = c.IdConfigSalle");
 
-    query->exec();  //Execution de la requête
-    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-    ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-    //Redimentionner les colonne en fonction du contenu
-    ui->sTabV->resizeColumnsToContents();
 
 
 
@@ -53,6 +44,46 @@ Spectacles::Spectacles(QWidget *parent) :
     //qDebug() << (modal2->rowCount());
 }
 
+void Spectacles::viderLesChamps()
+{
+    ui->sLabelIdSpectacle->clear();
+    ui->sTxtSpectacle->clear();
+    ui->sTxtDate->clear();
+    ui->sTxtHeure->clear();
+    ui->sTxtJauge->clear();
+    ui->sTxtIntituleConfig->clear();
+    ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
+}
+
+void Spectacles::majTableV()
+{
+    //Affecter les données des spectacles dans la TableView
+    Login connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
+
+    connexion.openConnexion();
+
+    //Requette pour remplir la TableView
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
+                   "FROM Spectacles s, ConfigSalle c "
+                   "WHERE s.IdConfigSalle = c.IdConfigSalle");
+
+    query->exec();  //Execution de la requête
+    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
+    ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
+
+    //Redimentionner les colonne en fonction du contenu
+    ui->sTabV->resizeColumnsToContents();
+
+    //fermeture de la connexion
+    connexion.closeConnexion();
+    qDebug() << (modal->rowCount());
+    //qDebug() << (modal2->rowCount());
+}
+
+
+
 Spectacles::~Spectacles()
 {
     delete ui;
@@ -66,6 +97,10 @@ void Spectacles::on_sBtnQuitter_clicked()
 //Inserer des données en base de données - bouton ajouter
 void Spectacles::on_sBtnAjouter_clicked()
 {
+    //Condition sur le comboBox *****A CODER*****
+    //while (ui->sCBoxIdConfidSalle->currentText().isEmpty())
+
+
     Login connexion;
 
     QString spectacle;
@@ -80,70 +115,48 @@ void Spectacles::on_sBtnAjouter_clicked()
     idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
 
 
-    if(!connexion.openConnexion())
-    {
-        qDebug() << "Echec de la connexion";
-        return;
-    }
 
-    QSqlQuery query;
+        if(!connexion.openConnexion())
+        {
+            qDebug() << "Echec de la connexion";
+            return;
+        }
 
-    //La requete fonctionne sur SQLite mais pas depuis QT
+        QSqlQuery query;
 
-    query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle) "
-                  "VALUES ('"+spectacle+"','"+date+"','"+heure+"', :IdSalle)");
-    query.bindValue(":IdSalle", idConfigSalle);
+        //La requete fonctionne sur SQLite mais pas depuis QT
 
-
-
-    if(query.exec())
-    {
-       QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
-
-       //*************************************
-       //Réactualiser la TableView
-       // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
+        query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle) "
+                      "VALUES ('"+spectacle+"','"+date+"','"+heure+"', :IdSalle)");
+        query.bindValue(":IdSalle", idConfigSalle);
 
 
-       QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
+
+        if(query.exec())
+        {
+           QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
+
+           //*************************************
+
+           majTableV();
+
+           //----------------------------------------------------
+
+            viderLesChamps();
 
 
-       QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
-                       "FROM Spectacles s, ConfigSalle c "
-                       "WHERE s.IdConfigSalle = c.IdConfigSalle");
+           //----------------------------------------------------
+           //**************************************
 
-       query->exec();  //Execution de la requête
-       modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-       ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
+           connexion.closeConnexion();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+        }
 
-       //Redimentionner les colonne en fonction du contenu
-       ui->sTabV->resizeColumnsToContents();    //Envoyer les données dans la TableView
-
-       //fermeture de la connexion
-
-       qDebug() << (modal->rowCount());
-
-       //----------------------------------------------------
-       //Vider les champs
-       ui->sLabelIdSpectacle->clear();
-       ui->sTxtSpectacle->clear();
-       ui->sTxtDate->clear();
-       ui->sTxtHeure->clear();
-       ui->sTxtJauge->clear();
-       ui->sTxtIntituleConfig->clear();
-       ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
-
-       //----------------------------------------------------
-       //**************************************
-
-       connexion.closeConnexion();
-    }
-    else
-    {
-        QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
-    }
 }
+
 
 //Modification a corriger pb requete ajout ou non de champ ID
 void Spectacles::on_sBtnModifier_clicked()
@@ -153,17 +166,15 @@ void Spectacles::on_sBtnModifier_clicked()
     QString spectacle;
     QString date;
     QString heure;
-    QString idConfifSalle;
-    QString idSpectacle;
+    int idConfigSalle;
+    int idSpectacle;
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->sTxtDate->text();
     heure = ui->sTxtHeure->text();
-    //jauge = ui->sTxtJauge->text();
-    idConfifSalle = ui->sCBoxIdConfidSalle->currentText();
+    idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
 
-    //lable pour ID
-    idSpectacle = ui->sLabelIdSpectacle->text();
+    idSpectacle = ui->sLabelIdSpectacle->text().toInt();
 
 
     if(!connexion.openConnexion())
@@ -172,69 +183,29 @@ void Spectacles::on_sBtnModifier_clicked()
         return;
     }
 
-    connexion.openConnexion();
-
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Spectacles SET "
-                  "Spectacle ='"+spectacle+"',Date='"+date+"', Heure ='"+heure+"', IdConfifSalle = '"+idConfifSalle+"'"
-                  "WHERE IdSpectacle ='"+idSpectacle+"'");
+                  "Spectacle = :spectacle, Date = :date, Heure = :heure, IdConfigSalle = :idConfigSalle "
+                  "WHERE IdSpectacle = :idSpectacle ");
+    query.bindValue(":spectacle", spectacle);
+    query.bindValue(":date", date);
+    query.bindValue(":heure", heure);
+    query.bindValue(":idConfigSalle", idConfigSalle);
+    query.bindValue(":idSpectacle", idSpectacle);
+
 
 
 
     if(query.exec())
     {
-        //Afficher l'info si la requete a été executé ou pas dans un messageBox
-        //si ma requete est execté elle doit afficher le message suivant
-
         QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle midifié avec succes"));
 
-       //*************************************
-       //Réactualiser la TableView
-       // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
-
-
-       QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-
-       QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
-                       "FROM Spectacles s, ConfigSalle c "
-                       "WHERE s.IdConfigSalle = c.IdConfigSalle");
-
-       query->exec();  //Execution de la requête
-       modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-       ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-       //Redimentionner les colonne en fonction du contenu
-       ui->sTabV->resizeColumnsToContents();    //Envoyer les données dans la TableView
-
-       //fermeture de la connexion
-
-       qDebug() << (modal->rowCount());
-
-       //----------------------------------------------------
-       //Vider les champs
-       ui->sLabelIdSpectacle->clear();
-       ui->sTxtSpectacle->clear();
-       ui->sTxtDate->clear();
-       ui->sTxtHeure->clear();
-       ui->sTxtJauge->clear();
-       ui->sTxtIntituleConfig->clear();
-       ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
-
-       //----------------------------------------------------
-       //**************************************
+        majTableV();
+        viderLesChamps();
 
         connexion.closeConnexion(); //fermeture de la connexion
 
-        //Vider l'ensemble des champs après la modification
-        ui->sLabelIdSpectacle->clear();
-        ui->sTxtSpectacle->clear();
-        ui->sTxtDate->clear();
-        ui->sTxtHeure->clear();
-        ui->sTxtJauge->clear();
-        ui->sCBoxIdConfidSalle->clear();
     }
     else
     {
@@ -308,41 +279,15 @@ void Spectacles::on_sBtnSupprimer_clicked()
         QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
         //*************************************
-        //Réactualiser la TableView
-        // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
 
-
-        QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-
-        QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-         query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
-                        "FROM Spectacles s, ConfigSalle c "
-                        "WHERE s.IdConfigSalle = c.IdConfigSalle");
-
-        query->exec();  //Execution de la requête
-        modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-        ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-        //Redimentionner les colonne en fonction du contenu
-        ui->sTabV->resizeColumnsToContents();    //Envoyer les données dans la TableView
-
-        //fermeture de la connexion
-
-        qDebug() << (modal->rowCount());
+        majTableV();
 
         //----------------------------------------------------
-        //Vider les champs
-        ui->sLabelIdSpectacle->clear();
-        ui->sTxtSpectacle->clear();
-        ui->sTxtDate->clear();
-        ui->sTxtHeure->clear();
-        ui->sTxtJauge->clear();
-        ui->sTxtIntituleConfig->clear();
-        ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
+
+         viderLesChamps();
 
         //----------------------------------------------------
-      //**************************************
+        //**************************************
 
         connexion.closeConnexion();  //Fermeture de la connexion
 
@@ -415,11 +360,5 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
 
 void Spectacles::on_sBtnViderChamps_clicked()
 {
-    ui->sLabelIdSpectacle->clear();
-    ui->sTxtSpectacle->clear();
-    ui->sTxtDate->clear();
-    ui->sTxtHeure->clear();
-    ui->sTxtJauge->clear();
-    ui->sTxtIntituleConfig->clear();
-    ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
+    viderLesChamps();
 }
