@@ -7,6 +7,8 @@
 #include <QtDebug>
 #include <QString>
 #include <QMessageBox>
+#include <QDate>
+#include <QTime>
 
 Spectacles::Spectacles(QWidget *parent) :
     QDialog(parent),
@@ -15,7 +17,6 @@ Spectacles::Spectacles(QWidget *parent) :
     ui->setupUi(this);
 
     majTableV();
-
 
     //Affecter les données des spectacles dans la TableView
 
@@ -42,17 +43,19 @@ Spectacles::Spectacles(QWidget *parent) :
     connexion.closeConnexion();
     qDebug() << (modal->rowCount());
     //qDebug() << (modal2->rowCount());
+
+    viderLesChamps();
 }
 
 void Spectacles::viderLesChamps()
 {
     ui->sLabelIdSpectacle->clear();
     ui->sTxtSpectacle->clear();
-    ui->sTxtDate->clear();
-    ui->sTxtHeure->clear();
     ui->sTxtJauge->clear();
     ui->sTxtIntituleConfig->clear();
     ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
+    ui->dateEdit->setDate(QDate::currentDate());
+    ui->timeEdit->setTime(QTime::currentTime());
 }
 
 void Spectacles::majTableV()
@@ -110,8 +113,10 @@ void Spectacles::on_sBtnAjouter_clicked()
 
 
     spectacle = ui->sTxtSpectacle->text();
-    date = ui->sTxtDate->text();
-    heure = ui->sTxtHeure->text();
+
+    date = ui->dateEdit->text();
+    heure = ui->timeEdit->text();
+
     idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
 
 
@@ -172,8 +177,8 @@ void Spectacles::on_sBtnModifier_clicked()
     int idSpectacle;
 
     spectacle = ui->sTxtSpectacle->text();
-    date = ui->sTxtDate->text();
-    heure = ui->sTxtHeure->text();
+    date = ui->dateEdit->text();
+    heure = ui->timeEdit->text();
     idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
 
     idSpectacle = ui->sLabelIdSpectacle->text().toInt();
@@ -295,12 +300,13 @@ void Spectacles::on_sBtnSupprimer_clicked()
         connexion.closeConnexion();  //Fermeture de la connexion
 
         //Vider les champs de text
-        ui->sTxtSpectacle->clear();
+       /* ui->sTxtSpectacle->clear();
         ui->sTxtDate->clear();
         ui->sTxtHeure->clear();
         ui->sTxtJauge->clear();
         ui->sLabelIdSpectacle->clear();
-
+*/
+        viderLesChamps();
 
     }
     else
@@ -332,7 +338,7 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
 
         connexion.openConnexion();
         QSqlQuery query;
-        query.prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IdConfigSalle FROM Spectacles "
+        query.prepare("SELECT * FROM Spectacles "
                       "WHERE  IdSpectacle = '"+valeur+"'"
                                                 "OR Spectacle = '"+valeur+"'"
                                                 "OR Date = '"+valeur+"'"
@@ -343,8 +349,9 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
             {
                 ui->sLabelIdSpectacle->setText(query.value(0).toString());
                 ui->sTxtSpectacle->setText(query.value(1).toString());
-                ui->sTxtDate->setText(query.value(2).toString());
-                ui->sTxtHeure->setText(query.value(3).toString());
+                ui->dateEdit->setDate(query.value(2).toDate());
+                ui->timeEdit->setTime(query.value(3).toTime());
+
                 ui->sCBoxIdConfidSalle->clear();
                 ui->sTxtJauge->clear();
             }

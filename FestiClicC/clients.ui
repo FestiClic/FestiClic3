@@ -74,16 +74,6 @@
      <string>Nom</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="cltCBoxIdSpectacle">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>20</y>
-      <width>281</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
@@ -187,8 +177,8 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>47</width>
-      <height>13</height>
+      <width>41</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
@@ -264,7 +254,7 @@
      <rect>
       <x>80</x>
       <y>290</y>
-      <width>69</width>
+      <width>151</width>
       <height>22</height>
      </rect>
     </property>
@@ -316,7 +306,6 @@
   <tabstop>cltBtnSupprimer</tabstop>
   <tabstop>cltBtnQuitter</tabstop>
   <tabstop>cltTabV</tabstop>
-  <tabstop>cltCBoxIdSpectacle</tabstop>
  </tabstops>
  <resources/>
  <connections/>
