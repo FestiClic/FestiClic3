@@ -127,9 +127,11 @@ void Spectacles::on_sBtnAjouter_clicked()
         //La requete fonctionne sur SQLite mais pas depuis QT
 
         query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle) "
-                      "VALUES ('"+spectacle+"','"+date+"','"+heure+"', :IdSalle)");
-        query.bindValue(":IdSalle", idConfigSalle);
-
+                      "VALUES (:spectacle, :date, :heure, :idConfigSalle)");
+        query.bindValue(":spectacle", spectacle);
+        query.bindValue(":date", date);
+        query.bindValue(":heure", heure);
+        query.bindValue(":idConfigSalle", idConfigSalle);
 
 
         if(query.exec())
@@ -270,7 +272,8 @@ void Spectacles::on_sBtnSupprimer_clicked()
     connexion.openConnexion();
 
     QSqlQuery query;
-    query.prepare("DELETE FROM Spectacles WHERE Spectacle ='"+spectacle+"'"); //requete suppression dans la bdd
+    query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
+    query.bindValue(":spectacle", spectacle);
 
     if(query.exec())
     {
