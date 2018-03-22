@@ -41,10 +41,11 @@ Spectacles::Spectacles(QWidget *parent) :
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
     QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee);
-    query2->prepare("SELECT IntituleConfigSalle FROM ConfigSalle");
+    query2->prepare("SELECT IdConfigSalle FROM ConfigSalle");
     query2->exec();
     modal2->setQuery(*query2);
-    ui->sCBoxConfidSalle->setModel(modal2);
+    ui->sCBoxIdConfidSalle->setModel(modal2);
+    ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
 
     //fermeture de la connexion
     connexion.closeConnexion();
@@ -70,13 +71,13 @@ void Spectacles::on_sBtnAjouter_clicked()
     QString spectacle;
     QString date;
     QString heure;
-    QString intitulConfig;
+    int idConfigSalle;
 
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->sTxtDate->text();
     heure = ui->sTxtHeure->text();
-    intitulConfig = ui->sCBoxConfidSalle->currentText();
+    idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
 
 
     if(!connexion.openConnexion())
@@ -85,16 +86,13 @@ void Spectacles::on_sBtnAjouter_clicked()
         return;
     }
 
-    connexion.openConnexion();
-
     QSqlQuery query;
 
     //La requete fonctionne sur SQLite mais pas depuis QT
 
     query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle) "
-                  "VALUES ('"+spectacle+"','"+date+"','"+heure+"',"
-                                                               "(SELECT IdConfigSalle"
-                                                               "FROM ConfigSalle WHERE IntituleConfigSalle = '"+intitulConfig+"'))");
+                  "VALUES ('"+spectacle+"','"+date+"','"+heure+"', :IdSalle)");
+    query.bindValue(":IdSalle", idConfigSalle);
 
 
 
@@ -107,13 +105,13 @@ void Spectacles::on_sBtnAjouter_clicked()
        // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
 
 
- /*      QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
+       QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
 
        QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-       query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, Jauge "
-                      "FROM Spectacles s, ConfigSalle c "
-                      "WHERE s.IdConfigSalle = c.IdConfigSalle");
+        query->prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IntituleConfigSalle, Jauge "
+                       "FROM Spectacles s, ConfigSalle c "
+                       "WHERE s.IdConfigSalle = c.IdConfigSalle");
 
        query->exec();  //Execution de la requête
        modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
@@ -125,7 +123,19 @@ void Spectacles::on_sBtnAjouter_clicked()
        //fermeture de la connexion
 
        qDebug() << (modal->rowCount());
- */      //**************************************
+
+       //----------------------------------------------------
+       //Vider les champs
+       ui->sLabelIdSpectacle->clear();
+       ui->sTxtSpectacle->clear();
+       ui->sTxtDate->clear();
+       ui->sTxtHeure->clear();
+       ui->sTxtJauge->clear();
+       ui->sTxtIntituleConfig->clear();
+       ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
+
+       //----------------------------------------------------
+       //**************************************
 
        connexion.closeConnexion();
     }
@@ -143,13 +153,14 @@ void Spectacles::on_sBtnModifier_clicked()
     QString spectacle;
     QString date;
     QString heure;
-    //QString jauge;
+    QString idConfifSalle;
     QString idSpectacle;
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->sTxtDate->text();
     heure = ui->sTxtHeure->text();
     //jauge = ui->sTxtJauge->text();
+    idConfifSalle = ui->sCBoxIdConfidSalle->currentText();
 
     //lable pour ID
     idSpectacle = ui->sLabelIdSpectacle->text();
@@ -166,8 +177,9 @@ void Spectacles::on_sBtnModifier_clicked()
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Spectacles SET "
-                  "Spectacle ='"+spectacle+"',Date='"+date+"', Heure ='"+heure+"'"
+                  "Spectacle ='"+spectacle+"',Date='"+date+"', Heure ='"+heure+"', IdConfifSalle = '"+idConfifSalle+"'"
                   "WHERE IdSpectacle ='"+idSpectacle+"'");
+
 
 
     if(query.exec())
@@ -177,7 +189,7 @@ void Spectacles::on_sBtnModifier_clicked()
 
         QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle midifié avec succes"));
 
-        //*************************************
+ /*       //*************************************
         //Réactualiser la TableView
         // trouver un moyen de réactualiser au lieu de réexécuter la requête d'affichage
 
@@ -200,7 +212,7 @@ void Spectacles::on_sBtnModifier_clicked()
         //fermeture de la connexion
 
         qDebug() << (modal->rowCount());
-        //**************************************
+  */      //**************************************
 
         connexion.closeConnexion(); //fermeture de la connexion
 
@@ -210,7 +222,7 @@ void Spectacles::on_sBtnModifier_clicked()
         ui->sTxtDate->clear();
         ui->sTxtHeure->clear();
         ui->sTxtJauge->clear();
-        ui->sCBoxConfidSalle->clear();
+        ui->sCBoxIdConfidSalle->clear();
     }
     else
     {
@@ -223,10 +235,10 @@ void Spectacles::on_sBtnModifier_clicked()
 
 //Affecter la jauge a partir des donnee conbobox
 
-void Spectacles::on_sCBoxConfidSalle_currentIndexChanged(const QString &arg1)
+void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
 {
     QString intituleConfig;
-    intituleConfig = ui->sCBoxConfidSalle->currentText();
+    intituleConfig = ui->sCBoxIdConfidSalle->currentText();
 
     Login connexion;
 
@@ -238,13 +250,14 @@ void Spectacles::on_sCBoxConfidSalle_currentIndexChanged(const QString &arg1)
     QSqlQuery query;
 
     //Je prepare ma requete
-    query.prepare("SELECT * FROM ConfigSalle WHERE IntituleConfigSalle = '"+intituleConfig+"'");
+    query.prepare("SELECT * FROM ConfigSalle WHERE IdConfigSalle = '"+intituleConfig+"'");
 
     if(query.exec())
     {
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
+            ui->sTxtIntituleConfig->setText(query.value(1).toString());
             ui->sTxtJauge->setText(query.value(2).toString());
         }
         connexion.closeConnexion();
@@ -347,7 +360,8 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
 
         connexion.openConnexion();
         QSqlQuery query;
-        query.prepare("SELECT * FROM Spectacles WHERE IdSpectacle = '"+valeur+"'"
+        query.prepare("SELECT IdSpectacle, Spectacle, Date, Heure, IdConfigSalle FROM Spectacles "
+                      "WHERE  IdSpectacle = '"+valeur+"'"
                                                 "OR Spectacle = '"+valeur+"'"
                                                 "OR Date = '"+valeur+"'"
                                                 "OR Heure = '"+valeur+"'");
@@ -359,11 +373,13 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
                 ui->sTxtSpectacle->setText(query.value(1).toString());
                 ui->sTxtDate->setText(query.value(2).toString());
                 ui->sTxtHeure->setText(query.value(3).toString());
-                ui->sCBoxConfidSalle->clear();
+                ui->sCBoxIdConfidSalle->clear();
                 ui->sTxtJauge->clear();
-
-
             }
+            //-------------------------------------------------------------------------------------
+
+            //-------------------------------------------------------------------------------------
+
             connexion.closeConnexion();
         }
         else
@@ -380,4 +396,6 @@ void Spectacles::on_sBtnViderChamps_clicked()
     ui->sTxtDate->clear();
     ui->sTxtHeure->clear();
     ui->sTxtJauge->clear();
+    ui->sTxtIntituleConfig->clear();
+    ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
 }
