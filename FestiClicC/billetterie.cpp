@@ -515,6 +515,26 @@ void Billetterie::on_bBtnPaiement_clicked()
     query.bindValue(":spectacle", spectacle);
     query.bindValue(":tarif", tarif);
     query.bindValue(":siege", siege);
+/*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+    // Requete insertion corriger dans le browser
+
+        INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace)
+                          VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets),
+                                  (SELECT IdClient FROM Clients WHERE NomClient = 'ADDES'),
+                                  (SELECT IdSpectacle FROM Spectacles WHERE Spectacle = 'CARARA'),
+                                  (SELECT IdTarif FROM Tarifs WHERE IntituleTarif = 'Abonne PT' ),
+                                  (SELECT IdPlace FROM Places WHERE NumPlace = 'PT1A') )
+
+    // Requete ok pour recupérer données pour generation billet
+                Select IdBillet, NomClient, Spectacle, Prix
+                from Billets b, Clients c, Spectacles s, Tarifs t
+                Where b.IdClient = c.IdClient
+                and b.IdSpectacle = s.IdSpectacle
+                and b.IdTarif = t.IdTarif
+                and IdBillet = 7
+*/    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+
 
      query.exec();
      // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§

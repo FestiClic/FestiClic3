@@ -138,6 +138,19 @@ void Spectacles::on_sBtnAjouter_clicked()
         query.bindValue(":heure", heure);
         query.bindValue(":idConfigSalle", idConfigSalle);
 
+/*//*************************************************************************************************************************************
+        Coder l'insertion dans une table Seance qui stockera le spectacle et la jauge (ici j'ai seance qui contient IdSpectacle
+        et IdConfigSalle
+
+        Etudier la possibilité d'utiliser une vue à la place d'une table supplémentaire ?????
+
+        //La requete est fonctionnelle sur le Browser
+            Insert into Seances (IdSpectacle, IdConfigSalle)
+                        values ((select max(IdSpectacle) from Spectacles),
+                        (select IdConfigSalle from Spectacles order by IdSpectacle desc ))
+*///*************************************************************************************************************************************
+
+
 
         if(query.exec())
         {
