@@ -10,6 +10,14 @@
 #include <QDate>
 #include <QTime>
 
+//***********
+//*************
+//***************
+//****************      Sécuriser le bouton supprimer avec un messageBox
+//********************
+//**********************
+//*************************
+
 Spectacles::Spectacles(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Spectacles)
@@ -55,7 +63,7 @@ void Spectacles::ViderLesChamps()
     ui->sTxtIntituleConfig->clear();
     ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
     ui->dateEdit->setDate(QDate::currentDate());
-    ui->timeEdit->time();
+    ui->timeEdit->setTime(QTime::currentTime());
 }
 
 void Spectacles::MAJTableV()
@@ -162,14 +170,9 @@ void Spectacles::on_sBtnAjouter_clicked()
            QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
 
            //*************************************
-
            MAJTableV();
-
            //----------------------------------------------------
-
             ViderLesChamps();
-
-
            //----------------------------------------------------
            //**************************************
 
@@ -191,16 +194,16 @@ void Spectacles::on_sBtnModifier_clicked()
     QString spectacle;
     QString date;
     QString heure;
-    QString jauge;
+    int jauge;
 
-    int idConfigSalle;
+    QString idConfigSalle;
     int idSpectacle;
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->dateEdit->text();
     heure = ui->timeEdit->text();
-    jauge = ui->sTxtJauge->text();
-    idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
+    jauge = ui->sTxtJauge->text().toInt();
+    idConfigSalle = ui->sCBoxIdConfidSalle->currentText();
 
     idSpectacle = ui->sLabelIdSpectacle->text().toInt();
 
@@ -215,8 +218,8 @@ void Spectacles::on_sBtnModifier_clicked()
     //Requête de mise à jour
     query.prepare("UPDATE Spectacles SET "
 
-
-                  "Spectacle = :spectacle, Date = :date, Heure = :heure, IdConfigSalle = :idConfigSalle, JaugeSpecacle = :jaugeS "
+                  "Spectacle = :spectacle, Date = :date, Heure = :heure,"
+                  "IdConfigSalle = :idConfigSalle, JaugeSpecacle = :jaugeS "
                   "WHERE IdSpectacle = :idSpectacle ");
     query.bindValue(":spectacle", spectacle);
     query.bindValue(":date", date);

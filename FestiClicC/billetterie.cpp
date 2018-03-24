@@ -119,6 +119,7 @@ Billetterie::Billetterie(QWidget *parent) :
 
     //Initialisation des Label
     ui->bLabelRepresentation->clear();
+    ui->bLabelIdClient->clear();
     ui->bLabelNomClient->clear();
     ui->bLabelPrix->clear();
     ui->bLabelIdClient->clear();
@@ -144,7 +145,7 @@ Billetterie::Billetterie(QWidget *parent) :
     QSqlQueryModel * modal4 = new QSqlQueryModel();
     QString spectacle;
 
-    spectacle = ui->bLabelRepresentation->text();
+    spectacle = ui->bLabelIdSpectacle->text();
 
     connexion4.openConnexion();
 
@@ -195,11 +196,8 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
-
+            ui->bLabelIdSpectacle->setText(query.value(0).toString());
             ui->bLabelRepresentation->setText(query.value(1).toString());
-            /*ui->bLabelDateRep->setText(query.value(2).toString());
-            ui->bLabelHeureRep->setText(query.value(3).toString());
-            */
 
             //Version avec des zones de text
 
@@ -484,8 +482,10 @@ void Billetterie::on_bBtnPaiement_clicked()
     QString client;
     QString tarif;
     QString siege;
+    int nbPlaces;
 
-    spectacle = ui->bLabelRepresentation->text();
+    nbPlaces = ui->bCBoxNbPlaces->currentText().toInt();
+    spectacle = ui->bLabelIdSpectacle->text();
     client = ui->bLabelIdClient->text();
     tarif = ui->bCBoxTarif->currentText();
     siege = ui->bCBoxNumSiege->currentText();
@@ -506,8 +506,8 @@ void Billetterie::on_bBtnPaiement_clicked()
 
     query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
                   "VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets), "
-                          "(SELECT IdClient FROM Clients WHERE NomClient = :client), "
-                          "(SELECT IdSpectacle FROM Spectacles WHERE Spectacle = :spectacle), "
+                          "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
+                          "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
                           "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
                           "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
 
@@ -515,15 +515,10 @@ void Billetterie::on_bBtnPaiement_clicked()
     query.bindValue(":spectacle", spectacle);
     query.bindValue(":tarif", tarif);
     query.bindValue(":siege", siege);
-/*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-    // Requete insertion corriger dans le browser
 
-        INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace)
-                          VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets),
-                                  (SELECT IdClient FROM Clients WHERE NomClient = 'ADDES'),
-                                  (SELECT IdSpectacle FROM Spectacles WHERE Spectacle = 'CARARA'),
-                                  (SELECT IdTarif FROM Tarifs WHERE IntituleTarif = 'Abonne PT' ),
-                                  (SELECT IdPlace FROM Places WHERE NumPlace = 'PT1A') )
+    query.exec();
+
+/*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
     // Requete ok pour recupérer données pour generation billet
                 Select IdBillet, NomClient, Spectacle, Prix
@@ -534,19 +529,15 @@ void Billetterie::on_bBtnPaiement_clicked()
                 and IdBillet = 7
 */    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
-
-
-     query.exec();
+/*
      // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
      // A coder
      //Stocker la liste de resaPlaces dans un Vector
      // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
-
-
+     //***OK**
      // Récupération des éléments de la QlisteWidger
      //utiliser cette liste pour la décrémentation du nbplace / spectacle
-
 
      QVector <QString> siegesCommande;
      for(int i = 0; i < ui->listWidget->count(); ++i)
@@ -555,13 +546,14 @@ void Billetterie::on_bBtnPaiement_clicked()
 
          qDebug() << siegesCommande; //pour controler l'ajout au vector
      }
+*/
 
-
-     // Requête décrémentation Jauge spectacle dans la table Spectacle BDD
-     QSqlQuery query2;
-
-    query2.prepare("UPDATE Spectacles SET Jauge = Jauge-'"+ui->bCBoxNbPlaces->currentText()+"' "
-                   "WHERE Spectacle = '"+ui->bCBoxRepresentations->currentText()+"' ");
+     // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
+    QSqlQuery query2;
+    query2.prepare("UPDATE Spectacles SET JaugeSpectacle = JaugeSpectacle - :nbPlaces"
+                   "WHERE Spectacle = :spectacle ");
+    query2.bindValue(":nbPlaces", nbPlaces);
+    query2.bindValue(":spectacle", spectacle);
 
     query2.exec();
 

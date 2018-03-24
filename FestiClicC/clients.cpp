@@ -15,7 +15,7 @@
 //***********
 //*************
 //***************
-//****************
+//****************      Sécuriser le bouton supprimer avec un messageBox
 //********************
 //**********************
 //*************************
@@ -137,13 +137,6 @@ void Clients::on_cltBtnAjouter_clicked()
 
     QSqlQuery query;
 
-    query.prepare("INSERT INTO Clients (Civilite, NomClient,"
-                                        " PrenomClient, AdresseClient, Cp, Ville,"
-                                        " EmailClient, TelClient, MobClient, Abonne) "
-                  "VALUES ('"+civilite+"','"+nom+"','"+prenom+"',"
-                          "'"+adresse+"','"+cp+"','"+ville+"',"
-                          "'"+email+"', '"+tel+"', '"+mob+"', '"+abonne+"')");	//requete insertion dans la bdd
-
     query.prepare("INSERT INTO Clients (Civilite, NomClient, "
                   "PrenomClient, AdresseClient, Cp, Ville, "
                   "EmailClient, TelClient, MobClient, Abonne) "
@@ -171,15 +164,10 @@ void Clients::on_cltBtnAjouter_clicked()
        //Affichage si ajouter ou pas dans un MessageBox
        QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
 
-
-       //*************************************
         MAJTableV();
         ViderLesChamps();
-       //**************************************
 
        connexion.closeConnexion();  //Fermeture de la connexion
-
-
 
     }
     else
@@ -251,10 +239,8 @@ void Clients::on_cltBtnModifier_clicked()
     {
         QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
 
-        //*************************************
         MAJTableV();
         ViderLesChamps();
-        //**************************************
 
         connexion.closeConnexion(); //fermeture de la connexion
     }
@@ -290,10 +276,8 @@ void Clients::on_cltBtnSupprimer_clicked()
     {
         QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
-        //*************************************
         MAJTableV();
         ViderLesChamps();
-        //**************************************
 
         connexion.closeConnexion();  //Fermeture de la connexion
 
@@ -351,7 +335,7 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
             ui->cltTxtEmail->setText(query.value(4).toString());
             ui->cltTxtTel->setText(query.value(8).toString());
             ui->cltTxtMob->setText(query.value(9).toString());
-            ui->cltCBoxAbonne->setCurrentText(query.value(9).toString());
+            ui->cltCBoxAbonne->setCurrentText(query.value(10).toString());
 
         }
         connexion.closeConnexion();
