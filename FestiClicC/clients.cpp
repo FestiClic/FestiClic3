@@ -7,12 +7,14 @@
 #include <QtDebug>
 #include <QString>
 #include <QMessageBox>
+#include "spectacles.h"
+
 
 
 
 //***********
 //*************
-//***************   Modification: changer le label Civilité en combo ou radioButton
+//***************
 //****************
 //********************
 //**********************
@@ -26,27 +28,13 @@ Clients::Clients(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //Affecter les données des clients dans la TableView
+    MAJTableV();
 
+/*
     Login connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
     connexion.openConnexion();
-
-    //Requette pour remplir la TableView
-    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query->prepare("SELECT * FROM Clients");
-    query->exec();  //Execution de la requête
-    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-    ui->cltTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-    //Redimentionner les colonnes en fonction du contenu
-    ui->cltTabV->resizeColumnsToContents();
-
-    //fermeture de la connexion
-
-    qDebug() << (modal->rowCount());
-
 
     //Requette pour remplir la ComboBox
     QSqlQueryModel * modal2 = new QSqlQueryModel();
@@ -60,6 +48,46 @@ Clients::Clients(QWidget *parent) :
     //fermeture de la connexion
     connexion.closeConnexion();
     qDebug() << (modal2->rowCount());
+*/
+}
+
+void Clients::MAJTableV()
+{
+    //Affecter les données clinets dans la TableView
+    Login connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
+
+    connexion.openConnexion();
+
+    //Requette pour remplir la TableView
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    query->prepare("SELECT * FROM Clients");
+
+    query->exec();  //Execution de la requête
+    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
+    ui->cltTabV->setModel(modal);     //Envoyer les données dans la TableView
+
+    //Redimentionner les colonne en fonction du contenu
+    ui->cltTabV->resizeColumnsToContents();
+
+    //fermeture de la connexion
+    connexion.closeConnexion();
+    qDebug() << (modal->rowCount());
+}
+
+void Clients::ViderLesChamps()
+{
+    ui->cltCBoxCivilite->clear();
+    ui->cltTxtNom->clear();
+    ui->cltTxtPrenom->clear();
+    ui->cltTxtAdresse->clear();
+    ui->cltTxtCp->clear();
+    ui->cltTxtVille->clear();
+    ui->cltTxtEmail->clear();
+    ui->cltTxtTel->clear();
+    ui->cltTxtMob->clear();
+    ui->cltCBoxAbonne->clear();
+    ui->cltLabelIdClient->clear();
 }
 
 Clients::~Clients()
@@ -108,12 +136,31 @@ void Clients::on_cltBtnAjouter_clicked()
     connexion.openConnexion();
 
     QSqlQuery query;
+
     query.prepare("INSERT INTO Clients (Civilite, NomClient,"
                                         " PrenomClient, AdresseClient, Cp, Ville,"
                                         " EmailClient, TelClient, MobClient, Abonne) "
                   "VALUES ('"+civilite+"','"+nom+"','"+prenom+"',"
                           "'"+adresse+"','"+cp+"','"+ville+"',"
                           "'"+email+"', '"+tel+"', '"+mob+"', '"+abonne+"')");	//requete insertion dans la bdd
+
+    query.prepare("INSERT INTO Clients (Civilite, NomClient, "
+                  "PrenomClient, AdresseClient, Cp, Ville, "
+                  "EmailClient, TelClient, MobClient, Abonne) "
+                  "VALUES (:civilite, :nom, :prenom, :adresse, "
+                  ":cp, :ville, :email, :tel, :mob, :abonne)");
+
+    query.bindValue(":civilite", civilite);
+    query.bindValue(":nom", nom);
+    query.bindValue(":prenom", prenom);
+    query.bindValue(":adresse", adresse);
+    query.bindValue(":cp", cp);
+    query.bindValue(":ville", ville);
+    query.bindValue(":email", email);
+    query.bindValue(":tel", tel);
+    query.bindValue(":mob", mob);
+    query.bindValue(":abonne", abonne);
+
 
     //Vider les champs
 
@@ -126,36 +173,14 @@ void Clients::on_cltBtnAjouter_clicked()
 
 
        //*************************************
-       //Réactualiser la TableView
-
-       QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-
-       QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-       query->prepare("SELECT * FROM Clients");
-
-       query->exec();  //Execution de la requête
-       modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-       ui->cltTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-       //fermeture de la connexion
-
-       qDebug() << (modal->rowCount());
+        MAJTableV();
+        ViderLesChamps();
        //**************************************
 
        connexion.closeConnexion();  //Fermeture de la connexion
 
-       //Vider les champs
-       ui->cltCBoxCivilite->clear();
-       ui->cltTxtNom->clear();
-       ui->cltTxtPrenom->clear();
-       ui->cltTxtAdresse->clear();
-       ui->cltTxtCp->clear();
-       ui->cltTxtVille->clear();
-       ui->cltTxtEmail->clear();
-       ui->cltTxtTel->clear();
-       ui->cltTxtMob->clear();
-       ui->cltCBoxAbonne->clear();
+
+
     }
     else
     {
@@ -165,7 +190,7 @@ void Clients::on_cltBtnAjouter_clicked()
     }
 }
 
-//Bouton modifier client ====>>> Pb requete
+//Bouton modifier client
 void Clients::on_cltBtnModifier_clicked()
 {
     Login connexion;
@@ -205,48 +230,33 @@ void Clients::on_cltBtnModifier_clicked()
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Clients SET "
-                                        "Civilite ='"+civilite+"', NomClient ='"+nom+"',PrenomClient='"+prenom+"',"
-                                        "AdresseClient ='"+adresse+"', Cp ='"+cp+"',Ville ='"+ville+"', EmailClient = '"+email+"', "
-                                        "TelClient = '"+tel+"', MobClient = '"+mob+"', Abonne ='"+abonne+"'"
-                  "WHERE IdClient ='"+idClient+"'");
+                                        "Civilite = :civilite, NomClient = :nom, PrenomClient = :prenom,"
+                                        "AdresseClient = :adresse, Cp = :cp, Ville = :ville, EmailClient = :email, "
+                                        "TelClient = :tel, MobClient = :mob, Abonne = :abonne"
+                  "WHERE IdClient = :idClient");
 
+    query.bindValue(":civilite", civilite);
+    query.bindValue(":nom", nom);
+    query.bindValue(":prenom", prenom);
+    query.bindValue(":adresse", adresse);
+    query.bindValue(":cp", cp);
+    query.bindValue(":ville", ville);
+    query.bindValue(":email", email);
+    query.bindValue(":tel", tel);
+    query.bindValue(":mob", mob);
+    query.bindValue(":abonne", abonne);
+    query.bindValue(":idClient", idClient);
 
     if(query.exec())
     {
         QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
 
         //*************************************
-        //Réactualiser la TableView
-
-        QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-
-        QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        query->prepare("SELECT * FROM Clients");
-
-        query->exec();  //Execution de la requête
-        modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-        ui->cltTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-        //fermeture de la connexion
-
-        qDebug() << (modal->rowCount());
+        MAJTableV();
+        ViderLesChamps();
         //**************************************
 
         connexion.closeConnexion(); //fermeture de la connexion
-
-        //Vider les champs
-        ui->cltCBoxCivilite->clear();
-        ui->cltTxtNom->clear();
-        ui->cltTxtPrenom->clear();
-        ui->cltTxtAdresse->clear();
-        ui->cltTxtCp->clear();
-        ui->cltTxtVille->clear();
-        ui->cltTxtEmail->clear();
-        ui->cltTxtTel->clear();
-        ui->cltTxtMob->clear();
-        ui->cltCBoxAbonne->clear();
-        ui->cltLabelIdClient->clear();
     }
     else
     {
@@ -259,13 +269,10 @@ void Clients::on_cltBtnModifier_clicked()
 void Clients::on_cltBtnSupprimer_clicked()
 {
     Login connexion;
-    //Utiliser le nom pour supprimer l'enregistrement
-    //QString nom;
+
     QString idClient;
 
-    //nom = ui->cltTxtNom->text();
     idClient = ui->cltLabelIdClient->text();
-
 
     if(!connexion.openConnexion())
     {
@@ -276,47 +283,20 @@ void Clients::on_cltBtnSupprimer_clicked()
     connexion.openConnexion();
 
     QSqlQuery query;
-    query.prepare("DELETE FROM Clients WHERE IdClient ='"+idClient+"'"); //requete suppression dans la bdd
+    query.prepare("DELETE FROM Clients WHERE IdClient = :idClient"); //requete suppression dans la bdd
+    query.bindValue(":idClient", idClient);
 
     if(query.exec())
     {
-        //Afficher l'info si la requete a été executé ou pas dans un messageBox
-        //si ma requete est execté elle doit afficher le message suivant
         QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
         //*************************************
-        //Réactualiser la TableView
-
-        QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-
-        QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        query->prepare("SELECT * FROM Clients");
-
-        query->exec();  //Execution de la requête
-        modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-        ui->cltTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-        //fermeture de la connexion
-
-        qDebug() << (modal->rowCount());
+        MAJTableV();
+        ViderLesChamps();
         //**************************************
 
         connexion.closeConnexion();  //Fermeture de la connexion
 
-
-        //Vider les champs
-        ui->cltCBoxCivilite->clear();
-        ui->cltTxtNom->clear();
-        ui->cltTxtPrenom->clear();
-        ui->cltTxtAdresse->clear();
-        ui->cltTxtCp->clear();
-        ui->cltTxtVille->clear();
-        ui->cltTxtEmail->clear();
-        ui->cltTxtTel->clear();
-        ui->cltTxtMob->clear();
-        ui->cltCBoxAbonne->clear();
-        ui->cltLabelIdClient->clear();
     }
     else
     {
@@ -355,6 +335,8 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
                                             "OR TelClient = '"+valeurs+"'"
                                             "OR MobClient = '"+valeurs+"'"
                                             "OR Abonne = '"+valeurs+"'");
+
+
     if(query.exec())
     {
         while (query.next())
@@ -363,15 +345,13 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
             ui->cltCBoxCivilite->setCurrentText(query.value(1).toString());
             ui->cltTxtNom->setText(query.value(2).toString());
             ui->cltTxtPrenom->setText(query.value(3).toString());
-            ui->cltTxtAdresse->setText(query.value(4).toString());
-            ui->cltTxtCp->setText(query.value(5).toString());
-            ui->cltTxtVille->setText(query.value(6).toString());
-            ui->cltTxtEmail->setText(query.value(7).toString());
+            ui->cltTxtAdresse->setText(query.value(5).toString());
+            ui->cltTxtCp->setText(query.value(6).toString());
+            ui->cltTxtVille->setText(query.value(7).toString());
+            ui->cltTxtEmail->setText(query.value(4).toString());
             ui->cltTxtTel->setText(query.value(8).toString());
             ui->cltTxtMob->setText(query.value(9).toString());
             ui->cltCBoxAbonne->setCurrentText(query.value(9).toString());
-
-
 
         }
         connexion.closeConnexion();
@@ -384,15 +364,5 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
 
 void Clients::on_cltBtnViderChamps_clicked()
 {
-    ui->cltLabelIdClient->clear();
-    ui->cltCBoxCivilite->clear();
-    ui->cltTxtNom->clear();
-    ui->cltTxtPrenom->clear();
-    ui->cltTxtAdresse->clear();
-    ui->cltTxtEmail->clear();
-    ui->cltTxtCp->clear();
-    ui->cltTxtVille->clear();
-    ui->cltTxtTel->clear();
-    ui->cltTxtMob->clear();
-    ui->cltCBoxAbonne->clear();
+    ViderLesChamps();
 }

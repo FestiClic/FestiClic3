@@ -31,6 +31,10 @@ private slots:
 
     void on_cltBtnViderChamps_clicked();
 
+    void MAJTableV();
+
+    void ViderLesChamps();
+
 private:
     Ui::Clients *ui;
 };

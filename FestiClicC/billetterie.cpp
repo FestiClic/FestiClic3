@@ -500,20 +500,62 @@ void Billetterie::on_bBtnPaiement_clicked()
         return;
     }
 
-    connexion.openConnexion();
-
     QSqlQuery query;
-
 
     //Requete insertion données dans la table billet
 
     query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
                   "VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets), "
-                          "(SELECT IdClient FROM Clients WHERE NomClient = '"+client+"'), "
-                          "(SELECT IdSpectacle FROM Spectacles WHERE Spectacle = '"+spectacle+"'), "
-                          "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = '"+tarif+"'), "
-                          "(SELECT IdPlace FROM Places WHERE NumPlace = '"+siege+"') ) ");
+                          "(SELECT IdClient FROM Clients WHERE NomClient = :client), "
+                          "(SELECT IdSpectacle FROM Spectacles WHERE Spectacle = :spectacle), "
+                          "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
+                          "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
+
+    query.bindValue(":client", client);
+    query.bindValue(":spectacle", spectacle);
+    query.bindValue(":tarif", tarif);
+    query.bindValue(":siege", siege);
+/*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+    // Requete insertion corriger dans le browser
+
+        INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace)
+                          VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets),
+                                  (SELECT IdClient FROM Clients WHERE NomClient = 'ADDES'),
+                                  (SELECT IdSpectacle FROM Spectacles WHERE Spectacle = 'CARARA'),
+                                  (SELECT IdTarif FROM Tarifs WHERE IntituleTarif = 'Abonne PT' ),
+                                  (SELECT IdPlace FROM Places WHERE NumPlace = 'PT1A') )
+
+    // Requete ok pour recupérer données pour generation billet
+                Select IdBillet, NomClient, Spectacle, Prix
+                from Billets b, Clients c, Spectacles s, Tarifs t
+                Where b.IdClient = c.IdClient
+                and b.IdSpectacle = s.IdSpectacle
+                and b.IdTarif = t.IdTarif
+                and IdBillet = 7
+*/    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+
+
      query.exec();
+     // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+     // A coder
+     //Stocker la liste de resaPlaces dans un Vector
+     // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+
+
+     // Récupération des éléments de la QlisteWidger
+     //utiliser cette liste pour la décrémentation du nbplace / spectacle
+
+
+     QVector <QString> siegesCommande;
+     for(int i = 0; i < ui->listWidget->count(); ++i)
+     {
+         siegesCommande.push_back(ui->listWidget->item(i)->text());
+
+         qDebug() << siegesCommande; //pour controler l'ajout au vector
+     }
+
 
      // Requête décrémentation Jauge spectacle dans la table Spectacle BDD
      QSqlQuery query2;
@@ -525,23 +567,10 @@ void Billetterie::on_bBtnPaiement_clicked()
 
 
     //***********************************************************************************************************************
-    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-    // A coder
-    //Stocker la liste de resaPlaces dans un Vector
-    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
 
-    // Récupération des éléments de la QlisteWidger
-    //utiliser cette liste pour la décrémentation du nbplace / spectacle
 
 
-    QVector <QString> siegesCommande;
-    for(int i = 0; i < ui->listWidget->count(); ++i)
-    {
-        siegesCommande.push_back(ui->listWidget->item(i)->text());
-
-        qDebug() << siegesCommande; //pour controler l'ajout au vector
-    }
 
     //Changer l'apparence siege sur plan
 

@@ -26,13 +26,18 @@ private slots:
     void on_sBtnModifier_clicked();
 
 
-    void on_sCBoxConfidSalle_currentIndexChanged(const QString &arg1);
+    void on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1);
 
     void on_sBtnSupprimer_clicked();
 
     void on_sTabV_activated(const QModelIndex &index);
 
     void on_sBtnViderChamps_clicked();
+
+    void ViderLesChamps();
+
+    //Mise a jour des donnees de la table View
+    void MAJTableV();
 
 private:
     Ui::Spectacles *ui;

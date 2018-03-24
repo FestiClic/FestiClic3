@@ -48,38 +48,6 @@
    <property name="title">
     <string>Actions sur spectacles</string>
    </property>
-   <widget class="QLineEdit" name="sTxtHeure">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>150</y>
-      <width>113</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="placeholderText">
-     <string>Heure</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="sTxtDate">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>110</y>
-      <width>113</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="cursorPosition">
-     <number>0</number>
-    </property>
-    <property name="placeholderText">
-     <string>Date</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="sTxtSpectacle">
     <property name="geometry">
      <rect>
@@ -93,12 +61,12 @@
      <string>Spectacle</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="sCBoxConfidSalle">
+   <widget class="QComboBox" name="sCBoxIdConfidSalle">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>40</x>
       <y>190</y>
-      <width>231</width>
+      <width>31</width>
       <height>22</height>
      </rect>
     </property>
@@ -173,6 +141,52 @@
     </property>
     <property name="text">
      <string>Vider champs</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="sLabelIdConfigSalle">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="sTxtIntituleConfig">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>190</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Configuration salle</string>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTimeEdit" name="timeEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
     </property>
    </widget>
   </widget>
