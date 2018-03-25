@@ -123,6 +123,7 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bLabelNomClient->clear();
     ui->bLabelPrix->clear();
     ui->bLabelIdClient->clear();
+    ui->bLabelIdSpectacle->clear();
 //************************************************************************************************************************
 
     //Masquer le bouton suivant tant que les champs sont vides
@@ -529,7 +530,7 @@ void Billetterie::on_bBtnPaiement_clicked()
                 and IdBillet = 7
 */    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
-/*
+
      // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
      // A coder
      //Stocker la liste de resaPlaces dans un Vector
@@ -540,13 +541,39 @@ void Billetterie::on_bBtnPaiement_clicked()
      //utiliser cette liste pour la décrémentation du nbplace / spectacle
 
      QVector <QString> siegesCommande;
+     QString numPlace;
      for(int i = 0; i < ui->listWidget->count(); ++i)
      {
          siegesCommande.push_back(ui->listWidget->item(i)->text());
 
          qDebug() << siegesCommande; //pour controler l'ajout au vector
+
      }
-*/
+
+     // A tester si ca marche ???????????????????????????????????????????????????
+              while (!siegesCommande.empty())    //tant que le vecteur n'est pas vide je stock les valeurs une par une
+                                                 // dans la variable numPlace afin d'executer la requete et passer à la suivante
+              {
+                numPlace = siegesCommande.back();
+                siegesCommande.pop_back();
+
+                QSqlQuery query3;
+                query3.prepare("UPDATE Places SET Reserve = 1"
+                               "WHERE NumPlace = :numPlace "
+                               "AND IdSpectacle = :idSpectacle");
+                query3.bindValue(":numPlace", numPlace);
+                query3.bindValue(":idSpectacle", spectacle);
+
+                query3.exec();
+              }
+              qDebug() << siegesCommande; //pour controler l'ajout au vector
+
+
+
+
+
+     //***********************************************************************************************************************
+
 
      // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
     QSqlQuery query2;
