@@ -176,12 +176,17 @@ void Spectacles::on_sBtnAjouter_clicked()
            //----------------------------------------------------
            //**************************************
 
+
+
+
+            //**************************************
            connexion.closeConnexion();
         }
         else
         {
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
         }
+
 
 }
 
@@ -290,63 +295,81 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
 void Spectacles::on_sBtnSupprimer_clicked()
 {
 
-    Login connexion;
-    //Utiliser le nom pour supprimer l'enregistrement
-    QString spectacle;
-
-    spectacle = ui->sTxtSpectacle->text();
-
-    if(!connexion.openConnexion())
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Supprimer l'enregistrement ?", "La suppression des données définitive, êtes vous sur ?",
+                                  QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
     {
-        qDebug() << "Echec de connexion";
-        return;
-    }
+        Login connexion;
+        //Utiliser le nom pour supprimer l'enregistrement
+        QString spectacle;
 
-    connexion.openConnexion();
+        spectacle = ui->sTxtSpectacle->text();
 
-    QSqlQuery query;
-    query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
-    query.bindValue(":spectacle", spectacle);
+        if(!connexion.openConnexion())
+        {
+            qDebug() << "Echec de connexion";
+            return;
+        }
 
-    if(query.exec())
-    {
-        //Afficher l'info si la requete a été executé ou pas dans un messageBox
-        //si ma requete est execté elle doit afficher le message suivant
-        QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+        connexion.openConnexion();
 
+        QSqlQuery query;
+        query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
+        query.bindValue(":spectacle", spectacle);
 
-       //*************************************
-
-        //*************************************
-
-
-        MAJTableV();
-
-        //----------------------------------------------------
-
-         ViderLesChamps();
+        if(query.exec())
+        {
+            //Afficher l'info si la requete a été executé ou pas dans un messageBox
+            //si ma requete est execté elle doit afficher le message suivant
+            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
 
-        //Redimentionner les colonne en fonction du contenu
-        ui->sTabV->resizeColumnsToContents();
+           //*************************************
 
-        //**************************************
-
-        //----------------------------------------------------
-        //**************************************
+            //*************************************
 
 
-        connexion.closeConnexion();  //Fermeture de la connexion
+            MAJTableV();
 
-        //Vider les champs de text
-        ViderLesChamps();
+            //----------------------------------------------------
+
+             ViderLesChamps();
+
+
+            //Redimentionner les colonne en fonction du contenu
+            ui->sTabV->resizeColumnsToContents();
+
+            //**************************************
+
+            //----------------------------------------------------
+            //**************************************
+
+
+            connexion.closeConnexion();  //Fermeture de la connexion
+
+            //Vider les champs de text
+            ViderLesChamps();
+
+        }
+        else
+        {
+            //en cas de non execution de la requete
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
+
 
     }
     else
     {
-        //en cas de non execution de la requete
-        QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+      qDebug() << "Yes was *not* clicked";
     }
+
+
+
+
+
+
 
 }
 

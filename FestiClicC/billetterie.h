@@ -35,7 +35,6 @@ private slots:
 
     void on_bBtnQuitter_clicked();
 
-
     void on_bBtnEspeces_clicked();
 
     void on_bBtnCheque_clicked();
@@ -44,10 +43,12 @@ private slots:
 
     void on_bBtnChCulture_clicked();
 
-
     void on_bBtnCb_clicked();
 
     void on_bListVNumSiege_activated(const QModelIndex &index);
+
+    AddSlotsToGroupe();
+
 
 private:
     Ui::Billetterie *ui;

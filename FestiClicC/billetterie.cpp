@@ -13,6 +13,9 @@
 #include "clients.h"
 #include <QDateTime>
 #include <QVector>
+#include <QButtonGroup>
+
+
 
 
 Billetterie::Billetterie(QWidget *parent) :
@@ -20,6 +23,8 @@ Billetterie::Billetterie(QWidget *parent) :
     ui(new Ui::Billetterie)
 {
     ui->setupUi(this);
+
+
 
     ui->bRBtnPlacementPlan->setChecked(true);
 
@@ -485,11 +490,14 @@ void Billetterie::on_bBtnPaiement_clicked()
     QString siege;
     int nbPlaces;
 
+
     nbPlaces = ui->bCBoxNbPlaces->currentText().toInt();
     spectacle = ui->bLabelIdSpectacle->text().toInt();
     client = ui->bLabelIdClient->text();
     tarif = ui->bCBoxTarif->currentText();
     siege = ui->bCBoxNumSiege->currentText();
+
+
 
     //Récuperation date systeme pour l'inclure dans le billet
     //QDateTime dateSys = QDateTime::currentDateTime();
@@ -506,7 +514,7 @@ void Billetterie::on_bBtnPaiement_clicked()
     //Requete insertion données dans la table billet
 
     query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
-                  "VALUES ( (SELECT MAX(NumBillet)+1 FROM Billets), "
+                  "VALUES ( (SELECT MAX(NumBillet+1) FROM Billets), "
                           "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
                           "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
                           "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
@@ -532,13 +540,18 @@ void Billetterie::on_bBtnPaiement_clicked()
    qDebug() << nbPlaces;
 
 
+   //**********************************************************************************************************************
+  // Ouverture de du billet en html avec les information:
+   // Nom spectacle - date - heure - tarif - NumSiege - ConfigSalle + infos légales
+
+
    //***********************************************************************************************************************
 
 /*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
     // Requete ok pour recupérer données pour generation billet
-                Select IdBillet, NomClient, Spectacle, Prix
-                from Billets b, Clients c, Spectacles s, Tarifs t
+                SELECT IdBillet, NomClient, Spectacle, Prix
+                FROM Billets b, Clients c, Spectacles s, Tarifs t
                 Where b.IdClient = c.IdClient
                 and b.IdSpectacle = s.IdSpectacle
                 and b.IdTarif = t.IdTarif
@@ -555,39 +568,38 @@ void Billetterie::on_bBtnPaiement_clicked()
      // Récupération des éléments de la QlisteWidger
      //utiliser cette liste pour la décrémentation du nbplace / spectacle
 
-/*     QVector <QString> siegesCommande;
+// A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     QVector <QString> siegesCommande;
      QString numPlace;
+
      for(int i = 0; i < ui->listWidget->count(); ++i)
      {
          siegesCommande.push_back(ui->listWidget->item(i)->text());
 
          qDebug() << siegesCommande; //pour controler l'ajout au vector
 
-         if(siegesCommande.empty())
-         {
-             qDebug() << "Pas de siége sélectionné";
-         }
+      }
 
-             QSqlQuery query3;
-             query3.prepare("UPDATE Places SET Reserve = 1"
-                            "WHERE NumPlace = :numPlace "
-                            "AND IdSpectacle = :idSpectacle");
-
-             query3.bindValue(":numPlace", nbPlaces);
-             query3.bindValue(":idSpectacle", spectacle);
-
-             numPlace = siegesCommande.back();
-             siegesCommande.pop_back();
-
-             query3.exec();
+     for (int j = 0; j < siegesCommande.length(); j++)
+     {
+         QSqlQuery query3;
 
 
+         query3.prepare("UPDATE Places SET Reserve = 1"
+                        "WHERE NumPlace = :numPlace "
+                        "AND IdSpectacle = :idSpectacle");
+
+         query3.bindValue(":numPlace", siegesCommande[j]);
+         query3.bindValue(":idSpectacle", spectacle);
+
+         siegesCommande[j] = siegesCommande.back();
+         siegesCommande.pop_back();
 
 
-         qDebug() << siegesCommande; //pour controler l'ajout au vector
+         qDebug() << siegesCommande;
+         query3.exec();
      }
 
-*/
 
  /*        // A tester si ca marche ???????????????????????????????????????????????????
                   while (!siegesCommande.empty())    //tant que le vecteur n'est pas vide je stock les valeurs une par une
@@ -612,19 +624,6 @@ void Billetterie::on_bBtnPaiement_clicked()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Changer l'apparence siege sur plan
 
     //ui->S_8-setStyleSheet("background-image:url(:BtnRed.png); background-color: cornflowerblue;");
@@ -634,7 +633,19 @@ void Billetterie::on_bBtnPaiement_clicked()
     connexion.closeConnexion();
 
 }
+//***************************************************************************************
+// A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//Coder le slot pour les btn plan de salle
+Billetterie::AddSlotsToGroupe()
+{
+    QButtonGroup* groupe = new QButtonGroup();
+    groupe->addButton(ui->S_1);
+    groupe->addButton(ui->S_2);
+    groupe->addButton(ui->S_3);
 
+    connect(groupe,SIGNAL(buttonClicked(int)), this, SLOT(on_bBtnSuivant_clicked()));
+}
+//******************************************************************************************
 void Billetterie::on_bBtnQuitter_clicked()
 {
     this->close();
