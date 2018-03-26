@@ -196,14 +196,14 @@ void Spectacles::on_sBtnModifier_clicked()
     QString heure;
     int jauge;
 
-    QString idConfigSalle;
+    int idConfigSalle;
     int idSpectacle;
 
     spectacle = ui->sTxtSpectacle->text();
     date = ui->dateEdit->text();
     heure = ui->timeEdit->text();
     jauge = ui->sTxtJauge->text().toInt();
-    idConfigSalle = ui->sCBoxIdConfidSalle->currentText();
+    idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
 
     idSpectacle = ui->sLabelIdSpectacle->text().toInt();
 
@@ -219,7 +219,7 @@ void Spectacles::on_sBtnModifier_clicked()
     query.prepare("UPDATE Spectacles SET "
 
                   "Spectacle = :spectacle, Date = :date, Heure = :heure,"
-                  "IdConfigSalle = :idConfigSalle, JaugeSpecacle = :jaugeS "
+                  "IdConfigSalle = :idConfigSalle, JaugeSpectacle = :jaugeS "
                   "WHERE IdSpectacle = :idSpectacle ");
     query.bindValue(":spectacle", spectacle);
     query.bindValue(":date", date);
@@ -229,9 +229,11 @@ void Spectacles::on_sBtnModifier_clicked()
     query.bindValue(":jaugeS", jauge);
 
 
+
+
     if(query.exec())
     {
-        QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle midifié avec succes"));
+        QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle modifié avec succes"));
 
         MAJTableV();
         ViderLesChamps();

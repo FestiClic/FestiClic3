@@ -205,7 +205,7 @@ void Clients::on_cltBtnModifier_clicked()
     tel = ui->cltTxtTel->text();
     mob = ui->cltTxtMob->text();
     abonne = ui->cltCBoxAbonne->currentText();
-    idClient = ui->cltLabelIdClient->text().toInt();
+    idClient = ui->cltLabelIdClient->text();
 
     if(!connexion.openConnexion())
     {
