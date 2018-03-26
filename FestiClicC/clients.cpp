@@ -29,6 +29,7 @@ Clients::Clients(QWidget *parent) :
     ui->setupUi(this);
 
     MAJTableV();
+    ViderLesChamps();
 
 /*
     Login connexion;
@@ -190,22 +191,22 @@ void Clients::on_cltBtnModifier_clicked()
     QString cp;
     QString ville;
     QString email;
-    QString tel;
-    QString mob;
+    int tel;
+    int mob;
     QString abonne;
-    int idClient;
+    QString idClient;
 
     civilite = ui->cltCBoxCivilite->currentText();
     nom = ui->cltTxtNom->text();
     prenom = ui->cltTxtPrenom->text();
+    email = ui->cltTxtEmail->text();
     adresse = ui->cltTxtAdresse->text();
     cp = ui->cltTxtCp->text();
     ville = ui->cltTxtVille->text();
-    email = ui->cltTxtEmail->text();
-    tel = ui->cltTxtTel->text();
-    mob = ui->cltTxtMob->text();
+    tel = ui->cltTxtTel->text().toInt();
+    mob = ui->cltTxtMob->text().toInt();
     abonne = ui->cltCBoxAbonne->currentText();
-    idClient = ui->cltLabelIdClient->text().toInt();
+    idClient = ui->cltLabelIdClient->text();
 
     if(!connexion.openConnexion())
     {
@@ -215,6 +216,8 @@ void Clients::on_cltBtnModifier_clicked()
 
     connexion.openConnexion();
 
+    //requete ok dans le browzer mais ne fonctionne pas depuis l'application
+
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Clients SET "
@@ -222,6 +225,7 @@ void Clients::on_cltBtnModifier_clicked()
                                         "EmailClient = :email, AdresseClient = :adresse, Cp = :cp, Ville = :ville, "
                                         "TelClient = :tel, MobClient = :mob, Abonne = :abonne"
                   "WHERE IdClient = :idClient");
+
 
     query.bindValue(":civilite", civilite);
     query.bindValue(":nom", nom);

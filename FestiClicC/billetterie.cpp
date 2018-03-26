@@ -479,14 +479,14 @@ void Billetterie::on_bBtnPaiement_clicked()
 {
     Login connexion;
 
-    QString spectacle;
+    int spectacle;
     QString client;
     QString tarif;
     QString siege;
     int nbPlaces;
 
     nbPlaces = ui->bCBoxNbPlaces->currentText().toInt();
-    spectacle = ui->bLabelIdSpectacle->text();
+    spectacle = ui->bLabelIdSpectacle->text().toInt();
     client = ui->bLabelIdClient->text();
     tarif = ui->bCBoxTarif->currentText();
     siege = ui->bCBoxNumSiege->currentText();
@@ -518,6 +518,21 @@ void Billetterie::on_bBtnPaiement_clicked()
     query.bindValue(":siege", siege);
 
     query.exec();
+    //***********************************************************************************************************************
+
+    // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
+   QSqlQuery query2;
+   query2.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
+                  "WHERE IdSpectacle = :spectacle ");
+   query2.bindValue(":nbPlaces", nbPlaces);
+   query2.bindValue(":spectacle", spectacle);
+
+   query2.exec();
+
+   qDebug() << nbPlaces;
+
+
+   //***********************************************************************************************************************
 
 /*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
@@ -540,7 +555,7 @@ void Billetterie::on_bBtnPaiement_clicked()
      // Récupération des éléments de la QlisteWidger
      //utiliser cette liste pour la décrémentation du nbplace / spectacle
 
-     QVector <QString> siegesCommande;
+/*     QVector <QString> siegesCommande;
      QString numPlace;
      for(int i = 0; i < ui->listWidget->count(); ++i)
      {
@@ -548,44 +563,63 @@ void Billetterie::on_bBtnPaiement_clicked()
 
          qDebug() << siegesCommande; //pour controler l'ajout au vector
 
+         if(siegesCommande.empty())
+         {
+             qDebug() << "Pas de siége sélectionné";
+         }
+
+             QSqlQuery query3;
+             query3.prepare("UPDATE Places SET Reserve = 1"
+                            "WHERE NumPlace = :numPlace "
+                            "AND IdSpectacle = :idSpectacle");
+
+             query3.bindValue(":numPlace", nbPlaces);
+             query3.bindValue(":idSpectacle", spectacle);
+
+             numPlace = siegesCommande.back();
+             siegesCommande.pop_back();
+
+             query3.exec();
+
+
+
+
+         qDebug() << siegesCommande; //pour controler l'ajout au vector
      }
 
-     // A tester si ca marche ???????????????????????????????????????????????????
-              while (!siegesCommande.empty())    //tant que le vecteur n'est pas vide je stock les valeurs une par une
-                                                 // dans la variable numPlace afin d'executer la requete et passer à la suivante
-              {
-                numPlace = siegesCommande.back();
-                siegesCommande.pop_back();
+*/
 
-                QSqlQuery query3;
-                query3.prepare("UPDATE Places SET Reserve = 1"
-                               "WHERE NumPlace = :numPlace "
-                               "AND IdSpectacle = :idSpectacle");
-                query3.bindValue(":numPlace", numPlace);
-                query3.bindValue(":idSpectacle", spectacle);
-
-                query3.exec();
-              }
-              qDebug() << siegesCommande; //pour controler l'ajout au vector
+ /*        // A tester si ca marche ???????????????????????????????????????????????????
+                  while (!siegesCommande.empty())    //tant que le vecteur n'est pas vide je stock les valeurs une par une
+                                                     // dans la variable numPlace afin d'executer la requete et passer à la suivante
+                  {
 
 
+                    QSqlQuery query3;
+                    query3.prepare("UPDATE Places SET Reserve = 1"
+                                   "WHERE NumPlace = :numPlace "
+                                   "AND IdSpectacle = :idSpectacle");
+
+                    query3.bindValue(":numPlace", numPlace);
+                    query3.bindValue(":idSpectacle", spectacle);
+
+                    numPlace = siegesCommande.back();
+                    siegesCommande.pop_back();
+
+                    query3.exec();
+                  }
+*/
 
 
 
-     //***********************************************************************************************************************
 
 
-     // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
-    QSqlQuery query2;
-    query2.prepare("UPDATE Spectacles SET JaugeSpectacle = JaugeSpectacle - :nbPlaces"
-                   "WHERE Spectacle = :spectacle ");
-    query2.bindValue(":nbPlaces", nbPlaces);
-    query2.bindValue(":spectacle", spectacle);
-
-    query2.exec();
 
 
-    //***********************************************************************************************************************
+
+
+
+
 
 
 
