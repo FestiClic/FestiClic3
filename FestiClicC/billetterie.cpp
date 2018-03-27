@@ -148,6 +148,17 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bGBoxPlanSalle->hide();
 //************************************************************************************************************************
     //Affecter liste numero de sieges a la ListView
+    MAJListeDesSieges();
+
+    //fermeture de la connexion
+    connexion.closeConnexion();
+
+    qDebug() << (modal->rowCount());
+
+}
+
+void Billetterie::MAJListeDesSieges()
+{
     Login connexion4;
     QSqlQueryModel * modal4 = new QSqlQueryModel();
     QString spectacle;
@@ -156,16 +167,11 @@ Billetterie::Billetterie(QWidget *parent) :
 
     connexion4.openConnexion();
 
-    QSqlQuery* query4 = new QSqlQuery(connexion.maBaseDeDonnee);
+    QSqlQuery* query4 = new QSqlQuery(connexion4.maBaseDeDonnee);
     query4->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0  ");
     query4->exec();
     modal4->setQuery(*query4);
     ui->bListVNumSiege->setModel(modal4);
-
-    //fermeture de la connexion
-    connexion.closeConnexion();
-
-    qDebug() << (modal->rowCount());
 }
 
 
@@ -212,6 +218,16 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
 
 
         }
+  //-------------------------------------------------------------------------------------------------------------
+ /*       //Requete modification couleur Siege
+        //Scaner la table si le numSiege est present WHERE idSpectacle==> SetStyleSheet BTN else Rien faire
+
+        while(ui->bLabelIdSpectacle->text = )
+        QSqlQuery query2;
+        query2.prepare("SELECT * FROM SiegeSpectacleClient")
+
+  */
+  //-------------------------------------------------------------------------------------------------------------
         connexion.closeConnexion();
     }
     else
@@ -488,54 +504,27 @@ void Billetterie::on_bBtnPaiement_clicked()
     int spectacle;
     QString client;
     QString tarif;
-    QString siege;
     int nbPlaces;
 
-    nbPlaces = ui->bCBoxNbPlaces->currentText().toInt();
+    nbPlaces = ui->listWidget->count();
     spectacle = ui->bLabelIdSpectacle->text().toInt();
     client = ui->bLabelIdClient->text();
     tarif = ui->bCBoxTarif->currentText();
-    siege = ui->bCBoxNumSiege->currentText();
+
 
     //Récuperation date systeme pour l'inclure dans le billet
     //QDateTime dateSys = QDateTime::currentDateTime();
     //QString dateSysA = dateSys.toString();
+
+    QVector <QString> siegesCommande;
+    QString numPlace;
+
 
     if(!connexion.openConnexion())
     {
         qDebug()<<"Echec de connexion";
         return;
     }
-
-    QSqlQuery query;
-
-    //Requete insertion données dans la table billet
-
-    query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
-                  "VALUES ( (SELECT MAX(NumBillet+1) FROM Billets), "
-                          "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
-                          "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
-                          "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                          "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
-
-    query.bindValue(":client", client);
-    query.bindValue(":spectacle", spectacle);
-    query.bindValue(":tarif", tarif);
-    query.bindValue(":siege", siege);
-
-    query.exec();
-    //***********************************************************************************************************************
-
-    // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
-   QSqlQuery query2;
-   query2.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
-                  "WHERE IdSpectacle = :spectacle ");
-   query2.bindValue(":nbPlaces", nbPlaces);
-   query2.bindValue(":spectacle", spectacle);
-
-   query2.exec();
-
-   qDebug() << nbPlaces;
 
 
    //**********************************************************************************************************************
@@ -567,24 +556,21 @@ void Billetterie::on_bBtnPaiement_clicked()
      //utiliser cette liste pour la décrémentation du nbplace / spectacle
 
 // A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     QVector <QString> siegesCommande;
-
-     QString numPlace;
 
      for(int i = 0; i < ui->listWidget->count(); ++i)
      {
          siegesCommande.push_back(ui->listWidget->item(i)->text());
+     }
 
-         // qDebug() << siegesCommande; //pour controler l'ajout au vector
-}
          for (int j = 0; j < siegesCommande.length(); j++)
          {
              numPlace = siegesCommande[j];
 
              qDebug() << numPlace;
 
-             QSqlQuery query3;
 
+ /*            QSqlQuery query3;
+            //Requete pour passer le siege en réservé
              query3.prepare( "UPDATE Places SET Reserve = 1 "
                              "WHERE NumPlace = :numPlace "
                              "AND IdSpectacle = :idSpectacle ");
@@ -596,10 +582,59 @@ void Billetterie::on_bBtnPaiement_clicked()
                  qDebug() << "requête fonctionnelle";
              else
                  qDebug() << "requête plantée: " << query3.lastError();
+
+*/
+             //******************************************************************************
+                      QSqlQuery query;
+
+                      //Requete insertion données dans la table billet
+
+                      query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
+                                    "VALUES ( (SELECT MAX(NumBillet+1) FROM Billets), "
+                                            "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
+                                            "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
+                                            "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
+                                            "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
+
+                      query.bindValue(":client", client);
+                      query.bindValue(":spectacle", spectacle);
+                      query.bindValue(":tarif", tarif);
+                      query.bindValue(":siege", numPlace);
+
+                      query.exec();
+
+              //******************************************************************************
+
+                      QSqlQuery query4;
+
+                      //Requete insertion données dans la table SiegeSpectacleClient
+
+                      query4.prepare("INSERT INTO SiegeSpectacleClient (IdSpectacle, IdClient, IdSiege) "
+                                    "VALUES ( (SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle ), "
+                                            "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
+                                            "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
+                      query4.bindValue(":spectacle", spectacle);
+                      query4.bindValue(":client", client);
+                      query4.bindValue(":siege", numPlace);
+
+                      query4.exec();
+              //******************************************************************************
+
+                      // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
+                     QSqlQuery query2;
+                     query2.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
+                                    "WHERE IdSpectacle = :spectacle ");
+                     query2.bindValue(":nbPlaces", nbPlaces);
+                     query2.bindValue(":spectacle", spectacle);
+
+                     query2.exec();
+
+                     qDebug() << nbPlaces;
+
+
+
          }
          siegesCommande.pop_back();
-
-
 
 
     //Changer l'apparence siege sur plan

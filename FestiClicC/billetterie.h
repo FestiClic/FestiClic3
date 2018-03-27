@@ -49,6 +49,8 @@ private slots:
 
     AddSlotsToGroupe();
 
+    void MAJListeDesSieges();
+
 
 private:
     Ui::Billetterie *ui;

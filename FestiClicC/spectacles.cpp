@@ -134,6 +134,24 @@ void Spectacles::on_sBtnAjouter_clicked()
     jauge = ui->sTxtJauge->text().toInt();
 
 
+
+
+//Pour la table dynamique
+    QString seance;
+    QString spec = "Spectacle_";
+    //QString annee = "-A-";
+    //QString tableSeanceDynamique;
+
+    //idSpecatacle = ui->sLabelIdSpectacle->text();
+
+    //seance contient les 4 premiers charactere du spectacle de gauche + l'année + et heure
+    seance = (spec+spectacle.left(4)+'_'+date.right(4).append(heure.left(2)));
+    qDebug() << seance;
+
+
+
+
+
         if(!connexion.openConnexion())
         {
             qDebug() << "Echec de la connexion";
@@ -161,8 +179,9 @@ void Spectacles::on_sBtnAjouter_clicked()
            //----------------------------------------------------
             ViderLesChamps();
            //----------------------------------------------------
-            //*************************************************************************************************************************************
-                /*    Coder l'insertion dans une table Seance qui stockera le spectacle et la jauge (ici j'ai seance qui contient IdSpectacle
+//*************************************************************************************************************************************
+        // Création de la table dynamique
+            /*    Coder l'insertion dans une table Seance qui stockera le spectacle et la jauge (ici j'ai seance qui contient IdSpectacle
                     et IdConfigSalle
 
                     Etudier la possibilité d'utiliser une vue à la place d'une table supplémentaire ?????
@@ -172,27 +191,20 @@ void Spectacles::on_sBtnAjouter_clicked()
                                     values ((select max(IdSpectacle) from Spectacles),
                                     (select IdConfigSalle from Spectacles order by IdSpectacle desc ))
              */
+/*
+            connexion.openConnexion();
 
-            QString spectacle;
-            QString seance;
-            QString idSpecatacle;
-            //QString annee = "-A-";
-            //QString tableSeanceDynamique;
-
-            idSpecatacle = ui->sLabelIdSpectacle->text();
-
-            seance = (spectacle.left(4)+'-'+idSpecatacle+'-'+date.right(7));
 
             //tableSeanceDynamique = QString("%1 %2 %3 %4").arg(seance).arg(idSpecatacle).arg(annee).arg(date);
 
 
-
             QSqlQuery query2;
-            query.prepare("CREATE TABLE '"+seance+"'"
-                                                                "(IdSeance INTEGER PRIMARY KEY NOT NULL,"
-                                                                "NumPlace INTEGER (INSERT INTO '"+seance+"' (NumPlace) SELECT NumPlace FROM Places),"
-                                                                "Reserve INTEGER NOT NULL DEFAULT 0,"
-                                                                "IdSpectacle`	INTEGER, FOREIGN KEY(IdSpectacle)  REFERENCES Spectacles(IdSpectacle)) ");
+            query2.prepare("CREATE TABLE Spectacle_Seance "
+                                "(IdSeance INTEGER PRIMARY KEY NOT NULL, "
+                                "NumPlace INTEGER , "
+                                "Reserve INTEGER NOT NULL DEFAULT 0, ) ");
+            //query.bindValue(":seance", seance);
+
 
             query2.exec();
 
@@ -200,7 +212,7 @@ void Spectacles::on_sBtnAjouter_clicked()
                 qDebug() << "requête fonctionnelle";
             else
                 qDebug() << "requête plantée: " << query2.lastError();
-
+*/
             //*************************************************************************************************************************************
            connexion.closeConnexion();
         }
