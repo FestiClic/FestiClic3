@@ -161,7 +161,7 @@ void Spectacles::on_sBtnAjouter_clicked()
            //----------------------------------------------------
             ViderLesChamps();
            //----------------------------------------------------
-            //*************************************************************************************************************************************
+//*************************************************************************************************************************************
                 /*    Coder l'insertion dans une table Seance qui stockera le spectacle et la jauge (ici j'ai seance qui contient IdSpectacle
                     et IdConfigSalle
 
@@ -185,7 +185,8 @@ void Spectacles::on_sBtnAjouter_clicked()
 
             //tableSeanceDynamique = QString("%1 %2 %3 %4").arg(seance).arg(idSpecatacle).arg(annee).arg(date);
 
-
+            query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle, JaugeSpectacle) "
+                          "VALUES (:spectacle, :date, :heure, :idConfigSalle, :jaugeS)");
 
             QSqlQuery query2;
             query.prepare("CREATE TABLE '"+seance+"'"

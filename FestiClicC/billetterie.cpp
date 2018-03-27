@@ -599,30 +599,6 @@ void Billetterie::on_bBtnPaiement_clicked()
          }
          siegesCommande.pop_back();
 
-         // qDebug() << siegesCommande;
-
-
-
- /*        // A tester si ca marche ???????????????????????????????????????????????????
-                  while (!siegesCommande.empty())    //tant que le vecteur n'est pas vide je stock les valeurs une par une
-                                                     // dans la variable numPlace afin d'executer la requete et passer à la suivante
-                  {
-
-
-                    QSqlQuery query3;
-                    query3.prepare("UPDATE Places SET Reserve = 1"
-                                   "WHERE NumPlace = :numPlace "
-                                   "AND IdSpectacle = :idSpectacle");
-
-                    query3.bindValue(":numPlace", numPlace);
-                    query3.bindValue(":idSpectacle", spectacle);
-
-                    numPlace = siegesCommande.back();
-                    siegesCommande.pop_back();
-
-                    query3.exec();
-                  }
-*/
 
 
 
