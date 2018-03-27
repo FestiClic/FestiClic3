@@ -15,7 +15,7 @@
 //***********
 //*************
 //***************
-//****************      Sécuriser le bouton supprimer avec un messageBox
+//****************
 //********************
 //**********************
 //*************************
@@ -258,39 +258,50 @@ void Clients::on_cltBtnModifier_clicked()
 //Bouton supprimer
 void Clients::on_cltBtnSupprimer_clicked()
 {
-    Login connexion;
-
-    QString idClient;
-
-    idClient = ui->cltLabelIdClient->text();
-
-    if(!connexion.openConnexion())
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Supprimer l'enregistrement ?", "La suppression des données est définitive, êtes vous sur ?",
+                                   QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
     {
-        qDebug() << "Echec de connexion";
-        return;
-    }
 
-    connexion.openConnexion();
+        Login connexion;
 
-    QSqlQuery query;
-    query.prepare("DELETE FROM Clients WHERE IdClient = :idClient"); //requete suppression dans la bdd
-    query.bindValue(":idClient", idClient);
+        QString idClient;
 
-    if(query.exec())
-    {
-        QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+        idClient = ui->cltLabelIdClient->text();
 
-        MAJTableV();
-        ViderLesChamps();
+        if(!connexion.openConnexion())
+        {
+            qDebug() << "Echec de connexion";
+            return;
+        }
 
-        connexion.closeConnexion();  //Fermeture de la connexion
+        connexion.openConnexion();
 
+        QSqlQuery query;
+        query.prepare("DELETE FROM Clients WHERE IdClient = :idClient"); //requete suppression dans la bdd
+        query.bindValue(":idClient", idClient);
+
+        if(query.exec())
+        {
+            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+
+            MAJTableV();
+            ViderLesChamps();
+
+            connexion.closeConnexion();  //Fermeture de la connexion
+
+        }
+        else
+        {
+            //en cas de non execution de la requete
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+
+        }
     }
     else
     {
-        //en cas de non execution de la requete
-        QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
-
+            qDebug() << "Non Annuler";
     }
 
 }

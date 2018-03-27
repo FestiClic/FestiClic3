@@ -13,7 +13,7 @@
 //***********
 //*************
 //***************
-//****************      Sécuriser le bouton supprimer avec un messageBox
+//****************
 //********************
 //**********************
 //*************************
@@ -296,8 +296,8 @@ void Spectacles::on_sBtnSupprimer_clicked()
 {
 
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Supprimer l'enregistrement ?", "La suppression des données définitive, êtes vous sur ?",
-                                  QMessageBox::Yes|QMessageBox::No);
+    reply = QMessageBox::question(this, "Supprimer l'enregistrement ?", "La suppression des données est définitive, êtes vous sur ?",
+                                   QMessageBox::Yes|QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
         Login connexion;
@@ -362,7 +362,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
     }
     else
     {
-      qDebug() << "Yes was *not* clicked";
+      qDebug() << "Non Annuler";
     }
 
 

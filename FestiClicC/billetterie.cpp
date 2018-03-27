@@ -13,6 +13,7 @@
 #include "clients.h"
 #include <QDateTime>
 #include <QVector>
+#include <QList>
 #include <QButtonGroup>
 
 
@@ -490,14 +491,11 @@ void Billetterie::on_bBtnPaiement_clicked()
     QString siege;
     int nbPlaces;
 
-
     nbPlaces = ui->bCBoxNbPlaces->currentText().toInt();
     spectacle = ui->bLabelIdSpectacle->text().toInt();
     client = ui->bLabelIdClient->text();
     tarif = ui->bCBoxTarif->currentText();
     siege = ui->bCBoxNumSiege->currentText();
-
-
 
     //Récuperation date systeme pour l'inclure dans le billet
     //QDateTime dateSys = QDateTime::currentDateTime();
@@ -570,35 +568,39 @@ void Billetterie::on_bBtnPaiement_clicked()
 
 // A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      QVector <QString> siegesCommande;
+
      QString numPlace;
 
      for(int i = 0; i < ui->listWidget->count(); ++i)
      {
          siegesCommande.push_back(ui->listWidget->item(i)->text());
 
-         qDebug() << siegesCommande; //pour controler l'ajout au vector
+         // qDebug() << siegesCommande; //pour controler l'ajout au vector
+}
+         for (int j = 0; j < siegesCommande.length(); j++)
+         {
+             numPlace = siegesCommande[j];
 
-      }
+             qDebug() << numPlace;
 
-     for (int j = 0; j < siegesCommande.length(); j++)
-     {
-         QSqlQuery query3;
+             QSqlQuery query3;
 
+             query3.prepare( "UPDATE Places SET Reserve = 1 "
+                             "WHERE NumPlace = :numPlace "
+                             "AND IdSpectacle = :idSpectacle ");
 
-         query3.prepare("UPDATE Places SET Reserve = 1"
-                        "WHERE NumPlace = :numPlace "
-                        "AND IdSpectacle = :idSpectacle");
+             query3.bindValue(":numPlace", numPlace);
+             query3.bindValue(":idSpectacle", spectacle);
 
-         query3.bindValue(":numPlace", siegesCommande[j]);
-         query3.bindValue(":idSpectacle", spectacle);
-
-         siegesCommande[j] = siegesCommande.back();
+             if(query3.exec())
+                 qDebug() << "requête fonctionnelle";
+             else
+                 qDebug() << "requête plantée: " << query3.lastError();
+         }
          siegesCommande.pop_back();
 
+         // qDebug() << siegesCommande;
 
-         qDebug() << siegesCommande;
-         query3.exec();
-     }
 
 
  /*        // A tester si ca marche ???????????????????????????????????????????????????
