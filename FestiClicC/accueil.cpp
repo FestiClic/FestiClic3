@@ -26,12 +26,33 @@ Accueil::Accueil(QWidget *parent) :
     {
         //Ok
         lanceApp=true;
+
+        //-------------------------------------------------
+        //Affecter le nom utilisateur au label accueil
+        Login connexion;
+
+        if(!connexion.openConnexion())
+        {
+            qDebug() << "Echec de connexion";
+            return;
+        }
+        QSqlQuery query;
+        query.prepare("SELECT NomUtilisateur, PrenomUtilisateur, Administrateur FROM Utilisateurs ");
+        if(query.exec())
+        {
+            while (query.next())
+            {
+                ui->aLabelNomUtilisateur->setText(query.value(1).toString() + ' ' + query.value(2).toString());
+            }
+            connexion.closeConnexion();
+        }
     }
     else
     {
         //Echec
         lanceApp=false;
     }
+
 }
 
 Accueil::~Accueil()

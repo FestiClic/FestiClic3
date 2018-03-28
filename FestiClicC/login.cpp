@@ -70,6 +70,7 @@ void Login::on_lBtnSeConnecter_clicked()
     QString nomUtilisateur;
     QString motDePasse;
 
+
     nomUtilisateur = ui->lTxtNomUtilisateur->text();
     motDePasse = ui->lTxtMotDePasse->text();
 
@@ -82,7 +83,9 @@ void Login::on_lBtnSeConnecter_clicked()
     openConnexion();
 
     QSqlQuery query;
-    query.prepare("SELECT * FROM Utilisateurs WHERE Username='"+nomUtilisateur +"' AND Password='"+motDePasse +"'");
+    query.prepare("SELECT * FROM Utilisateurs WHERE Username = :nomUtilisateur AND Password = :motDePasse");
+    query.bindValue(":nomUtilisateur", nomUtilisateur);
+    query.bindValue(":motDePasse", motDePasse);
 
     if(query.exec())
     {
@@ -94,6 +97,8 @@ void Login::on_lBtnSeConnecter_clicked()
         if(compteur==1)
         {
             ui->lLabConnexion->setText("Acces accepté");
+
+
 
             closeConnexion(); //fermeture de la connexion bdd
 
@@ -120,12 +125,5 @@ void Login::on_lBtnAnnuler_clicked()
     //Accueil accueil;
     //accueil.close(); //A modifier car ca ne marche pas comme il faut
     //qApp->exit(0);
-
-
-
-
-
-
-
 
 }
