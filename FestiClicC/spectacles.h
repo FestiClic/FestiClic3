@@ -34,13 +34,16 @@ private slots:
 
     void on_sBtnViderChamps_clicked();
 
+
+
+private:
+    Ui::Spectacles *ui;
+
     void ViderLesChamps();
 
     //Mise a jour des donnees de la table View
     void MAJTableV();
 
-private:
-    Ui::Spectacles *ui;
 };
 
 #endif // SPECTACLES_H

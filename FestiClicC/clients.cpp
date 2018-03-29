@@ -28,6 +28,9 @@ Clients::Clients(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    Login connexion;
+    connexion.openConnexion();
+
     MAJTableV();
     ViderLesChamps();
 
@@ -58,7 +61,7 @@ void Clients::MAJTableV()
     Login connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-    connexion.openConnexion();
+    //connexion.openConnexion();
 
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -72,7 +75,7 @@ void Clients::MAJTableV()
     ui->cltTabV->resizeColumnsToContents();
 
     //fermeture de la connexion
-    connexion.closeConnexion();
+   // connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 }
 
@@ -93,6 +96,8 @@ void Clients::ViderLesChamps()
 
 Clients::~Clients()
 {
+    Login connexion;
+    connexion.closeConnexion();
     delete ui;
 }
 
@@ -104,7 +109,7 @@ void Clients::on_cltBtnQuitter_clicked()
 //Bouton ajouter nouveau client
 void Clients::on_cltBtnAjouter_clicked()
 {
-    Login connexion;
+   // Login connexion;
 
     QString civilite;
     QString nom;
@@ -128,13 +133,13 @@ void Clients::on_cltBtnAjouter_clicked()
     mob = ui->cltTxtMob->text();
     abonne = ui->cltCBoxAbonne->currentText();
 
-    if(!connexion.openConnexion())
+/*    if(!connexion.openConnexion())
     {
         qDebug() << "Echec de la connexion";
         return;
     }
-
-    connexion.openConnexion();
+*/
+ //   connexion.openConnexion();
 
     QSqlQuery query;
 
@@ -156,8 +161,6 @@ void Clients::on_cltBtnAjouter_clicked()
     query.bindValue(":abonne", abonne);
 
 
-    //Vider les champs
-
 
 
     if(query.exec())
@@ -168,7 +171,7 @@ void Clients::on_cltBtnAjouter_clicked()
         MAJTableV();
         ViderLesChamps();
 
-       connexion.closeConnexion();  //Fermeture de la connexion
+  //     connexion.closeConnexion();  //Fermeture de la connexion
 
     }
     else
@@ -182,7 +185,7 @@ void Clients::on_cltBtnAjouter_clicked()
 //Bouton modifier client
 void Clients::on_cltBtnModifier_clicked()
 {
-    Login connexion;
+//    Login connexion;
 
     QString civilite;
     QString nom;
@@ -208,22 +211,22 @@ void Clients::on_cltBtnModifier_clicked()
     abonne = ui->cltCBoxAbonne->currentText();
     idClient = ui->cltLabelIdClient->text();
 
-    if(!connexion.openConnexion())
+/*    if(!connexion.openConnexion())
     {
         qDebug() << "Echec de la connexion";
         return;
     }
-
-    connexion.openConnexion();
+*/
+//    connexion.openConnexion();
 
     //requete ok dans le browzer mais ne fonctionne pas depuis l'application
 
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Clients SET "
-                                        "Civilite = :civilite, NomClient = :nom, PrenomClient = :prenom,"
+                                        "Civilite = :civilite, NomClient = :nom, PrenomClient = :prenom, "
                                         "EmailClient = :email, AdresseClient = :adresse, Cp = :cp, Ville = :ville, "
-                                        "TelClient = :tel, MobClient = :mob, Abonne = :abonne"
+                                        "TelClient = :tel, MobClient = :mob, Abonne = :abonne "
                   "WHERE IdClient = :idClient");
 
 
@@ -246,7 +249,7 @@ void Clients::on_cltBtnModifier_clicked()
         MAJTableV();
         ViderLesChamps();
 
-        connexion.closeConnexion(); //fermeture de la connexion
+ //       connexion.closeConnexion(); //fermeture de la connexion
     }
     else
     {
@@ -272,19 +275,19 @@ void Clients::on_cltBtnSupprimer_clicked()
     if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
     {
 
-        Login connexion;
+  //      Login connexion;
 
         QString idClient;
 
         idClient = ui->cltLabelIdClient->text();
 
-        if(!connexion.openConnexion())
+/*        if(!connexion.openConnexion())
         {
             qDebug() << "Echec de connexion";
             return;
         }
-
-        connexion.openConnexion();
+*/
+//        connexion.openConnexion();
 
         QSqlQuery query;
         query.prepare("DELETE FROM Clients WHERE IdClient = :idClient"); //requete suppression dans la bdd
@@ -297,14 +300,13 @@ void Clients::on_cltBtnSupprimer_clicked()
             MAJTableV();
             ViderLesChamps();
 
-            connexion.closeConnexion();  //Fermeture de la connexion
+ //           connexion.closeConnexion();  //Fermeture de la connexion
 
         }
         else
         {
             //en cas de non execution de la requete
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
-
         }
     }
     else
@@ -321,15 +323,15 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
 
     valeurs = ui->cltTabV->model()->data(index).toString();
 
-    Login connexion;
+//    Login connexion;
 
-    if(!connexion.openConnexion())
+/*    if(!connexion.openConnexion())
     {
         qDebug() << "Echec de connexion";
         return;
     }
-
-    connexion.openConnexion();
+*/
+ //   connexion.openConnexion();
     QSqlQuery query;
     query.prepare("SELECT * FROM Clients WHERE IdClient = '"+valeurs+"'"
                                             "OR Civilite = '"+valeurs+"'"
@@ -361,7 +363,7 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
             ui->cltCBoxAbonne->setCurrentText(query.value(10).toString());
 
         }
-        connexion.closeConnexion();
+//        connexion.closeConnexion();
     }
     else
     {

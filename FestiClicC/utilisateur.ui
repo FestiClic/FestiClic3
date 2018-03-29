@@ -48,7 +48,7 @@
    <property name="title">
     <string>Actions sur utilisateurs</string>
    </property>
-   <widget class="QLineEdit" name="sTxtNom">
+   <widget class="QLineEdit" name="uTxtNom">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -70,6 +70,16 @@
       <height>22</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </item>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
@@ -109,7 +119,7 @@
      <rect>
       <x>80</x>
       <y>160</y>
-      <width>111</width>
+      <width>301</width>
       <height>20</height>
      </rect>
     </property>
@@ -161,7 +171,7 @@
      <rect>
       <x>70</x>
       <y>100</y>
-      <width>171</width>
+      <width>311</width>
       <height>20</height>
      </rect>
     </property>
@@ -174,7 +184,7 @@
      <rect>
       <x>80</x>
       <y>190</y>
-      <width>111</width>
+      <width>301</width>
       <height>20</height>
      </rect>
     </property>

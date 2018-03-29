@@ -32,6 +32,8 @@ private slots:
 
     void on_aBtnPlanDeSalle_clicked();
 
+    void on_aBtnUtilisateur_clicked();
+
 private:
     Ui::Accueil *ui;
 };

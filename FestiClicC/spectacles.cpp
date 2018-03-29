@@ -25,33 +25,30 @@ Spectacles::Spectacles(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    MAJTableV();
-
-    //Affecter les données des spectacles dans la TableView
-
     Login connexion;
-    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
     connexion.openConnexion();
 
+    MAJTableV();
 
+    //Login connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-
+    //connexion.openConnexion();
 
     //Requette pour remplir le ComboBox
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
-    QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee);
-    query2->prepare("SELECT IdConfigSalle FROM ConfigSalle");
-    query2->exec();
-    modal2->setQuery(*query2);
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
+    query->prepare("SELECT IdConfigSalle FROM ConfigSalle");
+    query->exec();
+    modal2->setQuery(*query);
     ui->sCBoxIdConfidSalle->setModel(modal2);
     ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
 
     //fermeture de la connexion
-    connexion.closeConnexion();
-    qDebug() << (modal->rowCount());
-    //qDebug() << (modal2->rowCount());
+    //connexion.closeConnexion();
+    qDebug() << (modal2->rowCount());
+
 
     ViderLesChamps();
 }
@@ -73,7 +70,7 @@ void Spectacles::MAJTableV()
     Login connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-    connexion.openConnexion();
+    //connexion.openConnexion();
 
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -91,7 +88,7 @@ void Spectacles::MAJTableV()
     ui->sTabV->resizeColumnsToContents();
 
     //fermeture de la connexion
-    connexion.closeConnexion();
+    //connexion.closeConnexion();
     qDebug() << (modal->rowCount());
     //qDebug() << (modal2->rowCount());
 }
@@ -100,6 +97,8 @@ void Spectacles::MAJTableV()
 
 Spectacles::~Spectacles()
 {
+    Login connexion;
+    connexion.closeConnexion();
     delete ui;
 }
 
@@ -115,14 +114,13 @@ void Spectacles::on_sBtnAjouter_clicked()
     //while (ui->sCBoxIdConfidSalle->currentText().isEmpty())
 
 
-    Login connexion;
+    //Login connexion;
 
     QString spectacle;
     QString date;
     QString heure;
     int idConfigSalle;
     int jauge;
-
 
     spectacle = ui->sTxtSpectacle->text();
 
@@ -132,7 +130,6 @@ void Spectacles::on_sBtnAjouter_clicked()
     idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
 
     jauge = ui->sTxtJauge->text().toInt();
-
 
 
 
@@ -148,16 +145,12 @@ void Spectacles::on_sBtnAjouter_clicked()
     seance = (spec+spectacle.left(4)+'_'+date.right(4).append(heure.left(2)));
     qDebug() << seance;
 
-
-
-
-
-        if(!connexion.openConnexion())
+  /*      if(!connexion.openConnexion())
         {
             qDebug() << "Echec de la connexion";
             return;
         }
-
+*/
         QSqlQuery query;
 
         //La requete fonctionne sur SQLite mais pas depuis QT
@@ -214,7 +207,7 @@ void Spectacles::on_sBtnAjouter_clicked()
                 qDebug() << "requête plantée: " << query2.lastError();
 */
             //*************************************************************************************************************************************
-           connexion.closeConnexion();
+        //   connexion.closeConnexion();
         }
         else
         {
@@ -228,7 +221,7 @@ void Spectacles::on_sBtnAjouter_clicked()
 //Modification a corriger pb requete ajout ou non de champ ID
 void Spectacles::on_sBtnModifier_clicked()
 {
-    Login connexion;
+   // Login connexion;
 
     QString spectacle;
     QString date;
@@ -247,12 +240,12 @@ void Spectacles::on_sBtnModifier_clicked()
     idSpectacle = ui->sLabelIdSpectacle->text().toInt();
 
 
-    if(!connexion.openConnexion())
+ /*   if(!connexion.openConnexion())
     {
         qDebug() << "Echec de la connexion";
         return;
     }
-
+*/
     QSqlQuery query;
     //Requête de mise à jour
     query.prepare("UPDATE Spectacles SET "
@@ -278,7 +271,7 @@ void Spectacles::on_sBtnModifier_clicked()
         ViderLesChamps();
 
 
-        connexion.closeConnexion(); //fermeture de la connexion
+ //       connexion.closeConnexion(); //fermeture de la connexion
 
     }
     else
@@ -297,13 +290,14 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
     QString intituleConfig;
     intituleConfig = ui->sCBoxIdConfidSalle->currentText();
 
-    Login connexion;
+ //   Login connexion;
 
-    if(!connexion.openConnexion())
+ /*   if(!connexion.openConnexion())
     {
         qDebug()<<"Echec de connexion";
         return;
     }
+*/
     QSqlQuery query;
 
     //Je prepare ma requete
@@ -317,7 +311,7 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
             ui->sTxtIntituleConfig->setText(query.value(1).toString());
             ui->sTxtJauge->setText(query.value(2).toString());
         }
-        connexion.closeConnexion();
+  //      connexion.closeConnexion();
     }
     else
     {
@@ -340,19 +334,18 @@ void Spectacles::on_sBtnSupprimer_clicked()
     if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
     {
         qDebug() << "ok";
-        Login connexion;
+  //      Login connexion;
         //Utiliser le nom pour supprimer l'enregistrement
         QString spectacle;
 
         spectacle = ui->sTxtSpectacle->text();
 
-        if(!connexion.openConnexion())
+/*        if(!connexion.openConnexion())
         {
             qDebug() << "Echec de connexion";
             return;
         }
-
-        connexion.openConnexion();
+*/
 
         QSqlQuery query;
         query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
@@ -386,10 +379,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
             //**************************************
 
 
-            connexion.closeConnexion();  //Fermeture de la connexion
-
-            //Vider les champs de text
-            ViderLesChamps();
+   //         connexion.closeConnexion();  //Fermeture de la connexion
 
         }
         else
@@ -404,13 +394,6 @@ void Spectacles::on_sBtnSupprimer_clicked()
     {
       qDebug() << "Non Annuler";
     }
-
-
-
-
-
-
-
 }
 
 
@@ -423,15 +406,15 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
 
         valeur = ui->sTabV->model()->data(index).toString();
 
-        Login connexion;
+//        Login connexion;
 
-        if(!connexion.openConnexion())
+/*        if(!connexion.openConnexion())
         {
             qDebug() << "Echec de connexion";
             return;
         }
+*/
 
-        connexion.openConnexion();
         QSqlQuery query;
         query.prepare("SELECT * FROM Spectacles "
                       "WHERE  IdSpectacle = '"+valeur+"'"
@@ -455,7 +438,7 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
 
             //-------------------------------------------------------------------------------------
 
-            connexion.closeConnexion();
+  //          connexion.closeConnexion();
         }
         else
         {

@@ -7,6 +7,7 @@
 #include "clients.h"
 #include "billetterie.h"
 #include "plandesalle.h"
+#include "utilisateur.h"
 
 #include <QTabWidget>
 
@@ -103,4 +104,11 @@ void Accueil::on_aBtnPlanDeSalle_clicked()
     PlanDeSalle planDeSalle;
     planDeSalle.setModal(true);
     planDeSalle.exec();
+}
+
+void Accueil::on_aBtnUtilisateur_clicked()
+{
+    Utilisateur utilisateur;
+    utilisateur.setModal(true);
+    utilisateur.exec();
 }
