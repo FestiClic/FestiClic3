@@ -258,10 +258,18 @@ void Clients::on_cltBtnModifier_clicked()
 //Bouton supprimer
 void Clients::on_cltBtnSupprimer_clicked()
 {
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Supprimer l'enregistrement ?", "La suppression des données est définitive, êtes vous sur ?",
-                                   QMessageBox::Yes|QMessageBox::No);
-    if (reply == QMessageBox::Yes)
+    QString nomClient;
+    QString prenomClient;
+    nomClient = ui->cltTxtNom->text();
+    prenomClient = ui->cltTxtPrenom->text();
+
+    QMessageBox msgBox;
+    msgBox.setText("Voulez-vous vraiment supprimer "+nomClient+ " "+prenomClient+ " ?");
+    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+    msgBox.addButton("Non", QMessageBox::NoRole);
+
+    msgBox.exec();
+    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
     {
 
         Login connexion;

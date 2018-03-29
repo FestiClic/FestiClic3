@@ -328,12 +328,18 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
 //Suppression d'un spactacle
 void Spectacles::on_sBtnSupprimer_clicked()
 {
+    QString spectacle;
+    spectacle = ui->sTxtSpectacle->text();
 
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Supprimer l'enregistrement ?", "La suppression des données est définitive, êtes vous sur ?",
-                                   QMessageBox::Yes|QMessageBox::No);
-    if (reply == QMessageBox::Yes)
+    QMessageBox msgBox;
+    msgBox.setText("Voulez-vous vraiment supprimer "+spectacle+ " ?");
+    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+    msgBox.addButton("Non", QMessageBox::NoRole);
+
+    msgBox.exec();
+    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
     {
+        qDebug() << "ok";
         Login connexion;
         //Utiliser le nom pour supprimer l'enregistrement
         QString spectacle;
