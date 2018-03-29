@@ -143,7 +143,7 @@
      <string>Administration billetterie</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="aBtnFrquentation">
+   <widget class="QPushButton" name="aBtnFrequentation">
     <property name="geometry">
      <rect>
       <x>10</x>

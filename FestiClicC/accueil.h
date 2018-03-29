@@ -34,6 +34,12 @@ private slots:
 
     void on_aBtnUtilisateur_clicked();
 
+    void on_aBtnAdministratioBillet_clicked();
+
+    void on_aBtnFrequentation_clicked();
+
+    void on_aBtnQuitter_clicked();
+
 private:
     Ui::Accueil *ui;
 };

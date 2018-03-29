@@ -8,6 +8,8 @@
 #include "billetterie.h"
 #include "plandesalle.h"
 #include "utilisateur.h"
+#include "administrationbillet.h"
+#include "frequentation.h"
 
 #include <QTabWidget>
 
@@ -115,4 +117,23 @@ void Accueil::on_aBtnUtilisateur_clicked()
     Utilisateur utilisateur;
     utilisateur.setModal(true);
     utilisateur.exec();
+}
+
+void Accueil::on_aBtnAdministratioBillet_clicked()
+{
+    AdministrationBillet administrationBillet;
+    administrationBillet.setModal(true);
+    administrationBillet.exec();
+}
+
+void Accueil::on_aBtnFrequentation_clicked()
+{
+    Frequentation frequentation;
+    frequentation.setModal(true);
+    frequentation.exec();
+}
+
+void Accueil::on_aBtnQuitter_clicked()
+{
+    this->close();
 }

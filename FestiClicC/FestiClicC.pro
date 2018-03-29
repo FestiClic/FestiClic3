@@ -34,7 +34,9 @@ SOURCES += \
     modepaiement.cpp \
     plandesalle.cpp \
     basededonnee.cpp \
-    utilisateur.cpp
+    utilisateur.cpp \
+    administrationbillet.cpp \
+    frequentation.cpp
 
 HEADERS += \
         accueil.h \
@@ -46,7 +48,9 @@ HEADERS += \
     modepaiement.h \
     plandesalle.h \
     basededonnee.h \
-    utilisateur.h
+    utilisateur.h \
+    administrationbillet.h \
+    frequentation.h
 
 FORMS += \
         accueil.ui \
@@ -57,7 +61,9 @@ FORMS += \
     modepaiement.ui \
     plandesalle.ui \
     basededonnee.ui \
-    utilisateur.ui
+    utilisateur.ui \
+    administrationbillet.ui \
+    frequentation.ui
 
 RESOURCES += \
     images.qrc
