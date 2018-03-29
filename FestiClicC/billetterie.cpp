@@ -25,9 +25,13 @@ Billetterie::Billetterie(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
+    Login connexion;
+    connexion.openConnexion();
 
     ui->bRBtnPlacementPlan->setChecked(true);
+
+    //cacher le label billet
+//    ui->bLabelBillet->hide();
 
 
 //************************************************************************************************************************
@@ -40,10 +44,10 @@ Billetterie::Billetterie(QWidget *parent) :
 
     //Affecter les données des représentations au ComboBox
 
-    Login connexion;
+//    Login connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
-    connexion.openConnexion();
+    //connexion.openConnexion();
 
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -54,19 +58,19 @@ Billetterie::Billetterie(QWidget *parent) :
 
 
     //fermeture de la connexion
-    connexion.closeConnexion();
+    //connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 
 //************************************************************************************************************************
 
     //Affecter le nomClient a la comboBox client
-    Login connexion1;
+    //Login connexion1;
     QSqlQueryModel * modal1 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
-    connexion1.openConnexion();
+    //connexion1.openConnexion();
 
     //Requette pour remplir Combo Spectacles
-    QSqlQuery* query1 = new QSqlQuery(connexion1.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    QSqlQuery* query1 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query1->prepare("SELECT NomClient FROM Clients");
     query1->exec();  //Execution de la requête
     modal1->setQuery(*query1);    //Récuperation des valeurs pointeur de requete
@@ -74,20 +78,20 @@ Billetterie::Billetterie(QWidget *parent) :
 
 
     //fermeture de la connexion
-    connexion1.closeConnexion();
+   // connexion1.closeConnexion();
     qDebug() << (modal1->rowCount());
 
 
 //************************************************************************************************************************
 
     //Affecter le tarif a la comboBox tarif
-    Login connexion2;
+    //Login connexion2;
     QSqlQueryModel * modal2 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
-    connexion2.openConnexion();
+    //connexion2.openConnexion();
 
     //Requette pour remplir Combo Spectacles
-    QSqlQuery* query2 = new QSqlQuery(connexion2.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query2->prepare("SELECT IntituleTarif FROM Tarifs");
     query2->exec();  //Execution de la requête
     modal2->setQuery(*query2);    //Récuperation des valeurs pointeur de requete
@@ -96,13 +100,13 @@ Billetterie::Billetterie(QWidget *parent) :
 //************************************************************************************************************************
 
     //Affecter les num sieges a la comboBox numSiege
-    Login connexion3;
+    //Login connexion3;
     QSqlQueryModel * modal3 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
-    connexion3.openConnexion();
+    //connexion3.openConnexion();
 
     //Requette pour remplir Combo Spectacles
-    QSqlQuery* query3 = new QSqlQuery(connexion3.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    QSqlQuery* query3 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query3->prepare("SELECT NumPlace FROM Places");
     query3->exec();  //Execution de la requête
     modal3->setQuery(*query3);    //Récuperation des valeurs pointeur de requete
@@ -111,7 +115,7 @@ Billetterie::Billetterie(QWidget *parent) :
 //************************************************************************************************************************
 
     //fermeture de la connexion
-    connexion2.closeConnexion();
+    //connexion2.closeConnexion();
     qDebug() << (modal2->rowCount());
 
 //************************************************************************************************************************
@@ -151,7 +155,7 @@ Billetterie::Billetterie(QWidget *parent) :
     MAJListeDesSieges();
 
     //fermeture de la connexion
-    connexion.closeConnexion();
+   // connexion.closeConnexion();
 
     qDebug() << (modal->rowCount());
 
@@ -159,15 +163,15 @@ Billetterie::Billetterie(QWidget *parent) :
 
 void Billetterie::MAJListeDesSieges()
 {
-    Login connexion4;
+    Login connexion;
     QSqlQueryModel * modal4 = new QSqlQueryModel();
     QString spectacle;
 
     spectacle = ui->bLabelIdSpectacle->text();
 
-    connexion4.openConnexion();
+   // connexion.openConnexion();
 
-    QSqlQuery* query4 = new QSqlQuery(connexion4.maBaseDeDonnee);
+    QSqlQuery* query4 = new QSqlQuery(connexion.maBaseDeDonnee);
     query4->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0  ");
     query4->exec();
     modal4->setQuery(*query4);
@@ -177,6 +181,8 @@ void Billetterie::MAJListeDesSieges()
 
 Billetterie::~Billetterie()
 {
+    Login connexion;
+    connexion.closeConnexion();
     delete ui;
 }
 
@@ -188,15 +194,15 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
     QString spectacle;
     spectacle = ui->bCBoxRepresentations->currentText();
 
-    Login connexion;
-
+    //Login connexion;
+/*
     if(!connexion.openConnexion())
     {
         qDebug()<<"Echec de connexion";
         return;
     }
-
-    connexion.openConnexion();
+*/
+ //   connexion.openConnexion();
 
     //Je crée un objet requete de QSqlQuery
     QSqlQuery query;
@@ -228,7 +234,7 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
 
   */
   //-------------------------------------------------------------------------------------------------------------
-        connexion.closeConnexion();
+    //    connexion.closeConnexion();
     }
     else
     {
@@ -289,15 +295,15 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
     QString spectateur;
     spectateur = ui->bCBoxSpectacteur->currentText();
 
-    Login connexion;
+ //   Login connexion;
 
-    if(!connexion.openConnexion())
+/*    if(!connexion.openConnexion())
     {
         qDebug()<<"Echec de connexion";
         return;
     }
-
-    connexion.openConnexion();
+*/
+ //   connexion.openConnexion();
 
     //Je crée un objet requete de QSqlQuery
     QSqlQuery query;
@@ -326,7 +332,7 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
                                          +"\r Email : "+query.value(4).toString()+"\r Tel : "+query.value(8).toString()+"   Mob : "+query.value(9).toString()
                                          +"\r Statut spectateur : "+query.value(10).toString());
         }
-        connexion.closeConnexion();
+  //      connexion.closeConnexion();
     }
     else
     {
@@ -358,15 +364,15 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
     QString tarif;
     tarif = ui->bCBoxTarif->currentText();
 
-    Login connexion;
+//    Login connexion;
 
-    if(!connexion.openConnexion())
+/*    if(!connexion.openConnexion())
     {
         qDebug()<<"Echec de connexion";
         return;
     }
-
-    connexion.openConnexion();
+*/
+ //   connexion.openConnexion();
 
     //Je crée un objet requete de QSqlQuery
     QSqlQuery query;
@@ -396,7 +402,7 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
             //ui->bBtnPaiement->show();
 
         }
-        connexion.closeConnexion();
+  //      connexion.closeConnexion();
     }
     else
     {
@@ -499,7 +505,7 @@ void Billetterie::on_bBtnSuivant_clicked()
 
 void Billetterie::on_bBtnPaiement_clicked()
 {
-    Login connexion;
+//    Login connexion;
 
     int spectacle;
     QString client;
@@ -520,12 +526,12 @@ void Billetterie::on_bBtnPaiement_clicked()
     QString numPlace;
 
 
-    if(!connexion.openConnexion())
+ /*   if(!connexion.openConnexion())
     {
         qDebug()<<"Echec de connexion";
         return;
     }
-
+*/
 
    //**********************************************************************************************************************
   // Ouverture de du billet en html avec les information:
@@ -605,29 +611,35 @@ void Billetterie::on_bBtnPaiement_clicked()
 
               //******************************************************************************
 
-                      QSqlQuery query4;
 
-                      //Requete insertion données dans la table SiegeSpectacleClient
+                      for(int k = 0; k<ui->bCBoxNbPlaces->currentText().toInt(); k++)
+                      {
+                          QSqlQuery queryInserrtInSiegeSpectacleClient;
 
-                      query4.prepare("INSERT INTO SiegeSpectacleClient (IdSpectacle, IdClient, IdSiege) "
-                                    "VALUES ( (SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle ), "
-                                            "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
-                                            "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
-                      query4.bindValue(":spectacle", spectacle);
-                      query4.bindValue(":client", client);
-                      query4.bindValue(":siege", numPlace);
+                          //Requete insertion données dans la table SiegeSpectacleClient
 
-                      query4.exec();
+                          queryInserrtInSiegeSpectacleClient.prepare("INSERT INTO SiegeSpectacleClient (IdSpectacle, IdClient, IdSiege) "
+                                        "VALUES ( (SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle ), "
+                                                "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
+                                                "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
+                          queryInserrtInSiegeSpectacleClient.bindValue(":spectacle", spectacle);
+                          queryInserrtInSiegeSpectacleClient.bindValue(":client", client);
+                          queryInserrtInSiegeSpectacleClient.bindValue(":siege", numPlace);
+
+
+                          queryInserrtInSiegeSpectacleClient.exec();
+                          }
+
               //******************************************************************************
 
                       // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
-                     QSqlQuery query2;
-                     query2.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
+                     QSqlQuery queryDecrementationJauge;
+                     queryDecrementationJauge.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
                                     "WHERE IdSpectacle = :spectacle ");
-                     query2.bindValue(":nbPlaces", nbPlaces);
-                     query2.bindValue(":spectacle", spectacle);
+                     queryDecrementationJauge.bindValue(":nbPlaces", nbPlaces);
+                     queryDecrementationJauge.bindValue(":spectacle", spectacle);
 
-                     query2.exec();
+                     queryDecrementationJauge.exec();
 
                      qDebug() << nbPlaces;
 
@@ -636,6 +648,21 @@ void Billetterie::on_bBtnPaiement_clicked()
          }
          siegesCommande.pop_back();
 
+         //Requete pour données billet
+
+         QSqlQuery queryDonneesBillet;
+         queryDonneesBillet.prepare("Select Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
+                        "WHERE IdSpectacle = :spectacle ");
+         queryDonneesBillet.bindValue(":nbPlaces", nbPlaces);
+         queryDonneesBillet.bindValue(":spectacle", spectacle);
+
+         queryDonneesBillet.exec();
+
+         qDebug() << nbPlaces;
+
+
+         //ui->bLabelBillet->setText("<html><b><u>+spectacle+<br>+tarif+<br>+numPlace+<br>+client+</u></b></html>");
+
 
     //Changer l'apparence siege sur plan
 
@@ -643,7 +670,7 @@ void Billetterie::on_bBtnPaiement_clicked()
 
     //***********************************************************************************************************************
 
-    connexion.closeConnexion();
+   // connexion.closeConnexion();
 
 }
 //***************************************************************************************
@@ -735,14 +762,14 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
 
     valeurs = ui->bListVNumSiege->model()->data(index).toString();
 
-    Login connexion;
+ //   Login connexion;
 
-    if(!connexion.openConnexion())
+/*    if(!connexion.openConnexion())
     {
         qDebug() << "Echec de la connexion";
         return;
     }
-
+*/
     QSqlQuery query;
     query.prepare("SELECT * FROM Places WHERE NumPlace = '"+valeurs+"' ");
 
@@ -753,7 +780,7 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
             ui->listWidget->addItem(query.value(1).toString());
         }
 
-        connexion.closeConnexion();
+ //       connexion.closeConnexion();
     }
     else
     {

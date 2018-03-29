@@ -440,9 +440,9 @@
   <widget class="QGroupBox" name="bGBoxPlanSalle">
    <property name="geometry">
     <rect>
-     <x>579</x>
-     <y>0</y>
-     <width>731</width>
+     <x>840</x>
+     <y>10</y>
+     <width>931</width>
      <height>781</height>
     </rect>
    </property>
@@ -9836,6 +9836,34 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bLabelBillet">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>450</y>
+     <width>821</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">text-align: justify;
+font-style: italic;
+font-family: Verdana;
+color: white;
+font-size: 15px;
+background-color: transparent;
+border-image: url(:BilletTemplate.png);
+background: none;
+border: none;
+background-repeat: no-repeat</string>
+   </property>
+   <property name="text">
+    <string>                                                   Nom spectacle</string>
+   </property>
+   <property name="pixmap">
+    <pixmap>BilletTemplate.png</pixmap>
    </property>
   </widget>
  </widget>

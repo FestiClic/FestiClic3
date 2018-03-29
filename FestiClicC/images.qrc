@@ -4,5 +4,19 @@
         <file>BtnBreen.png</file>
         <file>BtnOrange.png</file>
         <file>BtnRed.png</file>
+        <file>BilletTemplate.png</file>
+        <file>BilletTemplate2.png</file>
+        <file>BilletTemplateDos.png</file>
+        <file>chairCircGreen.png</file>
+        <file>CircPlusGreen.png</file>
+        <file>handicapped.png</file>
+        <file>LogoFestiClic.jpg</file>
+        <file>LogoFestiClic.png</file>
+        <file>UserMenGreen.png</file>
+        <file>UserMenRed.png</file>
+        <file>UserWomenGreen.png</file>
+        <file>wheelchair.png</file>
+        <file>wheelchairCircRouge.png</file>
+        <file>wheelchairCircVert.png</file>
     </qresource>
 </RCC>

@@ -20,6 +20,9 @@ Accueil::Accueil(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    Login connexion;
+    connexion.openConnexion();
+
     //ouverture de la page login
     Login login;
     login.setModal(true);
@@ -30,13 +33,14 @@ Accueil::Accueil(QWidget *parent) :
 
         //-------------------------------------------------
         //Affecter le nom utilisateur au label accueil
-        Login connexion;
+        //Login connexion;
 
-        if(!connexion.openConnexion())
+  /*      if(!connexion.openConnexion())
         {
             qDebug() << "Echec de connexion";
             return;
         }
+  */
         QSqlQuery query;
         query.prepare("SELECT NomUtilisateur, PrenomUtilisateur, Administrateur FROM Utilisateurs ");
         if(query.exec())
@@ -45,7 +49,7 @@ Accueil::Accueil(QWidget *parent) :
             {
                 ui->aLabelNomUtilisateur->setText(query.value(1).toString() + ' ' + query.value(2).toString());
             }
-            connexion.closeConnexion();
+          //  connexion.closeConnexion();
         }
     }
     else

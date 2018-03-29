@@ -12,6 +12,8 @@ Login::Login(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    openConnexion();
+
 
     if(openConnexion())
     {
@@ -59,6 +61,7 @@ void Login::closeConnexion()
 
 Login::~Login()
 {
+
     delete ui;
 }
 
@@ -74,13 +77,13 @@ void Login::on_lBtnSeConnecter_clicked()
     nomUtilisateur = ui->lTxtNomUtilisateur->text();
     motDePasse = ui->lTxtMotDePasse->text();
 
-    if(!openConnexion())
+ /*   if(!openConnexion())
     {
         qDebug()<<"Connexion non établie";
         return;
     }
-
-    openConnexion();
+*/
+//    openConnexion();
 
     QSqlQuery query;
     query.prepare("SELECT * FROM Utilisateurs WHERE Username = :nomUtilisateur AND Password = :motDePasse");
@@ -100,7 +103,7 @@ void Login::on_lBtnSeConnecter_clicked()
 
 
 
-            closeConnexion(); //fermeture de la connexion bdd
+ //           closeConnexion(); //fermeture de la connexion bdd
 
             //Fermeture de la page login pour afficher l'accueil
             //this->hide();

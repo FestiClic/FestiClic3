@@ -19,6 +19,9 @@ Utilisateur::Utilisateur(QWidget *parent) :
     MAJTableV();
     ViderLesChamps();
 
+    //rendre une zone de text inclicable
+//    ui->uTxtNom->setEnabled(false);
+
 }
 
 void Utilisateur::MAJTableV()
