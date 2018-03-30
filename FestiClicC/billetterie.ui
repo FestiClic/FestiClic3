@@ -440,11 +440,22 @@
   <widget class="QGroupBox" name="bGBoxPlanSalle">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>10</y>
+     <x>640</x>
+     <y>40</y>
      <width>931</width>
      <height>781</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">.QPushButton{
+
+    background-color: transparent;
+    border-image: url(:UserMenGreen.png);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+
+}</string>
    </property>
    <property name="title">
     <string>Plan de salle</string>
@@ -852,7 +863,7 @@
      <string>18</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_10">
+   <widget class="QPushButton" name="PA10">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -1047,7 +1058,7 @@
      <string>16</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_9">
+   <widget class="QPushButton" name="PA9">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -1164,7 +1175,7 @@
      <string>32</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_8">
+   <widget class="QPushButton" name="PA8">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -6793,7 +6804,7 @@
      <string>28</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_6">
+   <widget class="QPushButton" name="PA6">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -7001,7 +7012,7 @@
      <string>34</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_1">
+   <widget class="QPushButton" name="PA1">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -7011,15 +7022,12 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">#S_1{
+     <string notr="true">#PA1{
     background-color: transparent;
-    border-image: url(:BtnBreen.png);
+    border-image: url(:UserMenGreen.png);
     background: none;
     border: none;
     background-repeat: no-repeat 
-}
-#S_1:pressed{
-    border-image: url(:BtnOrange.png);
 }</string>
     </property>
     <property name="text">
@@ -7761,7 +7769,7 @@
      <string>32</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_5">
+   <widget class="QPushButton" name="PA5">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -8567,7 +8575,7 @@
      <string>26</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_7">
+   <widget class="QPushButton" name="PA7">
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -9646,7 +9654,7 @@
      <string>32</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_2">
+   <widget class="QPushButton" name="PA2">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -9671,7 +9679,7 @@
      <string>2</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_3">
+   <widget class="QPushButton" name="PA3">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -9696,7 +9704,7 @@
      <string>3</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="S_4">
+   <widget class="QPushButton" name="PA4">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -9719,6 +9727,38 @@
     </property>
     <property name="text">
      <string>4</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bBtnAnnulerPlan">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>740</y>
+      <width>181</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Annuler</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bBtnSuivantPlan_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>730</y>
+      <width>181</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+    border-image: none;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Suivant</string>
     </property>
    </widget>
   </widget>
@@ -9860,7 +9900,7 @@ border: none;
 background-repeat: no-repeat</string>
    </property>
    <property name="text">
-    <string>                                                   Nom spectacle</string>
+    <string/>
    </property>
    <property name="pixmap">
     <pixmap>BilletTemplate.png</pixmap>

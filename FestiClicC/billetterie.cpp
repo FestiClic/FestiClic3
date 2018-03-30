@@ -575,8 +575,8 @@ void Billetterie::on_bBtnPaiement_clicked()
              qDebug() << numPlace;
 
 
- /*            QSqlQuery query3;
-            //Requete pour passer le siege en réservé
+             QSqlQuery query3;
+//Requete pour passer le siege en réservé
              query3.prepare( "UPDATE Places SET Reserve = 1 "
                              "WHERE NumPlace = :numPlace "
                              "AND IdSpectacle = :idSpectacle ");
@@ -589,11 +589,11 @@ void Billetterie::on_bBtnPaiement_clicked()
              else
                  qDebug() << "requête plantée: " << query3.lastError();
 
-*/
+
              //******************************************************************************
                       QSqlQuery query;
 
-                      //Requete insertion données dans la table billet
+//Requete insertion données dans la table billet
 
                       query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
                                     "VALUES ( (SELECT MAX(NumBillet+1) FROM Billets), "
@@ -632,7 +632,7 @@ void Billetterie::on_bBtnPaiement_clicked()
 */
               //******************************************************************************
 
-                      // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
+// Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
                      QSqlQuery queryDecrementationJauge;
                      queryDecrementationJauge.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
                                     "WHERE IdSpectacle = :spectacle ");
@@ -655,10 +655,13 @@ void Billetterie::on_bBtnPaiement_clicked()
                          and b.IdTarif = t.IdTarif
                          and IdBillet = 7
          */    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-         //Requete pour données billet
+
+         ui->bLabelBillet->show();
+
+//Requete pour données billet
 
          QSqlQuery queryDonneesBillet;
-         queryDonneesBillet.prepare("SELECT IdBillet, NomClient, Spectacle, Prix, NumPlace "
+         queryDonneesBillet.prepare("SELECT IdBillet, Civilite, NomClient, PrenomClient Spectacle, Prix, NumPlace "
                                     "FROM Billets b, Clients c, Spectacles s, Tarifs t, Places p "
                                     "Where b.IdClient = c.IdClient "
                                     "AND b.IdSpectacle = s.IdSpectacle "
@@ -687,20 +690,27 @@ void Billetterie::on_bBtnPaiement_clicked()
 
    // connexion.closeConnexion();
 
-         ui->bLabelBillet->show();
-
 }
 //***************************************************************************************
 // A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //Coder le slot pour les btn plan de salle
 Billetterie::AddSlotsToGroupe()
 {
+/*    QString valeur;
     QButtonGroup* groupe = new QButtonGroup();
-    groupe->addButton(ui->S_1);
-    groupe->addButton(ui->S_2);
-    groupe->addButton(ui->S_3);
+    groupe->addButton(ui->PA1);
+    groupe->addButton(ui->PA2);
+    groupe->addButton(ui->PA3);
+    groupe->addButton(ui->PA4);
+    groupe->addButton(ui->PA5);
+    groupe->addButton(ui->PA6);
+    groupe->addButton(ui->PA7);
+    groupe->addButton(ui->PA8);
+    groupe->addButton(ui->PA9);
+    groupe->addButton(ui->PA10);
 
     connect(groupe,SIGNAL(buttonClicked(int)), this, SLOT(on_bBtnSuivant_clicked()));
+*/
 }
 //******************************************************************************************
 void Billetterie::on_bBtnQuitter_clicked()
@@ -795,4 +805,46 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
             QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
 
+}
+
+void Billetterie::on_PA1_clicked()
+{
+    ui->listWidget->addItem("PA1");
+    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_bBtnSuivantPlan_2_clicked()
+{
+    // Initialiser les champs
+    ui->bTxtCb->clear();
+    ui->bTxtChCulture->clear();
+    ui->bTxtCheque->clear();
+    ui->bTxtChVacances->clear();
+    ui->bTxtEspeces->clear();
+    ui->bTxtVInternet->clear();
+
+//Calcule .....
+    double prixTotal, prix, NbPlaces;
+
+    prix = std::stod(ui->bLabelPrix->text().toStdString());
+
+    NbPlaces = std::stod(ui->bCBoxNbPlaces->currentText().toStdString());
+
+    prixTotal = (NbPlaces * prix);
+
+
+    QString tarifTotal = QString::number(prixTotal);
+    ui->bTxtCb->setText(tarifTotal);
+
+
+    // Afficher le groupeBox modede paiment
+    ui->bGBoxModePaiement->show();
+    ui->bGBoxPlanSalle->hide();
+
+}
+
+void Billetterie::on_PA2_clicked()
+{
+    ui->listWidget->addItem("PA2");
+    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
 }

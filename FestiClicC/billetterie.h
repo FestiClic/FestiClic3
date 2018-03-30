@@ -52,6 +52,12 @@ private slots:
     void MAJListeDesSieges();
 
 
+    void on_PA1_clicked();
+
+    void on_bBtnSuivantPlan_2_clicked();
+
+    void on_PA2_clicked();
+
 private:
     Ui::Billetterie *ui;
 };
