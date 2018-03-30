@@ -113,7 +113,6 @@ void Spectacles::on_sBtnAjouter_clicked()
     //Condition sur le comboBox *****A CODER*****
     //while (ui->sCBoxIdConfidSalle->currentText().isEmpty())
 
-
     //Login connexion;
 
     QString spectacle;
@@ -131,6 +130,8 @@ void Spectacles::on_sBtnAjouter_clicked()
 
     jauge = ui->sTxtJauge->text().toInt();
 
+    if(!ui->sTxtIntituleConfig->text().isEmpty() || !ui->sTxtJauge->text().isEmpty() || !ui->sTxtSpectacle->text().isEmpty())
+    {
 
 /*
 //Pour la table dynamique
@@ -166,35 +167,31 @@ void Spectacles::on_sBtnAjouter_clicked()
         {
            QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
 
-           //*************************************
            MAJTableV();
-           //----------------------------------------------------
-            ViderLesChamps();
-           //----------------------------------------------------
+           ViderLesChamps();
 
-            //*******************************************************************
-        // parie id spectacle necessaire pour tab places
+            // parie id spectacle necessaire pour tab places
             int idSpectacle;
-            //Recupérer le dernier IdSpectacle
 
-            QSqlQuery query2;
-            query2.prepare("SELECT MAX(IdSpectacle) FROM Spectacles ");
+            //Recupérer l'IdSpectacle du spectacle créé
 
-            query2.exec();
-            if (query2.next())
+            QSqlQuery queryGetIdSpectacle;
+            queryGetIdSpectacle.prepare("SELECT MAX(IdSpectacle) FROM Spectacles ");
+
+            queryGetIdSpectacle.exec();
+            if (queryGetIdSpectacle.next())
             {
-                idSpectacle = query2.value(0).toInt();
+                idSpectacle = queryGetIdSpectacle.value(0).toInt();
             }
 
             qDebug() << "idSpectacle au debut : " <<idSpectacle;
 
-            //-----------------
-            //Insérer la liste des sieges a la tables Places
-            QSqlQuery query1;
-            query1.prepare("INSERT INTO Places (NumPlace, IdSpectacle) "
+            //Insérer la liste des sieges a la tables Places pour le spectacle créé
+            QSqlQuery queryInsertPlaces;
+            queryInsertPlaces.prepare("INSERT INTO Places (NumPlace, IdSpectacle) "
                           "SELECT NumSiege, :idSpectacle FROM Sieges ");
-            query1.bindValue(":idSpectacle", idSpectacle);
-            query1.exec();
+            queryInsertPlaces.bindValue(":idSpectacle", idSpectacle);
+            queryInsertPlaces.exec();
 
 
 //*************************************************************************************************************************************
@@ -238,8 +235,16 @@ void Spectacles::on_sBtnAjouter_clicked()
         {
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
         }
+    }
 
+    qDebug() << "Les champs sont obligatoires";
+/*    else if (date d'aujourdui = message pour demander confirmation)
+    {
 
+    }
+    Message tous les champs sont obligatoire
+
+*/
 
 
 }
