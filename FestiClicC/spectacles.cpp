@@ -29,25 +29,26 @@ Spectacles::Spectacles(QWidget *parent) :
     connexion.openConnexion();
 
     MAJTableV();
+    ui->sTxtIntituleConfig->setEnabled(false);
 
     //Login connexion;
-    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
+   // QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
     //connexion.openConnexion();
 
     //Requette pour remplir le ComboBox
-    QSqlQueryModel * modal2 = new QSqlQueryModel();
+    QSqlQueryModel * modal = new QSqlQueryModel();
 
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
     query->prepare("SELECT IdConfigSalle FROM ConfigSalle");
     query->exec();
-    modal2->setQuery(*query);
-    ui->sCBoxIdConfidSalle->setModel(modal2);
+    modal->setQuery(*query);
+    ui->sCBoxIdConfidSalle->setModel(modal);
     ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
 
     //fermeture de la connexion
     //connexion.closeConnexion();
-    qDebug() << (modal2->rowCount());
+    qDebug() << (modal->rowCount());
 
 
     ViderLesChamps();
@@ -130,7 +131,7 @@ void Spectacles::on_sBtnAjouter_clicked()
 
     jauge = ui->sTxtJauge->text().toInt();
 
-    if(!ui->sTxtIntituleConfig->text().isEmpty() || !ui->sTxtJauge->text().isEmpty() || !ui->sTxtSpectacle->text().isEmpty())
+    if(!ui->sTxtIntituleConfig->text().isEmpty() && !ui->sTxtJauge->text().isEmpty() && !ui->sTxtSpectacle->text().isEmpty())
     {
 
 /*
@@ -237,16 +238,12 @@ void Spectacles::on_sBtnAjouter_clicked()
         }
     }
 
-    qDebug() << "Les champs sont obligatoires";
-/*    else if (date d'aujourdui = message pour demander confirmation)
-    {
-
-    }
-    Message tous les champs sont obligatoire
-
-*/
+//A coder
+//sécuriser la date si date = today !!!!!
 
 
+    ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+    ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
 }
 
 
@@ -272,45 +269,49 @@ void Spectacles::on_sBtnModifier_clicked()
     idSpectacle = ui->sLabelIdSpectacle->text().toInt();
 
 
- /*   if(!connexion.openConnexion())
+    if(!ui->sTxtIntituleConfig->text().isEmpty() && !ui->sTxtJauge->text().isEmpty() && !ui->sTxtSpectacle->text().isEmpty())
     {
-        qDebug() << "Echec de la connexion";
-        return;
+        QSqlQuery query;
+        //Requête de mise à jour
+        query.prepare("UPDATE Spectacles SET "
+
+                      "Spectacle = :spectacle, Date = :date, Heure = :heure,"
+                      "IdConfigSalle = :idConfigSalle, JaugeSpectacle = :jaugeS "
+                      "WHERE IdSpectacle = :idSpectacle ");
+        query.bindValue(":spectacle", spectacle);
+        query.bindValue(":date", date);
+        query.bindValue(":heure", heure);
+        query.bindValue(":idConfigSalle", idConfigSalle);
+        query.bindValue(":idSpectacle", idSpectacle);
+        query.bindValue(":jaugeS", jauge);
+
+
+
+
+        if(query.exec())
+        {
+            QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle modifié avec succes"));
+
+            MAJTableV();
+            ViderLesChamps();
+
+
+     //       connexion.closeConnexion(); //fermeture de la connexion
+
+        }
+        else
+        {
+            //en cas de non execution de la requete
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
     }
-*/
-    QSqlQuery query;
-    //Requête de mise à jour
-    query.prepare("UPDATE Spectacles SET "
 
-                  "Spectacle = :spectacle, Date = :date, Heure = :heure,"
-                  "IdConfigSalle = :idConfigSalle, JaugeSpectacle = :jaugeS "
-                  "WHERE IdSpectacle = :idSpectacle ");
-    query.bindValue(":spectacle", spectacle);
-    query.bindValue(":date", date);
-    query.bindValue(":heure", heure);
-    query.bindValue(":idConfigSalle", idConfigSalle);
-    query.bindValue(":idSpectacle", idSpectacle);
-    query.bindValue(":jaugeS", jauge);
+//A coder
+//sécuriser la date si date = today !!!!!
 
 
-
-
-    if(query.exec())
-    {
-        QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle modifié avec succes"));
-
-        MAJTableV();
-        ViderLesChamps();
-
-
- //       connexion.closeConnexion(); //fermeture de la connexion
-
-    }
-    else
-    {
-        //en cas de non execution de la requete
-        QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
-    }
+    ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+    ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
 
 }
 
@@ -366,18 +367,12 @@ void Spectacles::on_sBtnSupprimer_clicked()
     if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
     {
         qDebug() << "ok";
-  //      Login connexion;
-        //Utiliser le nom pour supprimer l'enregistrement
-        QString spectacle;
 
-        spectacle = ui->sTxtSpectacle->text();
 
-/*        if(!connexion.openConnexion())
-        {
-            qDebug() << "Echec de connexion";
-            return;
-        }
-*/
+        int idSpectacle;
+
+        idSpectacle = ui->sLabelIdSpectacle->text().toInt();
+
 
         QSqlQuery query;
         query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
@@ -389,30 +384,11 @@ void Spectacles::on_sBtnSupprimer_clicked()
             //si ma requete est execté elle doit afficher le message suivant
             QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
-
-           //*************************************
-
-            //*************************************
-
-
             MAJTableV();
-
-            //----------------------------------------------------
-
-             ViderLesChamps();
-
+            ViderLesChamps();
 
             //Redimentionner les colonne en fonction du contenu
             ui->sTabV->resizeColumnsToContents();
-
-            //**************************************
-
-            //----------------------------------------------------
-            //**************************************
-
-
-   //         connexion.closeConnexion();  //Fermeture de la connexion
-
         }
         else
         {

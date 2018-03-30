@@ -141,45 +141,52 @@ void Clients::on_cltBtnAjouter_clicked()
 */
  //   connexion.openConnexion();
 
-    QSqlQuery query;
-
-    query.prepare("INSERT INTO Clients (Civilite, NomClient, "
-                  "PrenomClient, AdresseClient, Cp, Ville, "
-                  "EmailClient, TelClient, MobClient, Abonne) "
-                  "VALUES (:civilite, :nom, :prenom, :adresse, "
-                  ":cp, :ville, :email, :tel, :mob, :abonne)");
-
-    query.bindValue(":civilite", civilite);
-    query.bindValue(":nom", nom);
-    query.bindValue(":prenom", prenom);
-    query.bindValue(":adresse", adresse);
-    query.bindValue(":cp", cp);
-    query.bindValue(":ville", ville);
-    query.bindValue(":email", email);
-    query.bindValue(":tel", tel);
-    query.bindValue(":mob", mob);
-    query.bindValue(":abonne", abonne);
-
-
-
-
-    if(query.exec())
+    if(!ui->cltCBoxCivilite->currentText().isEmpty() && !ui->cltTxtNom->text().isEmpty()
+            && !ui->cltTxtPrenom->text().isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
     {
-       //Affichage si ajouter ou pas dans un MessageBox
-       QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
+        QSqlQuery query;
 
-        MAJTableV();
-        ViderLesChamps();
+        query.prepare("INSERT INTO Clients (Civilite, NomClient, "
+                      "PrenomClient, AdresseClient, Cp, Ville, "
+                      "EmailClient, TelClient, MobClient, Abonne) "
+                      "VALUES (:civilite, :nom, :prenom, :adresse, "
+                      ":cp, :ville, :email, :tel, :mob, :abonne)");
 
-  //     connexion.closeConnexion();  //Fermeture de la connexion
+        query.bindValue(":civilite", civilite);
+        query.bindValue(":nom", nom);
+        query.bindValue(":prenom", prenom);
+        query.bindValue(":adresse", adresse);
+        query.bindValue(":cp", cp);
+        query.bindValue(":ville", ville);
+        query.bindValue(":email", email);
+        query.bindValue(":tel", tel);
+        query.bindValue(":mob", mob);
+        query.bindValue(":abonne", abonne);
 
+
+
+
+        if(query.exec())
+        {
+           //Affichage si ajouter ou pas dans un MessageBox
+           QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
+
+            MAJTableV();
+            ViderLesChamps();
+
+      //     connexion.closeConnexion();  //Fermeture de la connexion
+
+        }
+        else
+        {
+            //en cas de non execution de la requete
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+
+        }
     }
-    else
-    {
-        //en cas de non execution de la requete
-        QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
 
-    }
+    ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+    ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
 }
 
 //Bouton modifier client
@@ -221,41 +228,49 @@ void Clients::on_cltBtnModifier_clicked()
 
     //requete ok dans le browzer mais ne fonctionne pas depuis l'application
 
-    QSqlQuery query;
-    //Requête de mise à jour
-    query.prepare("UPDATE Clients SET "
-                                        "Civilite = :civilite, NomClient = :nom, PrenomClient = :prenom, "
-                                        "EmailClient = :email, AdresseClient = :adresse, Cp = :cp, Ville = :ville, "
-                                        "TelClient = :tel, MobClient = :mob, Abonne = :abonne "
-                  "WHERE IdClient = :idClient");
-
-
-    query.bindValue(":civilite", civilite);
-    query.bindValue(":nom", nom);
-    query.bindValue(":prenom", prenom);
-    query.bindValue(":email", email);
-    query.bindValue(":adresse", adresse);
-    query.bindValue(":cp", cp);
-    query.bindValue(":ville", ville);
-    query.bindValue(":tel", tel);
-    query.bindValue(":mob", mob);
-    query.bindValue(":abonne", abonne);
-    query.bindValue(":idClient", idClient);
-
-    if(query.exec())
+    if(!ui->cltCBoxCivilite->currentText().isEmpty() && !ui->cltTxtNom->text().isEmpty()
+            && !ui->cltTxtPrenom->text().isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
     {
-        QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
 
-        MAJTableV();
-        ViderLesChamps();
+        QSqlQuery query;
+        //Requête de mise à jour
+        query.prepare("UPDATE Clients SET "
+                                            "Civilite = :civilite, NomClient = :nom, PrenomClient = :prenom, "
+                                            "EmailClient = :email, AdresseClient = :adresse, Cp = :cp, Ville = :ville, "
+                                            "TelClient = :tel, MobClient = :mob, Abonne = :abonne "
+                      "WHERE IdClient = :idClient");
 
- //       connexion.closeConnexion(); //fermeture de la connexion
+
+        query.bindValue(":civilite", civilite);
+        query.bindValue(":nom", nom);
+        query.bindValue(":prenom", prenom);
+        query.bindValue(":email", email);
+        query.bindValue(":adresse", adresse);
+        query.bindValue(":cp", cp);
+        query.bindValue(":ville", ville);
+        query.bindValue(":tel", tel);
+        query.bindValue(":mob", mob);
+        query.bindValue(":abonne", abonne);
+        query.bindValue(":idClient", idClient);
+
+        if(query.exec())
+        {
+            QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
+
+            MAJTableV();
+            ViderLesChamps();
+
+     //       connexion.closeConnexion(); //fermeture de la connexion
+        }
+        else
+        {
+            //en cas de non execution de la requete
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
     }
-    else
-    {
-        //en cas de non execution de la requete
-        QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
-    }
+
+    ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+    ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
 }
 
 //Bouton supprimer

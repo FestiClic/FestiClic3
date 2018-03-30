@@ -587,7 +587,7 @@ void Billetterie::on_bBtnPaiement_clicked()
              if(query3.exec())
                  qDebug() << "requête fonctionnelle";
              else
-                 qDebug() << "requête plantée: " << query3.lastError();
+                 qDebug() << "requête plantée: " << query3.Error();
 
 */
              //******************************************************************************
@@ -792,7 +792,7 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
     }
     else
     {
-            QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+            QMessageBox::warning(this, tr("Erreur:"), query.Error().text());
     }
 
 }

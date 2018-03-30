@@ -103,18 +103,38 @@
     <property name="title">
      <string>GroupBox</string>
     </property>
-    <widget class="QLabel" name="aLabelNomUtilisateur">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>80</y>
-       <width>241</width>
-       <height>16</height>
+       <x>10</x>
+       <y>40</y>
+       <width>271</width>
+       <height>121</height>
       </rect>
      </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="aLabelHello">
+        <property name="text">
+         <string>Bonjour</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="aLabelNomUtilisateur">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="aLabelDate">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QPushButton" name="aBtnUtilisateur">

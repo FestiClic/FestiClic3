@@ -64,10 +64,10 @@ Accueil::Accueil(QWidget *parent) :
     }
     //Labels
     ui->aLabelHello->setStyleSheet("background-color:white; font-size: 15px;");
-    ui->aLabelHello->setText("Les champs Nom - Prénom sont obligatoires");
+    ui->aLabelHello->setText("HELLO");
 
     ui->aLabelNomUtilisateur->setStyleSheet("background-color:white; font-size: 15px;");
-    ui->aLabelNomUtilisateur->setText("Les champs Nom - Prénom sont obligatoires");
+    ui->aLabelNomUtilisateur->setText("Nom utilisateur");
 
     ui->aLabelDate->setStyleSheet("background-color:white; font-size: 15px;");
     ui->aLabelDate->setText(QDate::currentDate().toString());

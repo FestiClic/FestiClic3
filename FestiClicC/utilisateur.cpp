@@ -81,7 +81,6 @@ void Utilisateur::on_uBtnAjouter_clicked()
     QString username;
     QString password;
     int administrateurGroupe;
-    int idUtilisateur;
 
 
     nomUtilisateur = ui->uTxtNom->text();
@@ -96,6 +95,9 @@ void Utilisateur::on_uBtnAjouter_clicked()
             return;
         }
 */
+    if(!ui->uTxtNom->text().isEmpty() && !ui->uTxtPrenom->text().isEmpty()
+            && !ui->uTxtUsername->text().isEmpty() && !ui->uTxtPassword->text().isEmpty())
+    {
         QSqlQuery query;
 
         query.prepare("INSERT INTO Utilisateurs (NomUtilisateur, PrenomUtilisateur, Username, Password, Administrateur) "
@@ -119,6 +121,9 @@ void Utilisateur::on_uBtnAjouter_clicked()
         {
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
         }
+    }
+    ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+    ui->uLabelAlerte->setText("Tous les champs sont obligatoires");
 }
 
 void Utilisateur::on_uBtnQuitter_clicked()
@@ -145,12 +150,8 @@ void Utilisateur::on_uBtnModifier_clicked()
     administrateurGroupe = ui->uCBoxAdministrateur->currentText().toInt();
     idUtilisateur = ui->uLabelIditUtilisateur->text().toInt();
 
-/*        if(!connexion.openConnexion())
-        {
-            qDebug() << "Echec de la connexion";
-            return;
-        }
-*/
+    if(!ui->uTxtNom->text().isEmpty() && !ui->uTxtPrenom->text().isEmpty())
+    {
         QSqlQuery query;
 
         query.prepare("UPDATE Utilisateurs SET "
@@ -178,6 +179,10 @@ void Utilisateur::on_uBtnModifier_clicked()
         {
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
         }
+    }
+
+    ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+    ui->uLabelAlerte->setText("Les champs Nom - Prénom sont obligatoires");
 }
 
 void Utilisateur::on_uBtnSupprimer_clicked()
