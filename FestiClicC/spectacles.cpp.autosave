@@ -165,36 +165,32 @@ void Spectacles::on_sBtnAjouter_clicked()
         if(query.exec())
         {
            QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
-
-           //*************************************
+           
            MAJTableV();
-           //----------------------------------------------------
-            ViderLesChamps();
-           //----------------------------------------------------
+           ViderLesChamps();
 
-            //*******************************************************************
-        // parie id spectacle necessaire pour tab places
+            // parie id spectacle necessaire pour tab places
             int idSpectacle;
-            //Recupérer le dernier IdSpectacle
+            
+            //Recupérer l'IdSpectacle du spectacle créé
 
-            QSqlQuery query2;
-            query2.prepare("SELECT MAX(IdSpectacle) FROM Spectacles ");
+            QSqlQuery queryGetIdSpectacle;
+            queryGetIdSpectacle.prepare("SELECT MAX(IdSpectacle) FROM Spectacles ");
 
-            query2.exec();
-            if (query2.next())
+            queryGetIdSpectacle.exec();
+            if (queryGetIdSpectacle.next())
             {
-                idSpectacle = query2.value(0).toInt();
+                idSpectacle = queryGetIdSpectacle.value(0).toInt();
             }
 
             qDebug() << "idSpectacle au debut : " <<idSpectacle;
 
-            //-----------------
-            //Insérer la liste des sieges a la tables Places
-            QSqlQuery query1;
-            query1.prepare("INSERT INTO Places (NumPlace, IdSpectacle) "
+            //Insérer la liste des sieges a la tables Places pour le spectacle créé
+            QSqlQuery queryInsertPlaces;
+            queryInsertPlaces.prepare("INSERT INTO Places (NumPlace, IdSpectacle) "
                           "SELECT NumSiege, :idSpectacle FROM Sieges ");
-            query1.bindValue(":idSpectacle", idSpectacle);
-            query1.exec();
+            queryInsertPlaces.bindValue(":idSpectacle", idSpectacle);
+            queryInsertPlaces.exec();
 
 
 //*************************************************************************************************************************************
