@@ -67,6 +67,7 @@ Frequentation::Frequentation(QWidget *parent) :
         ui->fTabV->resizeColumnsToContents();
 
         qDebug() << (modal2->rowCount());
+
 }
 
 
@@ -183,3 +184,5 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
     }
 }
+
+

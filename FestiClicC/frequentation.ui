@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1044</width>
-    <height>552</height>
+    <height>627</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,14 +25,14 @@
         <x>0</x>
         <y>0</y>
         <width>1024</width>
-        <height>532</height>
+        <height>607</height>
        </rect>
       </property>
       <widget class="QLabel" name="cLabelAlerte">
        <property name="geometry">
         <rect>
          <x>160</x>
-         <y>480</y>
+         <y>570</y>
          <width>531</width>
          <height>16</height>
         </rect>
@@ -45,7 +45,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>470</y>
+         <y>560</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -59,8 +59,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>691</width>
-         <height>451</height>
+         <width>931</width>
+         <height>531</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -174,6 +174,13 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QProgressBar" name="progressBar_2">
+               <property name="value">
+                <number>24</number>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -282,6 +289,13 @@
               <widget class="QPushButton" name="cltBtnViderChamps">
                <property name="text">
                 <string>Vider les champs</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QProgressBar" name="progressBar">
+               <property name="value">
+                <number>24</number>
                </property>
               </widget>
              </item>

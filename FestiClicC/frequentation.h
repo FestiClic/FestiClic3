@@ -20,6 +20,7 @@ private slots:
 
     void on_fCBoxSpectacleProgramme_currentIndexChanged(int index);
 
+
 private:
     Ui::Frequentation *ui;
 };
