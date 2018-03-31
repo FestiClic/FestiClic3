@@ -15,6 +15,11 @@ public:
     explicit Frequentation(QWidget *parent = 0);
     ~Frequentation();
 
+private slots:
+    void on_fCBoxSpectaclecloture_currentIndexChanged(int index);
+
+    void on_fCBoxSpectacleProgramme_currentIndexChanged(int index);
+
 private:
     Ui::Frequentation *ui;
 };

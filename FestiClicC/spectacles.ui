@@ -40,9 +40,9 @@
    <property name="geometry">
     <rect>
      <x>620</x>
-     <y>80</y>
+     <y>110</y>
      <width>391</width>
-     <height>371</height>
+     <height>341</height>
     </rect>
    </property>
    <property name="title">
@@ -201,6 +201,19 @@
    </property>
    <property name="text">
     <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>39</y>
+     <width>391</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Recherche</string>
    </property>
   </widget>
  </widget>

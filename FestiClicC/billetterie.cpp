@@ -168,7 +168,7 @@ void Billetterie::MAJListeDesSieges()
 
     QSqlQuery* query4 = new QSqlQuery(connexion.maBaseDeDonnee);
     query4->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0 "
-                    "AND IdSpectacle = :idSpectacle");
+                    "AND IdSpectacleP = :idSpectacle");
     query4->bindValue(":idSpectacle", idSpectacle);
     query4->exec();
     modal4->setQuery(*query4);
@@ -579,7 +579,7 @@ void Billetterie::on_bBtnPaiement_clicked()
 //Requete pour passer le siege en réservé
              query3.prepare( "UPDATE Places SET Reserve = 1 "
                              "WHERE NumPlace = :numPlace "
-                             "AND IdSpectacle = :idSpectacle ");
+                             "AND IdSpectacleP = :idSpectacle ");
 
              query3.bindValue(":numPlace", numPlace);
              query3.bindValue(":idSpectacle", spectacle);
@@ -661,7 +661,7 @@ void Billetterie::on_bBtnPaiement_clicked()
 //Requete pour données billet
 
          QSqlQuery queryDonneesBillet;
-         queryDonneesBillet.prepare("SELECT IdBillet, Civilite, NomClient, PrenomClient Spectacle, Prix, NumPlace "
+         queryDonneesBillet.prepare("SELECT IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
                                     "FROM Billets b, Clients c, Spectacles s, Tarifs t, Places p "
                                     "Where b.IdClient = c.IdClient "
                                     "AND b.IdSpectacle = s.IdSpectacle "

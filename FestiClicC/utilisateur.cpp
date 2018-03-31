@@ -122,8 +122,11 @@ void Utilisateur::on_uBtnAjouter_clicked()
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
         }
     }
-    ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-    ui->uLabelAlerte->setText("Tous les champs sont obligatoires");
+    else
+    {
+        ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->uLabelAlerte->setText("Tous les champs sont obligatoires");
+    }
 }
 
 void Utilisateur::on_uBtnQuitter_clicked()
@@ -180,9 +183,12 @@ void Utilisateur::on_uBtnModifier_clicked()
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
         }
     }
+    else
+    {
 
-    ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-    ui->uLabelAlerte->setText("Les champs Nom - Prénom sont obligatoires");
+        ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->uLabelAlerte->setText("Les champs Nom - Prénom sont obligatoires");
+    }
 }
 
 void Utilisateur::on_uBtnSupprimer_clicked()

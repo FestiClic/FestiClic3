@@ -63,6 +63,7 @@ void Spectacles::ViderLesChamps()
     ui->sCBoxIdConfidSalle->setCurrentIndex(-1);
     ui->dateEdit->setDate(QDate::currentDate());
     ui->timeEdit->setTime(QTime::currentTime());
+    ui->sLabelAlerte->clear();
 }
 
 void Spectacles::MAJTableV()
@@ -189,7 +190,7 @@ void Spectacles::on_sBtnAjouter_clicked()
 
             //Insérer la liste des sieges a la tables Places pour le spectacle créé
             QSqlQuery queryInsertPlaces;
-            queryInsertPlaces.prepare("INSERT INTO Places (NumPlace, IdSpectacle) "
+            queryInsertPlaces.prepare("INSERT INTO Places (NumPlace, IdSpectacleP) "
                           "SELECT NumSiege, :idSpectacle FROM Sieges ");
             queryInsertPlaces.bindValue(":idSpectacle", idSpectacle);
             queryInsertPlaces.exec();
@@ -237,13 +238,16 @@ void Spectacles::on_sBtnAjouter_clicked()
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
         }
     }
+    else
+    {
 
 //A coder
 //sécuriser la date si date = today !!!!!
 
 
-    ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-    ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
+        ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
+    }
 }
 
 
@@ -305,13 +309,16 @@ void Spectacles::on_sBtnModifier_clicked()
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
         }
     }
+    else
+    {
 
 //A coder
 //sécuriser la date si date = today !!!!!
 
 
-    ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-    ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
+        ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
+    }
 
 }
 

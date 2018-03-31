@@ -11,6 +11,8 @@
 #include "administrationbillet.h"
 #include "frequentation.h"
 #include <QDate>
+#include <QDateTime>
+#include <QTime>
 
 
 #include <QTabWidget>
@@ -63,14 +65,16 @@ Accueil::Accueil(QWidget *parent) :
         lanceApp=false;
     }
     //Labels
-    ui->aLabelHello->setStyleSheet("background-color:white; font-size: 15px;");
+   // ui->aLabelHello->setStyleSheet("background-color:white; font-size: 15px; color: orange;");
+    ui->aLabelHello->setStyleSheet("color: orange;");
     ui->aLabelHello->setText("HELLO");
 
-    ui->aLabelNomUtilisateur->setStyleSheet("background-color:white; font-size: 15px;");
-    ui->aLabelNomUtilisateur->setText("Nom utilisateur");
+    ui->aLabelNomUtilisateur->setStyleSheet("color: orange;");
+    ui->aLabelNomUtilisateur->setText("Connexion Monoposte \n Saison 2017 / 2018");
 
-    ui->aLabelDate->setStyleSheet("background-color:white; font-size: 15px;");
-    ui->aLabelDate->setText(QDate::currentDate().toString());
+    ui->aLabelDate->setStyleSheet("color: orange;");
+    ui->aLabelDate->setText(QDate::currentDate().toString("dd - MM - yyyy"));
+
 
 
 

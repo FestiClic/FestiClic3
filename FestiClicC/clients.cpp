@@ -184,9 +184,11 @@ void Clients::on_cltBtnAjouter_clicked()
 
         }
     }
-
-    ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-    ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
+    else
+    {
+        ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
+    }
 }
 
 //Bouton modifier client
@@ -268,9 +270,11 @@ void Clients::on_cltBtnModifier_clicked()
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
         }
     }
-
-    ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-    ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
+    else
+    {
+        ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
+    }
 }
 
 //Bouton supprimer
