@@ -63,6 +63,16 @@ private slots:
 
     void on_AdBBtnAjouterMPaiement_clicked();
 
+    void on_AdBBtnModifier_clicked();
+
+    void on_AdBBtnModifierTarif_clicked();
+
+    void on_AdBBtnSupprimer_clicked();
+
+    void on_AdBBtnSupprimerTarif_clicked();
+
+    void on_AdBBtnSupprimerMPaiement_clicked();
+
 private:
     Ui::AdministrationBillet *ui;
 };

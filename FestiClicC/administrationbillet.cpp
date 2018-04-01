@@ -147,7 +147,6 @@ void AdministrationBillet::MasquerLesChampsModePaiement()
     ui->AdBLabelMPaiement->hide();
     ui->AdBTxtIntituleMPaiement->hide();
     ui->AdBBtnAjouterMPaiement->hide();
-    ui->AdBBtnModifierMPaiement->hide();
     ui->AdBBtnSupprimerMPaiement->hide();
     ui->AdBBtnAnnulerMPaiement->hide();
 }
@@ -157,7 +156,6 @@ void AdministrationBillet::AfficherLesChampsModePaiement()
     ui->AdBLabelMPaiement->show();
     ui->AdBTxtIntituleMPaiement->show();
     ui->AdBBtnAjouterMPaiement->show();
-    ui->AdBBtnModifierMPaiement->show();
     ui->AdBBtnSupprimerMPaiement->show();
     ui->AdBBtnAnnulerMPaiement->show();
 }
@@ -299,7 +297,7 @@ void AdministrationBillet::on_TabVMPaiement_activated(const QModelIndex &index)
     }
 }
 
-
+//Bouton ajouter nouvau enregistrement dans ConfigSalle
 void AdministrationBillet::on_AdBBtnAjouter_clicked()
 {
     QString configSalle;
@@ -334,6 +332,83 @@ void AdministrationBillet::on_AdBBtnAjouter_clicked()
         ui->labelAlert->show();
         ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
         ui->labelAlert->setText("Tous les champs sont obligatoires");
+    }
+}
+
+//Bouton modifier un enregistrement dans ConfigSalle
+void AdministrationBillet::on_AdBBtnModifier_clicked()
+{
+    QString configSalle;
+    int jauge;
+
+    configSalle = ui->AdBTxtIntitule->text();
+    jauge = ui->AdBTxtNbPlaces->text().toInt();
+
+    if(!ui->AdBTxtIntitule->text().isEmpty() && !ui->AdBTxtNbPlaces->text().isEmpty())
+    {
+        QSqlQuery query;
+        query.prepare("UPDATE ConfigSalle "
+                      "SET IntituleConfigSalle = :configSalle, Jauge = :jauge "
+                      "WHERE IntituleConfigSalle = :configSalle");
+
+        query.bindValue(":configSalle", configSalle);
+        query.bindValue(":jauge", jauge);
+
+        if(query.exec())
+        {
+            ViderLesChampsConfigSalle();
+
+            QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
+
+            MAJTablesViewPage();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
+    }
+    else
+    {
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("La jauge est obligatoire !");
+    }
+}
+
+//Bouton supprimer enregistrement dans Config Salle
+void AdministrationBillet::on_AdBBtnSupprimer_clicked()
+{
+    QString configSalle;
+    configSalle = ui->AdBTxtIntitule->text();
+
+    QMessageBox msgBox;
+    msgBox.setText("Voulez-vous vraiment supprimer "+configSalle+ " ?");
+    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+    msgBox.addButton("Non", QMessageBox::NoRole);
+
+    msgBox.exec();
+    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    {
+
+        QSqlQuery query;
+        query.prepare("DELETE FROM ConfigSalle WHERE IntituleConfigSalle = :configSalle");
+        query.bindValue(":configSalle", configSalle);
+
+        if(query.exec())
+        {
+            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+
+            MAJTablesViewPage();
+            ViderLesChampsConfigSalle();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
+    }
+    else
+    {
+            qDebug() << "Non Annuler";
     }
 }
 
@@ -374,7 +449,82 @@ void AdministrationBillet::on_AdBBtnAjouterTarif_clicked()
         ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
         ui->labelAlert->setText("Tous les champs sont obligatoires");
     }
+}
 
+//Bouton modifier un enregistrement dans Tarif
+void AdministrationBillet::on_AdBBtnModifierTarif_clicked()
+{
+    QString tarif;
+    double prix;
+
+    tarif = ui->AdBTxtTarif->text();
+    prix = ui->AdBTxtPrix->text().toDouble();
+
+    if(!ui->AdBTxtTarif->text().isEmpty() && !ui->AdBTxtPrix->text().isEmpty())
+    {
+        QSqlQuery query;
+        query.prepare("UPDATE Tarifs "
+                      "SET IntituleTarif = :tarif, Prix = :prix "
+                      "WHERE IntituleTarif = :tarif");
+
+        query.bindValue(":tarif", tarif);
+        query.bindValue(":prix", prix);
+
+        if(query.exec())
+        {
+            ViderLesChampsTarif();
+
+            QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
+
+            MAJTablesViewPage();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
+    }
+    else
+    {
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("Le prix est obligatoire !");
+    }
+}
+
+//Bouton supprimer enregistrement dans Tarif
+void AdministrationBillet::on_AdBBtnSupprimerTarif_clicked()
+{
+    QString tarif;
+    tarif = ui->AdBTxtTarif->text();
+
+    QMessageBox msgBox;
+    msgBox.setText("Voulez-vous vraiment supprimer "+tarif+ " ?");
+    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+    msgBox.addButton("Non", QMessageBox::NoRole);
+
+    msgBox.exec();
+    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    {
+        QSqlQuery query;
+        query.prepare("DELETE FROM Tarifs WHERE IntituleTarif = :tarif");
+        query.bindValue(":tarif", tarif);
+
+        if(query.exec())
+        {
+            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+
+            MAJTablesViewPage();
+            ViderLesChampsTarif();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
+    }
+    else
+    {
+            qDebug() << "Non Annuler";
+    }
 }
 
 //Bouton ajouter nouvau enregistrement dans Mode de paiement
@@ -410,5 +560,40 @@ void AdministrationBillet::on_AdBBtnAjouterMPaiement_clicked()
         ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
         ui->labelAlert->setText("Tous les champs sont obligatoires");
     }
+}
 
+//Bouton supprimer enregistrement dans Mode de paiement
+void AdministrationBillet::on_AdBBtnSupprimerMPaiement_clicked()
+{
+    QString modePaiement;
+    modePaiement = ui->AdBTxtIntituleMPaiement->text();
+
+    QMessageBox msgBox;
+    msgBox.setText("Voulez-vous vraiment supprimer "+modePaiement+ " ?");
+    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+    msgBox.addButton("Non", QMessageBox::NoRole);
+
+    msgBox.exec();
+    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    {
+        QSqlQuery query;
+        query.prepare("DELETE FROM ModePaiement WHERE TypeModePaiement = :modePaiement");
+        query.bindValue(":modePaiement", modePaiement);
+
+        if(query.exec())
+        {
+            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+
+            MAJTablesViewPage();
+            ViderLesChampsModePaiemenet();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+        }
+    }
+    else
+    {
+            qDebug() << "Non Annuler";
+    }
 }

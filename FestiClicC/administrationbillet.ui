@@ -282,13 +282,6 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="AdBBtnModifierMPaiement">
-              <property name="text">
-               <string>Modifier</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QPushButton" name="AdBBtnSupprimerMPaiement">
               <property name="text">
                <string>Supprimer</string>
