@@ -104,9 +104,18 @@ Billetterie::Billetterie(QWidget *parent) :
     query3->exec();  //Execution de la requête
     modal3->setQuery(*query3);    //Récuperation des valeurs pointeur de requete
     ui->bCBoxNumSiege->setModel(modal3);     //Envoyer les données en combo
-
 //************************************************************************************************************************
+    //Affecter les modes de paiement a la comboBox
+    QSqlQueryModel * modalModePaiement = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
+    QSqlQuery* queryModePaiement = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    queryModePaiement->prepare("SELECT TypeModePaiement FROM ModePaiement ");
+    queryModePaiement->exec();  //Execution de la requête
+    modalModePaiement->setQuery(*queryModePaiement);    //Récuperation des valeurs pointeur de requete
+    ui->bCBoxModePaiement->setModel(modalModePaiement);     //Envoyer les données en combo
+
+    qDebug() << (modalModePaiement->rowCount());
+//************************************************************************************************************************
     //fermeture de la connexion
     //connexion2.closeConnexion();
     qDebug() << (modal2->rowCount());
@@ -647,7 +656,13 @@ void Billetterie::on_bBtnPaiement_clicked()
           //Faire requet pour insertion dans table Mode Paiement
 
 //********************************************************************************
-/*                     QSqlQuery queryTransaction;
+                     QString modePaiement;
+                     int nombreDePlaces;
+
+                     modePaiement = ui->bCBoxModePaiement->currentText();
+                     nombreDePlaces = siegesCommande.count();
+
+                     QSqlQuery queryTransaction;
 
 //Requete insertion données dans la table Transaction
 
@@ -655,17 +670,20 @@ void Billetterie::on_bBtnPaiement_clicked()
                                    "VALUES ( (SELECT MAX(IdClient) FROM Clients), "
                                    "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
                                    "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                                   "(SELECT IdModePaiement FROM ModePaiement WHERE IdModePaiement = :idModePaiement), "
-                                   "siegegeCommande.lenght ) ");
+                                   "(SELECT IdModePaiement FROM ModePaiement WHERE TypeModePaiement = :modePaiement), "
+                                   ":nombreDePlaces ) ");
 
                      queryTransaction.bindValue(":client", client);
                      queryTransaction.bindValue(":spectacle", spectacle);
                      queryTransaction.bindValue(":tarif", tarif);
                     // queryTransaction.bindValue(":siege", numPlace);
-                     queryTransaction.bindValue(":idModePaiement", idModePaiement);
+                     queryTransaction.bindValue(":modePaiement", modePaiement);
+                     queryTransaction.bindValue(":nombreDePlaces", nombreDePlaces);
 
                      queryTransaction.exec();
- */
+
+                     qDebug() << "Nombre de siege"<< siegesCommande.count();
+
          }
          siegesCommande.pop_back();
 
@@ -701,6 +719,7 @@ void Billetterie::on_bBtnPaiement_clicked()
          }
 
          qDebug() << nbPlaces;
+         qDebug() << "Donnéses billet " << ui->bLabelBillet->text();
 
 
          //ui->bLabelBillet->setText("<html><b><u>+spectacle+<br>+tarif+<br>+numPlace+<br>+client+</u></b></html>");
