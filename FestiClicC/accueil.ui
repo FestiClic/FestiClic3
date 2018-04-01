@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>889</width>
-    <height>714</height>
+    <height>753</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
          <x>0</x>
          <y>0</y>
          <width>869</width>
-         <height>641</height>
+         <height>680</height>
         </rect>
        </property>
        <widget class="QPushButton" name="aBtnBilletterie">
@@ -40,19 +40,6 @@
         </property>
         <property name="text">
          <string>Billetterie</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aBtnAdministratioBillet">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>400</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Administration billetterie</string>
         </property>
        </widget>
        <widget class="QPushButton" name="aBtnFrequentation">
@@ -327,6 +314,19 @@
         </property>
         <property name="text">
          <string>Plan de salle</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="aBtnAdministratioBillet">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>400</y>
+          <width>291</width>
+          <height>201</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Administration billetterie</string>
         </property>
        </widget>
       </widget>
