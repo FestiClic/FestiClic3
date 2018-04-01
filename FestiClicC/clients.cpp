@@ -92,6 +92,8 @@ void Clients::ViderLesChamps()
     ui->cltTxtMob->clear();
     ui->cltCBoxAbonne->setCurrentIndex(-1);
     ui->cltLabelIdClient->clear();
+    ui->cLabelAlerte->hide();
+
 }
 
 Clients::~Clients()
@@ -168,24 +170,21 @@ void Clients::on_cltBtnAjouter_clicked()
 
         if(query.exec())
         {
+           ViderLesChamps();
            //Affichage si ajouter ou pas dans un MessageBox
            QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
 
             MAJTableV();
-            ViderLesChamps();
-
-      //     connexion.closeConnexion();  //Fermeture de la connexion
-
         }
         else
         {
             //en cas de non execution de la requete
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
-
         }
     }
     else
     {
+        ui->cLabelAlerte->show();
         ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
     }
@@ -257,12 +256,11 @@ void Clients::on_cltBtnModifier_clicked()
 
         if(query.exec())
         {
+            ViderLesChamps();
+
             QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
 
             MAJTableV();
-            ViderLesChamps();
-
-     //       connexion.closeConnexion(); //fermeture de la connexion
         }
         else
         {
@@ -272,6 +270,7 @@ void Clients::on_cltBtnModifier_clicked()
     }
     else
     {
+        ui->cLabelAlerte->show();
         ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
     }
@@ -314,10 +313,11 @@ void Clients::on_cltBtnSupprimer_clicked()
 
         if(query.exec())
         {
+            ViderLesChamps();
+
             QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
 
             MAJTableV();
-            ViderLesChamps();
 
  //           connexion.closeConnexion();  //Fermeture de la connexion
 
@@ -342,15 +342,6 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
 
     valeurs = ui->cltTabV->model()->data(index).toString();
 
-//    Login connexion;
-
-/*    if(!connexion.openConnexion())
-    {
-        qDebug() << "Echec de connexion";
-        return;
-    }
-*/
- //   connexion.openConnexion();
     QSqlQuery query;
     query.prepare("SELECT * FROM Clients WHERE IdClient = '"+valeurs+"'"
                                             "OR Civilite = '"+valeurs+"'"
@@ -363,7 +354,6 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
                                             "OR TelClient = '"+valeurs+"'"
                                             "OR MobClient = '"+valeurs+"'"
                                             "OR Abonne = '"+valeurs+"'");
-
 
     if(query.exec())
     {
@@ -382,7 +372,6 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
             ui->cltCBoxAbonne->setCurrentText(query.value(10).toString());
 
         }
-//        connexion.closeConnexion();
     }
     else
     {

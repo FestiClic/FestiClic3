@@ -651,17 +651,17 @@ void Billetterie::on_bBtnPaiement_clicked()
 
 //Requete insertion données dans la table Transaction
 
-                     queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdPlace, IdTarif, IdModePaiement) "
+                     queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdTarif, IdModePaiement, NombreDePlaces ) "
                                    "VALUES ( (SELECT MAX(IdClient) FROM Clients), "
                                    "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
-                                   "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) "
                                    "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                                   "(SELECT IdModePaiement FROM ModePaiement WHERE IdModePaiement = :idModePaiement), ) ");
+                                   "(SELECT IdModePaiement FROM ModePaiement WHERE IdModePaiement = :idModePaiement), "
+                                   "siegegeCommande.lenght ) ");
 
                      queryTransaction.bindValue(":client", client);
                      queryTransaction.bindValue(":spectacle", spectacle);
                      queryTransaction.bindValue(":tarif", tarif);
-                     queryTransaction.bindValue(":siege", numPlace);
+                    // queryTransaction.bindValue(":siege", numPlace);
                      queryTransaction.bindValue(":idModePaiement", idModePaiement);
 
                      queryTransaction.exec();

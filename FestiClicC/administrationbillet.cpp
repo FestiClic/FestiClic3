@@ -597,3 +597,8 @@ void AdministrationBillet::on_AdBBtnSupprimerMPaiement_clicked()
             qDebug() << "Non Annuler";
     }
 }
+
+void AdministrationBillet::on_AdBtnQuitter_clicked()
+{
+    this->close();
+}

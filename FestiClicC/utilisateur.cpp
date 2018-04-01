@@ -18,10 +18,6 @@ Utilisateur::Utilisateur(QWidget *parent) :
 
     MAJTableV();
     ViderLesChamps();
-
-    //rendre une zone de text inclicable
-//    ui->uTxtNom->setEnabled(false);
-
 }
 
 void Utilisateur::MAJTableV()
@@ -55,6 +51,7 @@ void Utilisateur::ViderLesChamps()
     ui->uTxtPassword->clear();
     ui->uLabelIditUtilisateur->clear();
     ui->uCBoxAdministrateur->setCurrentIndex(-1);
+    ui->uLabelAlerte->hide();
 }
 
 Utilisateur::~Utilisateur()
@@ -73,15 +70,11 @@ Utilisateur::~Utilisateur()
 
 void Utilisateur::on_uBtnAjouter_clicked()
 {
-
-    //Login connexion;
-
     QString nomUtilisateur;
     QString prenomUtilisateur;
     QString username;
     QString password;
     int administrateurGroupe;
-
 
     nomUtilisateur = ui->uTxtNom->text();
     prenomUtilisateur = ui->uTxtPrenom->text();
@@ -89,12 +82,6 @@ void Utilisateur::on_uBtnAjouter_clicked()
     password = ui->uTxtPassword->text();
     administrateurGroupe = ui->uCBoxAdministrateur->currentText().toInt();
 
-/*        if(!connexion.openConnexion())
-        {
-            qDebug() << "Echec de la connexion";
-            return;
-        }
-*/
     if(!ui->uTxtNom->text().isEmpty() && !ui->uTxtPrenom->text().isEmpty()
             && !ui->uTxtUsername->text().isEmpty() && !ui->uTxtPassword->text().isEmpty())
     {
@@ -110,12 +97,11 @@ void Utilisateur::on_uBtnAjouter_clicked()
 
         if(query.exec())
         {
+           ViderLesChamps();
+
            QMessageBox::information(this,tr("Ajout utilisateur"), tr("Utilisateur ajouter avec succès"));
 
            MAJTableV();
-           ViderLesChamps();
-
-          // connexion.closeConnexion();
         }
         else
         {
@@ -124,6 +110,7 @@ void Utilisateur::on_uBtnAjouter_clicked()
     }
     else
     {
+        ui->uLabelAlerte->show();
         ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->uLabelAlerte->setText("Tous les champs sont obligatoires");
     }
@@ -136,8 +123,6 @@ void Utilisateur::on_uBtnQuitter_clicked()
 
 void Utilisateur::on_uBtnModifier_clicked()
 {
-    //Login connexion;
-
     QString nomUtilisateur;
     QString prenomUtilisateur;
     QString username;
@@ -171,12 +156,11 @@ void Utilisateur::on_uBtnModifier_clicked()
 
         if(query.exec())
         {
+           ViderLesChamps();
+
            QMessageBox::information(this,tr("Modification utilisateur"), tr("La fiche utilisateur à été modifié avec succès"));
 
            MAJTableV();
-           ViderLesChamps();
-
-           //connexion.closeConnexion();
         }
         else
         {
@@ -185,7 +169,7 @@ void Utilisateur::on_uBtnModifier_clicked()
     }
     else
     {
-
+        ui->uLabelAlerte->show();
         ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->uLabelAlerte->setText("Les champs Nom - Prénom sont obligatoires");
     }
@@ -207,34 +191,26 @@ void Utilisateur::on_uBtnSupprimer_clicked()
     msgBox.exec();
     if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
     {
+        //QDEBUG
         qDebug() << "ok";
-        //Login connexion;
 
         int idUtilisateur;
 
         idUtilisateur = ui->uLabelIditUtilisateur->text().toInt();
 
-/*        if(!connexion.openConnexion())
-        {
-            qDebug() << "Echec de connexion";
-            return;
-        }
-*/
         QSqlQuery query;
         query.prepare("DELETE FROM Utilisateurs WHERE IdUtilisateur = :idUtilisateur");
         query.bindValue(":idUtilisateur", idUtilisateur);
 
         if(query.exec())
         {
+            ViderLesChamps();
+
             QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé "));
 
             MAJTableV();
 
-            ViderLesChamps();
-
             ui->uTabV->resizeColumnsToContents();
-
-            //connexion.closeConnexion();
         }
         else
         {
@@ -243,33 +219,26 @@ void Utilisateur::on_uBtnSupprimer_clicked()
     }
     else
     {
-      qDebug() << "Non Annuler";
+        //QDEBUG
+        qDebug() << "Non Annuler";
     }
 }
 
+//Affecté les données aux chanps txt apartir de la tableView
 void Utilisateur::on_uTabV_activated(const QModelIndex &index)
 {
-    //Affecté les données aux chanps txt apartir de la tableView
         QString valeur;
 
         valeur = ui->uTabV->model()->data(index).toString();
 
-        //Login connexion;
-
- /*       if(!connexion.openConnexion())
-        {
-            qDebug() << "Echec de connexion";
-            return;
-        }
-*/
-        //connexion.openConnexion();
-
         QSqlQuery query;
         query.prepare("SELECT IdUtilisateur, NomUtilisateur, PrenomUtilisateur, Administrateur FROM Utilisateurs "
-                      "WHERE  IdUtilisateur = '"+valeur+"'"
-                                                "OR NomUtilisateur = '"+valeur+"'"
-                                                "OR PrenomUtilisateur = '"+valeur+"'"
-                                                "OR Administrateur = '"+valeur+"' ");
+                      "WHERE  IdUtilisateur = :valeur "
+                                                "OR NomUtilisateur = :valeur "
+                                                "OR PrenomUtilisateur = :valeur "
+                                                "OR Administrateur = :valeur ");
+        query.bindValue(":valeur", valeur);
+
         if(query.exec())
         {
             while (query.next())
@@ -278,9 +247,7 @@ void Utilisateur::on_uTabV_activated(const QModelIndex &index)
                 ui->uTxtNom->setText(query.value(1).toString());
                 ui->uTxtPrenom->setText(query.value(2).toString());
                 ui->uCBoxAdministrateur->setCurrentText(query.value(3).toString());
-
             }
-           // connexion.closeConnexion();
         }
         else
         {

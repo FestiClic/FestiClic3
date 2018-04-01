@@ -31,11 +31,6 @@ Spectacles::Spectacles(QWidget *parent) :
     MAJTableV();
     ui->sTxtIntituleConfig->setEnabled(false);
 
-    //Login connexion;
-   // QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-    //connexion.openConnexion();
-
     //Requette pour remplir le ComboBox
     QSqlQueryModel * modal = new QSqlQueryModel();
 
@@ -50,7 +45,6 @@ Spectacles::Spectacles(QWidget *parent) :
     //connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 
-
     ViderLesChamps();
 }
 
@@ -64,6 +58,7 @@ void Spectacles::ViderLesChamps()
     ui->dateEdit->setDate(QDate::currentDate());
     ui->timeEdit->setTime(QTime::currentTime());
     ui->sLabelAlerte->clear();
+    ui->sLabelAlerte->hide();
 }
 
 void Spectacles::MAJTableV()
@@ -156,7 +151,6 @@ void Spectacles::on_sBtnAjouter_clicked()
 */
         QSqlQuery query;
 
-
         query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle, JaugeSpectacle) "
                       "VALUES (:spectacle, :date, :heure, :idConfigSalle, :jaugeS)");
         query.bindValue(":spectacle", spectacle);
@@ -167,10 +161,11 @@ void Spectacles::on_sBtnAjouter_clicked()
 
         if(query.exec())
         {
+            ViderLesChamps();
+
            QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
 
            MAJTableV();
-           ViderLesChamps();
 
             // parie id spectacle necessaire pour tab places
             int idSpectacle;
@@ -185,6 +180,7 @@ void Spectacles::on_sBtnAjouter_clicked()
             {
                 idSpectacle = queryGetIdSpectacle.value(0).toInt();
             }
+            //QDEBUG
             qDebug() << "idSpectacle au debut : " <<idSpectacle;
 
             //Insérer la liste des sieges a la tables Places pour le spectacle créé
@@ -241,6 +237,7 @@ void Spectacles::on_sBtnAjouter_clicked()
 
 //A coder
 //sécuriser la date si date = today !!!!!
+        ui->sLabelAlerte->show();
         ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
     }
@@ -289,14 +286,11 @@ void Spectacles::on_sBtnModifier_clicked()
 
         if(query.exec())
         {
+            ViderLesChamps();
+
             QMessageBox::information(this, tr("Modification spectacle"), tr("Spectacle modifié avec succes"));
 
             MAJTableV();
-            ViderLesChamps();
-
-
-     //       connexion.closeConnexion(); //fermeture de la connexion
-
         }
         else
         {
@@ -309,7 +303,7 @@ void Spectacles::on_sBtnModifier_clicked()
 
 //A coder
 //sécuriser la date si date = today !!!!!
-
+        ui->sLabelAlerte->show();
         ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
     }
@@ -321,14 +315,6 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
     QString intituleConfig;
     intituleConfig = ui->sCBoxIdConfidSalle->currentText();
 
- //   Login connexion;
-
- /*   if(!connexion.openConnexion())
-    {
-        qDebug()<<"Echec de connexion";
-        return;
-    }
-*/
     QSqlQuery query;
 
     //Je prepare ma requete
@@ -406,15 +392,6 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
 
         valeur = ui->sTabV->model()->data(index).toString();
 
-//        Login connexion;
-
-/*        if(!connexion.openConnexion())
-        {
-            qDebug() << "Echec de connexion";
-            return;
-        }
-*/
-
         QSqlQuery query;
         query.prepare("SELECT * FROM Spectacles "
                       "WHERE  IdSpectacle = '"+valeur+"'"
@@ -432,19 +409,12 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
                 ui->timeEdit->setTime(query.value(3).toTime());
                 ui->sTxtJauge->setText(query.value(4).toString());
                 ui->sCBoxIdConfidSalle->setCurrentText(query.value(5).toString());
-
             }
-            //-------------------------------------------------------------------------------------
-
-            //-------------------------------------------------------------------------------------
-
-  //          connexion.closeConnexion();
         }
         else
         {
                 QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
         }
-
 }
 
 void Spectacles::on_sBtnViderChamps_clicked()

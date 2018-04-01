@@ -21,6 +21,8 @@ private slots:
     void on_fCBoxSpectacleProgramme_currentIndexChanged(int index);
 
 
+    void on_cltBtnQuitter_clicked();
+
 private:
     Ui::Frequentation *ui;
 };

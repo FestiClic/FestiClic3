@@ -4,6 +4,7 @@
 #include "login.h"
 #include <QDate>
 #include <QMessageBox>
+#include <QProgressBar>
 
 Frequentation::Frequentation(QWidget *parent) :
     QDialog(parent),
@@ -68,6 +69,8 @@ Frequentation::Frequentation(QWidget *parent) :
 
         qDebug() << (modal2->rowCount());
 
+
+
 }
 
 
@@ -124,6 +127,15 @@ void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(int index)
             QString pourcentageRemplissage = QString::number(pourcentage);
             ui->fTxtFrequentation->setText(pourcentageRemplissage);
 
+ /*           //progresse bar
+
+            int pourcentagePBar = ui->fTxtFrequentation->text().toInt();
+            connect(pourcentagePBar,SIGNAL(), ui->progressBar_2,SLOT(setValue(int)));
+          //  int maxPourcentage = valeurRemplissage;
+           // ui->progressBar->setMaximum(maxPourcentage);
+
+            //ui->progressBar->setValue(pourcentagePBar);
+*/
         }
     }
     else
@@ -165,17 +177,26 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
 
             //Calculer le pourcentage de la fréquentation du spectacle
 
-            double pourcentage;
-            double valeurRemplissage;
-            double jauge;
+            int pourcentage;
+            int valeurRemplissage;
+            int jauge;
 
-            valeurRemplissage = std::stod(ui->fTxtRemplissage_2->text().toStdString());
-            jauge = std::stod(ui->fTxtJaugeInitiale_2->text().toStdString());
+            valeurRemplissage = std::stoi(ui->fTxtRemplissage_2->text().toStdString());
+            jauge = std::stoi(ui->fTxtJaugeInitiale_2->text().toStdString());
 
             pourcentage = (100*valeurRemplissage/jauge);
 
             QString pourcentageRemplissage = QString::number(pourcentage);
             ui->fTxtFrequentation_2->setText(pourcentageRemplissage);
+
+            //progresse bar
+            int pourcentagePBar = ui->fTxtFrequentation_2->text().toInt();
+            int maxPourcentage = valeurRemplissage;
+            ui->progressBar_2->setMaximum(maxPourcentage);
+            ui->progressBar_2->setMinimum(0);
+
+            ui->progressBar_2->setValue(pourcentagePBar);
+
 
         }
     }
@@ -186,3 +207,8 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
 }
 
 
+
+void Frequentation::on_cltBtnQuitter_clicked()
+{
+    this->close();
+}

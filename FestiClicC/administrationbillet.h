@@ -73,6 +73,8 @@ private slots:
 
     void on_AdBBtnSupprimerMPaiement_clicked();
 
+    void on_AdBtnQuitter_clicked();
+
 private:
     Ui::AdministrationBillet *ui;
 };
