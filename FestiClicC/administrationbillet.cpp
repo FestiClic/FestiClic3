@@ -14,12 +14,15 @@ AdministrationBillet::AdministrationBillet(QWidget *parent) :
 
     MAJTablesViewPage();
 
-
-    //Cacher les zones de text et les boutons
+    //Masquer les zones de text et les boutons
     MasquerLesChampsConfigSalle(); //ConfigSalle
     MasquerLesChampsTarif();
     MasquerLesChampsModePaiement();
 
+    //Initialisation des champs text
+    ViderLesChampsConfigSalle();
+    ViderLesChampsTarif();
+    ViderLesChampsModePaiemenet();
 }
 
 void AdministrationBillet::MAJTablesViewPage()
@@ -73,6 +76,7 @@ void AdministrationBillet::MAJTablesViewPage()
         //Redimentionner les colonnes en fonction du contenu
         ui->TabVMPaiement->resizeColumnsToContents();
         qDebug() << (modelPaiementMode->rowCount());
+
 }
 
 void AdministrationBillet::MasquerLesChampsConfigSalle()
@@ -99,6 +103,13 @@ void AdministrationBillet::AfficherLesChampsConfigSalle()
     ui->AdBBtnAnnuler->show();
 }
 
+void AdministrationBillet::ViderLesChampsConfigSalle()
+{
+    ui->AdBTxtIntitule->clear();
+    ui->AdBTxtNbPlaces->clear();
+    //Masquer le label Alert
+    ui->labelAlert->hide();
+}
 void AdministrationBillet::MasquerLesChampsTarif()
 {
     ui->AdBLabelTarif->hide();
@@ -123,6 +134,14 @@ void AdministrationBillet::AfficherLesChampsTarif()
     ui->AdBBtnAnnulerTarif->show();
 }
 
+void AdministrationBillet::ViderLesChampsTarif()
+{
+    ui->AdBTxtTarif->clear();
+    ui->AdBTxtPrix->clear();
+    //Masquer le label Alert
+    ui->labelAlert->hide();
+}
+
 void AdministrationBillet::MasquerLesChampsModePaiement()
 {
     ui->AdBLabelMPaiement->hide();
@@ -143,6 +162,13 @@ void AdministrationBillet::AfficherLesChampsModePaiement()
     ui->AdBBtnAnnulerMPaiement->show();
 }
 
+void AdministrationBillet::ViderLesChampsModePaiemenet()
+{
+    ui->AdBTxtIntituleMPaiement->clear();
+    //Masquer le label Alert
+    ui->labelAlert->hide();
+}
+
 AdministrationBillet::~AdministrationBillet()
 {
     Login connexion;
@@ -159,6 +185,7 @@ void AdministrationBillet::on_AdBBtnModifierFiche_clicked()
 void AdministrationBillet::on_AdBBtnAnnuler_clicked()
 {
     MasquerLesChampsConfigSalle();
+    ViderLesChampsConfigSalle();
     ui->AdBBtnModifierFiche->show();
 
 }
@@ -172,6 +199,7 @@ void AdministrationBillet::on_AdBBtnModifierFicheTarif_clicked()
 void AdministrationBillet::on_AdBBtnAnnulerTarif_clicked()
 {
     MasquerLesChampsTarif();
+    ViderLesChampsTarif();
     ui->AdBBtnModifierFicheTarif->show();
 }
 
@@ -184,6 +212,7 @@ void AdministrationBillet::on_AdBBtnModifierFicheMPaiement_clicked()
 void AdministrationBillet::on_AdBBtnAnnulerMPaiement_clicked()
 {
     MasquerLesChampsModePaiement();
+    ViderLesChampsModePaiemenet();
     ui->AdBBtnModifierFicheMPaiement->show();
 }
 
@@ -263,10 +292,123 @@ void AdministrationBillet::on_TabVMPaiement_activated(const QModelIndex &index)
         //Afficher les champs qui recoivent les données de la requête
         AfficherLesChampsModePaiement();
         ui->AdBBtnModifierFicheMPaiement->hide();
-
     }
     else
     {
             QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
+}
+
+
+void AdministrationBillet::on_AdBBtnAjouter_clicked()
+{
+    QString configSalle;
+    int jauge;
+
+    configSalle = ui->AdBTxtIntitule->text();
+    jauge = ui->AdBTxtNbPlaces->text().toInt();
+
+    if(!ui->AdBTxtIntitule->text().isEmpty() && !ui->AdBTxtNbPlaces->text().isEmpty())
+    {
+        QSqlQuery query;
+        query.prepare("INSERT INTO ConfigSalle (IntituleConfigSalle, Jauge) "
+                      "VALUES (:configSalle, :jauge)");
+        query.bindValue(":configSalle", configSalle);;
+        query.bindValue(":jauge", jauge);
+
+        if(query.exec())
+        {
+           ViderLesChampsConfigSalle();
+
+           QMessageBox::information(this,tr("Ajout nouvelle configuration de salle"), tr("Ajouté avec succès "));
+
+           MAJTablesViewPage();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+        }
+    }
+    else
+    {
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("Tous les champs sont obligatoires");
+    }
+}
+
+//Bouton ajouter nouvau enregistrement dans Tarif
+void AdministrationBillet::on_AdBBtnAjouterTarif_clicked()
+{
+    QString tarif;
+    double prix;
+
+    tarif = ui->AdBTxtTarif->text();
+    prix = ui->AdBTxtPrix->text().toDouble();
+
+    if(!ui->AdBTxtTarif->text().isEmpty() && !ui->AdBTxtPrix->text().isEmpty())
+    {
+        QSqlQuery query;
+        query.prepare("INSERT INTO Tarifs (IntituleTarif, Prix) "
+                      "VALUES (:tarif, :prix)");
+        query.bindValue(":tarif", tarif);;
+        query.bindValue(":prix", prix);
+
+        if(query.exec())
+        {
+           ViderLesChampsTarif();
+
+           QMessageBox::information(this,tr("Ajout nouveau tarif "), tr("Ajouté avec succès "));
+
+           MAJTablesViewPage();
+
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+        }
+    }
+    else
+    {
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("Tous les champs sont obligatoires");
+    }
+
+}
+
+//Bouton ajouter nouvau enregistrement dans Mode de paiement
+void AdministrationBillet::on_AdBBtnAjouterMPaiement_clicked()
+{
+    QString modePaiement;
+
+    modePaiement = ui->AdBTxtIntituleMPaiement->text();
+
+    if(!ui->AdBTxtIntituleMPaiement->text().isEmpty())
+    {
+        QSqlQuery query;
+        query.prepare("INSERT INTO ModePaiement (TypeModePaiement) "
+                      "VALUES (:modePaiement)");
+        query.bindValue(":modePaiement", modePaiement);
+
+        if(query.exec())
+        {
+           ViderLesChampsModePaiemenet();
+
+           QMessageBox::information(this,tr("Ajout nouveau mode de paiement"), tr("Ajouté avec succès "));
+
+           MAJTablesViewPage();
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+        }
+    }
+    else
+    {
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("Tous les champs sont obligatoires");
+    }
+
 }

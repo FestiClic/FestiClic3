@@ -185,7 +185,6 @@ void Spectacles::on_sBtnAjouter_clicked()
             {
                 idSpectacle = queryGetIdSpectacle.value(0).toInt();
             }
-
             qDebug() << "idSpectacle au debut : " <<idSpectacle;
 
             //Insérer la liste des sieges a la tables Places pour le spectacle créé
@@ -194,7 +193,6 @@ void Spectacles::on_sBtnAjouter_clicked()
                           "SELECT NumSiege, :idSpectacle FROM Sieges ");
             queryInsertPlaces.bindValue(":idSpectacle", idSpectacle);
             queryInsertPlaces.exec();
-
 
 //*************************************************************************************************************************************
         // Création de la table dynamique
@@ -243,13 +241,10 @@ void Spectacles::on_sBtnAjouter_clicked()
 
 //A coder
 //sécuriser la date si date = today !!!!!
-
-
         ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
     }
 }
-
 
 //Modification a corriger pb requete ajout ou non de champ ID
 void Spectacles::on_sBtnModifier_clicked()
@@ -315,16 +310,12 @@ void Spectacles::on_sBtnModifier_clicked()
 //A coder
 //sécuriser la date si date = today !!!!!
 
-
         ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
         ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
     }
-
 }
 
-
 //Affecter la jauge a partir des donnee conbobox
-
 void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
 {
     QString intituleConfig;
@@ -351,7 +342,6 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
             ui->sTxtIntituleConfig->setText(query.value(1).toString());
             ui->sTxtJauge->setText(query.value(2).toString());
         }
-  //      connexion.closeConnexion();
     }
     else
     {
@@ -375,11 +365,9 @@ void Spectacles::on_sBtnSupprimer_clicked()
     {
         qDebug() << "ok";
 
-
         int idSpectacle;
 
         idSpectacle = ui->sLabelIdSpectacle->text().toInt();
-
 
         QSqlQuery query;
         query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
@@ -402,8 +390,6 @@ void Spectacles::on_sBtnSupprimer_clicked()
             //en cas de non execution de la requete
             QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
         }
-
-
     }
     else
     {
@@ -411,11 +397,10 @@ void Spectacles::on_sBtnSupprimer_clicked()
     }
 }
 
-
-
+//Affecté les données aux chanps txt apartir de la tableView
 void Spectacles::on_sTabV_activated(const QModelIndex &index)
 {
-    //Affecté les données aux chanps txt apartir de la tableView
+
 
         QString valeur;
 

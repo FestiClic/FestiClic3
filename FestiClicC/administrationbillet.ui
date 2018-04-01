@@ -240,7 +240,7 @@
         </font>
        </property>
        <property name="title">
-        <string>Mode de paiement</string>
+        <string>Modes de paiement</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
@@ -307,6 +307,19 @@
          </layout>
         </item>
        </layout>
+      </widget>
+      <widget class="QLabel" name="labelAlert">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>350</y>
+         <width>261</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
       </widget>
      </widget>
     </widget>

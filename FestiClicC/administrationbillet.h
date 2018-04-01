@@ -20,22 +20,28 @@ private slots:
 
     void on_AdBBtnAnnuler_clicked();
 
+    //Mise a jour des TableView de la page
+    void MAJTablesViewPage();
+
     //masquer les champs et boutons
     void MasquerLesChampsConfigSalle();
 
     //afficher les champs et boutons
     void AfficherLesChampsConfigSalle();
 
-    //Mise a jour des TableView de la page
-    void MAJTablesViewPage();
+    void ViderLesChampsConfigSalle();
 
     void MasquerLesChampsTarif();
 
     void AfficherLesChampsTarif();
 
+    void ViderLesChampsTarif();
+
     void MasquerLesChampsModePaiement();
 
     void AfficherLesChampsModePaiement();
+
+    void ViderLesChampsModePaiemenet();
 
     void on_AdBBtnModifierFicheTarif_clicked();
 
@@ -50,6 +56,12 @@ private slots:
     void on_TabVTarif_activated(const QModelIndex &index);
 
     void on_TabVMPaiement_activated(const QModelIndex &index);
+
+    void on_AdBBtnAjouter_clicked();
+
+    void on_AdBBtnAjouterTarif_clicked();
+
+    void on_AdBBtnAjouterMPaiement_clicked();
 
 private:
     Ui::AdministrationBillet *ui;
