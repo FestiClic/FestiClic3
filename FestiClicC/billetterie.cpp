@@ -652,40 +652,47 @@ void Billetterie::on_bBtnPaiement_clicked()
 
                      qDebug() << nbPlaces;
 
- //********************************************************************************
-          //Faire requet pour insertion dans table Mode Paiement
-
-//********************************************************************************
-                     QString modePaiement;
-                     int nombreDePlaces;
-
-                     modePaiement = ui->bCBoxModePaiement->currentText();
-                     nombreDePlaces = siegesCommande.count();
-
-                     QSqlQuery queryTransaction;
-
-//Requete insertion données dans la table Transaction
-
-                     queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdTarif, IdModePaiement, NombreDePlaces ) "
-                                   "VALUES ( (SELECT MAX(IdClient) FROM Clients), "
-                                   "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
-                                   "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                                   "(SELECT IdModePaiement FROM ModePaiement WHERE TypeModePaiement = :modePaiement), "
-                                   ":nombreDePlaces ) ");
-
-                     queryTransaction.bindValue(":client", client);
-                     queryTransaction.bindValue(":spectacle", spectacle);
-                     queryTransaction.bindValue(":tarif", tarif);
-                    // queryTransaction.bindValue(":siege", numPlace);
-                     queryTransaction.bindValue(":modePaiement", modePaiement);
-                     queryTransaction.bindValue(":nombreDePlaces", nombreDePlaces);
-
-                     queryTransaction.exec();
-
-                     qDebug() << "Nombre de siege"<< siegesCommande.count();
 
          }
+         //********************************************************************************
+                  //Faire requet pour insertion dans table Mode Paiement
+        //********************************************************************************
+        //Requete insertion données dans la table Transaction
+
+         QString modePaiement;
+         int nombreDePlaces;
+
+         modePaiement = ui->bCBoxModePaiement->currentText();
+         nombreDePlaces = siegesCommande.count();
+
+         QSqlQuery queryTransaction;
+
+
+
+         queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdTarif, IdModePaiement, NombreDePlaces ) "
+                       "VALUES ( (SELECT IdClient FROM Clients WHERE IdClient = :client ), "
+                       "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
+                       "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
+                       "(SELECT IdModePaiement FROM ModePaiement WHERE TypeModePaiement = :modePaiement), "
+                       ":nombreDePlaces ) ");
+
+         queryTransaction.bindValue(":client", client);
+         queryTransaction.bindValue(":spectacle", spectacle);
+         queryTransaction.bindValue(":tarif", tarif);
+         queryTransaction.bindValue(":modePaiement", modePaiement);
+         queryTransaction.bindValue(":nombreDePlaces", nombreDePlaces);
+
+         queryTransaction.exec();
+
+         qDebug() << "Nombre de siege"<< siegesCommande.count();
+
          siegesCommande.pop_back();
+
+
+
+
+
+
 
          /*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
@@ -703,19 +710,35 @@ void Billetterie::on_bBtnPaiement_clicked()
 //Requete pour données billet
 
          QSqlQuery queryDonneesBillet;
-         queryDonneesBillet.prepare("SELECT IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
-                                    "FROM Billets b, Clients c, Spectacles s, Tarifs t, Places p "
-                                    "Where b.IdClient = c.IdClient "
+         queryDonneesBillet.prepare("SELECT IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace, IdTransaction "
+                                    "FROM Billets b, Clients c, Spectacles s, Tarifs t, Places p, Transactions tr "
+                                   " Where b.IdClient = c.IdClient "
                                     "AND b.IdSpectacle = s.IdSpectacle "
                                     "AND b.IdTarif = t.IdTarif "
-                                    "AND b.IdPlace = p.IdPlace"
-                                    "AND IdBillet = MAX(IdBillet) ");
+                                    "AND b.IdPlace = p.IdPlace "
+                                    "AND tr.IdSpectacle = s.IdSpectacle "
+                                    "group by NumPlace "
+                                    "having IdTransaction = MAX(IdTransaction) ");
+         // Ajouter total a payer prix*nbPlaces
+
+
+
 
          queryDonneesBillet.exec();
 
          if(queryDonneesBillet.next())
          {
-             ui->bLabelBillet->setText("queryDonneesBillet.value(1+" "+2+ " "+3+ " "+4+ " "+5 )");
+             ui->LabelNomSurBillet->setText(queryDonneesBillet.value(1).toString());
+             ui->LabelNomSurBillet_2->setText(queryDonneesBillet.value(2).toString());
+             ui->LabelNomSurBillet_3->setText(queryDonneesBillet.value(3).toString());
+             ui->LabelNomSurBillet_4->setText(queryDonneesBillet.value(4).toString());
+             ui->LabelNomSurBillet_5->setText(queryDonneesBillet.value(5).toString());
+
+             ui->LabelNomSurBillet->setStyleSheet("color:white; front-size: 15px");
+             ui->LabelNomSurBillet_2->setStyleSheet("color:white; front-size: 15px");
+             ui->LabelNomSurBillet_3->setStyleSheet("color:white; front-size: 15px");
+             ui->LabelNomSurBillet_4->setStyleSheet("color:white; front-size: 15px");
+             ui->LabelNomSurBillet_5->setStyleSheet("color:white; front-size: 15px");
          }
 
          qDebug() << nbPlaces;
@@ -731,7 +754,8 @@ void Billetterie::on_bBtnPaiement_clicked()
 
     //***********************************************************************************************************************
 
-   // connexion.closeConnexion();
+
+         MAJListeDesSieges();
 
 }
 //***************************************************************************************
