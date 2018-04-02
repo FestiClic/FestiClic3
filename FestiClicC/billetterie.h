@@ -58,6 +58,12 @@ private slots:
 
     void on_PA2_clicked();
 
+    void on_bBtnClientConcert_clicked();
+
+    void on_bRBtnPlacementLibre_clicked();
+
+    void on_bRBtnPlacementPlan_clicked();
+
 private:
     Ui::Billetterie *ui;
 };

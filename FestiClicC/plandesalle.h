@@ -15,8 +15,17 @@ public:
     explicit PlanDeSalle(QWidget *parent = 0);
     ~PlanDeSalle();
 
+
+private slots:
+
+    void ChangerStatutSiege();
+
+    void on_P_001_clicked();
+
 private:
     Ui::PlanDeSalle *ui;
+
+    void alreadybooked();
 };
 
 #endif // PLANDESALLE_H

@@ -65,7 +65,7 @@ void Clients::MAJTableV()
 
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query->prepare("SELECT * FROM Clients");
+    query->prepare("SELECT * FROM Clients ORDER BY NomClient");
 
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
@@ -284,55 +284,66 @@ void Clients::on_cltBtnSupprimer_clicked()
     nomClient = ui->cltTxtNom->text();
     prenomClient = ui->cltTxtPrenom->text();
 
-    QMessageBox msgBox;
-    msgBox.setText("Voulez-vous vraiment supprimer "+nomClient+ " "+prenomClient+ " ?");
-    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
-    msgBox.addButton("Non", QMessageBox::NoRole);
-
-    msgBox.exec();
-    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    if(!ui->cltCBoxCivilite->currentText().isEmpty() && !ui->cltTxtNom->text().isEmpty()
+            && !ui->cltTxtPrenom->text().isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
     {
 
-  //      Login connexion;
+        QMessageBox msgBox;
+        msgBox.setText("Voulez-vous vraiment supprimer "+nomClient+ " "+prenomClient+ " ?");
+        QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+        msgBox.addButton("Non", QMessageBox::NoRole);
 
-        QString idClient;
-
-        idClient = ui->cltLabelIdClient->text();
-
-/*        if(!connexion.openConnexion())
+        msgBox.exec();
+        if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
         {
-            qDebug() << "Echec de connexion";
-            return;
-        }
-*/
-//        connexion.openConnexion();
 
-        QSqlQuery query;
-        query.prepare("DELETE FROM Clients WHERE IdClient = :idClient"); //requete suppression dans la bdd
-        query.bindValue(":idClient", idClient);
+      //      Login connexion;
 
-        if(query.exec())
-        {
-            ViderLesChamps();
+            QString idClient;
 
-            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+            idClient = ui->cltLabelIdClient->text();
 
-            MAJTableV();
+    /*        if(!connexion.openConnexion())
+            {
+                qDebug() << "Echec de connexion";
+                return;
+            }
+    */
+    //        connexion.openConnexion();
 
- //           connexion.closeConnexion();  //Fermeture de la connexion
+            QSqlQuery query;
+            query.prepare("DELETE FROM Clients WHERE IdClient = :idClient"); //requete suppression dans la bdd
+            query.bindValue(":idClient", idClient);
 
+            if(query.exec())
+            {
+                ViderLesChamps();
+
+                QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+
+                MAJTableV();
+
+     //           connexion.closeConnexion();  //Fermeture de la connexion
+
+            }
+            else
+            {
+                //en cas de non execution de la requete
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            }
         }
         else
         {
-            //en cas de non execution de la requete
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+                qDebug() << "Non Annuler";
+                ViderLesChamps();
         }
     }
     else
     {
-            qDebug() << "Non Annuler";
+        ui->cLabelAlerte->show();
+        ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->cLabelAlerte->setText("Sélectionner un enregistrement ");
     }
-
 }
 
 //Affecté les données aux champs txt apartir de la tableView

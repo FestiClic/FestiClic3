@@ -381,34 +381,44 @@ void AdministrationBillet::on_AdBBtnSupprimer_clicked()
     QString configSalle;
     configSalle = ui->AdBTxtIntitule->text();
 
-    QMessageBox msgBox;
-    msgBox.setText("Voulez-vous vraiment supprimer "+configSalle+ " ?");
-    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
-    msgBox.addButton("Non", QMessageBox::NoRole);
-
-    msgBox.exec();
-    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    if(!ui->AdBTxtIntitule->text().isEmpty() && !ui->AdBTxtNbPlaces->text().isEmpty())
     {
+        QMessageBox msgBox;
+        msgBox.setText("Voulez-vous vraiment supprimer "+configSalle+ " ?");
+        QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+        msgBox.addButton("Non", QMessageBox::NoRole);
 
-        QSqlQuery query;
-        query.prepare("DELETE FROM ConfigSalle WHERE IntituleConfigSalle = :configSalle");
-        query.bindValue(":configSalle", configSalle);
-
-        if(query.exec())
+        msgBox.exec();
+        if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
         {
-            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
 
-            MAJTablesViewPage();
-            ViderLesChampsConfigSalle();
+            QSqlQuery query;
+            query.prepare("DELETE FROM ConfigSalle WHERE IntituleConfigSalle = :configSalle");
+            query.bindValue(":configSalle", configSalle);
+
+            if(query.exec())
+            {
+                QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+
+                MAJTablesViewPage();
+                ViderLesChampsConfigSalle();
+            }
+            else
+            {
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            }
         }
         else
         {
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+                qDebug() << "Non Annuler";
+                ViderLesChampsConfigSalle();
         }
     }
     else
     {
-            qDebug() << "Non Annuler";
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("Sélectionner un enregistrement !");
     }
 }
 
@@ -497,33 +507,43 @@ void AdministrationBillet::on_AdBBtnSupprimerTarif_clicked()
     QString tarif;
     tarif = ui->AdBTxtTarif->text();
 
-    QMessageBox msgBox;
-    msgBox.setText("Voulez-vous vraiment supprimer "+tarif+ " ?");
-    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
-    msgBox.addButton("Non", QMessageBox::NoRole);
-
-    msgBox.exec();
-    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    if(!ui->AdBTxtTarif->text().isEmpty() && !ui->AdBTxtPrix->text().isEmpty())
     {
-        QSqlQuery query;
-        query.prepare("DELETE FROM Tarifs WHERE IntituleTarif = :tarif");
-        query.bindValue(":tarif", tarif);
+        QMessageBox msgBox;
+        msgBox.setText("Voulez-vous vraiment supprimer "+tarif+ " ?");
+        QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+        msgBox.addButton("Non", QMessageBox::NoRole);
 
-        if(query.exec())
+        msgBox.exec();
+        if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
         {
-            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+            QSqlQuery query;
+            query.prepare("DELETE FROM Tarifs WHERE IntituleTarif = :tarif");
+            query.bindValue(":tarif", tarif);
 
-            MAJTablesViewPage();
-            ViderLesChampsTarif();
+            if(query.exec())
+            {
+                QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+
+                MAJTablesViewPage();
+                ViderLesChampsTarif();
+            }
+            else
+            {
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            }
         }
         else
         {
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+                qDebug() << "Non Annuler";
+                ViderLesChampsTarif();
         }
     }
     else
     {
-            qDebug() << "Non Annuler";
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("Sélectionner un enregistrement !");
     }
 }
 
@@ -568,33 +588,42 @@ void AdministrationBillet::on_AdBBtnSupprimerMPaiement_clicked()
     QString modePaiement;
     modePaiement = ui->AdBTxtIntituleMPaiement->text();
 
-    QMessageBox msgBox;
-    msgBox.setText("Voulez-vous vraiment supprimer "+modePaiement+ " ?");
-    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
-    msgBox.addButton("Non", QMessageBox::NoRole);
-
-    msgBox.exec();
-    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    if(!ui->AdBTxtIntituleMPaiement->text().isEmpty())
     {
-        QSqlQuery query;
-        query.prepare("DELETE FROM ModePaiement WHERE TypeModePaiement = :modePaiement");
-        query.bindValue(":modePaiement", modePaiement);
+        QMessageBox msgBox;
+        msgBox.setText("Voulez-vous vraiment supprimer "+modePaiement+ " ?");
+        QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+        msgBox.addButton("Non", QMessageBox::NoRole);
 
-        if(query.exec())
+        msgBox.exec();
+        if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
         {
-            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+            QSqlQuery query;
+            query.prepare("DELETE FROM ModePaiement WHERE TypeModePaiement = :modePaiement");
+            query.bindValue(":modePaiement", modePaiement);
 
-            MAJTablesViewPage();
-            ViderLesChampsModePaiemenet();
+            if(query.exec())
+            {
+                QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé"));
+
+                MAJTablesViewPage();
+                ViderLesChampsModePaiemenet();
+            }
+            else
+            {
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            }
         }
         else
         {
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+                qDebug() << "Non Annuler";
         }
     }
     else
     {
-            qDebug() << "Non Annuler";
+        ui->labelAlert->show();
+        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setText("Sélectionner un enregistrement !");
     }
 }
 

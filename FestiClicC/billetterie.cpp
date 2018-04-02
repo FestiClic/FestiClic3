@@ -27,11 +27,17 @@ Billetterie::Billetterie(QWidget *parent) :
 
     Login connexion;
     connexion.openConnexion();
+//Masquer les deux listes des numSienges
+    ui->bListVNumSiege->hide();
+    ui->listWidget->hide();
+    ui->bBtnClearList->hide();
 
     ui->bRBtnPlacementPlan->setChecked(true);
 
+
+
     //cacher le label billet
-    ui->bLabelBillet->hide();
+    ui->scrollArea->hide();
 
 
 
@@ -54,6 +60,8 @@ Billetterie::Billetterie(QWidget *parent) :
     //connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 
+    ui->bCBoxRepresentations->setCurrentIndex(-1);
+
 //************************************************************************************************************************
 
     //Affecter le nomClient a la comboBox client
@@ -74,6 +82,8 @@ Billetterie::Billetterie(QWidget *parent) :
    // connexion1.closeConnexion();
     qDebug() << (modal1->rowCount());
 
+    ui->bCBoxSpectacteur->setCurrentIndex(-1);
+
 
 //************************************************************************************************************************
 
@@ -89,6 +99,8 @@ Billetterie::Billetterie(QWidget *parent) :
     query2->exec();  //Execution de la requête
     modal2->setQuery(*query2);    //Récuperation des valeurs pointeur de requete
     ui->bCBoxTarif->setModel(modal2);     //Envoyer les données en combo
+
+    ui->bCBoxTarif->setCurrentIndex(-1);
 
 //************************************************************************************************************************
 
@@ -116,8 +128,7 @@ Billetterie::Billetterie(QWidget *parent) :
 
     qDebug() << (modalModePaiement->rowCount());
 //************************************************************************************************************************
-    //fermeture de la connexion
-    //connexion2.closeConnexion();
+
     qDebug() << (modal2->rowCount());
 
 //************************************************************************************************************************
@@ -136,6 +147,8 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bLabelPrix->clear();
     ui->bLabelIdClient->clear();
     ui->bLabelIdSpectacle->clear();
+
+
 //************************************************************************************************************************
 
     //Masquer le bouton suivant tant que les champs sont vides
@@ -153,11 +166,14 @@ Billetterie::Billetterie(QWidget *parent) :
     //Masquer le grpoupeBox Plan de salle a l'ouverture de la billet
     ui->bGBoxPlanSalle->hide();
 //************************************************************************************************************************
+
+
+
     //Affecter liste numero de sieges a la ListView
     MAJListeDesSieges();
 
-    //fermeture de la connexion
-   // connexion.closeConnexion();
+
+
 
     qDebug() << (modal->rowCount());
 
@@ -499,6 +515,7 @@ void Billetterie::on_bBtnSuivant_clicked()
       }
     else if(ui->bRBtnPlacementLibre->isChecked())
     {
+
         // Afficher le groupeBox modede paiment
         ui->bGBoxModePaiement->show();
         ui->bGBoxPlanSalle->hide();
@@ -705,7 +722,7 @@ void Billetterie::on_bBtnPaiement_clicked()
                          and IdBillet = 7
          */    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
-         ui->bLabelBillet->show();
+         ui->scrollArea->show();
 
 //Requete pour données billet
 
@@ -728,21 +745,25 @@ void Billetterie::on_bBtnPaiement_clicked()
 
          if(queryDonneesBillet.next())
          {
-             ui->LabelNomSurBillet->setText(queryDonneesBillet.value(1).toString());
-             ui->LabelNomSurBillet_2->setText(queryDonneesBillet.value(2).toString());
-             ui->LabelNomSurBillet_3->setText(queryDonneesBillet.value(3).toString());
+             ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(0).toString());
+             ui->LabelNomSurBillet_2->setText(queryDonneesBillet.value(1).toString() +" "+ queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() );
+             ui->LabelNomSurBillet_3->setText(queryDonneesBillet.value(5).toString()  +" € ");
              ui->LabelNomSurBillet_4->setText(queryDonneesBillet.value(4).toString());
-             ui->LabelNomSurBillet_5->setText(queryDonneesBillet.value(5).toString());
+             ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(6).toString());
+             ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(7).toString());
+             ui->LabelNomSurBillet_7->setText("Transaction no : "+ queryDonneesBillet.value(7).toString());
 
-             ui->LabelNomSurBillet->setStyleSheet("color:white; front-size: 15px");
-             ui->LabelNomSurBillet_2->setStyleSheet("color:white; front-size: 15px");
-             ui->LabelNomSurBillet_3->setStyleSheet("color:white; front-size: 15px");
-             ui->LabelNomSurBillet_4->setStyleSheet("color:white; front-size: 15px");
-             ui->LabelNomSurBillet_5->setStyleSheet("color:white; front-size: 15px");
+             ui->LabelNomSurBillet->setStyleSheet("color:white; front-size: 20px");
+             ui->LabelNomSurBillet_2->setStyleSheet("color:white; front-size: 20px");
+             ui->LabelNomSurBillet_3->setStyleSheet("color:white; front-size: 20px");
+             ui->LabelNomSurBillet_4->setStyleSheet("color:white; front-size: 20px");
+             ui->LabelNomSurBillet_5->setStyleSheet("color:white; front-size: 20px");
+             ui->LabelNomSurBillet_6->setStyleSheet("color:white; front-size: 20px");
+             ui->LabelNomSurBillet_7->setStyleSheet("color:white; front-size: 20px, background-image: none;");
          }
 
          qDebug() << nbPlaces;
-         qDebug() << "Donnéses billet " << ui->bLabelBillet->text();
+         //qDebug() << "Donnéses billet " << ui->bLabelBillet->text();
 
 
          //ui->bLabelBillet->setText("<html><b><u>+spectacle+<br>+tarif+<br>+numPlace+<br>+client+</u></b></html>");
@@ -862,10 +883,10 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
 
     if (query.exec())
     {
-        while (query.next())
-        {
-            ui->listWidget->addItem(query.value(1).toString());
-        }
+        query.next();
+
+        ui->listWidget->addItem(query.value(1).toString());
+
     }
     else
     {
@@ -914,4 +935,30 @@ void Billetterie::on_PA2_clicked()
 {
     ui->listWidget->addItem("PA2");
     ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_bBtnClientConcert_clicked()
+{
+    ui->bLabelNomClient->setText("Flow");
+    ui->bLabelIdClient->setText("21");
+    ui->bTxtInfosClient->setText("Flow Billet <br> Billetterie concerts et festivals  ");
+}
+
+void Billetterie::on_bRBtnPlacementLibre_clicked()
+{
+
+
+    ui->bListVNumSiege->show();
+    ui->listWidget->show();
+    ui->bBtnClearList->show();
+    ui->bGBoxPlanSalle->hide();
+
+}
+
+void Billetterie::on_bRBtnPlacementPlan_clicked()
+{
+    ui->bListVNumSiege->hide();
+    ui->listWidget->hide();
+    ui->bBtnClearList->hide();
+    ui->bGBoxModePaiement->hide();
 }

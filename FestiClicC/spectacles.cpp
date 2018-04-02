@@ -75,7 +75,8 @@ void Spectacles::MAJTableV()
                    "Date, Heure, (IntituleConfigSalle) AS 'Type Spectacle',"
                    "(JaugeSpectacle) AS Jauge "
                    "FROM Spectacles s, ConfigSalle c "
-                   "WHERE s.IdConfigSalle = c.IdConfigSalle");
+                   "WHERE s.IdConfigSalle = c.IdConfigSalle "
+                   "ORDER BY Date ASC ");
 
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
@@ -333,6 +334,8 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
     {
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
     }
+
+
 }
 
 //Suppression d'un spactacle
@@ -341,45 +344,56 @@ void Spectacles::on_sBtnSupprimer_clicked()
     QString spectacle;
     spectacle = ui->sTxtSpectacle->text();
 
-    QMessageBox msgBox;
-    msgBox.setText("Voulez-vous vraiment supprimer "+spectacle+ " ?");
-    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
-    msgBox.addButton("Non", QMessageBox::NoRole);
-
-    msgBox.exec();
-    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    if(!ui->sTxtIntituleConfig->text().isEmpty() && !ui->sTxtJauge->text().isEmpty() && !ui->sTxtSpectacle->text().isEmpty())
     {
-        qDebug() << "ok";
 
-        int idSpectacle;
+        QMessageBox msgBox;
+        msgBox.setText("Voulez-vous vraiment supprimer "+spectacle+ " ?");
+        QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+        msgBox.addButton("Non", QMessageBox::NoRole);
 
-        idSpectacle = ui->sLabelIdSpectacle->text().toInt();
-
-        QSqlQuery query;
-        query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
-        query.bindValue(":spectacle", spectacle);
-
-        if(query.exec())
+        msgBox.exec();
+        if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
         {
-            //Afficher l'info si la requete a été executé ou pas dans un messageBox
-            //si ma requete est execté elle doit afficher le message suivant
-            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+            qDebug() << "ok";
 
-            MAJTableV();
-            ViderLesChamps();
+            int idSpectacle;
 
-            //Redimentionner les colonne en fonction du contenu
-            ui->sTabV->resizeColumnsToContents();
+            idSpectacle = ui->sLabelIdSpectacle->text().toInt();
+
+            QSqlQuery query;
+            query.prepare("DELETE FROM Spectacles WHERE Spectacle = :spectacle"); //requete suppression dans la bdd
+            query.bindValue(":spectacle", spectacle);
+
+            if(query.exec())
+            {
+                //Afficher l'info si la requete a été executé ou pas dans un messageBox
+                //si ma requete est execté elle doit afficher le message suivant
+                QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
+
+                MAJTableV();
+                ViderLesChamps();
+
+                //Redimentionner les colonne en fonction du contenu
+                ui->sTabV->resizeColumnsToContents();
+            }
+            else
+            {
+                //en cas de non execution de la requete
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            }
         }
         else
         {
-            //en cas de non execution de la requete
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+          qDebug() << "Non Annuler";
+          ViderLesChamps();
         }
     }
     else
     {
-      qDebug() << "Non Annuler";
+        ui->sLabelAlerte->show();
+        ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->sLabelAlerte->setText("Sélectionner un enregistrement !");
     }
 }
 

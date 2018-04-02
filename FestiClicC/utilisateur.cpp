@@ -183,44 +183,55 @@ void Utilisateur::on_uBtnSupprimer_clicked()
     nomUtilisateur = ui->uTxtNom->text();
     prenomUtilisateur= ui->uTxtPrenom->text();
 
-    QMessageBox msgBox;
-    msgBox.setText("Voulez-vous vraiment supprimer "+nomUtilisateur+ " "+prenomUtilisateur+ " ?");
-    QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
-    msgBox.addButton("Non", QMessageBox::NoRole);
-
-    msgBox.exec();
-    if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
+    if(!ui->uTxtNom->text().isEmpty() && !ui->uTxtPrenom->text().isEmpty())
     {
-        //QDEBUG
-        qDebug() << "ok";
 
-        int idUtilisateur;
+        QMessageBox msgBox;
+        msgBox.setText("Voulez-vous vraiment supprimer "+nomUtilisateur+ " "+prenomUtilisateur+ " ?");
+        QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
+        msgBox.addButton("Non", QMessageBox::NoRole);
 
-        idUtilisateur = ui->uLabelIditUtilisateur->text().toInt();
-
-        QSqlQuery query;
-        query.prepare("DELETE FROM Utilisateurs WHERE IdUtilisateur = :idUtilisateur");
-        query.bindValue(":idUtilisateur", idUtilisateur);
-
-        if(query.exec())
+        msgBox.exec();
+        if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
         {
-            ViderLesChamps();
+            //QDEBUG
+            qDebug() << "ok";
 
-            QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé "));
+            int idUtilisateur;
 
-            MAJTableV();
+            idUtilisateur = ui->uLabelIditUtilisateur->text().toInt();
 
-            ui->uTabV->resizeColumnsToContents();
+            QSqlQuery query;
+            query.prepare("DELETE FROM Utilisateurs WHERE IdUtilisateur = :idUtilisateur");
+            query.bindValue(":idUtilisateur", idUtilisateur);
+
+            if(query.exec())
+            {
+                ViderLesChamps();
+
+                QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé "));
+
+                MAJTableV();
+
+                ui->uTabV->resizeColumnsToContents();
+            }
+            else
+            {
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+            }
         }
         else
         {
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+            //QDEBUG
+            qDebug() << "Non Annuler";
+            ViderLesChamps();
         }
     }
     else
     {
-        //QDEBUG
-        qDebug() << "Non Annuler";
+        ui->uLabelAlerte->show();
+        ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->uLabelAlerte->setText("Les champs Nom - Prénom sont obligatoires");
     }
 }
 
