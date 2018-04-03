@@ -131,23 +131,12 @@ void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(int index)
             ui->progressBar->setMaximum(100);
             ui->progressBar->setMinimum(0);
             ui->progressBar->setValue(pourcentage);
-
- /*           //progresse bar
-
-            int pourcentagePBar = ui->fTxtFrequentation->text().toInt();
-            connect(pourcentagePBar,SIGNAL(), ui->progressBar_2,SLOT(setValue(int)));
-          //  int maxPourcentage = valeurRemplissage;
-           // ui->progressBar->setMaximum(maxPourcentage);
-
-            //ui->progressBar->setValue(pourcentagePBar);
-*/
         }
     }
     else
     {
         QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
     }
-
 }
 
 void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)

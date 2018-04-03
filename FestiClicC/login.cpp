@@ -73,46 +73,40 @@ void Login::on_lBtnSeConnecter_clicked()
     QString nomUtilisateur;
     QString motDePasse;
 
-
     nomUtilisateur = ui->lTxtNomUtilisateur->text();
     motDePasse = ui->lTxtMotDePasse->text();
 
- /*   if(!openConnexion())
+    if(nomUtilisateur.isEmpty() && motDePasse.isEmpty())
     {
-        qDebug()<<"Connexion non établie";
-        return;
+        ui->lLabConnexion->setText("Veuillez saisir le nom d'utilisateur et le mot de passe !");
+        ui->lLabConnexion->setStyleSheet("color: red;");
     }
-*/
-//    openConnexion();
-
-    QSqlQuery query;
-    query.prepare("SELECT * FROM Utilisateurs WHERE Username = :nomUtilisateur AND Password = :motDePasse");
-    query.bindValue(":nomUtilisateur", nomUtilisateur);
-    query.bindValue(":motDePasse", motDePasse);
-
-    if(query.exec())
+    else
     {
-        int compteur = 0;
-        while(query.next())
+        QSqlQuery query;
+        query.prepare("SELECT * FROM Utilisateurs WHERE Username = :nomUtilisateur AND Password = :motDePasse");
+        query.bindValue(":nomUtilisateur", nomUtilisateur);
+        query.bindValue(":motDePasse", motDePasse);
+
+        if(query.exec())
         {
-            compteur++;
-        }
-        if(compteur==1)
-        {
-            ui->lLabConnexion->setText("Acces accepté");
+            int compteur = 0;
+            while(query.next())
+            {
+                compteur++;
+            }
+            if(compteur==1)
+            {
+                ui->lLabConnexion->setText("Acces accepté");
 
-
-
- //           closeConnexion(); //fermeture de la connexion bdd
-
-            //Fermeture de la page login pour afficher l'accueil
-            //this->hide();
-            this->accept();
-            this->close();
-        }
-        else
-        {
-            ui->lLabConnexion->setText("Le nom d'tilisateur ou le mot de passe est erroné");
+                this->accept();
+                this->close();
+            }
+            else
+            {
+                ui->lLabConnexion->setText("Le nom d'tilisateur et / ou le mot de passe ne sont pas corrects");
+                ui->lLabConnexion->setStyleSheet("color: red;");
+            }
         }
     }
 }
