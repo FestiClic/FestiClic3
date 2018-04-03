@@ -417,7 +417,7 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
             //ui->bTxtPrix->setText(query.value(2).toString());
 
             //Remplir combo nbPlaces
-            for(int i = 1; i <=90; i++)
+            for(int i = 0; i <=90; i++)
             {
                 ui->bCBoxNbPlaces->addItem(QString::number(i));
             }
@@ -481,28 +481,38 @@ void Billetterie::on_bBtnSuivant_clicked()
 
     // Initialiser les champs
     ui->bTxtCb->clear();
-    ui->bTxtChCulture->clear();
-    ui->bTxtCheque->clear();
-    ui->bTxtChVacances->clear();
-    ui->bTxtEspeces->clear();
-    ui->bTxtVInternet->clear();
-
-//Calcule .....
-    double prixTotal, prix, NbPlaces;
-
-    prix = std::stod(ui->bLabelPrix->text().toStdString());
-
-    //ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
-
-    NbPlaces = std::stod(ui->bCBoxNbPlaces->currentText().toStdString());
-
-    prixTotal = (NbPlaces * prix);
 
 
-    QString tarifTotal = QString::number(prixTotal);
-    ui->bTxtCb->setText(tarifTotal);
+    //changer la valeur d'index de la comboNbPlace pour
+    if(ui->listWidget->count() != 0)
+    {
+        ui->bCBoxNbPlaces->setCurrentIndex(ui->listWidget->count());
+    }
+
+        //Calcule total prix
+            double prixTotal, prix, NbPlaces;
+
+            prix = std::stod(ui->bLabelPrix->text().toStdString());
+
+            //ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
+
+            NbPlaces = std::stod(ui->bCBoxNbPlaces->currentText().toStdString());
+
+            prixTotal = (NbPlaces * prix);
+
+
+            QString tarifTotal = QString::number(prixTotal);
+            ui->bTxtCb->setText(tarifTotal);
+
+
+
+
+
+
 
     //******************************************
+
+
 
 
 //***********************************************************************************************************************
@@ -515,10 +525,18 @@ void Billetterie::on_bBtnSuivant_clicked()
       }
     else if(ui->bRBtnPlacementLibre->isChecked())
     {
-
-        // Afficher le groupeBox modede paiment
-        ui->bGBoxModePaiement->show();
-        ui->bGBoxPlanSalle->hide();
+        //Ne pas passer à la suite si le nombre de place est à 0 et la listeW aussi
+        if(ui->bCBoxNbPlaces->currentText().toInt() == 0)
+        {
+            QMessageBox::information(this, "Info", "Vous devez choisir au minimum 1 place ");
+        }
+        else
+        {
+            // Afficher le groupeBox modede paiment
+            ui->bGBoxModePaiement->show();
+            ui->bGBoxPlanSalle->hide();
+            ui->widgetPartieGauche->hide();
+        }
     }
 
 //***********************************************************************************************************************
@@ -727,15 +745,16 @@ void Billetterie::on_bBtnPaiement_clicked()
 //Requete pour données billet
 
          QSqlQuery queryDonneesBillet;
-         queryDonneesBillet.prepare("SELECT IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace, IdTransaction "
-                                    "FROM Billets b, Clients c, Spectacles s, Tarifs t, Places p, Transactions tr "
-                                   " Where b.IdClient = c.IdClient "
+         queryDonneesBillet.prepare("SELECT IdTransaction, IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
+                                    "FROM Transactions tr , Billets b, Clients c, Spectacles s, Tarifs t, Places p "
+                                    "Where b.IdClient = c.IdClient "
                                     "AND b.IdSpectacle = s.IdSpectacle "
                                     "AND b.IdTarif = t.IdTarif "
                                     "AND b.IdPlace = p.IdPlace "
                                     "AND tr.IdSpectacle = s.IdSpectacle "
-                                    "group by NumPlace "
-                                    "having IdTransaction = MAX(IdTransaction) ");
+                                    "group by NumPlace ");
+
+
          // Ajouter total a payer prix*nbPlaces
 
 
@@ -745,15 +764,15 @@ void Billetterie::on_bBtnPaiement_clicked()
 
          if(queryDonneesBillet.next())
          {
-             ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(0).toString());
-             ui->LabelNomSurBillet_2->setText(queryDonneesBillet.value(1).toString() +" "+ queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() );
-             ui->LabelNomSurBillet_3->setText(queryDonneesBillet.value(5).toString()  +" € ");
-             ui->LabelNomSurBillet_4->setText(queryDonneesBillet.value(4).toString());
-             ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(6).toString());
-             ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(7).toString());
-             ui->LabelNomSurBillet_7->setText("Transaction no : "+ queryDonneesBillet.value(7).toString());
+             ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(1).toString());
+             ui->LabelNomSurBillet_2->setText(queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
+             ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
+             ui->LabelNomSurBillet_4->setText(queryDonneesBillet.value(5).toString());
+             ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(7).toString());
+             ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
+             //ui->LabelNomSurBillet_7->setText("Transaction no : "+ queryDonneesBillet.value(8).toString() + queryDonneesBillet.value(9).toString()+ queryDonneesBillet.value(10).toString());
 
-             ui->LabelNomSurBillet->setStyleSheet("color:white; front-size: 20px");
+             ui->LabelNomSurBillet->setStyleSheet("color:white; front-size: 20px; background-image: none;");
              ui->LabelNomSurBillet_2->setStyleSheet("color:white; front-size: 20px");
              ui->LabelNomSurBillet_3->setStyleSheet("color:white; front-size: 20px");
              ui->LabelNomSurBillet_4->setStyleSheet("color:white; front-size: 20px");
@@ -779,97 +798,13 @@ void Billetterie::on_bBtnPaiement_clicked()
          MAJListeDesSieges();
 
 }
-//***************************************************************************************
-// A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//Coder le slot pour les btn plan de salle
-Billetterie::AddSlotsToGroupe()
-{
-/*    QString valeur;
-    QButtonGroup* groupe = new QButtonGroup();
-    groupe->addButton(ui->PA1);
-    groupe->addButton(ui->PA2);
-    groupe->addButton(ui->PA3);
-    groupe->addButton(ui->PA4);
-    groupe->addButton(ui->PA5);
-    groupe->addButton(ui->PA6);
-    groupe->addButton(ui->PA7);
-    groupe->addButton(ui->PA8);
-    groupe->addButton(ui->PA9);
-    groupe->addButton(ui->PA10);
 
-    connect(groupe,SIGNAL(buttonClicked(int)), this, SLOT(on_bBtnSuivant_clicked()));
-*/
-}
 //******************************************************************************************
 void Billetterie::on_bBtnQuitter_clicked()
 {
     this->close();
 }
 
-void Billetterie::on_bBtnEspeces_clicked()
-{
-    //Passer la valeur du champ prix total au champ Especes
-    QString montant = ui->bTxtCb->text();
-    ui->bTxtEspeces->setText(montant);
-    ui->bTxtCb->clear();
-}
-
-void Billetterie::on_bBtnCheque_clicked()
-{
-    QString montant = ui->bTxtCb->text();
-    ui->bTxtCheque->setText(montant);
-    ui->bTxtCb->clear();
-
-/*  //Teter l'ensemble des champs pour recuperer la valeur dans le bon champ
-    if (!ui->bTxtCb->text().isEmpty())
-    {
-        ui->bTxtCheque->setText(montant);
-        ui->bTxtCb->clear();
-    }
-
-    else if (!ui->bTxtEspeces->text().isEmpty())
-    {
-        ui->bTxtCheque->setText(montant);
-        ui->bTxtEspeces->clear();
-    }
-
-    else if (!ui->bTxtChVacances->text().isEmpty())
-    {
-        ui->bTxtCheque->setText(montant);
-        ui->bTxtChVacances->clear();
-    }
-
-    else if (!ui->bTxtChCulture->text().isEmpty())
-    {
-        ui->bTxtCheque->setText(montant);
-        ui->bTxtChCulture->clear();
-    }
-*/
-
-}
-
-void Billetterie::on_bBtnChVacances_clicked()
-{
-    QString montant = ui->bTxtCb->text();
-    ui->bTxtChVacances->setText(montant);
-    ui->bTxtCb->clear();
-}
-
-void Billetterie::on_bBtnChCulture_clicked()
-{
-    QString montant = ui->bTxtCb->text();
-    ui->bTxtChCulture->setText(montant);
-    ui->bTxtCb->clear();
-
-}
-
-
-
-
-void Billetterie::on_bBtnCb_clicked()
-{
-
-}
 
 void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
 {
@@ -895,21 +830,15 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
 
 }
 
-void Billetterie::on_PA1_clicked()
-{
-    ui->listWidget->addItem("PA1");
-    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
-}
-
 void Billetterie::on_bBtnSuivantPlan_2_clicked()
 {
     // Initialiser les champs
     ui->bTxtCb->clear();
-    ui->bTxtChCulture->clear();
-    ui->bTxtCheque->clear();
-    ui->bTxtChVacances->clear();
-    ui->bTxtEspeces->clear();
-    ui->bTxtVInternet->clear();
+
+    if(ui->listWidget->count() != 0)
+    {
+        ui->bCBoxNbPlaces->setCurrentIndex(ui->listWidget->count());
+    }
 
 //Calcule .....
     double prixTotal, prix, NbPlaces;
@@ -920,21 +849,13 @@ void Billetterie::on_bBtnSuivantPlan_2_clicked()
 
     prixTotal = (NbPlaces * prix);
 
-
     QString tarifTotal = QString::number(prixTotal);
     ui->bTxtCb->setText(tarifTotal);
-
 
     // Afficher le groupeBox modede paiment
     ui->bGBoxModePaiement->show();
     ui->bGBoxPlanSalle->hide();
-
-}
-
-void Billetterie::on_PA2_clicked()
-{
-    ui->listWidget->addItem("PA2");
-    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->widgetPartieGauche->hide();
 }
 
 void Billetterie::on_bBtnClientConcert_clicked()
@@ -946,13 +867,10 @@ void Billetterie::on_bBtnClientConcert_clicked()
 
 void Billetterie::on_bRBtnPlacementLibre_clicked()
 {
-
-
     ui->bListVNumSiege->show();
     ui->listWidget->show();
     ui->bBtnClearList->show();
     ui->bGBoxPlanSalle->hide();
-
 }
 
 void Billetterie::on_bRBtnPlacementPlan_clicked()
@@ -962,3 +880,46 @@ void Billetterie::on_bRBtnPlacementPlan_clicked()
     ui->bBtnClearList->hide();
     ui->bGBoxModePaiement->hide();
 }
+
+void Billetterie::on_bBtnAnnulerPaiement_2_clicked()
+{
+    ui->widgetPartieGauche->show();
+    ui->bGBoxModePaiement->hide();
+}
+
+//***************************************************************************************
+// A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//Coder le slot pour les btn plan de salle
+Billetterie::AddSlotsToGroupe()
+{
+/*    QString valeur;
+    QButtonGroup* groupe = new QButtonGroup();
+    groupe->addButton(ui->PA1);
+    groupe->addButton(ui->PA2);
+    groupe->addButton(ui->PA3);
+    groupe->addButton(ui->PA4);
+    groupe->addButton(ui->PA5);
+    groupe->addButton(ui->PA6);
+    groupe->addButton(ui->PA7);
+    groupe->addButton(ui->PA8);
+    groupe->addButton(ui->PA9);
+    groupe->addButton(ui->PA10);
+
+    connect(groupe,SIGNAL(buttonClicked(int)), this, SLOT(on_bBtnSuivant_clicked()));
+*/
+}
+
+//Les boutons du plan de salle
+
+void Billetterie::on_PA1_clicked()
+{
+    ui->listWidget->addItem("PA1");
+    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_PA2_clicked()
+{
+    ui->listWidget->addItem("PA2");
+    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+

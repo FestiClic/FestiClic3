@@ -35,16 +35,6 @@ private slots:
 
     void on_bBtnQuitter_clicked();
 
-    void on_bBtnEspeces_clicked();
-
-    void on_bBtnCheque_clicked();
-
-    void on_bBtnChVacances_clicked();
-
-    void on_bBtnChCulture_clicked();
-
-    void on_bBtnCb_clicked();
-
     void on_bListVNumSiege_activated(const QModelIndex &index);
 
     AddSlotsToGroupe();
@@ -63,6 +53,8 @@ private slots:
     void on_bRBtnPlacementLibre_clicked();
 
     void on_bRBtnPlacementPlan_clicked();
+
+    void on_bBtnAnnulerPaiement_2_clicked();
 
 private:
     Ui::Billetterie *ui;

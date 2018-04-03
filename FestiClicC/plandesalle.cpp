@@ -20,49 +20,42 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     connexion.openConnexion();
     ui->setupUi(this);
 
+    QVector <int> numeroPlace;
+    QVector <QString> listeSieges;
+    int numSiege = 1666;
+    QString nomSiege = "PA_0000";
+    QString intituleSiege;
 
-    double numSiege = 10;
-    QString nomSiege = "PA";
-    for(int i = 1; i <= numSiege; i++)
+
+    for(int i = 1001; i <= numSiege; i++)
     {
-        qDebug() << i;
-
-       QString intituleSiege = (nomSiege+i);
-
-       qDebug () << intituleSiege;
+        qDebug() << "valeur de i" << i;
+        intituleSiege = ((nomSiege.right(4)=i )+numeroPlace.value(i));
+        qDebug() << "valeur intitule siege" << intituleSiege;
 
 
+ /*
+
+        // Affecter les num sièges au vector tant que les dernier 4 caractères correspon,dent à i.
+        QString nomPlace;
+        nomPlace = (nomSiege.right(4).toInt() = [i]);
+
+        if (nomPlace)
+        {
+            numeroPlace.push_back(nomPlace);
+        }
+
+
+            qDebug () << numeroPlace;
 
     }
    ui->buttonGroup->connect(ui->buttonGroup, SIGNAL(buttonClicked(QAbstractButton* )),
                              this, SLOT(ChangerStatutSiege(QAbstractButton* )));
-
-/*     if (!IsPostBack)
-            {
-                int bookedseat [16];
-                int tempbookseat [16];
-                tempbookseat[0] = 0;
-                tempbookseat[1] = 0;
-                tempbookseat[2] = 0;
-                tempbookseat[3] = 0;
-                tempbookseat[4] = 0;
-                tempbookseat[5] = 0;
-                tempbookseat[6] = 0;
-                tempbookseat[7] = 0;
-                tempbookseat[8] = 0;
-                tempbookseat[9] = 0;
-                tempbookseat[10] = 0;
-                tempbookseat[11] = 0;
-                tempbookseat[12] = 0;
-                tempbookseat[13] = 0;
-                tempbookseat[14] = 0;
-                tempbookseat[15] = 0;
-
-                alreadybooked();
-            }
 */
-}
 
+    }
+
+}
 //changer aspect btn
 void PlanDeSalle::ChangerStatutSiege()
 {

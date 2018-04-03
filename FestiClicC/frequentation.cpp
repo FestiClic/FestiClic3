@@ -127,6 +127,11 @@ void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(int index)
             QString pourcentageRemplissage = QString::number(pourcentage);
             ui->fTxtFrequentation->setText(pourcentageRemplissage);
 
+            //progresse bar
+            ui->progressBar->setMaximum(100);
+            ui->progressBar->setMinimum(0);
+            ui->progressBar->setValue(pourcentage);
+
  /*           //progresse bar
 
             int pourcentagePBar = ui->fTxtFrequentation->text().toInt();
@@ -189,15 +194,10 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
             QString pourcentageRemplissage = QString::number(pourcentage);
             ui->fTxtFrequentation_2->setText(pourcentageRemplissage);
 
-            //progresse bar
-            int pourcentagePBar = ui->fTxtFrequentation_2->text().toInt();
-            int maxPourcentage = valeurRemplissage;
-            ui->progressBar_2->setMaximum(maxPourcentage);
+            //progress bar
+            ui->progressBar_2->setMaximum(100);
             ui->progressBar_2->setMinimum(0);
-
-            ui->progressBar_2->setValue(pourcentagePBar);
-
-
+            ui->progressBar_2->setValue(pourcentage);
         }
     }
     else
