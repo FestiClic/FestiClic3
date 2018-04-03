@@ -65,9 +65,6 @@ Login::~Login()
     delete ui;
 }
 
-
-
-
 void Login::on_lBtnSeConnecter_clicked()
 {
     QString nomUtilisateur;

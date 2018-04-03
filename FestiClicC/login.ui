@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>702</width>
-    <height>907</height>
+    <height>714</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>737</width>
-        <height>870</height>
+        <height>677</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -37,7 +37,7 @@
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="2">
+            <item row="0" column="1">
              <widget class="QLabel" name="lLabConnexion_2">
               <property name="font">
                <font>
@@ -58,28 +58,21 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="4">
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="2">
+            <item row="6" column="1">
              <widget class="QPushButton" name="lBtnAnnuler">
               <property name="text">
                <string>Annuler</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="3">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>                    </string>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="lTxtNomUtilisateur">
+              <property name="placeholderText">
+               <string>Nom utilisateur</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="2">
+            <item row="2" column="1">
              <widget class="QLineEdit" name="lTxtMotDePasse">
               <property name="echoMode">
                <enum>QLineEdit::Password</enum>
@@ -89,40 +82,33 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label">
+            <item row="1" column="2">
+             <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>TextLabel</string>
+               <string/>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="QLineEdit" name="lTxtNomUtilisateur">
-              <property name="placeholderText">
-               <string>Nom utilisateur</string>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
             <item row="5" column="1">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>                    </string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="2">
              <widget class="QPushButton" name="lBtnSeConnecter">
               <property name="text">
                <string>Se connecter</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="2">
+            <item row="7" column="1">
              <widget class="QLabel" name="lLabConnexion">
               <property name="font">
                <font>
                 <family>Verdana</family>
-                <pointsize>12</pointsize>
+                <pointsize>10</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
