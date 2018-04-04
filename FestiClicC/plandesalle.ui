@@ -9271,6 +9271,29 @@ background-color: rgb(57, 115, 0);</string>
     <string>34</string>
    </property>
   </widget>
+  <widget class="QComboBox" name="pCBoxSpectacle">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>0</y>
+     <width>421</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pBtnVisualiser">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>0</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Visualiser</string>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>P_001</tabstop>

@@ -20,19 +20,35 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     connexion.openConnexion();
     ui->setupUi(this);
 
+//Vecteur pour stocker mes sieges
     QVector <int> numeroPlace;
     QVector <QString> listeSieges;
-    int numSiege = 1666;
-    QString nomSiege = "PA_0000";
+
+
+    int numSiege = 10;
+
+    QString nomSiege = "PA_";
     QString intituleSiege;
 
 
-    for(int i = 1001; i <= numSiege; i++)
+    for(int i = 1; i <= numSiege; i++)
     {
-        qDebug() << "valeur de i" << i;
+        numeroPlace.push_back(i);
+
+        qDebug() << numeroPlace;
+
+
+        qDebug() << listeSieges;
+        alreadybooked();
+
+
+
+
+
+/*        qDebug() << "valeur de i" << i;
         intituleSiege = ((nomSiege.right(4)=i )+numeroPlace.value(i));
         qDebug() << "valeur intitule siege" << intituleSiege;
-
+*/
 
  /*
 
@@ -55,17 +71,38 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 
     }
 
+//Requette pour remplir Combo Spectacles
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
+
+
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
+    query->prepare("SELECT IdSpectacle FROM Spectacles");
+    query->exec();
+    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
+    ui->pCBoxSpectacle->setModel(modal);     //Envoyer les données en combo
+
+
+    //fermeture de la connexion
+    //connexion.closeConnexion();
+    qDebug() << (modal->rowCount());
+
+    ui->pCBoxSpectacle->setCurrentIndex(-1);
+
+//Tester l'aspect bouton
+    ui->P_003->setEnabled(false);;
+
 }
 //changer aspect btn
 void PlanDeSalle::ChangerStatutSiege()
 {
-    QVector <QString> NomPlace;
-    NomPlace.push_back(ui->buttonGroup->objectName());
-    qDebug() <<"Sieges dans vector" << NomPlace;
+//    QVector <QString> NomPlace;
+//    NomPlace.push_back(ui->buttonGroup->objectName());
+//    qDebug() <<"Sieges dans vector" << NomPlace;
 }
 
 void PlanDeSalle::alreadybooked()
 {
+
 /*    Login connexion;
 // /////////////////////////////////////////////////////////////////////////
 
@@ -206,6 +243,7 @@ void PlanDeSalle::alreadybooked()
             i++;
             }
 */
+
 }
 
 PlanDeSalle::~PlanDeSalle()
@@ -220,5 +258,59 @@ PlanDeSalle::~PlanDeSalle()
 
 void PlanDeSalle::on_P_001_clicked()
 {
+
+}
+
+void PlanDeSalle::on_pBtnVisualiser_clicked()
+{
+    int reserver = 1;
+    int idSpectacle;
+
+    idSpectacle = ui->pCBoxSpectacle->currentText().toInt();
+
+    QVector <int> numeroPlace;
+    QVector <QString> listeSieges;
+    int numSiege = 10;
+
+    for(int i = 1; i <= numSiege; i++)
+    {
+        numeroPlace.push_back(i);
+        qDebug() << numeroPlace;
+
+        QSqlQuery query;
+        query.prepare("SELECT * FROM Places WHERE IdSpectacle = :idSpectacle AND Reserve = :reserver ");
+
+        query.bindValue(":idSpectacle", idSpectacle);
+        query.bindValue(":reserver", reserver);
+int j = 0;
+        if(query.exec())
+        {
+            int compteur = 0;
+            while(query.next())
+            {
+                compteur++;
+            }
+            if(compteur==1)
+            {
+               // for(int j = 0; j == i; j++)
+               // {
+
+                    if(j == 2)
+                    {
+                        ui->P_002->setStyleSheet("backColor = red;");
+                        ui->P_002->setEnabled(false);
+                    }
+
+
+                     else
+                     {
+                             ui->P_002->setStyleSheet("backColor = green;");
+                     }
+
+                //}
+            }
+            j++;
+        }
+    }
 
 }

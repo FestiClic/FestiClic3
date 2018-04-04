@@ -65,13 +65,13 @@ Login::~Login()
     delete ui;
 }
 
-void Login::on_lBtnSeConnecter_clicked()
+void Login::on_lBtnSeConnecter_2_clicked()
 {
     QString nomUtilisateur;
     QString motDePasse;
 
-    nomUtilisateur = ui->lTxtNomUtilisateur->text();
-    motDePasse = ui->lTxtMotDePasse->text();
+    nomUtilisateur = ui->lTxtNomUtilisateur_2->text();
+    motDePasse = ui->lTxtMotDePasse_2->text();
 
     if(nomUtilisateur.isEmpty() && motDePasse.isEmpty())
     {
@@ -108,7 +108,7 @@ void Login::on_lBtnSeConnecter_clicked()
     }
 }
 
-void Login::on_lBtnAnnuler_clicked()
+void Login::on_lBtnAnnuler_2_clicked()
 {
     this->reject();
     this->close();

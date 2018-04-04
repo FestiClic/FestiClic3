@@ -30,9 +30,9 @@ public:
     //int valeur = 10;
 
 private slots:
-    void on_lBtnSeConnecter_clicked();
+    void on_lBtnSeConnecter_2_clicked();
 
-    void on_lBtnAnnuler_clicked();
+    void on_lBtnAnnuler_2_clicked();
 
 private:
     Ui::Login *ui;

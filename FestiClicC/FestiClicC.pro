@@ -36,7 +36,8 @@ SOURCES += \
     basededonnee.cpp \
     utilisateur.cpp \
     administrationbillet.cpp \
-    frequentation.cpp
+    frequentation.cpp \
+    recttes.cpp
 
 HEADERS += \
         accueil.h \
@@ -50,7 +51,8 @@ HEADERS += \
     basededonnee.h \
     utilisateur.h \
     administrationbillet.h \
-    frequentation.h
+    frequentation.h \
+    recttes.h
 
 FORMS += \
         accueil.ui \
@@ -63,7 +65,8 @@ FORMS += \
     basededonnee.ui \
     utilisateur.ui \
     administrationbillet.ui \
-    frequentation.ui
+    frequentation.ui \
+    recttes.ui
 
 RESOURCES += \
     images.qrc

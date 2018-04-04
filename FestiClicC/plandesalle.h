@@ -22,6 +22,8 @@ private slots:
 
     void on_P_001_clicked();
 
+    void on_pBtnVisualiser_clicked();
+
 private:
     Ui::PlanDeSalle *ui;
 
