@@ -24,10 +24,14 @@ private slots:
 
     void on_pBtnVisualiser_clicked();
 
+    void on_pCBoxSpectacle_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::PlanDeSalle *ui;
 
-    void alreadybooked();
+    void VerifierSiReserve();
+
+    void InitialisationEtatDesSieges();
 };
 
 #endif // PLANDESALLE_H

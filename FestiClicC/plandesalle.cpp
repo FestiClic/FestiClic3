@@ -20,6 +20,8 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     connexion.openConnexion();
     ui->setupUi(this);
 
+    VerifierSiReserve();
+/*
 //Vecteur pour stocker mes sieges
     QVector <int> numeroPlace;
     QVector <QString> listeSieges;
@@ -31,20 +33,23 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     QString intituleSiege;
 
 
+    // remplir le vecteur
     for(int i = 1; i <= numSiege; i++)
     {
         numeroPlace.push_back(i);
-
         qDebug() << numeroPlace;
+        intituleSiege = nomSiege + (i);
+        qDebug() << "intituleSiege: "<< intituleSiege;
+
+
 
 
         qDebug() << listeSieges;
-        alreadybooked();
 
 
 
 
-
+*/
 /*        qDebug() << "valeur de i" << i;
         intituleSiege = ((nomSiege.right(4)=i )+numeroPlace.value(i));
         qDebug() << "valeur intitule siege" << intituleSiege;
@@ -67,10 +72,10 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     }
    ui->buttonGroup->connect(ui->buttonGroup, SIGNAL(buttonClicked(QAbstractButton* )),
                              this, SLOT(ChangerStatutSiege(QAbstractButton* )));
-*/
+
 
     }
-
+*/
 //Requette pour remplir Combo Spectacles
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
@@ -87,11 +92,8 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     qDebug() << (modal->rowCount());
 
     ui->pCBoxSpectacle->setCurrentIndex(-1);
-
-//Tester l'aspect bouton
-    ui->P_003->setEnabled(false);;
-
 }
+
 //changer aspect btn
 void PlanDeSalle::ChangerStatutSiege()
 {
@@ -100,149 +102,167 @@ void PlanDeSalle::ChangerStatutSiege()
 //    qDebug() <<"Sieges dans vector" << NomPlace;
 }
 
-void PlanDeSalle::alreadybooked()
+void PlanDeSalle::InitialisationEtatDesSieges()
 {
+    ui->P_001->setStyleSheet("background-color: none;");
+    ui->P_002->setStyleSheet("background-color: none;");
+    ui->P_003->setStyleSheet("background-color: none;");
+    ui->P_004->setStyleSheet("background-color: none;");
+    ui->P_005->setStyleSheet("background-color: none;");
+    ui->P_006->setStyleSheet("background-color: none;");
+    ui->P_007->setStyleSheet("background-color: none;");
+    ui->P_008->setStyleSheet("background-color: none;");
+    ui->P_009->setStyleSheet("background-color: none;");
+    ui->P_010->setStyleSheet("background-color: none;");
+}
 
-/*    Login connexion;
-// /////////////////////////////////////////////////////////////////////////
+void PlanDeSalle::VerifierSiReserve()
+{
+    int idSpectacle;
 
+    idSpectacle = ui->pCBoxSpectacle->currentText().toInt();
+
+    QVector <int> numeroPlace;
+    QVector <QString> listeSieges;
     int numSiege = 10;
-    QString nomSiege = "P_0";
-    for(int i = 0; i = numSiege; i++)
+    QString siege;
+
+
+    for(int i = 1; i <= numSiege; i++)
     {
+        numeroPlace.push_back(i);
+        qDebug() << numeroPlace;
 
-    }
-// /////////////////////////////////////////////////////////////////////////
-    QSqlQueryModel * modal = new QSqlQueryModel();
+        QSqlQuery query;
+        query.prepare("SELECT * FROM Places WHERE IdSpectacleP = :idSpectacle AND Reserve = 1 ");
 
-    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
-    query->prepare("SELECT * FROM Places");
-    query->exec();
-    modal->setQuery(*query);
+        query.bindValue(":idSpectacle", idSpectacle);
+        //query.bindValue(":siege", siege);
 
-    qDebug() << (modal->rowCount());
+        //int j = 0;
 
-//-------
-    String mycon = "Data Source=HP-PC\\SQLEXPRESS; Initial Catalog=TicketBooking; Integrated Security=True";
-    String myquery = "Select * from Seatstatus";
-    SqlConnection con = new SqlConnection(mycon);
-    SqlCommand cmd = new SqlCommand();
-    cmd.CommandText = myquery;
-    cmd.Connection = con;
-    SqlDataAdapter da = new SqlDataAdapter();
-    da.SelectCommand = cmd;
-    DataSet ds = new DataSet();
-    da.Fill(ds);
-    int rows = modal.Tables[0].Rows.Count;
-    int i = 0;
-    while (i < rows)
-    {
-        int reserve;
-        reserve = modal.Tables[0].Rows[i]["Reserve"].ToString();
-        if (reserve == 1)
+        if(query.exec())
         {
-
-                bookedseat[i] = 1;
-                if (i == 0)
-                {
-                    ui->P_001->setStyle("backColor = red;");
-                    ui->P_001->setEnabled(false);
-                }
-                if (i == 1)
-                {
-                    ui->P_002->setStyle("backColor = red;");
-                    ui->P_002->setEnabled(false);
-                }
-                if (i == 2)
-                {
-                    ui->P_003->setStyle("backColor = red;");
-                    ui->P_003->setEnabled(false);
-                }
-                if (i == 3)
-                {
-                    ui->P_004->setStyle("backColor = red;");
-                    ui->P_004->setEnabled(false);
-                }
-                if (i == 4)
-                {
-                    ui->P_005->setStyle("backColor = red;");
-                    ui->P_005->setEnabled(false);
-                }
-                if (i == 5)
-                {
-                    ui->P_006->setStyle("backColor = red;");
-                    ui->P_006->setEnabled(false);
-                }
-                if (i == 6)
-                {
-                    ui->P_007->setStyle("backColor = red;");
-                    ui->P_007->setEnabled(false);
-                }
-                if (i == 7)
-                {
-                    ui->P_008->setStyle("backColor = red;");
-                    ui->P_008->setEnabled(false);
-                }
-                if (i == 8)
-                {
-                    ui->P_009->setStyle("backColor = red;");
-                    ui->P_009->setEnabled(false);
-                }
-                if (i == 9)
-                {
-                    ui->P_010->setStyle("backColor = red;");
-                    ui->P_010->setEnabled(false);
-                }
-
-            }
-            if (reserve == 0)
+            int trouver = 0;
+            while(query.next())
             {
-                bookedseat[i] = 0;
-                if (i == 0)
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
-                if (i == 1 )
-                {
-                    ui->P_002->setStyle("backColor = green;");
-                }
-                if (i == 2 )
-                {
-                    ui->P_003->setStyle("backColor = green;");
-                }
-                if (i == 3 )
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
-                if (i == 4)
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
-                if (i == 5)
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
-                if (i == 6 )
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
-                if (i == 7)
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
-                if (i == 8)
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
-                if (i == 9)
-                {
-                    ui->P_001->setStyle("backColor = green;");
-                }
+                siege = query.value(1).toString();
 
+
+                qDebug() << "siege : " << siege;
+                trouver++;
+
+            if(trouver!=0)
+            {
+                int reserve;
+                reserve = query.value(3).toInt();
+
+
+                //for(int j = 0; j == i; j++)
+                //{
+
+                    if(reserve == 1)
+                    {
+                        if(siege == "PA1")
+                        {
+                            ui->P_001->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_001->setEnabled(false);
+                        }
+                        if(siege == "PA2")
+                        {
+                            ui->P_002->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_002->setEnabled(false);
+                        }
+                        if(siege == "PA3")
+                        {
+                            ui->P_003->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_003->setEnabled(false);
+                        }
+                        if(siege == "PA4")
+                        {
+                            ui->P_004->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_004->setEnabled(false);
+                        }
+                        if(siege == "PA5")
+                        {
+                            ui->P_005->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_005->setEnabled(false);
+                        }
+                        if(siege == "PA6")
+                        {
+                            ui->P_006->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_006->setEnabled(false);
+                        }
+                        if(siege == "PA7")
+                        {
+                            ui->P_007->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_007->setEnabled(false);
+                        }
+                        if(siege == "PA8")
+                        {
+                            ui->P_008->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_008->setEnabled(false);
+                        }
+                        if(siege == "PA9")
+                        {
+                            ui->P_009->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_009->setEnabled(false);
+                        }
+                        if(siege == "PA10")
+                        {
+                            ui->P_010->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_010->setEnabled(false);
+                        }
+                    }
+                    if(reserve == 0)
+                    {
+                        if(siege == "PA1")
+                        {
+                            ui->P_001->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA2")
+                        {
+                            ui->P_002->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA3")
+                        {
+                            ui->P_003->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA4")
+                        {
+                            ui->P_004->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA5")
+                        {
+                            ui->P_005->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA6")
+                        {
+                            ui->P_006->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA7")
+                        {
+                            ui->P_007->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA8")
+                        {
+                            ui->P_008->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA9")
+                        {
+                            ui->P_009->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA10")
+                        {
+                            ui->P_010->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                   }
+
+                    //}
             }
-            i++;
-            }
-*/
+           }  //j++;
+        }
+    }
 
 }
 
@@ -263,54 +283,12 @@ void PlanDeSalle::on_P_001_clicked()
 
 void PlanDeSalle::on_pBtnVisualiser_clicked()
 {
-    int reserver = 1;
-    int idSpectacle;
+    InitialisationEtatDesSieges();
+    VerifierSiReserve();
+}
 
-    idSpectacle = ui->pCBoxSpectacle->currentText().toInt();
-
-    QVector <int> numeroPlace;
-    QVector <QString> listeSieges;
-    int numSiege = 10;
-
-    for(int i = 1; i <= numSiege; i++)
-    {
-        numeroPlace.push_back(i);
-        qDebug() << numeroPlace;
-
-        QSqlQuery query;
-        query.prepare("SELECT * FROM Places WHERE IdSpectacle = :idSpectacle AND Reserve = :reserver ");
-
-        query.bindValue(":idSpectacle", idSpectacle);
-        query.bindValue(":reserver", reserver);
-int j = 0;
-        if(query.exec())
-        {
-            int compteur = 0;
-            while(query.next())
-            {
-                compteur++;
-            }
-            if(compteur==1)
-            {
-               // for(int j = 0; j == i; j++)
-               // {
-
-                    if(j == 2)
-                    {
-                        ui->P_002->setStyleSheet("backColor = red;");
-                        ui->P_002->setEnabled(false);
-                    }
-
-
-                     else
-                     {
-                             ui->P_002->setStyleSheet("backColor = green;");
-                     }
-
-                //}
-            }
-            j++;
-        }
-    }
-
+void PlanDeSalle::on_pCBoxSpectacle_currentIndexChanged(const QString &arg1)
+{
+    InitialisationEtatDesSieges();
+    VerifierSiReserve();
 }
