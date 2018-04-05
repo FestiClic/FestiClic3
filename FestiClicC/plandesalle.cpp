@@ -114,6 +114,17 @@ void PlanDeSalle::InitialisationEtatDesSieges()
     ui->P_008->setStyleSheet("background-color: none;");
     ui->P_009->setStyleSheet("background-color: none;");
     ui->P_010->setStyleSheet("background-color: none;");
+
+    ui->P_001->setEnabled(true);
+    ui->P_002->setEnabled(true);
+    ui->P_003->setEnabled(true);
+    ui->P_004->setEnabled(true);
+    ui->P_005->setEnabled(true);
+    ui->P_006->setEnabled(true);
+    ui->P_007->setEnabled(true);
+    ui->P_008->setEnabled(true);
+    ui->P_009->setEnabled(true);
+    ui->P_010->setEnabled(true);
 }
 
 void PlanDeSalle::VerifierSiReserve()
