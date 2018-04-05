@@ -9303,6 +9303,19 @@ background-color: rgb(57, 115, 0);</string>
     <string>Visualiser</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pBtnValider">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>730</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Valider</string>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>P_001</tabstop>

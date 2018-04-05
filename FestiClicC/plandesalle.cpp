@@ -23,7 +23,8 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     VerifierSiReserve();
 /*
 //Vecteur pour stocker mes sieges
-    QVector <int> numeroPlace;
+    QVector <int*> *numeroPlace = new QVector <int*>;
+    int* adresseS = new int;
     QVector <QString> listeSieges;
 
 
@@ -36,10 +37,10 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     // remplir le vecteur
     for(int i = 1; i <= numSiege; i++)
     {
-        numeroPlace.push_back(i);
-        qDebug() << numeroPlace;
-        intituleSiege = nomSiege + (i);
-        qDebug() << "intituleSiege: "<< intituleSiege;
+        numeroPlace->push_back(adresseS);
+        qDebug() << "numeroPlace "<<numeroPlace;
+        //intituleSiege = nomSiege + (numeroPlace)[i];
+        qDebug() << "adresseS " << adresseS;
 
 
 
@@ -47,7 +48,8 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
         qDebug() << listeSieges;
 
 
-
+        delete numeroPlace;
+        delete adresseS;
 
 */
 /*        qDebug() << "valeur de i" << i;
@@ -94,6 +96,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     ui->pCBoxSpectacle->setCurrentIndex(-1);
 }
 
+
 //changer aspect btn
 void PlanDeSalle::ChangerStatutSiege()
 {
@@ -137,12 +140,17 @@ void PlanDeSalle::VerifierSiReserve()
     QVector <QString> listeSieges;
     int numSiege = 10;
     QString siege;
+    QString nomSiege = "PA";
+    QString intituleSiege;
 
 
     for(int i = 1; i <= numSiege; i++)
     {
         numeroPlace.push_back(i);
-        qDebug() << numeroPlace;
+        qDebug() << "numeroPlace : " << numeroPlace;
+        intituleSiege = nomSiege+i;
+        qDebug() << "nomSiege : " << nomSiege;
+
 
         QSqlQuery query;
         query.prepare("SELECT * FROM Places WHERE IdSpectacleP = :idSpectacle AND Reserve = 1 ");
@@ -154,16 +162,16 @@ void PlanDeSalle::VerifierSiReserve()
 
         if(query.exec())
         {
-            int trouver = 0;
+            bool trouver = false;
             while(query.next())
             {
                 siege = query.value(1).toString();
 
 
                 qDebug() << "siege : " << siege;
-                trouver++;
+                trouver = true;
 
-            if(trouver!=0)
+            if(trouver)
             {
                 int reserve;
                 reserve = query.value(3).toInt();
@@ -172,8 +180,11 @@ void PlanDeSalle::VerifierSiReserve()
                 //for(int j = 0; j == i; j++)
                 //{
 
+
                     if(reserve == 1)
                     {
+
+
                         if(siege == "PA1")
                         {
                             ui->P_001->setStyleSheet("background-color: rgb(255, 99, 71);");
@@ -224,6 +235,7 @@ void PlanDeSalle::VerifierSiReserve()
                             ui->P_010->setStyleSheet("background-color: rgb(255, 99, 71);");
                             ui->P_010->setEnabled(false);
                         }
+
                     }
                     if(reserve == 0)
                     {
@@ -269,9 +281,10 @@ void PlanDeSalle::VerifierSiReserve()
                         }
                    }
 
+
                     //}
             }
-           }  //j++;
+           }
         }
     }
 
@@ -279,6 +292,8 @@ void PlanDeSalle::VerifierSiReserve()
 
 PlanDeSalle::~PlanDeSalle()
 {
+
+
     Login connexion;
     connexion.closeConnexion();
     delete ui;
@@ -289,6 +304,14 @@ PlanDeSalle::~PlanDeSalle()
 
 void PlanDeSalle::on_P_001_clicked()
 {
+    //Créer un methode dans laquelle je déclare mon Qvector
+    //Appeler la methode
+
+    //si mon élément = 0 fait ce qui suit(btn setStyleSheet = Green)
+    ui->P_010->setStyleSheet("background-color: rgb(20, 100, 20);");
+
+    //Sinon change la couleur en gris
+
 
 }
 
@@ -302,4 +325,9 @@ void PlanDeSalle::on_pCBoxSpectacle_currentIndexChanged(const QString &arg1)
 {
     InitialisationEtatDesSieges();
     VerifierSiReserve();
+}
+
+void PlanDeSalle::on_pBtnValider_clicked()
+{
+
 }

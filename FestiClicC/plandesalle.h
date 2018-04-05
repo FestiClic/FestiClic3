@@ -26,6 +26,8 @@ private slots:
 
     void on_pCBoxSpectacle_currentIndexChanged(const QString &arg1);
 
+    void on_pBtnValider_clicked();
+
 private:
     Ui::PlanDeSalle *ui;
 
