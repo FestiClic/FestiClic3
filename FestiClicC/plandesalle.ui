@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_15">
+  <widget class="QPushButton" name="P_020">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -42,7 +42,7 @@
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QPushButton" name="pushButton_13">
+  <widget class="QPushButton" name="P_015">
    <property name="geometry">
     <rect>
      <x>440</x>
@@ -55,7 +55,7 @@
     <string>15</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_10">
+  <widget class="QPushButton" name="P_016">
    <property name="geometry">
     <rect>
      <x>460</x>
@@ -84,7 +84,7 @@
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QPushButton" name="pushButton_9">
+  <widget class="QPushButton" name="P_013">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -113,7 +113,7 @@
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QPushButton" name="pushButton_11">
+  <widget class="QPushButton" name="P_014">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -142,7 +142,7 @@
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QPushButton" name="pushButton_16">
+  <widget class="QPushButton" name="P_017">
    <property name="geometry">
     <rect>
      <x>480</x>
@@ -155,7 +155,7 @@
     <string>17</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_12">
+  <widget class="QPushButton" name="P_018">
    <property name="geometry">
     <rect>
      <x>500</x>
@@ -184,7 +184,7 @@
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QPushButton" name="pushButton_7">
+  <widget class="QPushButton" name="P_011">
    <property name="geometry">
     <rect>
      <x>360</x>
@@ -197,7 +197,7 @@
     <string>11</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="P_012">
    <property name="geometry">
     <rect>
      <x>380</x>
@@ -226,7 +226,7 @@
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QPushButton" name="pushButton_14">
+  <widget class="QPushButton" name="P_019">
    <property name="geometry">
     <rect>
      <x>520</x>
@@ -239,7 +239,7 @@
     <string>19</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_17">
+  <widget class="QPushButton" name="P_024">
    <property name="geometry">
     <rect>
      <x>620</x>
@@ -252,7 +252,7 @@
     <string>24</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_18">
+  <widget class="QPushButton" name="P_021">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -265,7 +265,7 @@
     <string>21</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_19">
+  <widget class="QPushButton" name="P_022">
    <property name="geometry">
     <rect>
      <x>580</x>
@@ -278,7 +278,7 @@
     <string>22</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_20">
+  <widget class="QPushButton" name="P_023">
    <property name="geometry">
     <rect>
      <x>600</x>
@@ -837,7 +837,7 @@
     <string>BALCON</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_81">
+  <widget class="QPushButton" name="P_025">
    <property name="geometry">
     <rect>
      <x>690</x>
@@ -850,7 +850,7 @@
     <string>25</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_82">
+  <widget class="QPushButton" name="P_026">
    <property name="geometry">
     <rect>
      <x>710</x>
@@ -889,7 +889,7 @@
     <string>26</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_83">
+  <widget class="QPushButton" name="P_027">
    <property name="geometry">
     <rect>
      <x>730</x>
@@ -928,7 +928,7 @@
     <string>29</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_220">
+  <widget class="QPushButton" name="P_028">
    <property name="geometry">
     <rect>
      <x>750</x>
@@ -9324,38 +9324,38 @@ background-color: rgb(57, 115, 0);</string>
   <tabstop>P_004</tabstop>
   <tabstop>P_005</tabstop>
   <tabstop>P_006</tabstop>
-  <tabstop>pushButton_11</tabstop>
+  <tabstop>P_014</tabstop>
   <tabstop>P_007</tabstop>
-  <tabstop>pushButton_16</tabstop>
-  <tabstop>pushButton_12</tabstop>
+  <tabstop>P_017</tabstop>
+  <tabstop>P_018</tabstop>
   <tabstop>P_008</tabstop>
-  <tabstop>pushButton_18</tabstop>
-  <tabstop>pushButton_17</tabstop>
+  <tabstop>P_021</tabstop>
+  <tabstop>P_024</tabstop>
   <tabstop>P_009</tabstop>
-  <tabstop>pushButton_14</tabstop>
-  <tabstop>pushButton_7</tabstop>
-  <tabstop>pushButton_5</tabstop>
-  <tabstop>pushButton_9</tabstop>
-  <tabstop>pushButton_13</tabstop>
-  <tabstop>pushButton_20</tabstop>
-  <tabstop>pushButton_81</tabstop>
-  <tabstop>pushButton_82</tabstop>
+  <tabstop>P_019</tabstop>
+  <tabstop>P_011</tabstop>
+  <tabstop>P_012</tabstop>
+  <tabstop>P_013</tabstop>
+  <tabstop>P_015</tabstop>
+  <tabstop>P_023</tabstop>
+  <tabstop>P_025</tabstop>
+  <tabstop>P_026</tabstop>
   <tabstop>pushButton_171</tabstop>
   <tabstop>pushButton_175</tabstop>
-  <tabstop>pushButton_83</tabstop>
+  <tabstop>P_027</tabstop>
   <tabstop>pushButton_195</tabstop>
   <tabstop>pushButton_218</tabstop>
-  <tabstop>pushButton_220</tabstop>
+  <tabstop>P_028</tabstop>
   <tabstop>pushButton_474</tabstop>
   <tabstop>P_010</tabstop>
   <tabstop>pushButton_498</tabstop>
   <tabstop>pushButton_501</tabstop>
-  <tabstop>pushButton_10</tabstop>
+  <tabstop>P_016</tabstop>
   <tabstop>pushButton_512</tabstop>
   <tabstop>pushButton_514</tabstop>
   <tabstop>pushButton_526</tabstop>
-  <tabstop>pushButton_15</tabstop>
-  <tabstop>pushButton_19</tabstop>
+  <tabstop>P_020</tabstop>
+  <tabstop>P_022</tabstop>
   <tabstop>pushButton_539</tabstop>
   <tabstop>pushButton_543</tabstop>
   <tabstop>pushButton_548</tabstop>

@@ -21,23 +21,28 @@ public:
     bool lanceApp;
 
 private slots:
-    //Ouverture de la liste et fiche spectacles
+    //Ouverture de la fiche spectacles
     void on_aBtnSpectacles_clicked();
 
     //Ouverture de la liste et fiche Clients
     void on_aBtnClients_clicked();
 
-    //Ouverture de la page billetterie
+    //Ouverture de la fiche billetterie
     void on_aBtnBilletterie_clicked();
 
+    //Ouverture de la fiche plan de salle
     void on_aBtnPlanDeSalle_clicked();
 
+    //Ouverture de la fiche utilisateur
     void on_aBtnUtilisateur_clicked();
 
+    //Ouverture de la fiche administration des billets
     void on_aBtnAdministratioBillet_clicked();
 
+    //Ouverture de la fiche fréquentation
     void on_aBtnFrequentation_clicked();
 
+    //Quitter l'application
     void on_aBtnQuitter_clicked();
 
 private:

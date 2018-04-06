@@ -1,12 +1,9 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include "accueil.h"
-#include "login.h"
 #include <QtSql>
 #include <QtDebug>
-#include <QFileInfo>
-#include <QString>
+
 
 
 class Database
@@ -14,13 +11,13 @@ class Database
 public:
     Database();
 
-    //QSqlDatabase maBaseDeDonnee;
+    QSqlDatabase maBaseDeDonnee;
 
     //ouverture de la connexion bdd
-    //bool openConnexion();
+    bool openConnexion();
 
     //fermeture de la connexion bdd
-    //void closeConnexion();
+    void closeConnexion();
 private:
 
 

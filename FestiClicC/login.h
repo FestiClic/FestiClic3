@@ -17,13 +17,13 @@ class Login : public QDialog
 
 public:
 
-    QSqlDatabase maBaseDeDonnee;
+    //QSqlDatabase maBaseDeDonnee;
 
     //ouverture de la connexion bdd
-    bool openConnexion();
+    //bool openConnexion();
 
     //fermeture de la connexion bdd
-    void closeConnexion();
+    //void closeConnexion();
 
     explicit Login(QWidget *parent = 0);
     ~Login();

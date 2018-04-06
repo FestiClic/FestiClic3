@@ -17,16 +17,13 @@
 
 #include <QTabWidget>
 
-
-
-
 Accueil::Accueil(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Accueil)
 {
     ui->setupUi(this);
 
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
 
     //ouverture de la page login
@@ -91,22 +88,6 @@ void Accueil::on_aBtnSpectacles_clicked()
     Spectacles spectacles;
     spectacles.setModal(true);
     spectacles.exec();
-  /*
-    Login connexion;
-    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-    connexion.openConnexion();
-    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query->prepare("SELECT * FROM Spectacles");
-
-    query->exec();  //Execution de la requête
-    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-    ui->sTabV->setModel(modal);     //Envoyer les données dans la TableView
-
-    //fermeture de la connexion
-    connexion.closeConnexion();
-    qDebug() << (modal->rowCount());
-*/
 }
 
 void Accueil::on_aBtnClients_clicked()

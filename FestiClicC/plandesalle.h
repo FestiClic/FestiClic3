@@ -34,6 +34,7 @@ private:
     void VerifierSiReserve();
 
     void InitialisationEtatDesSieges();
+
 };
 
 #endif // PLANDESALLE_H

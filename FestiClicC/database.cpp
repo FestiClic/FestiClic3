@@ -10,13 +10,18 @@ Database::Database()
 
 }
 
-/*
-//ouverture de la connexion bdd
 bool Database::openConnexion()
 {
-    maBaseDeDonnee = QSqlDatabase::addDatabase("QSQLITE");
-    //maBaseDeDonnee.setDatabaseName("Z:/Projet C++/Codes/Fclic/database.db");  //CCI
-    maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/Fclic/database.db");   //Maison
+    maBaseDeDonnee=QSqlDatabase::addDatabase("QSQLITE");
+
+    //maBaseDeDonnee.setDatabaseName("Z:/Projet C++/FestiClic3/database.db");  //CCI Z:
+    maBaseDeDonnee.setDatabaseName("C:/Users/adai10/Desktop/projet Qt C++/FestiClic3/database.db"); //CCI C:
+
+
+    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/Fclic/database.db");   //Maison Projet B
+    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");  //Maison Projet C
+
+    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");  //Maison Projet C
 
 
     if(maBaseDeDonnee.open())
@@ -26,16 +31,13 @@ bool Database::openConnexion()
     }
     else
     {
-        qDebug()<<("Echec de la connexion");
+        qDebug()<<("Connexion a ouvrir");
         return false;
     }
 }
 
-//fermeture de la connexion bdd
 void Database::closeConnexion()
 {
     maBaseDeDonnee.close();
     maBaseDeDonnee.removeDatabase(QSqlDatabase::defaultConnection);
-
 }
-*/

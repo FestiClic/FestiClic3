@@ -1,5 +1,7 @@
 #include "utilisateur.h"
 #include "ui_utilisateur.h"
+
+#include "database.h"
 #include "login.h"
 #include "accueil.h"
 #include <QtSql>
@@ -13,7 +15,7 @@ Utilisateur::Utilisateur(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
 
     MAJTableV();
@@ -23,7 +25,7 @@ Utilisateur::Utilisateur(QWidget *parent) :
 void Utilisateur::MAJTableV()
 {
     //Affecter les données des utilisateurs dans la TableView
-    Login connexion;
+    Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();
 
     //connexion.openConnexion();
@@ -56,7 +58,7 @@ void Utilisateur::ViderLesChamps()
 
 Utilisateur::~Utilisateur()
 {
-    Login connexion;
+    Database connexion;
     connexion.closeConnexion();
     delete ui;
 }

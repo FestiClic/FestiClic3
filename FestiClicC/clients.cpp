@@ -2,6 +2,7 @@
 #include "ui_clients.h"
 
 #include "accueil.h"
+#include "database.h"
 #include "login.h"
 #include <QtSql>
 #include <QtDebug>
@@ -28,7 +29,7 @@ Clients::Clients(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
 
     MAJTableV();
@@ -58,7 +59,7 @@ Clients::Clients(QWidget *parent) :
 void Clients::MAJTableV()
 {
     //Affecter les données clinets dans la TableView
-    Login connexion;
+    Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
     //connexion.openConnexion();
@@ -98,7 +99,7 @@ void Clients::ViderLesChamps()
 
 Clients::~Clients()
 {
-    Login connexion;
+    Database connexion;
     connexion.closeConnexion();
     delete ui;
 }

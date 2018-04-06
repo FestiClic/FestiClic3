@@ -9734,7 +9734,7 @@ border-image: none;</string>
       <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -9775,7 +9775,7 @@ border-image: none;</string>
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -9904,14 +9904,14 @@ border-image: none;</string>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_8">
        <item>
-        <widget class="QPushButton" name="bBtnAnnulerPaiement">
+        <widget class="QPushButton" name="bBtnPaiement">
          <property name="text">
           <string>Paiement</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="bBtnAnnulerPaiement_2">
+        <widget class="QPushButton" name="bBtnAnnulerPaiement">
          <property name="text">
           <string>Annuler</string>
          </property>
@@ -9934,13 +9934,31 @@ border-image: none;</string>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <widget class="QLineEdit" name="bTxtCb"/>
+        <widget class="QLineEdit" name="bTxtCb">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="bLabelEuro_2">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>€</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -9956,7 +9974,7 @@ border-image: none;</string>
     </layout>
    </widget>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -9984,7 +10002,7 @@ border-image: none;</string>
   <tabstop>bRBtnPlacementLibre</tabstop>
   <tabstop>bTxtInfosClient</tabstop>
   <tabstop>bCBoxNbPlaces</tabstop>
-  <tabstop>bBtnAnnulerPaiement</tabstop>
+  <tabstop>bBtnPaiement</tabstop>
   <tabstop>bTxtDateEtHeure</tabstop>
   <tabstop>bBtnQuitter</tabstop>
   <tabstop>bBtnAjouter</tabstop>

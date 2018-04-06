@@ -33,7 +33,6 @@ SOURCES += \
     billetterie.cpp \
     modepaiement.cpp \
     plandesalle.cpp \
-    basededonnee.cpp \
     utilisateur.cpp \
     administrationbillet.cpp \
     frequentation.cpp \
@@ -48,7 +47,6 @@ HEADERS += \
     billetterie.h \
     modepaiement.h \
     plandesalle.h \
-    basededonnee.h \
     utilisateur.h \
     administrationbillet.h \
     frequentation.h \

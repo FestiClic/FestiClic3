@@ -54,10 +54,21 @@ private slots:
 
     void on_bRBtnPlacementPlan_clicked();
 
-    void on_bBtnAnnulerPaiement_2_clicked();
+    void on_bBtnAnnulerPaiement_clicked();
 
 private:
     Ui::Billetterie *ui;
+
+    //Affecter donnees representation à la comboBox
+    void AffecterDonneesRepresentation();
+
+    void AffecterLesNomsClients();
+
+    void AffecterLesTarifs();
+
+    void AffecterLesNumerosDesSieges();
+
+    void AffecterLesModesDePaiement();
 };
 
 #endif // BILLETTERIE_H

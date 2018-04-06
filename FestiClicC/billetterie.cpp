@@ -2,6 +2,7 @@
 #include "ui_billetterie.h"
 
 #include "accueil.h"
+#include "database.h"
 #include "login.h"
 #include "spectacles.h"
 #include "modepaiement.h"
@@ -25,8 +26,9 @@ Billetterie::Billetterie(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
+
 //Masquer les deux listes des numSienges
     ui->bListVNumSiege->hide();
     ui->listWidget->hide();
@@ -34,16 +36,69 @@ Billetterie::Billetterie(QWidget *parent) :
 
     ui->bRBtnPlacementPlan->setChecked(true);
 
-
-
     //cacher le label billet
     ui->scrollArea->hide();
 
+    //Affecter les données des représentations au ComboBox
+    AffecterDonneesRepresentation();
+
+    //Affecter le nomClient a la comboBox client
+    AffecterLesNomsClients();
+
+    //Affecter le tarif a la comboBox tarif
+    AffecterLesTarifs();
+
+    //Affecter les num sieges a la comboBox numSiege
+    AffecterLesNumerosDesSieges();
+
+    //Affecter les modes de paiement a la comboBox
+    AffecterLesModesDePaiement();
+
+    //Initialisation des EditLine
+    ui->bTxtInfosClient->clear();
+    ui->bTxtDateEtHeure->clear();
+    ui->bCBoxNbPlaces->clear();
+
+    //Initialisation des Label
+    ui->bLabelRepresentation->clear();
+    ui->bLabelIdClient->clear();
+    ui->bLabelNomClient->clear();
+    ui->bLabelPrix->clear();
+    ui->bLabelIdClient->clear();
+    ui->bLabelIdSpectacle->clear();
 
 
+    //Masquer le bouton suivant tant que les champs sont vides
+
+    if(ui->bLabelNomClient->text().isEmpty()
+            && ui->bLabelRepresentation->text().isEmpty()
+            && ui->bLabelPrix->text().isEmpty())
+    {
+        ui->bBtnSuivant->hide();
+    }
+
+    //Masquer le grpoupeBox Mode paiement a l'ouverture de la billet
+    ui->bGBoxModePaiement->hide();
+
+    //Masquer le grpoupeBox Plan de salle a l'ouverture de la billet
+    ui->bGBoxPlanSalle->hide();
+
+    //Affecter liste numero de sieges a la ListView
+    MAJListeDesSieges();
+
+    //chanp text pour afficher le prix total avant paiement
+    ui->bTxtCb->setEnabled(false);
+    ui->bTxtCb->setStyleSheet("color: green; font-size: 15px;");
+
+    ui->bLabelEuro_2->setStyleSheet("color: green;");
+
+}
+
+void Billetterie::AffecterDonneesRepresentation()
+{
     //Affecter les données des représentations au ComboBox
 
-//    Login connexion;
+    Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
     //connexion.openConnexion();
@@ -61,11 +116,12 @@ Billetterie::Billetterie(QWidget *parent) :
     qDebug() << (modal->rowCount());
 
     ui->bCBoxRepresentations->setCurrentIndex(-1);
+}
 
-//************************************************************************************************************************
-
+void Billetterie::AffecterLesNomsClients()
+{
     //Affecter le nomClient a la comboBox client
-    //Login connexion1;
+    Database connexion;
     QSqlQueryModel * modal1 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
     //connexion1.openConnexion();
@@ -83,41 +139,46 @@ Billetterie::Billetterie(QWidget *parent) :
     qDebug() << (modal1->rowCount());
 
     ui->bCBoxSpectacteur->setCurrentIndex(-1);
+}
 
-
-//************************************************************************************************************************
-
+void Billetterie::AffecterLesTarifs()
+{
     //Affecter le tarif a la comboBox tarif
-    //Login connexion2;
-    QSqlQueryModel * modal2 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
+    Database connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
     //connexion2.openConnexion();
 
     //Requette pour remplir Combo Spectacles
-    QSqlQuery* query2 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query2->prepare("SELECT IntituleTarif FROM Tarifs");
-    query2->exec();  //Execution de la requête
-    modal2->setQuery(*query2);    //Récuperation des valeurs pointeur de requete
-    ui->bCBoxTarif->setModel(modal2);     //Envoyer les données en combo
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    query->prepare("SELECT IntituleTarif FROM Tarifs");
+    query->exec();  //Execution de la requête
+    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
+    ui->bCBoxTarif->setModel(modal);     //Envoyer les données en combo
 
     ui->bCBoxTarif->setCurrentIndex(-1);
+    qDebug() << (modal->rowCount());
+}
 
-//************************************************************************************************************************
-
+void Billetterie::AffecterLesNumerosDesSieges()
+{
     //Affecter les num sieges a la comboBox numSiege
-    //Login connexion3;
-    QSqlQueryModel * modal3 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
-
-    //connexion3.openConnexion();
+    Database connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
     //Requette pour remplir Combo Spectacles
-    QSqlQuery* query3 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-    query3->prepare("SELECT NumPlace FROM Places");
-    query3->exec();  //Execution de la requête
-    modal3->setQuery(*query3);    //Récuperation des valeurs pointeur de requete
-    ui->bCBoxNumSiege->setModel(modal3);     //Envoyer les données en combo
-//************************************************************************************************************************
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    query->prepare("SELECT NumPlace FROM Places");
+    query->exec();  //Execution de la requête
+    modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
+    ui->bCBoxNumSiege->setModel(modal);     //Envoyer les données en combo
+    qDebug() << (modal->rowCount());
+}
+
+void Billetterie::AffecterLesModesDePaiement()
+{
     //Affecter les modes de paiement a la comboBox
+    Database connexion;
     QSqlQueryModel * modalModePaiement = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
     QSqlQuery* queryModePaiement = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -127,88 +188,36 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bCBoxModePaiement->setModel(modalModePaiement);     //Envoyer les données en combo
 
     qDebug() << (modalModePaiement->rowCount());
-//************************************************************************************************************************
-
-    qDebug() << (modal2->rowCount());
-
-//************************************************************************************************************************
-
-    //Initialisation des EditLine
-    ui->bTxtInfosClient->clear();
-    ui->bTxtDateEtHeure->clear();
-    ui->bCBoxNbPlaces->clear();
-
-    //ui->bTxtCb->clear();
-
-    //Initialisation des Label
-    ui->bLabelRepresentation->clear();
-    ui->bLabelIdClient->clear();
-    ui->bLabelNomClient->clear();
-    ui->bLabelPrix->clear();
-    ui->bLabelIdClient->clear();
-    ui->bLabelIdSpectacle->clear();
-
-
-//************************************************************************************************************************
-
-    //Masquer le bouton suivant tant que les champs sont vides
-
-    if(ui->bLabelNomClient->text().isEmpty()
-            && ui->bLabelRepresentation->text().isEmpty()
-            && ui->bLabelPrix->text().isEmpty())
-    {
-        ui->bBtnSuivant->hide();
-    }
-
-    //Masquer le grpoupeBox Mode paiement a l'ouverture de la billet
-    ui->bGBoxModePaiement->hide();
-
-    //Masquer le grpoupeBox Plan de salle a l'ouverture de la billet
-    ui->bGBoxPlanSalle->hide();
-//************************************************************************************************************************
-
-
-
-    //Affecter liste numero de sieges a la ListView
-    MAJListeDesSieges();
-
-
-
-
-    qDebug() << (modal->rowCount());
-
 }
 
 void Billetterie::MAJListeDesSieges()
 {
-    Login connexion;
-    QSqlQueryModel * modal4 = new QSqlQueryModel();
+    Database connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();
     QString spectacle;
     int idSpectacle;
 
     spectacle = ui->bLabelIdSpectacle->text();
     idSpectacle = ui->bLabelIdSpectacle->text().toInt();
 
-   // connexion.openConnexion();
 
-    QSqlQuery* query4 = new QSqlQuery(connexion.maBaseDeDonnee);
-    query4->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0 "
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
+    query->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0 "
                     "AND IdSpectacleP = :idSpectacle");
-    query4->bindValue(":idSpectacle", idSpectacle);
-    query4->exec();
-    modal4->setQuery(*query4);
-    ui->bListVNumSiege->setModel(modal4);
+    query->bindValue(":idSpectacle", idSpectacle);
+    query->exec();
+    modal->setQuery(*query);
+    ui->bListVNumSiege->setModel(modal);
 }
 
 
 Billetterie::~Billetterie()
 {
-    Login connexion;
+    Database connexion;
     connexion.closeConnexion();
     delete ui;
 }
 
-//************************************************************************************************************************
 
 //Affecter les valeur ComboBox aux labels
 void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg1)
@@ -549,257 +558,184 @@ void Billetterie::on_bBtnSuivant_clicked()
 
 void Billetterie::on_bBtnPaiement_clicked()
 {
-//    Login connexion;
+    //    Login connexion;
 
-    int spectacle;
-    QString client;
-    QString tarif;
-    int nbPlaces;
+        int spectacle;
+        QString client;
+        QString tarif;
+        int nbPlaces;
 
-    nbPlaces = ui->listWidget->count();
-    spectacle = ui->bLabelIdSpectacle->text().toInt();
-    client = ui->bLabelIdClient->text();
-    tarif = ui->bCBoxTarif->currentText();
-
-
-    //Récuperation date systeme pour l'inclure dans le billet
-    //QDateTime dateSys = QDateTime::currentDateTime();
-    //QString dateSysA = dateSys.toString();
-
-    QVector <QString> siegesCommande;
-    QString numPlace;
+        nbPlaces = ui->listWidget->count();
+        spectacle = ui->bLabelIdSpectacle->text().toInt();
+        client = ui->bLabelIdClient->text();
+        tarif = ui->bCBoxTarif->currentText();
 
 
- /*   if(!connexion.openConnexion())
-    {
-        qDebug()<<"Echec de connexion";
-        return;
-    }
-*/
+        //Récuperation date systeme pour l'inclure dans le billet
+        //QDateTime dateSys = QDateTime::currentDateTime();
+        //QString dateSysA = dateSys.toString();
 
-   //**********************************************************************************************************************
-  // Ouverture de du billet en html avec les information:
-   // Nom spectacle - date - heure - tarif - NumSiege - ConfigSalle + infos légales
+        QVector <QString> siegesCommande;
+        QString numPlace;
 
 
-   //***********************************************************************************************************************
+         //***OK**
+         // Récupération des éléments de la QlisteWidger
+         //utiliser cette liste pour la décrémentation du nbplace / spectacle
 
-/*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+    // A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    // Requete ok pour recupérer données pour generation billet
-                SELECT IdBillet, NomClient, Spectacle, Prix
-                FROM Billets b, Clients c, Spectacles s, Tarifs t
-                Where b.IdClient = c.IdClient
-                and b.IdSpectacle = s.IdSpectacle
-                and b.IdTarif = t.IdTarif
-                and IdBillet = 7
-*/    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-
-
-     // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-     // A coder
-     //Stocker la liste de resaPlaces dans un Vector
-     // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-
-     //***OK**
-     // Récupération des éléments de la QlisteWidger
-     //utiliser cette liste pour la décrémentation du nbplace / spectacle
-
-// A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-     for(int i = 0; i < ui->listWidget->count(); ++i)
-     {
-         siegesCommande.push_back(ui->listWidget->item(i)->text());
-     }
-
-         for (int j = 0; j < siegesCommande.length(); j++)
+         for(int i = 0; i < ui->listWidget->count(); ++i)
          {
-             numPlace = siegesCommande[j];
-
-             qDebug() << numPlace;
-
-
-             QSqlQuery query3;
-//Requete pour passer le siege en réservé
-             query3.prepare( "UPDATE Places SET Reserve = 1 "
-                             "WHERE NumPlace = :numPlace "
-                             "AND IdSpectacleP = :idSpectacle ");
-
-             query3.bindValue(":numPlace", numPlace);
-             query3.bindValue(":idSpectacle", spectacle);
-
-             if(query3.exec())
-                 qDebug() << "requête fonctionnelle";
-             else
-                 qDebug() << "requête plantée: " << query3.lastError();
+             siegesCommande.push_back(ui->listWidget->item(i)->text());
+         }
+             for (int j = 0; j < siegesCommande.length(); j++)
+             {
+                 numPlace = siegesCommande[j];
+                 qDebug() << numPlace;
 
 
-             //******************************************************************************
-                      QSqlQuery query;
+    //Requete pour passer le siege en réservé
+                 QSqlQuery query3;
+                 query3.prepare( "UPDATE Places SET Reserve = 1 "
+                                 "WHERE NumPlace = :numPlace "
+                                 "AND IdSpectacleP = :idSpectacle ");
 
-//Requete insertion données dans la table billet
+                 query3.bindValue(":numPlace", numPlace);
+                 query3.bindValue(":idSpectacle", spectacle);
 
-                      query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
-                                    "VALUES ( (SELECT MAX(NumBillet+1) FROM Billets), "
-                                            "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
-                                            "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
-                                            "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                                            "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
-
-                      query.bindValue(":client", client);
-                      query.bindValue(":spectacle", spectacle);
-                      query.bindValue(":tarif", tarif);
-                      query.bindValue(":siege", numPlace);
-
-                      query.exec();
-
-              //******************************************************************************
+                 if(query3.exec())
+                     qDebug() << "requête fonctionnelle";
+                 else
+                     qDebug() << "requête plantée: " << query3.lastError();
 
 
-   /*                   for(int k = 0; k<ui->bCBoxNbPlaces->currentText().toInt(); k++)
-                      {
-                          QSqlQuery queryInserrtInSiegeSpectacleClient;
-
-                          //Requete insertion données dans la table SiegeSpectacleClient
-
-                          queryInserrtInSiegeSpectacleClient.prepare("INSERT INTO SiegeSpectacleClient (IdSpectacle, IdClient, IdSiege) "
-                                        "VALUES ( (SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle ), "
+    //Requete insertion données dans la table billet
+                          QSqlQuery query;
+                          query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
+                                        "VALUES ( (SELECT MAX(NumBillet+1) FROM Billets), "
                                                 "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
+                                                "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
+                                                "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
                                                 "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
-                          queryInserrtInSiegeSpectacleClient.bindValue(":spectacle", spectacle);
-                          queryInserrtInSiegeSpectacleClient.bindValue(":client", client);
-                          queryInserrtInSiegeSpectacleClient.bindValue(":siege", numPlace);
+
+                          query.bindValue(":client", client);
+                          query.bindValue(":spectacle", spectacle);
+                          query.bindValue(":tarif", tarif);
+                          query.bindValue(":siege", numPlace);
+
+                          query.exec();
+
+                  //******************************************************************************
+    //Requete insertion données dans la table SiegeSpectacleClient
+
+       /*                   for(int k = 0; k<ui->bCBoxNbPlaces->currentText().toInt(); k++)
+                          {
+                              QSqlQuery queryInserrtInSiegeSpectacleClient;
+
+                              queryInserrtInSiegeSpectacleClient.prepare("INSERT INTO SiegeSpectacleClient (IdSpectacle, IdClient, IdSiege) "
+                                            "VALUES ( (SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle ), "
+                                                    "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
+                                                    "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
+                              queryInserrtInSiegeSpectacleClient.bindValue(":spectacle", spectacle);
+                              queryInserrtInSiegeSpectacleClient.bindValue(":client", client);
+                              queryInserrtInSiegeSpectacleClient.bindValue(":siege", numPlace);
+
+                              queryInserrtInSiegeSpectacleClient.exec();
+                              }
+    */
+                  //******************************************************************************
+
+    // Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
+
+                         QSqlQuery queryDecrementationJauge;
+                         queryDecrementationJauge.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
+                                        "WHERE IdSpectacle = :spectacle ");
+                         queryDecrementationJauge.bindValue(":nbPlaces", nbPlaces);
+                         queryDecrementationJauge.bindValue(":spectacle", spectacle);
+
+                         queryDecrementationJauge.exec();
+
+                         qDebug() << nbPlaces;
+
+             }
+             //********************************************************************************
+                      //Faire requet pour insertion dans table Mode Paiement
+            //********************************************************************************
+    //Requete insertion données dans la table Transaction
+
+             QString modePaiement;
+             int nombreDePlaces;
+
+             modePaiement = ui->bCBoxModePaiement->currentText();
+             nombreDePlaces = siegesCommande.count();
+
+             QSqlQuery queryTransaction;
+
+             queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdTarif, IdModePaiement, NombreDePlaces ) "
+                           "VALUES ( (SELECT IdClient FROM Clients WHERE IdClient = :client ), "
+                           "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
+                           "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
+                           "(SELECT IdModePaiement FROM ModePaiement WHERE TypeModePaiement = :modePaiement), "
+                           ":nombreDePlaces ) ");
+
+             queryTransaction.bindValue(":client", client);
+             queryTransaction.bindValue(":spectacle", spectacle);
+             queryTransaction.bindValue(":tarif", tarif);
+             queryTransaction.bindValue(":modePaiement", modePaiement);
+             queryTransaction.bindValue(":nombreDePlaces", nombreDePlaces);
+
+             queryTransaction.exec();
+
+             qDebug() << "Nombre de siege"<< siegesCommande.count();
+
+             siegesCommande.pop_back();
 
 
-                          queryInserrtInSiegeSpectacleClient.exec();
-                          }
-*/
-              //******************************************************************************
+             ui->scrollArea->show();
 
-// Requête décrémentation Jauge spectacle dans la table Spectacle BDD ***OK***
-                     QSqlQuery queryDecrementationJauge;
-                     queryDecrementationJauge.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
-                                    "WHERE IdSpectacle = :spectacle ");
-                     queryDecrementationJauge.bindValue(":nbPlaces", nbPlaces);
-                     queryDecrementationJauge.bindValue(":spectacle", spectacle);
+    //Requete pour données à afficher sur le billet
+//Attention la requette affiche toujours le même client le même numSiege et un seul siège !!!!!
 
-                     queryDecrementationJauge.exec();
+             QSqlQuery queryDonneesBillet;
+             queryDonneesBillet.prepare("SELECT IdTransaction, IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
+                                        "FROM Transactions tr , Billets b, Clients c, Spectacles s, Tarifs t, Places p "
+                                        "Where b.IdClient = c.IdClient "
+                                        "AND b.IdSpectacle = s.IdSpectacle "
+                                        "AND b.IdTarif = t.IdTarif "
+                                        "AND b.IdPlace = p.IdPlace "
+                                        "AND tr.IdSpectacle = s.IdSpectacle "
+                                        "group by NumPlace ");
 
-                     qDebug() << nbPlaces;
+    // Ajouter total a payer prix*nbPlaces
 
+             queryDonneesBillet.exec();
 
-         }
-         //********************************************************************************
-                  //Faire requet pour insertion dans table Mode Paiement
-        //********************************************************************************
-        //Requete insertion données dans la table Transaction
+    //Affecter les données au billet
+             if(queryDonneesBillet.next())
+             {
+                 ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(1).toString());
+                 ui->LabelNomSurBillet_2->setText(queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
+                 ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
+                 ui->LabelNomSurBillet_4->setText(queryDonneesBillet.value(5).toString());
+                 ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(7).toString());
+                 ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
+                 //ui->LabelNomSurBillet_7->setText("Transaction no : "+ queryDonneesBillet.value(8).toString() + queryDonneesBillet.value(9).toString()+ queryDonneesBillet.value(10).toString());
 
-         QString modePaiement;
-         int nombreDePlaces;
+                 ui->LabelNomSurBillet->setStyleSheet("color:white; front-size: 20px; background-image: none;");
+                 ui->LabelNomSurBillet_2->setStyleSheet("color:white; front-size: 20px");
+                 ui->LabelNomSurBillet_3->setStyleSheet("color:white; front-size: 20px");
+                 ui->LabelNomSurBillet_4->setStyleSheet("color:white; front-size: 20px");
+                 ui->LabelNomSurBillet_5->setStyleSheet("color:white; front-size: 20px");
+                 ui->LabelNomSurBillet_6->setStyleSheet("color:white; front-size: 20px");
+                 ui->LabelNomSurBillet_7->setStyleSheet("color:white; front-size: 20px, background-image: none;");
+             }
 
-         modePaiement = ui->bCBoxModePaiement->currentText();
-         nombreDePlaces = siegesCommande.count();
+             qDebug() << nbPlaces;
 
-         QSqlQuery queryTransaction;
-
-
-
-         queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdTarif, IdModePaiement, NombreDePlaces ) "
-                       "VALUES ( (SELECT IdClient FROM Clients WHERE IdClient = :client ), "
-                       "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
-                       "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                       "(SELECT IdModePaiement FROM ModePaiement WHERE TypeModePaiement = :modePaiement), "
-                       ":nombreDePlaces ) ");
-
-         queryTransaction.bindValue(":client", client);
-         queryTransaction.bindValue(":spectacle", spectacle);
-         queryTransaction.bindValue(":tarif", tarif);
-         queryTransaction.bindValue(":modePaiement", modePaiement);
-         queryTransaction.bindValue(":nombreDePlaces", nombreDePlaces);
-
-         queryTransaction.exec();
-
-         qDebug() << "Nombre de siege"<< siegesCommande.count();
-
-         siegesCommande.pop_back();
-
-
-
-
-
-
-
-         /*    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-
-             // Requete ok pour recupérer données pour generation billet
-                         SELECT IdBillet, NomClient, Spectacle, Prix
-                         FROM Billets b, Clients c, Spectacles s, Tarifs t
-                         Where b.IdClient = c.IdClient
-                         and b.IdSpectacle = s.IdSpectacle
-                         and b.IdTarif = t.IdTarif
-                         and IdBillet = 7
-         */    // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
-
-         ui->scrollArea->show();
-
-//Requete pour données billet
-
-         QSqlQuery queryDonneesBillet;
-         queryDonneesBillet.prepare("SELECT IdTransaction, IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
-                                    "FROM Transactions tr , Billets b, Clients c, Spectacles s, Tarifs t, Places p "
-                                    "Where b.IdClient = c.IdClient "
-                                    "AND b.IdSpectacle = s.IdSpectacle "
-                                    "AND b.IdTarif = t.IdTarif "
-                                    "AND b.IdPlace = p.IdPlace "
-                                    "AND tr.IdSpectacle = s.IdSpectacle "
-                                    "group by NumPlace ");
-
-
-         // Ajouter total a payer prix*nbPlaces
-
-
-
-
-         queryDonneesBillet.exec();
-
-         if(queryDonneesBillet.next())
-         {
-             ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(1).toString());
-             ui->LabelNomSurBillet_2->setText(queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
-             ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
-             ui->LabelNomSurBillet_4->setText(queryDonneesBillet.value(5).toString());
-             ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(7).toString());
-             ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
-             //ui->LabelNomSurBillet_7->setText("Transaction no : "+ queryDonneesBillet.value(8).toString() + queryDonneesBillet.value(9).toString()+ queryDonneesBillet.value(10).toString());
-
-             ui->LabelNomSurBillet->setStyleSheet("color:white; front-size: 20px; background-image: none;");
-             ui->LabelNomSurBillet_2->setStyleSheet("color:white; front-size: 20px");
-             ui->LabelNomSurBillet_3->setStyleSheet("color:white; front-size: 20px");
-             ui->LabelNomSurBillet_4->setStyleSheet("color:white; front-size: 20px");
-             ui->LabelNomSurBillet_5->setStyleSheet("color:white; front-size: 20px");
-             ui->LabelNomSurBillet_6->setStyleSheet("color:white; front-size: 20px");
-             ui->LabelNomSurBillet_7->setStyleSheet("color:white; front-size: 20px, background-image: none;");
-         }
-
-         qDebug() << nbPlaces;
-         //qDebug() << "Donnéses billet " << ui->bLabelBillet->text();
-
-
-         //ui->bLabelBillet->setText("<html><b><u>+spectacle+<br>+tarif+<br>+numPlace+<br>+client+</u></b></html>");
-
-
-    //Changer l'apparence siege sur plan
-
-    //ui->S_8-setStyleSheet("background-image:url(:BtnRed.png); background-color: cornflowerblue;");
-
-    //***********************************************************************************************************************
-
-
-         MAJListeDesSieges();
-
+             MAJListeDesSieges();
 }
 
-//******************************************************************************************
 void Billetterie::on_bBtnQuitter_clicked()
 {
     this->close();
@@ -881,11 +817,7 @@ void Billetterie::on_bRBtnPlacementPlan_clicked()
     ui->bGBoxModePaiement->hide();
 }
 
-void Billetterie::on_bBtnAnnulerPaiement_2_clicked()
-{
-    ui->widgetPartieGauche->show();
-    ui->bGBoxModePaiement->hide();
-}
+
 
 //***************************************************************************************
 // A finir !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -923,3 +855,9 @@ void Billetterie::on_PA2_clicked()
     ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
 }
 
+
+void Billetterie::on_bBtnAnnulerPaiement_clicked()
+{
+    ui->widgetPartieGauche->show();
+    ui->bGBoxModePaiement->hide();
+}

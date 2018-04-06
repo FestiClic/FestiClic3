@@ -12,10 +12,11 @@ Login::Login(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    openConnexion();
+    Database connexion;
+    connexion.openConnexion();
 
 
-    if(openConnexion())
+    if(connexion.openConnexion())
     {
         ui->lLabConnexion->setText("Connexion Billetterie principale");
     }
@@ -26,37 +27,7 @@ Login::Login(QWidget *parent) :
     }
 }
 
-bool Login::openConnexion()
-{
-    maBaseDeDonnee=QSqlDatabase::addDatabase("QSQLITE");
 
-    //maBaseDeDonnee.setDatabaseName("Z:/Projet C++/FestiClic3/database.db");  //CCI Z:
-    //maBaseDeDonnee.setDatabaseName("C:/Users/adai10/Desktop/projet Qt C++/FestiClic3/database.db"); //CCI C:
-
-
-    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/Fclic/database.db");   //Maison Projet B
-    maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");  //Maison Projet C
-
-    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");  //Maison Projet C
-
-
-    if(maBaseDeDonnee.open())
-    {
-        qDebug()<<("Connexion...");
-        return true;
-    }
-    else
-    {
-        qDebug()<<("Connexion a ouvrir");
-        return false;
-    }
-}
-
-void Login::closeConnexion()
-{
-    maBaseDeDonnee.close();
-    maBaseDeDonnee.removeDatabase(QSqlDatabase::defaultConnection);
-}
 
 
 Login::~Login()
@@ -112,12 +83,4 @@ void Login::on_lBtnAnnuler_2_clicked()
 {
     this->reject();
     this->close();
-
-
-    //Si fermer il faut aussi fermer la page Accueil
-
-    //Accueil accueil;
-    //accueil.close(); //A modifier car ca ne marche pas comme il faut
-    //qApp->exit(0);
-
 }

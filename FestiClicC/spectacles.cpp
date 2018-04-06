@@ -2,6 +2,7 @@
 #include "ui_spectacles.h"
 
 #include "accueil.h"
+#include "database.h"
 #include "login.h"
 #include <QtSql>
 #include <QtDebug>
@@ -25,7 +26,7 @@ Spectacles::Spectacles(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
 
     MAJTableV();
@@ -64,7 +65,7 @@ void Spectacles::ViderLesChamps()
 void Spectacles::MAJTableV()
 {
     //Affecter les données des spectacles dans la TableView
-    Login connexion;
+    Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
     //connexion.openConnexion();
@@ -95,7 +96,7 @@ void Spectacles::MAJTableV()
 
 Spectacles::~Spectacles()
 {
-    Login connexion;
+    Database connexion;
     connexion.closeConnexion();
     delete ui;
 }

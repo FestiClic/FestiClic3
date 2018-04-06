@@ -1,6 +1,7 @@
 #include "administrationbillet.h"
 #include "ui_administrationbillet.h"
 
+#include "database.h"
 #include "login.h"
 #include <QMessageBox>
 
@@ -9,7 +10,7 @@ AdministrationBillet::AdministrationBillet(QWidget *parent) :
     ui(new Ui::AdministrationBillet)
 {
     ui->setupUi(this);
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
 
     MAJTablesViewPage();
@@ -27,7 +28,7 @@ AdministrationBillet::AdministrationBillet(QWidget *parent) :
 
 void AdministrationBillet::MAJTablesViewPage()
 {
-    Login connexion;
+    Database connexion;
     //Affecter les données des configurations Salle dans la colomnView
         QSqlQueryModel * modelConfigSalle = new QSqlQueryModel();  //Model de connexion pointeur modal
 
@@ -169,7 +170,7 @@ void AdministrationBillet::ViderLesChampsModePaiemenet()
 
 AdministrationBillet::~AdministrationBillet()
 {
-    Login connexion;
+    Database connexion;
     connexion.closeConnexion();
     delete ui;
 }

@@ -2,6 +2,7 @@
 #include "ui_plandesalle.h"
 
 #include "accueil.h"
+#include "database.h"
 #include "login.h"
 #include <QtSql>
 #include <QSqlQuery>
@@ -16,7 +17,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PlanDeSalle)
 {
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
     ui->setupUi(this);
 
@@ -137,19 +138,25 @@ void PlanDeSalle::VerifierSiReserve()
     idSpectacle = ui->pCBoxSpectacle->currentText().toInt();
 
     QVector <int> numeroPlace;
-    QVector <QString> listeSieges;
+    //QVector <QString> listeSieges;
     int numSiege = 10;
     QString siege;
-    QString nomSiege = "PA";
+    QString prefixNomSiege = "PA";
     QString intituleSiege;
 
 
+    //Remplir le vecteur
     for(int i = 1; i <= numSiege; i++)
     {
         numeroPlace.push_back(i);
         qDebug() << "numeroPlace : " << numeroPlace;
-        intituleSiege = nomSiege+i;
-        qDebug() << "nomSiege : " << nomSiege;
+        QString siegeNum = QString::number(i);
+
+        //Affcter la concatenation du prefex et i eme élement à la variable intituleSiege
+        intituleSiege = prefixNomSiege+siegeNum;
+
+        qDebug() << "siege : " << siegeNum;
+        qDebug() << "intituleSiege : " << intituleSiege;
 
 
         QSqlQuery query;
@@ -180,11 +187,8 @@ void PlanDeSalle::VerifierSiReserve()
                 //for(int j = 0; j == i; j++)
                 //{
 
-
                     if(reserve == 1)
                     {
-
-
                         if(siege == "PA1")
                         {
                             ui->P_001->setStyleSheet("background-color: rgb(255, 99, 71);");
@@ -235,6 +239,97 @@ void PlanDeSalle::VerifierSiReserve()
                             ui->P_010->setStyleSheet("background-color: rgb(255, 99, 71);");
                             ui->P_010->setEnabled(false);
                         }
+                        // //////////////////////////////////////////////////////////////
+                        if(siege == "PA11")
+                        {
+                            ui->P_011->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_011->setEnabled(false);
+                        }
+                        if(siege == "PA12")
+                        {
+                            ui->P_012->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_012->setEnabled(false);
+                        }
+                        if(siege == "PA13")
+                        {
+                            ui->P_013->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_013->setEnabled(false);
+                        }
+                        if(siege == "PA14")
+                        {
+                            ui->P_014->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_014->setEnabled(false);
+                        }
+                        if(siege == "PA15")
+                        {
+                            ui->P_015->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_015->setEnabled(false);
+                        }
+                        if(siege == "PA16")
+                        {
+                            ui->P_016->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_016->setEnabled(false);
+                        }
+                        if(siege == "PA17")
+                        {
+                            ui->P_017->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_017->setEnabled(false);
+                        }
+                        if(siege == "PA18")
+                        {
+                            ui->P_018->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_018->setEnabled(false);
+                        }
+                        if(siege == "PA19")
+                        {
+                            ui->P_019->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_019->setEnabled(false);
+                        }
+                        if(siege == "PA20")
+                        {
+                            ui->P_020->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_020->setEnabled(false);
+                        }
+                        if(siege == "PA21")
+                        {
+                            ui->P_021->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_021->setEnabled(false);
+                        }
+                        if(siege == "PA22")
+                        {
+                            ui->P_022->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_022->setEnabled(false);
+                        }
+                        if(siege == "PA23")
+                        {
+                            ui->P_023->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_023->setEnabled(false);
+                        }
+                        if(siege == "PA24")
+                        {
+                            ui->P_024->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_024->setEnabled(false);
+                        }
+                        if(siege == "PA25")
+                        {
+                            ui->P_025->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_025->setEnabled(false);
+                        }
+                        if(siege == "PA26")
+                        {
+                            ui->P_026->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_026->setEnabled(false);
+                        }
+                        if(siege == "PA27")
+                        {
+                            ui->P_027->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_027->setEnabled(false);
+                        }
+                        if(siege == "PA28")
+                        {
+                            ui->P_028->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P_028->setEnabled(false);
+                        }
 
                     }
                     if(reserve == 0)
@@ -279,9 +374,80 @@ void PlanDeSalle::VerifierSiReserve()
                         {
                             ui->P_010->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
+                        // ///////////////////////////////////////////////////////////////////
+                        if(siege == "PA11")
+                        {
+                            ui->P_011->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA12")
+                        {
+                            ui->P_012->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA13")
+                        {
+                            ui->P_013->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA14")
+                        {
+                            ui->P_014->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA15")
+                        {
+                            ui->P_015->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA16")
+                        {
+                            ui->P_016->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA17")
+                        {
+                            ui->P_017->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA18")
+                        {
+                            ui->P_018->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA19")
+                        {
+                            ui->P_019->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA20")
+                        {
+                            ui->P_020->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA21")
+                        {
+                            ui->P_021->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA22")
+                        {
+                            ui->P_022->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA23")
+                        {
+                            ui->P_023->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA24")
+                        {
+                            ui->P_024->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA25")
+                        {
+                            ui->P_025->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA26")
+                        {
+                            ui->P_026->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA27")
+                        {
+                            ui->P_027->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
+                        if(siege == "PA28")
+                        {
+                            ui->P_018->setStyleSheet("background-color: rgb(60, 60, 60);");
+                        }
                    }
-
-
                     //}
             }
            }
@@ -294,7 +460,7 @@ PlanDeSalle::~PlanDeSalle()
 {
 
 
-    Login connexion;
+    Database connexion;
     connexion.closeConnexion();
     delete ui;
     //NbSieges places 666

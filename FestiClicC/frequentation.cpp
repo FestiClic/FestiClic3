@@ -2,6 +2,7 @@
 #include "ui_frequentation.h"
 
 #include "login.h"
+#include "database.h"
 #include <QDate>
 #include <QMessageBox>
 #include <QProgressBar>
@@ -12,7 +13,7 @@ Frequentation::Frequentation(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Login connexion;
+    Database connexion;
     connexion.openConnexion();
 
     //initialisation des comboBox
@@ -77,7 +78,7 @@ Frequentation::Frequentation(QWidget *parent) :
 
 Frequentation::~Frequentation()
 {
-    Login connexion;
+    Database connexion;
     connexion.closeConnexion();
 
     delete ui;
