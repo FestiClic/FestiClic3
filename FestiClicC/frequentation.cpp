@@ -16,40 +16,26 @@ Frequentation::Frequentation(QWidget *parent) :
     Database connexion;
     connexion.openConnexion();
 
+    //Rendre les champs inaccessible pour l'tilisateur
+    ui->fTxtFrequentation->setEnabled(false);
+    ui->fTxtFrequentation_2->setEnabled(false);
+    ui->fTxtJaugeInitiale->setEnabled(false);
+    ui->fTxtJaugeInitiale_2->setEnabled(false);
+    ui->fTxtRemplissage->setEnabled(false);
+    ui->fTxtRemplissage_2->setEnabled(false);
+
+    //Requette pour remplir la ComboBox des spectacles cloturés
+    AffecterSpectaclesCloturesDansCombo();
+
+    //Requette pour remplir la ComboBox des spectacles programmés
+    AffecterSpectaclesProgrammesDansCombo();
+
     //initialisation des comboBox
     ui->fCBoxSpectaclecloture->setCurrentIndex(-1);
     ui->fCBoxSpectacleProgramme->setCurrentIndex(-1);
 
-    QDate aujourdhui;
-
-    aujourdhui = QDate::currentDate();
-
-    //Requette pour remplir la ComboBox des spectacles cloturés
-    QSqlQueryModel * modal = new QSqlQueryModel();
-
-    QSqlQuery* querySpectaclecloture = new QSqlQuery(connexion.maBaseDeDonnee);
-    querySpectaclecloture->prepare("SELECT Spectacle FROM Spectacles WHERE Date > :aujourdhui");
-    querySpectaclecloture->bindValue(":aujourdhui", aujourdhui);
-
-    querySpectaclecloture->exec();
-    modal->setQuery(*querySpectaclecloture);
-    ui->fCBoxSpectaclecloture->setModel(modal);
-
-    //Requette pour remplir la ComboBox des spectacles programmés
-    QSqlQueryModel * modal1 = new QSqlQueryModel();
-
-    QSqlQuery* querySpectacleProgramme = new QSqlQuery(connexion.maBaseDeDonnee);
-    querySpectacleProgramme->prepare("SELECT Spectacle FROM Spectacles WHERE Date < :aujourdhui");
-    querySpectacleProgramme->bindValue(":aujourdhui", aujourdhui);
-
-    querySpectacleProgramme->exec();
-    modal1->setQuery(*querySpectacleProgramme);
-    ui->fCBoxSpectacleProgramme->setModel(modal1);
-
-    qDebug() << (modal->rowCount());
-
     //***********************************************************************
-    //Affecter les données des utilisateurs dans la TableView
+/*    //Affecter les données des utilisateurs dans la TableView
 
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
@@ -69,12 +55,50 @@ Frequentation::Frequentation(QWidget *parent) :
         ui->fTabV->resizeColumnsToContents();
 
         qDebug() << (modal2->rowCount());
-
-
-
+*/
 }
 
+void Frequentation::AffecterSpectaclesCloturesDansCombo()
+{
+    //Requette pour remplir la ComboBox des spectacles cloturés
 
+    QDate aujourdhui;
+
+    aujourdhui = QDate::currentDate();
+
+    Database connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();
+
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
+    query->prepare("SELECT Spectacle FROM Spectacles WHERE Date < :aujourdhui");
+    query->bindValue(":aujourdhui", aujourdhui);
+
+    query->exec();
+    modal->setQuery(*query);
+    ui->fCBoxSpectaclecloture->setModel(modal);
+}
+
+void Frequentation::AffecterSpectaclesProgrammesDansCombo()
+{
+    //Requette pour remplir la ComboBox des spectacles programmés
+
+    QDate aujourdhui;
+
+    aujourdhui = QDate::currentDate();
+
+    Database connexion;
+    QSqlQueryModel * modal = new QSqlQueryModel();
+
+    QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
+    query->prepare("SELECT Spectacle FROM Spectacles WHERE Date > :aujourdhui");
+    query->bindValue(":aujourdhui", aujourdhui);
+
+    query->exec();
+    modal->setQuery(*query);
+    ui->fCBoxSpectacleProgramme->setModel(modal);
+
+    qDebug() << (modal->rowCount());
+}
 
 Frequentation::~Frequentation()
 {
@@ -84,7 +108,8 @@ Frequentation::~Frequentation()
     delete ui;
 }
 
-void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(int index)
+
+void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(const QString &arg1)
 {
     QString spectacle;
     int idSpectale;
@@ -132,6 +157,7 @@ void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(int index)
             ui->progressBar->setMaximum(100);
             ui->progressBar->setMinimum(0);
             ui->progressBar->setValue(pourcentage);
+
         }
     }
     else
@@ -140,7 +166,8 @@ void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(int index)
     }
 }
 
-void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
+
+void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(const QString &arg1)
 {
     QString spectacle;
     int idSpectale;
@@ -148,7 +175,7 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
     spectacle = ui->fCBoxSpectacleProgramme->currentText();
 
     QSqlQuery query;
-    query.prepare("SELECT * FROM Spectacles WHERE Spectacle = :spectacle");
+    query.prepare("SELECT * FROM Spectacles WHERE Spectacle = :spectacle ");
     query.bindValue(":spectacle", spectacle);
 
     if(query.exec())
@@ -172,12 +199,12 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
 
             //Calculer le pourcentage de la fréquentation du spectacle
 
-            int pourcentage;
-            int valeurRemplissage;
-            int jauge;
+            double pourcentage;
+            double valeurRemplissage;
+            double jauge;
 
-            valeurRemplissage = std::stoi(ui->fTxtRemplissage_2->text().toStdString());
-            jauge = std::stoi(ui->fTxtJaugeInitiale_2->text().toStdString());
+            valeurRemplissage = std::stod(ui->fTxtRemplissage_2->text().toStdString());
+            jauge = std::stod(ui->fTxtJaugeInitiale_2->text().toStdString());
 
             pourcentage = (100*valeurRemplissage/jauge);
 
@@ -188,6 +215,7 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(int index)
             ui->progressBar_2->setMaximum(100);
             ui->progressBar_2->setMinimum(0);
             ui->progressBar_2->setValue(pourcentage);
+
         }
     }
     else
@@ -202,3 +230,10 @@ void Frequentation::on_cltBtnQuitter_clicked()
 {
     this->close();
 }
+
+/*Requete
+ *
+*/
+
+
+

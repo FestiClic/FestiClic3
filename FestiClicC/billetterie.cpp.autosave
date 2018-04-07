@@ -629,10 +629,10 @@ void Billetterie::on_bBtnPaiement_clicked()
 
                  ui->LabelNomSurBillet->setStyleSheet("color:white; font-size: 15px; background-image: none;");
                  ui->LabelNomSurBillet_2->setStyleSheet("color:white; font-size: 15px;");
-                 ui->LabelNomSurBillet_3->setStyleSheet("color:white; front-size: 20px");
-                 ui->LabelNomSurBillet_4->setStyleSheet("color:white; front-size: 20px");
-                 ui->LabelNomSurBillet_5->setStyleSheet("color:white; front-size: 20px");
-                 ui->LabelNomSurBillet_6->setStyleSheet("color:white; front-size: 20px");
+                 ui->LabelNomSurBillet_3->setStyleSheet("color:white; font-size: 15px;");
+                 ui->LabelNomSurBillet_4->setStyleSheet("color:white; font-size: 15px;");
+                 ui->LabelNomSurBillet_5->setStyleSheet("color:white; font-size: 15px;");
+                 ui->LabelNomSurBillet_6->setStyleSheet("color:white; font-size: 15px;");
                  ui->LabelNomSurBillet_7->setStyleSheet("color:white; front-size: 20px, background-image: none;");
 
              }

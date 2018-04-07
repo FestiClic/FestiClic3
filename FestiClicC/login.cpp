@@ -12,13 +12,15 @@ Login::Login(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //Ouverture de la connexion
     Database connexion;
     connexion.openConnexion();
 
-
+    //Changement du text et da sa couleur en fonction de l'état de la connexion
     if(connexion.openConnexion())
     {
         ui->lLabConnexion->setText("Connexion Billetterie principale");
+        ui->lLabConnexion->setStyleSheet("color: green;");
     }
     else
     {
@@ -28,11 +30,8 @@ Login::Login(QWidget *parent) :
 }
 
 
-
-
 Login::~Login()
 {
-
     delete ui;
 }
 

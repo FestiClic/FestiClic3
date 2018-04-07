@@ -2,7 +2,6 @@
 #include "ui_administrationbillet.h"
 
 #include "database.h"
-#include "login.h"
 #include <QMessageBox>
 
 AdministrationBillet::AdministrationBillet(QWidget *parent) :

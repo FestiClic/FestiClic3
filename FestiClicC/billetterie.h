@@ -37,10 +37,7 @@ private slots:
 
     void on_bListVNumSiege_activated(const QModelIndex &index);
 
-    AddSlotsToGroupe();
-
     void MAJListeDesSieges();
-
 
     void on_PA1_clicked();
 

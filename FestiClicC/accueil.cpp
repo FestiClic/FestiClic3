@@ -13,8 +13,6 @@
 #include <QDate>
 #include <QDateTime>
 #include <QTime>
-
-
 #include <QTabWidget>
 
 Accueil::Accueil(QWidget *parent) :
@@ -29,21 +27,12 @@ Accueil::Accueil(QWidget *parent) :
     //ouverture de la page login
     Login login;
     login.setModal(true);
+
     if (login.exec() == QDialog::Accepted)
     {
         //Ok
         lanceApp=true;
 
-        //-------------------------------------------------
-        //Affecter le nom utilisateur au label accueil
-        //Login connexion;
-
-  /*      if(!connexion.openConnexion())
-        {
-            qDebug() << "Echec de connexion";
-            return;
-        }
-  */
         //Affectation nom et prenom utilisateur
         QSqlQuery query;
         query.prepare("SELECT NomUtilisateur, PrenomUtilisateur, Administrateur FROM Utilisateurs ");

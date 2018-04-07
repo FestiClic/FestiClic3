@@ -16,15 +16,19 @@ public:
     ~Frequentation();
 
 private slots:
-    void on_fCBoxSpectaclecloture_currentIndexChanged(int index);
-
-    void on_fCBoxSpectacleProgramme_currentIndexChanged(int index);
-
 
     void on_cltBtnQuitter_clicked();
 
+    void on_fCBoxSpectacleProgramme_currentIndexChanged(const QString &arg1);
+
+    void on_fCBoxSpectaclecloture_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::Frequentation *ui;
+
+    void AffecterSpectaclesCloturesDansCombo();
+
+    void AffecterSpectaclesProgrammesDansCombo();
 };
 
 #endif // FREQUENTATION_H

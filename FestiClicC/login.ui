@@ -553,6 +553,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lTxtNomUtilisateur_2</tabstop>
+  <tabstop>lTxtMotDePasse_2</tabstop>
+  <tabstop>lBtnSeConnecter_2</tabstop>
+  <tabstop>lBtnAnnuler_2</tabstop>
+  <tabstop>scrollArea</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

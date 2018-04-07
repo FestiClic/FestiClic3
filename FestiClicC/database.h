@@ -2,9 +2,6 @@
 #define DATABASE_H
 
 #include <QtSql>
-#include <QtDebug>
-
-
 
 class Database
 {
@@ -18,9 +15,8 @@ public:
 
     //fermeture de la connexion bdd
     void closeConnexion();
+
 private:
-
-
 
 };
 

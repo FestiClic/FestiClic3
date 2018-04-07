@@ -6,250 +6,96 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
-    <height>753</height>
+    <width>1209</width>
+    <height>846</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Accueil</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#Accueil {
+    background-color: transparent;
+    border-image: url(:Spectacle.jpg);
+    background: none;
+    border: none;
+	background-repeat: no-repeat 
+}
+</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="widgetResizable">
-       <bool>true</bool>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>110</y>
+      <width>891</width>
+      <height>621</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>889</width>
+       <height>619</height>
+      </rect>
+     </property>
+     <widget class="QPushButton" name="aBtnBilletterie">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>869</width>
-         <height>680</height>
-        </rect>
-       </property>
-       <widget class="QPushButton" name="aBtnBilletterie">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Billetterie</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aBtnFrequentation">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>200</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Fréquentation</string>
-        </property>
-       </widget>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>-10</y>
-          <width>291</width>
-          <height>211</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string/>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QLabel" name="aLabelHello">
-             <property name="palette">
-              <palette>
-               <active>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>213</red>
-                   <green>142</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </active>
-               <inactive>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>213</red>
-                   <green>142</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </inactive>
-               <disabled>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>120</red>
-                   <green>120</green>
-                   <blue>120</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </disabled>
-              </palette>
-             </property>
-             <property name="font">
-              <font>
-               <family>Verdana</family>
-               <pointsize>12</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Bonjour</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="aLabelNomUtilisateur">
-             <property name="palette">
-              <palette>
-               <active>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>213</red>
-                   <green>142</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </active>
-               <inactive>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>213</red>
-                   <green>142</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </inactive>
-               <disabled>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>120</red>
-                   <green>120</green>
-                   <blue>120</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </disabled>
-              </palette>
-             </property>
-             <property name="font">
-              <font>
-               <family>Verdana</family>
-               <pointsize>12</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="aLabelDate">
-             <property name="palette">
-              <palette>
-               <active>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>213</red>
-                   <green>142</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </active>
-               <inactive>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>213</red>
-                   <green>142</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </inactive>
-               <disabled>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>120</red>
-                   <green>120</green>
-                   <blue>120</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </disabled>
-              </palette>
-             </property>
-             <property name="font">
-              <font>
-               <family>Verdana</family>
-               <pointsize>12</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QPushButton" name="aBtnSpectacles">
-        <property name="geometry">
-         <rect>
-          <x>580</x>
-          <y>200</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">#aBtnSpectacles{
+      <property name="text">
+       <string>Billetterie</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="aBtnFrequentation">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>210</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Fréquentation</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>10</y>
+        <width>271</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     </widget>
+     <widget class="QPushButton" name="aBtnSpectacles">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>210</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#aBtnSpectacles{
     background-color: transparent;
     border-image: url(:spactacle2.jpg);
     background: none;
@@ -259,87 +105,262 @@
 #aBtnSpectacles:pressed{
     border-image: url(:spactacle2.jpg);
 }</string>
-        </property>
-        <property name="text">
-         <string>Spectacles</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aBtnUtilisateur">
-        <property name="geometry">
-         <rect>
-          <x>580</x>
-          <y>400</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Utilisateur</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aBtnQuitter">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>400</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Quitter</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aBtnClients">
-        <property name="geometry">
-         <rect>
-          <x>580</x>
-          <y>0</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Clients</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aBtnPlanDeSalle">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>200</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Plan de salle</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="aBtnAdministratioBillet">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>400</y>
-          <width>291</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Administration billetterie</string>
-        </property>
-       </widget>
-      </widget>
+      </property>
+      <property name="text">
+       <string>Spectacles</string>
+      </property>
      </widget>
-    </item>
-   </layout>
+     <widget class="QPushButton" name="aBtnUtilisateur">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>410</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Utilisateur</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="aBtnQuitter">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>410</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quitter</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="aBtnClients">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>10</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clients</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="aBtnPlanDeSalle">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>210</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Plan de salle</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="aBtnAdministratioBillet">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>410</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Administration billetterie</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>10</y>
+        <width>271</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="aLabelHello">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>213</red>
+               <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>213</red>
+               <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>120</red>
+               <green>120</green>
+               <blue>120</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="font">
+          <font>
+           <family>Verdana</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Bonjour</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="aLabelNomUtilisateur">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>213</red>
+               <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>213</red>
+               <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>120</red>
+               <green>120</green>
+               <blue>120</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="font">
+          <font>
+           <family>Verdana</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="aLabelDate">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>213</red>
+               <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>213</red>
+               <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>120</red>
+               <green>120</green>
+               <blue>120</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="font">
+          <font>
+           <family>Verdana</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>889</width>
+     <width>1209</width>
      <height>21</height>
     </rect>
    </property>

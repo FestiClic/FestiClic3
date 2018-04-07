@@ -25,7 +25,6 @@ private slots:
 
     void on_sBtnModifier_clicked();
 
-
     void on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1);
 
     void on_sBtnSupprimer_clicked();
