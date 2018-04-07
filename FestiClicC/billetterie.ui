@@ -9391,7 +9391,7 @@ border-image: none;</string>
        <widget class="QLabel" name="LabelNomSurBillet">
         <property name="styleSheet">
          <string notr="true">color: white;
-background-color: transparent;
+background-color: none;
 background: none;
 border: none;
 border-image: none;</string>
