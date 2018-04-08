@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#QPushButton{
+background-color = rgb(255, 146, 157);
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <widget class="QScrollArea" name="scrollArea">
@@ -139,6 +144,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QPushButton" name="uBtnQuitter">
+             <property name="styleSheet">
+              <string notr="true">background-color = rgb(255, 146, 157);</string>
+             </property>
              <property name="text">
               <string>Quitter</string>
              </property>

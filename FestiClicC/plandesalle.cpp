@@ -9,6 +9,8 @@
 #include <QButtonGroup>
 #include <QAbstractButton>
 #include <QVector>
+#include <QList>
+#include <iostream>
 
 
 
@@ -19,9 +21,19 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 {
     Database connexion;
     connexion.openConnexion();
+
     ui->setupUi(this);
 
     VerifierSiReserve();
+// ////////////////////
+    QButtonGroup* group = new QButtonGroup(this);
+       group->addButton(ui->PA1);
+       group->addButton(ui->PA2);
+       group->addButton(ui->PA3);
+       group->addButton(ui->PA4);
+
+       group->connect(group, SIGNAL(buttonClicked(int)),
+                                    this, SLOT(steelChange()));
 /*
 //Vecteur pour stocker mes sieges
     QVector <int*> *numeroPlace = new QVector <int*>;
@@ -84,19 +96,47 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 
 
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
-    query->prepare("SELECT IdSpectacle FROM Spectacles");
+    query->prepare("SELECT Spectacle FROM Spectacles");
     query->exec();
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->pCBoxSpectacle->setModel(modal);     //Envoyer les données en combo
-
 
     //fermeture de la connexion
     //connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 
     ui->pCBoxSpectacle->setCurrentIndex(-1);
+    ui->pLabelIdSpectacle->clear();
+
+// ////////////////////////////////////////////
 }
 
+void PlanDeSalle::steelChange()
+{
+
+/*
+    QList<QPushButton *> allWidgets = PlanDeSalle().findChildren<QPushButton *>("");
+    QList<QPushButton*>::iterator it;
+    for (it = allWidgets.begin(); it != allWidgets.end(); it++) {
+        if ((*it)->objectName() == "PA1")  // here, objectName is not working!!
+        {
+            qDebug()<< "allWidgets : " << allWidgets;
+            (*it)->setStyleSheet("background-color: rgb(255, 99, 71);");
+            (*it)->setEnabled(false);
+
+        }
+    }
+
+*/
+
+
+
+    //setEnabled(false);
+    //;
+    //qDebug() << "ca marche : : : ";
+}
+
+// //////////////////////////////////////////////
 
 //changer aspect btn
 void PlanDeSalle::ChangerStatutSiege()
@@ -135,7 +175,7 @@ void PlanDeSalle::VerifierSiReserve()
 {
     int idSpectacle;
 
-    idSpectacle = ui->pCBoxSpectacle->currentText().toInt();
+    idSpectacle = ui->pLabelIdSpectacle->text().toInt();
 
     QVector <int> numeroPlace;
     //QVector <QString> listeSieges;
@@ -144,6 +184,15 @@ void PlanDeSalle::VerifierSiReserve()
     QString prefixNomSiege = "PA";
     QString intituleSiege;
 
+    // TEST OBJECT NAME ////////////////////////////////////////////////////////////////////////////////////
+
+
+                           // QList<QButtonGroup> tousLesBoutons = PlanDeSalle().findChildren<QButtonGroup>("");
+                            //QList<QButtonGroup>::iterator it;
+
+
+
+                            //qDebug() << "tousLesBoutons : " << tousLesBoutons;
 
     //Remplir le vecteur
     for(int i = 1; i <= numSiege; i++)
@@ -152,43 +201,65 @@ void PlanDeSalle::VerifierSiReserve()
         qDebug() << "numeroPlace : " << numeroPlace;
         QString siegeNum = QString::number(i);
 
-        //Affcter la concatenation du prefex et i eme élement à la variable intituleSiege
+        //Affecter la concatenation du prefex et i eme élement à la variable intituleSiege
         intituleSiege = prefixNomSiege+siegeNum;
 
-        qDebug() << "siege : " << siegeNum;
+        qDebug() << "siegeNum : " << siegeNum;
         qDebug() << "intituleSiege : " << intituleSiege;
 
 
+// //////////////////////
+
+/*        for (it = tousLesBoutons.begin(); it != tousLesBoutons.end(); it++) {
+
+            if(siege == intituleSiege)
+            {
+            //(it)->setStyleSheet("background-color: rgb(255, 99, 71);");;
+            //(it)->setEnabled(false);
+            }
+
+        }
+
+*/
+
+
+        // Requête pour tester le statut des sièges
         QSqlQuery query;
         query.prepare("SELECT * FROM Places WHERE IdSpectacleP = :idSpectacle AND Reserve = 1 ");
-
         query.bindValue(":idSpectacle", idSpectacle);
-        //query.bindValue(":siege", siege);
-
-        //int j = 0;
-
         if(query.exec())
         {
+
+
+            InitialisationEtatDesSieges();
             bool trouver = false;
             while(query.next())
             {
                 siege = query.value(1).toString();
-
-
                 qDebug() << "siege : " << siege;
-                trouver = true;
 
+
+                trouver = true;
+            // Si le statut du siège est Réservé
             if(trouver)
             {
+                // la variable reserve recoit le resultat boolean de la requête(statut du siège)
                 int reserve;
                 reserve = query.value(3).toInt();
 
-
-                //for(int j = 0; j == i; j++)
-                //{
-
+                    // Si réservé
                     if(reserve == 1)
                     {
+
+
+                        //si nom d'objet = intituleSiege
+                     //  if (objectName() == intituleSiege)
+                       //{
+
+                     //    QPushButton *bouton = new QPushButton;
+                     //    bouton->setObjectName(intituleSiege.tos);
+
+
                         if(siege == "PA1")
                         {
                             ui->P_001->setStyleSheet("background-color: rgb(255, 99, 71);");
@@ -239,7 +310,6 @@ void PlanDeSalle::VerifierSiReserve()
                             ui->P_010->setStyleSheet("background-color: rgb(255, 99, 71);");
                             ui->P_010->setEnabled(false);
                         }
-                        // //////////////////////////////////////////////////////////////
                         if(siege == "PA11")
                         {
                             ui->P_011->setStyleSheet("background-color: rgb(255, 99, 71);");
@@ -330,10 +400,11 @@ void PlanDeSalle::VerifierSiReserve()
                             ui->P_028->setStyleSheet("background-color: rgb(255, 99, 71);");
                             ui->P_028->setEnabled(false);
                         }
-
+                       //}
                     }
                     if(reserve == 0)
                     {
+                        //Si pas réservé
                         if(siege == "PA1")
                         {
                             ui->P_001->setStyleSheet("background-color: rgb(60, 60, 60);");
@@ -374,7 +445,6 @@ void PlanDeSalle::VerifierSiReserve()
                         {
                             ui->P_010->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
-                        // ///////////////////////////////////////////////////////////////////
                         if(siege == "PA11")
                         {
                             ui->P_011->setStyleSheet("background-color: rgb(60, 60, 60);");
@@ -458,12 +528,9 @@ void PlanDeSalle::VerifierSiReserve()
 
 PlanDeSalle::~PlanDeSalle()
 {
-
-
     Database connexion;
     connexion.closeConnexion();
     delete ui;
-    //NbSieges places 666
 }
 
 
@@ -485,10 +552,24 @@ void PlanDeSalle::on_pBtnVisualiser_clicked()
 {
     InitialisationEtatDesSieges();
     VerifierSiReserve();
+
 }
 
 void PlanDeSalle::on_pCBoxSpectacle_currentIndexChanged(const QString &arg1)
 {
+    // Affecter l'idSpectacle dans le Label
+    QString spectacle = ui->pCBoxSpectacle->currentText();
+    QSqlQuery query;
+    query.prepare("SELECT IdSpectacle FROM Spectacles "
+                  "WHERE Spectacle = :spectacle");
+    query.bindValue(":spectacle", spectacle);
+
+    query.exec();
+    while(query.next())
+    {
+        ui->pLabelIdSpectacle->setText(query.value(0).toString());
+    }
+
     InitialisationEtatDesSieges();
     VerifierSiReserve();
 }

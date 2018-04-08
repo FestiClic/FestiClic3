@@ -19,5 +19,14 @@
         <file>wheelchairCircRouge.png</file>
         <file>wheelchairCircVert.png</file>
         <file>Spectacle.jpg</file>
+        <file>AdminBilletterie.jpg</file>
+        <file>Billetterie.jpg</file>
+        <file>Frequentation.jpg</file>
+        <file>PlanDeSalle.jpg</file>
+        <file>Quitter.jpg</file>
+        <file>Spect.jpg</file>
+        <file>Spectateur.jpg</file>
+        <file>Utilisateurs.jpg</file>
+        <file>Fond-bleu.jpg</file>
     </qresource>
 </RCC>

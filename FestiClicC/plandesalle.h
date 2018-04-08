@@ -28,6 +28,8 @@ private slots:
 
     void on_pBtnValider_clicked();
 
+    void steelChange();
+
 private:
     Ui::PlanDeSalle *ui;
 

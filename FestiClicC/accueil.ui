@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">#Accueil {
     background-color: transparent;
-    border-image: url(:Spectacle.jpg);
+    border-image: url(:Fond-bleu.jpg);
     background: none;
     border: none;
 	background-repeat: no-repeat 
@@ -33,6 +33,10 @@
       <height>621</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">    background-color: transparent;
+ </string>
+    </property>
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
@@ -45,30 +49,26 @@
        <height>619</height>
       </rect>
      </property>
-     <widget class="QPushButton" name="aBtnBilletterie">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>291</width>
-        <height>201</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Billetterie</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="aBtnFrequentation">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>210</y>
+        <x>590</x>
+        <y>410</y>
         <width>291</width>
         <height>201</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">
+    background-color: transparent;
+    border-image: url(:Frequentation.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+</string>
+      </property>
       <property name="text">
-       <string>Fréquentation</string>
+       <string/>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox">
@@ -88,8 +88,8 @@
      <widget class="QPushButton" name="aBtnSpectacles">
       <property name="geometry">
        <rect>
-        <x>590</x>
-        <y>210</y>
+        <x>10</x>
+        <y>10</y>
         <width>291</width>
         <height>201</height>
        </rect>
@@ -97,30 +97,17 @@
       <property name="styleSheet">
        <string notr="true">#aBtnSpectacles{
     background-color: transparent;
-    border-image: url(:spactacle2.jpg);
+    border-image: url(:Spect.jpg);
     background: none;
     border: none;
     background-repeat: no-repeat 
 }
 #aBtnSpectacles:pressed{
-    border-image: url(:spactacle2.jpg);
+    border-image: url(:Spect.jpg);
 }</string>
       </property>
       <property name="text">
-       <string>Spectacles</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="aBtnUtilisateur">
-      <property name="geometry">
-       <rect>
-        <x>590</x>
-        <y>410</y>
-        <width>291</width>
-        <height>201</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Utilisateur</string>
+       <string/>
       </property>
      </widget>
      <widget class="QPushButton" name="aBtnQuitter">
@@ -132,8 +119,20 @@
         <height>201</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#aBtnQuitter{
+    background-color: transparent;
+    border-image: url(:Quitter.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+}
+#aBtnQuitter:pressed{
+    border-image: url(:Quitter.jpg);
+}</string>
+      </property>
       <property name="text">
-       <string>Quitter</string>
+       <string/>
       </property>
      </widget>
      <widget class="QPushButton" name="aBtnClients">
@@ -145,21 +144,40 @@
         <height>201</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#aBtnClients{
+    background-color: transparent;
+    border-image: url(:Spectateur.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+}
+</string>
+      </property>
       <property name="text">
-       <string>Clients</string>
+       <string/>
       </property>
      </widget>
      <widget class="QPushButton" name="aBtnPlanDeSalle">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>590</x>
         <y>210</y>
         <width>291</width>
         <height>201</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">
+    background-color: transparent;
+    border-image: url(:PlanDeSalle.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+</string>
+      </property>
       <property name="text">
-       <string>Plan de salle</string>
+       <string/>
       </property>
      </widget>
      <widget class="QPushButton" name="aBtnAdministratioBillet">
@@ -171,11 +189,21 @@
         <height>201</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#aBtnAdministratioBillet{
+    background-color: transparent;
+    border-image: url(:AdminBilletterie.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+}
+</string>
+      </property>
       <property name="text">
-       <string>Administration billetterie</string>
+       <string/>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -190,17 +218,53 @@
          <property name="palette">
           <palette>
            <active>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>213</red>
                <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
                <blue>0</blue>
               </color>
              </brush>
             </colorrole>
            </active>
            <inactive>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
@@ -210,14 +274,59 @@
               </color>
              </brush>
             </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
            </inactive>
            <disabled>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>120</red>
                <green>120</green>
                <blue>120</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
               </color>
              </brush>
             </colorrole>
@@ -245,17 +354,53 @@
          <property name="palette">
           <palette>
            <active>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>213</red>
                <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
                <blue>0</blue>
               </color>
              </brush>
             </colorrole>
            </active>
            <inactive>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
@@ -265,14 +410,59 @@
               </color>
              </brush>
             </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
            </inactive>
            <disabled>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>120</red>
                <green>120</green>
                <blue>120</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
               </color>
              </brush>
             </colorrole>
@@ -300,17 +490,53 @@
          <property name="palette">
           <palette>
            <active>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>213</red>
                <green>142</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
                <blue>0</blue>
               </color>
              </brush>
             </colorrole>
            </active>
            <inactive>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
@@ -320,14 +546,59 @@
               </color>
              </brush>
             </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
            </inactive>
            <disabled>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>120</red>
                <green>120</green>
                <blue>120</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="0">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
               </color>
              </brush>
             </colorrole>
@@ -351,6 +622,51 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QPushButton" name="aBtnBilletterie">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>210</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+    background-color: transparent;
+    border-image: url(:Billetterie.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="aBtnUtilisateur">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>210</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#aBtnUtilisateur{
+    background-color: transparent;
+    border-image: url(:Utilisateurs.jpg);
+    background: none;
+    border: none;
+    background-repeat: no-repeat 
+}
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
    </widget>

@@ -35,12 +35,13 @@ Accueil::Accueil(QWidget *parent) :
 
         //Affectation nom et prenom utilisateur
         QSqlQuery query;
-        query.prepare("SELECT NomUtilisateur, PrenomUtilisateur, Administrateur FROM Utilisateurs ");
+        query.prepare("SELECT NomUtilisateur, PrenomUtilisateur FROM Utilisateurs "
+                      "WHERE IdUtilisateur = 1 ");
         if(query.exec())
         {
             while (query.next())
             {
-                ui->aLabelNomUtilisateur->setText(query.value(1).toString() + ' ' + query.value(2).toString());
+                ui->aLabelNomUtilisateur->setText(query.value(1).toString() + " " + query.value(2).toString());
             }
           //  connexion.closeConnexion();
         }
@@ -52,13 +53,13 @@ Accueil::Accueil(QWidget *parent) :
     }
     //Labels
    // ui->aLabelHello->setStyleSheet("background-color:white; font-size: 15px; color: orange;");
-    ui->aLabelHello->setStyleSheet("color: orange;");
+    ui->aLabelHello->setStyleSheet("color: white;");
     ui->aLabelHello->setText("HELLO");
 
-    ui->aLabelNomUtilisateur->setStyleSheet("color: orange;");
-    ui->aLabelNomUtilisateur->setText("Connexion Monoposte \n Saison 2017 / 2018");
+    ui->aLabelNomUtilisateur->setStyleSheet("color: white;");
+    //ui->aLabelNomUtilisateur->setText("Connexion Monoposte \n Saison 2017 / 2018");
 
-    ui->aLabelDate->setStyleSheet("color: orange;");
+    ui->aLabelDate->setStyleSheet("color: white;");
     ui->aLabelDate->setText(QDate::currentDate().toString("dd - MM - yyyy"));
 
 
