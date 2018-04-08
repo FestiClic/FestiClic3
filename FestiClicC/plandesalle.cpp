@@ -33,7 +33,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
        group->addButton(ui->PA4);
 
        group->connect(group, SIGNAL(buttonClicked(int)),
-                                    this, SLOT(steelChange()));
+                                    this, SLOT(steelChange(int)));
 /*
 //Vecteur pour stocker mes sieges
     QVector <int*> *numeroPlace = new QVector <int*>;
@@ -111,9 +111,14 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 // ////////////////////////////////////////////
 }
 
-void PlanDeSalle::steelChange()
+void PlanDeSalle::steelChange(int buttonID)
 {
+    qDebug() << "buttonID : " << buttonID;
 
+
+    //QButtonGroup::buttonClicked(objectName());
+
+    //objectName(buttonID)
 /*
     QList<QPushButton *> allWidgets = PlanDeSalle().findChildren<QPushButton *>("");
     QList<QPushButton*>::iterator it;
@@ -144,6 +149,15 @@ void PlanDeSalle::ChangerStatutSiege()
 //    QVector <QString> NomPlace;
 //    NomPlace.push_back(ui->buttonGroup->objectName());
 //    qDebug() <<"Sieges dans vector" << NomPlace;
+}
+
+void PlanDeSalle::SetSiege()
+{
+    ui->PA1->setStyleSheet("background-color: rgb(255, 99, 71);");
+    ui->PA1->setEnabled(false);
+
+    ui->PA2->setStyleSheet("background-color: rgb(255, 99, 71);");
+    ui->PA2->setEnabled(false);
 }
 
 void PlanDeSalle::InitialisationEtatDesSieges()

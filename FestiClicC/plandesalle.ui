@@ -9960,5 +9960,25 @@ background-color: rgb(57, 115, 0);</string>
   <tabstop>SiegeB34I</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>PA1</sender>
+   <signal>clicked()</signal>
+   <receiver>PlanDeSalle</receiver>
+   <slot>SetSiege()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>399</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>35</x>
+     <y>348</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>SetSiege()</slot>
+ </slots>
 </ui>
