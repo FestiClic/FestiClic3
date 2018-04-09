@@ -32,7 +32,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
        group->addButton(ui->PA3);
        group->addButton(ui->PA4);
 
-       group->connect(group, SIGNAL(buttonClicked(int)),
+       group->connect(group, SIGNAL(buttonClicked(QAbstractButton*)),
                                     this, SLOT(steelChange(int)));
 
 /*
