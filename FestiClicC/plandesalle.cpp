@@ -26,7 +26,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 
     VerifierSiReserve();
 // ////////////////////
-    QButtonGroup* group = new QButtonGroup(this);
+/*    QButtonGroup* group = new QButtonGroup(this);
        group->addButton(ui->PA1);
        group->addButton(ui->PA2);
        group->addButton(ui->PA3);
@@ -34,7 +34,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 
        group->connect(group, SIGNAL(buttonClicked(QAbstractButton*)),
                                     this, SLOT(steelChange(int)));
-
+*/
 /*
 //Vecteur pour stocker mes sieges
     QVector <int*> *numeroPlace = new QVector <int*>;
@@ -114,14 +114,14 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 
 void PlanDeSalle::steelChange(int buttonID)
 {
-    qDebug() << "buttonID : " << buttonID;
+/*    qDebug() << "buttonID : " << buttonID;
     QButtonGroup* group = new QButtonGroup(this);
     (this)->setStyleSheet("background-color: rgb(255, 99, 71);");
 
 
     //QButtonGroup::buttonClicked(objectName());
 
-    //objectName(buttonID)
+*/    //objectName(buttonID)
 /*
     QList<QPushButton *> allWidgets = PlanDeSalle().findChildren<QPushButton *>("");
     QList<QPushButton*>::iterator it;
@@ -156,36 +156,77 @@ void PlanDeSalle::ChangerStatutSiege()
 
 void PlanDeSalle::SetSiege()
 {
-    ui->PA1->setStyleSheet("background-color: rgb(255, 99, 71);");
+/*    ui->PA1->setStyleSheet("background-color: rgb(255, 99, 71);");
     ui->PA1->setEnabled(false);
 
     ui->PA2->setStyleSheet("background-color: rgb(255, 99, 71);");
     ui->PA2->setEnabled(false);
+*/
 }
 
 void PlanDeSalle::InitialisationEtatDesSieges()
 {
-    ui->P_001->setStyleSheet("background-color: none;");
-    ui->P_002->setStyleSheet("background-color: none;");
-    ui->P_003->setStyleSheet("background-color: none;");
-    ui->P_004->setStyleSheet("background-color: none;");
-    ui->P_005->setStyleSheet("background-color: none;");
-    ui->P_006->setStyleSheet("background-color: none;");
-    ui->P_007->setStyleSheet("background-color: none;");
-    ui->P_008->setStyleSheet("background-color: none;");
-    ui->P_009->setStyleSheet("background-color: none;");
-    ui->P_010->setStyleSheet("background-color: none;");
+    ui->P1->setStyleSheet("background-color: none;");
+    ui->P2->setStyleSheet("background-color: none;");
+    ui->P3->setStyleSheet("background-color: none;");
+    ui->P4->setStyleSheet("background-color: none;");
+    ui->P5->setStyleSheet("background-color: none;");
+    ui->P6->setStyleSheet("background-color: none;");
+    ui->P7->setStyleSheet("background-color: none;");
+    ui->P8->setStyleSheet("background-color: none;");
+    ui->P9->setStyleSheet("background-color: none;");
+    ui->P10->setStyleSheet("background-color: none;");
 
-    ui->P_001->setEnabled(true);
-    ui->P_002->setEnabled(true);
-    ui->P_003->setEnabled(true);
-    ui->P_004->setEnabled(true);
-    ui->P_005->setEnabled(true);
-    ui->P_006->setEnabled(true);
-    ui->P_007->setEnabled(true);
-    ui->P_008->setEnabled(true);
-    ui->P_009->setEnabled(true);
-    ui->P_010->setEnabled(true);
+    ui->P11->setStyleSheet("background-color: none;");
+    ui->P12->setStyleSheet("background-color: none;");
+    ui->P13->setStyleSheet("background-color: none;");
+    ui->P14->setStyleSheet("background-color: none;");
+    ui->P15->setStyleSheet("background-color: none;");
+    ui->P16->setStyleSheet("background-color: none;");
+    ui->P17->setStyleSheet("background-color: none;");
+    ui->P18->setStyleSheet("background-color: none;");
+    ui->P19->setStyleSheet("background-color: none;");
+    ui->P20->setStyleSheet("background-color: none;");
+
+    ui->P21->setStyleSheet("background-color: none;");
+    ui->P22->setStyleSheet("background-color: none;");
+    ui->P23->setStyleSheet("background-color: none;");
+    ui->P24->setStyleSheet("background-color: none;");
+    ui->P25->setStyleSheet("background-color: none;");
+    ui->P26->setStyleSheet("background-color: none;");
+    ui->P27->setStyleSheet("background-color: none;");
+    ui->P28->setStyleSheet("background-color: none;");
+
+
+    ui->P1->setEnabled(true);
+    ui->P2->setEnabled(true);
+    ui->P3->setEnabled(true);
+    ui->P4->setEnabled(true);
+    ui->P5->setEnabled(true);
+    ui->P6->setEnabled(true);
+    ui->P7->setEnabled(true);
+    ui->P8->setEnabled(true);
+    ui->P9->setEnabled(true);
+    ui->P10->setEnabled(true);
+    ui->P11->setEnabled(true);
+    ui->P12->setEnabled(true);
+    ui->P13->setEnabled(true);
+    ui->P14->setEnabled(true);
+    ui->P15->setEnabled(true);
+    ui->P16->setEnabled(true);
+    ui->P17->setEnabled(true);
+    ui->P18->setEnabled(true);
+    ui->P19->setEnabled(true);
+    ui->P20->setEnabled(true);
+    ui->P21->setEnabled(true);
+    ui->P22->setEnabled(true);
+    ui->P23->setEnabled(true);
+    ui->P24->setEnabled(true);
+    ui->P25->setEnabled(true);
+    ui->P26->setEnabled(true);
+    ui->P27->setEnabled(true);
+    ui->P28->setEnabled(true);
+
 }
 
 void PlanDeSalle::VerifierSiReserve()
@@ -279,143 +320,143 @@ void PlanDeSalle::VerifierSiReserve()
 
                         if(siege == "PA1")
                         {
-                            ui->P_001->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_001->setEnabled(false);
+                            ui->P1->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P1->setEnabled(false);
                         }
                         if(siege == "PA2")
                         {
-                            ui->P_002->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_002->setEnabled(false);
+                            ui->P2->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P2->setEnabled(false);
                         }
                         if(siege == "PA3")
                         {
-                            ui->P_003->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_003->setEnabled(false);
+                            ui->P3->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P3->setEnabled(false);
                         }
                         if(siege == "PA4")
                         {
-                            ui->P_004->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_004->setEnabled(false);
+                            ui->P4->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P4->setEnabled(false);
                         }
                         if(siege == "PA5")
                         {
-                            ui->P_005->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_005->setEnabled(false);
+                            ui->P5->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P5->setEnabled(false);
                         }
                         if(siege == "PA6")
                         {
-                            ui->P_006->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_006->setEnabled(false);
+                            ui->P6->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P6->setEnabled(false);
                         }
                         if(siege == "PA7")
                         {
-                            ui->P_007->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_007->setEnabled(false);
+                            ui->P7->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P7->setEnabled(false);
                         }
                         if(siege == "PA8")
                         {
-                            ui->P_008->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_008->setEnabled(false);
+                            ui->P8->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P8->setEnabled(false);
                         }
                         if(siege == "PA9")
                         {
-                            ui->P_009->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_009->setEnabled(false);
+                            ui->P9->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P9->setEnabled(false);
                         }
                         if(siege == "PA10")
                         {
-                            ui->P_010->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_010->setEnabled(false);
+                            ui->P10->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P10->setEnabled(false);
                         }
                         if(siege == "PA11")
                         {
-                            ui->P_011->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_011->setEnabled(false);
+                            ui->P11->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P11->setEnabled(false);
                         }
                         if(siege == "PA12")
                         {
-                            ui->P_012->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_012->setEnabled(false);
+                            ui->P12->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P12->setEnabled(false);
                         }
                         if(siege == "PA13")
                         {
-                            ui->P_013->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_013->setEnabled(false);
+                            ui->P13->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P13->setEnabled(false);
                         }
                         if(siege == "PA14")
                         {
-                            ui->P_014->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_014->setEnabled(false);
+                            ui->P14->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P14->setEnabled(false);
                         }
                         if(siege == "PA15")
                         {
-                            ui->P_015->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_015->setEnabled(false);
+                            ui->P15->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P15->setEnabled(false);
                         }
                         if(siege == "PA16")
                         {
-                            ui->P_016->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_016->setEnabled(false);
+                            ui->P16->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P16->setEnabled(false);
                         }
                         if(siege == "PA17")
                         {
-                            ui->P_017->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_017->setEnabled(false);
+                            ui->P17->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P17->setEnabled(false);
                         }
                         if(siege == "PA18")
                         {
-                            ui->P_018->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_018->setEnabled(false);
+                            ui->P18->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P18->setEnabled(false);
                         }
                         if(siege == "PA19")
                         {
-                            ui->P_019->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_019->setEnabled(false);
+                            ui->P19->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P19->setEnabled(false);
                         }
                         if(siege == "PA20")
                         {
-                            ui->P_020->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_020->setEnabled(false);
+                            ui->P20->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P20->setEnabled(false);
                         }
                         if(siege == "PA21")
                         {
-                            ui->P_021->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_021->setEnabled(false);
+                            ui->P21->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P21->setEnabled(false);
                         }
                         if(siege == "PA22")
                         {
-                            ui->P_022->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_022->setEnabled(false);
+                            ui->P22->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P22->setEnabled(false);
                         }
                         if(siege == "PA23")
                         {
-                            ui->P_023->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_023->setEnabled(false);
+                            ui->P23->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P23->setEnabled(false);
                         }
                         if(siege == "PA24")
                         {
-                            ui->P_024->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_024->setEnabled(false);
+                            ui->P24->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P24->setEnabled(false);
                         }
                         if(siege == "PA25")
                         {
-                            ui->P_025->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_025->setEnabled(false);
+                            ui->P25->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P25->setEnabled(false);
                         }
                         if(siege == "PA26")
                         {
-                            ui->P_026->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_026->setEnabled(false);
+                            ui->P26->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P26->setEnabled(false);
                         }
                         if(siege == "PA27")
                         {
-                            ui->P_027->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_027->setEnabled(false);
+                            ui->P27->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P27->setEnabled(false);
                         }
                         if(siege == "PA28")
                         {
-                            ui->P_028->setStyleSheet("background-color: rgb(255, 99, 71);");
-                            ui->P_028->setEnabled(false);
+                            ui->P28->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P28->setEnabled(false);
                         }
                        //}
                     }
@@ -424,115 +465,115 @@ void PlanDeSalle::VerifierSiReserve()
                         //Si pas réservé
                         if(siege == "PA1")
                         {
-                            ui->P_001->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P1->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA2")
                         {
-                            ui->P_002->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P2->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA3")
                         {
-                            ui->P_003->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P3->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA4")
                         {
-                            ui->P_004->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P4->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA5")
                         {
-                            ui->P_005->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P5->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA6")
                         {
-                            ui->P_006->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P6->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA7")
                         {
-                            ui->P_007->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P7->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA8")
                         {
-                            ui->P_008->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P8->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA9")
                         {
-                            ui->P_009->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P9->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA10")
                         {
-                            ui->P_010->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P10->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA11")
                         {
-                            ui->P_011->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P11->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA12")
                         {
-                            ui->P_012->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P12->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA13")
                         {
-                            ui->P_013->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P13->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA14")
                         {
-                            ui->P_014->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P14->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA15")
                         {
-                            ui->P_015->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P15->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA16")
                         {
-                            ui->P_016->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P16->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA17")
                         {
-                            ui->P_017->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P17->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA18")
                         {
-                            ui->P_018->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P18->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA19")
                         {
-                            ui->P_019->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P19->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA20")
                         {
-                            ui->P_020->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P20->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA21")
                         {
-                            ui->P_021->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P21->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA22")
                         {
-                            ui->P_022->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P22->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA23")
                         {
-                            ui->P_023->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P23->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA24")
                         {
-                            ui->P_024->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P24->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA25")
                         {
-                            ui->P_025->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P25->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA26")
                         {
-                            ui->P_026->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P26->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA27")
                         {
-                            ui->P_027->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P27->setStyleSheet("background-color: rgb(60, 60, 60);");
                         }
                         if(siege == "PA28")
                         {
-                            ui->P_018->setStyleSheet("background-color: rgb(60, 60, 60);");
+                            ui->P28->setStyleSheet("border-image: url(:UserMenGreen.png);");
                         }
                    }
                     //}
