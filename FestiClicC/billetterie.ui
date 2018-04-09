@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Billetterie</string>
   </property>
   <widget class="QGroupBox" name="bGBoxPlanSalle">
    <property name="geometry">

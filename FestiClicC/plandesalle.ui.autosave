@@ -4235,6 +4235,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>6</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="pushButton_710">
    <property name="geometry">
@@ -4248,6 +4251,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>7</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="PA2">
    <property name="geometry">
@@ -4261,6 +4267,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>2</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="pushButton_712">
    <property name="geometry">
@@ -4274,6 +4283,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>5</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="PA1">
    <property name="geometry">
@@ -4287,6 +4299,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>1</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="PA4">
    <property name="geometry">
@@ -4300,6 +4315,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>4</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="PA3">
    <property name="geometry">
@@ -4313,6 +4331,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>3</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="pushButton_183">
    <property name="geometry">
@@ -4326,6 +4347,9 @@ background-color: rgb(57, 115, 0);</string>
    <property name="text">
     <string>8</string>
    </property>
+   <attribute name="buttonGroup">
+    <string notr="true">buttonGroup</string>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="pushButton_716">
    <property name="geometry">
@@ -9981,4 +10005,7 @@ background-color: rgb(57, 115, 0);</string>
  <slots>
   <slot>SetSiege()</slot>
  </slots>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

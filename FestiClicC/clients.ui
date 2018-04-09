@@ -6,195 +6,417 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>608</height>
+    <width>1069</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Spectateurs</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
-   <item>
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="widgetResizable">
-      <bool>true</bool>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>951</width>
+     <height>611</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_5">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>949</width>
+      <height>609</height>
+     </rect>
+    </property>
+    <widget class="QPushButton" name="cltBtnSupprimer">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>520</y>
+       <width>151</width>
+       <height>81</height>
+      </rect>
      </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents_5">
+     <property name="text">
+      <string>Supprimer</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cltBtnModifier">
+     <property name="geometry">
+      <rect>
+       <x>620</x>
+       <y>520</y>
+       <width>151</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Modifier</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cltBtnAjouter">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>520</y>
+       <width>151</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ajouter</string>
+     </property>
+    </widget>
+    <widget class="QTableView" name="cltTabV">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>13</y>
+       <width>931</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>931</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Fiche client</string>
+     </property>
+     <widget class="QLabel" name="cltLabelIdClient">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>950</width>
-        <height>588</height>
+        <x>10</x>
+        <y>23</y>
+        <width>37</width>
+        <height>16</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="text">
+       <string>IdClient</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cltCBoxCivilite">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>45</y>
+        <width>48</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Mme</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mr</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtAdresse">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>190</y>
+        <width>341</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Adresse</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtCp">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>230</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>CP</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>190</y>
+        <width>39</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Adresse</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>230</y>
+        <width>57</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Code postal</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>21</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nom</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtNom">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>70</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Nom</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>70</y>
+        <width>36</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Prénom</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtPrenom">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>70</y>
+        <width>131</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Prénom</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>110</y>
+        <width>66</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Adresse Email</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtEmail">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>110</y>
+        <width>341</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Adresse Email</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cltBtnViderChamps">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>180</y>
+        <width>311</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Vider les champs</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="cLabelAlerte">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>10</y>
+        <width>461</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>230</y>
+        <width>159</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QTableView" name="cltTabV"/>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox">
-             <property name="title">
-              <string>Fiche client</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <item>
-               <widget class="QLabel" name="cltLabelIdClient">
-                <property name="text">
-                 <string>IdClient</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="cltCBoxCivilite">
-                <item>
-                 <property name="text">
-                  <string>Mme</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mr</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtNom">
-                <property name="placeholderText">
-                 <string>Nom</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtPrenom">
-                <property name="placeholderText">
-                 <string>Prénom</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtEmail">
-                <property name="placeholderText">
-                 <string>Adresse Email</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtAdresse">
-                <property name="placeholderText">
-                 <string>Adresse</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtVille">
-                <property name="placeholderText">
-                 <string>Ville</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtCp">
-                <property name="placeholderText">
-                 <string>CP</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtMob">
-                <property name="placeholderText">
-                 <string>Mobile</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="cltTxtTel">
-                <property name="placeholderText">
-                 <string>Téléphone</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="cltCBoxAbonne">
-                <item>
-                 <property name="text">
-                  <string>Abonné(e)</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Non abonné(e)</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="cltBtnViderChamps">
-                <property name="text">
-                 <string>Vider les champs</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <item>
-                 <widget class="QPushButton" name="cltBtnAjouter">
-                  <property name="text">
-                   <string>Ajouter</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="cltBtnModifier">
-                  <property name="text">
-                   <string>Modifier</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="cltBtnSupprimer">
-                  <property name="text">
-                   <string>Supprimer</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QPushButton" name="cltBtnQuitter">
-             <property name="text">
-              <string>Quitter</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="cLabelAlerte">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Ville</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="cltTxtVille">
+         <property name="placeholderText">
+          <string>Ville</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>270</y>
+        <width>421</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Type abonnement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="cltCBoxAbonne">
+         <item>
+          <property name="text">
+           <string>Abonné(e)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Non abonné(e)</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>151</y>
+        <width>30</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Mobile</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>248</x>
+        <y>150</y>
+        <width>56</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PTéléphone</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtTel">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>150</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Téléphone</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtMob">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>150</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Mobile</string>
+      </property>
+     </widget>
     </widget>
-   </item>
-  </layout>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>640</y>
+     <width>911</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QPushButton" name="cltBtnQuitter">
+      <property name="text">
+       <string>Quitter</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>cltCBoxCivilite</tabstop>
@@ -207,7 +429,6 @@
   <tabstop>cltTxtTel</tabstop>
   <tabstop>cltTxtMob</tabstop>
   <tabstop>cltCBoxAbonne</tabstop>
-  <tabstop>cltBtnViderChamps</tabstop>
   <tabstop>cltBtnAjouter</tabstop>
   <tabstop>cltBtnModifier</tabstop>
   <tabstop>cltBtnSupprimer</tabstop>
