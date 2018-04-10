@@ -23,6 +23,10 @@ AdministrationBillet::AdministrationBillet(QWidget *parent) :
     ViderLesChampsConfigSalle();
     ViderLesChampsTarif();
     ViderLesChampsModePaiemenet();
+
+    //Définir un masque pour encadrer la saisie utilisateur
+    ui->AdBTxtPrix->setInputMask("00.00");
+    ui->AdBTxtNbPlaces->setInputMask("000");
 }
 
 void AdministrationBillet::MAJTablesViewPage()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>995</width>
-    <height>636</height>
+    <width>1009</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,156 +18,207 @@
 background-color = rgb(255, 146, 157);
 }</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
-   <item>
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="widgetResizable">
-      <bool>true</bool>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>991</width>
+     <height>611</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>989</width>
+      <height>609</height>
+     </rect>
+    </property>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>410</y>
+       <width>971</width>
+       <height>121</height>
+      </rect>
      </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents_2">
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="uLabelAlerte">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>975</width>
-        <height>616</height>
+        <x>190</x>
+        <y>19</y>
+        <width>731</width>
+        <height>91</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QTableView" name="uTabV"/>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox">
-             <property name="title">
-              <string>Actions sur utilisateurs</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <item>
-               <widget class="QLabel" name="uLabelIditUtilisateur">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="uTxtNom">
-                <property name="placeholderText">
-                 <string>Nom</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="uTxtPrenom">
-                <property name="placeholderText">
-                 <string>Prénom</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="uLabelAdministrateur">
-                <property name="text">
-                 <string>Administrateur</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="uCBoxAdministrateur">
-                <item>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>1</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="uTxtUsername">
-                <property name="placeholderText">
-                 <string>Username</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="uTxtPassword">
-                <property name="placeholderText">
-                 <string>Password</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="uBtnViderChamps">
-                <property name="text">
-                 <string>Vider champs</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <item>
-                 <widget class="QPushButton" name="uBtnAjouter">
-                  <property name="text">
-                   <string>Ajouter</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="uBtnModifier">
-                  <property name="text">
-                   <string>Modifier</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="uBtnSupprimer">
-                  <property name="text">
-                   <string>Supprimer</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QPushButton" name="uBtnQuitter">
-             <property name="styleSheet">
-              <string notr="true">background-color = rgb(255, 146, 157);</string>
-             </property>
-             <property name="text">
-              <string>Quitter</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="uLabelAlerte">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-      </layout>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="uBtnQuitter">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>151</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color = rgb(255, 146, 157);</string>
+      </property>
+      <property name="text">
+       <string>Quitter</string>
+      </property>
      </widget>
     </widget>
-   </item>
-  </layout>
+    <widget class="QPushButton" name="uBtnAjouter">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>310</y>
+       <width>151</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ajouter</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="uBtnViderChamps">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>300</y>
+       <width>411</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Vider champs</string>
+     </property>
+    </widget>
+    <widget class="QTableView" name="uTabV">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>471</width>
+       <height>255</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>10</y>
+       <width>471</width>
+       <height>255</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Actions sur utilisateurs</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="uLabelIditUtilisateur">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="uTxtNom">
+        <property name="placeholderText">
+         <string>Nom</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="uTxtPrenom">
+        <property name="placeholderText">
+         <string>Prénom</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="uLabelAdministrateur">
+        <property name="text">
+         <string>Administrateur</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="uCBoxAdministrateur">
+        <item>
+         <property name="text">
+          <string>0</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="uTxtUsername">
+        <property name="placeholderText">
+         <string>Username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="uTxtPassword">
+        <property name="placeholderText">
+         <string>Password</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="uBtnSupprimer">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>310</y>
+       <width>151</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Supprimer</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="uBtnModifier">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>310</y>
+       <width>151</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Modifier</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>

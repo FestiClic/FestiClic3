@@ -47,6 +47,9 @@ Spectacles::Spectacles(QWidget *parent) :
     qDebug() << (modal->rowCount());
 
     ViderLesChamps();
+
+    //Définir un masque pour encadrer la saisie utilisateur
+    ui->sTxtJauge->setInputMask("000");
 }
 
 void Spectacles::ViderLesChamps()
@@ -86,10 +89,7 @@ void Spectacles::MAJTableV()
     //Redimentionner les colonne en fonction du contenu
     ui->sTabV->resizeColumnsToContents();
 
-    //fermeture de la connexion
-    //connexion.closeConnexion();
     qDebug() << (modal->rowCount());
-    //qDebug() << (modal2->rowCount());
 }
 
 
@@ -131,108 +131,62 @@ void Spectacles::on_sBtnAjouter_clicked()
 
     if(!ui->sTxtIntituleConfig->text().isEmpty() && !ui->sTxtJauge->text().isEmpty() && !ui->sTxtSpectacle->text().isEmpty())
     {
-
-/*
-//Pour la table dynamique
-    QString seance;
-    QString spec = "Spectacle_";
-    //QString annee = "-A-";
-    //QString tableSeanceDynamique;
-
-    //idSpecatacle = ui->sLabelIdSpectacle->text();
-
-    //seance contient les 4 premiers charactere du spectacle de gauche + l'année + et heure
-    seance = (spec+spectacle.left(4)+'_'+date.right(4).append(heure.left(2)));
-    qDebug() << seance;
-*/
-  /*      if(!connexion.openConnexion())
+        //Ne pas créer de spectacle à partir d'un spectacle existant
+        if(ui->sLabelIdSpectacle->text().isEmpty())
         {
-            qDebug() << "Echec de la connexion";
-            return;
-        }
-*/
-        QSqlQuery query;
+            QSqlQuery query;
 
-        query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle, JaugeSpectacle) "
-                      "VALUES (:spectacle, :date, :heure, :idConfigSalle, :jaugeS)");
-        query.bindValue(":spectacle", spectacle);
-        query.bindValue(":date", date);
-        query.bindValue(":heure", heure);
-        query.bindValue(":idConfigSalle", idConfigSalle);
-        query.bindValue(":jaugeS", jauge);
+            query.prepare("INSERT INTO Spectacles (Spectacle, Date, Heure, IdConfigSalle, JaugeSpectacle) "
+                          "VALUES (:spectacle, :date, :heure, :idConfigSalle, :jaugeS)");
+            query.bindValue(":spectacle", spectacle);
+            query.bindValue(":date", date);
+            query.bindValue(":heure", heure);
+            query.bindValue(":idConfigSalle", idConfigSalle);
+            query.bindValue(":jaugeS", jauge);
 
-        if(query.exec())
-        {
-            ViderLesChamps();
-
-           QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
-
-           MAJTableV();
-
-            // parie id spectacle necessaire pour tab places
-            int idSpectacle;
-
-            //Recupérer l'IdSpectacle du spectacle créé
-
-            QSqlQuery queryGetIdSpectacle;
-            queryGetIdSpectacle.prepare("SELECT MAX(IdSpectacle) FROM Spectacles ");
-
-            queryGetIdSpectacle.exec();
-            if (queryGetIdSpectacle.next())
+            if(query.exec())
             {
-                idSpectacle = queryGetIdSpectacle.value(0).toInt();
+                ViderLesChamps();
+
+               QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
+
+               MAJTableV();
+
+                // parie id spectacle necessaire pour tab places
+                int idSpectacle;
+
+                //Recupérer l'IdSpectacle du spectacle créé
+
+                QSqlQuery queryGetIdSpectacle;
+                queryGetIdSpectacle.prepare("SELECT MAX(IdSpectacle) FROM Spectacles ");
+
+                queryGetIdSpectacle.exec();
+                if (queryGetIdSpectacle.next())
+                {
+                    idSpectacle = queryGetIdSpectacle.value(0).toInt();
+                }
+                //QDEBUG
+                qDebug() << "idSpectacle au debut : " <<idSpectacle;
+
+                //Insérer la liste des sieges a la tables Places pour le spectacle créé
+                QSqlQuery queryInsertPlaces;
+                queryInsertPlaces.prepare("INSERT INTO Places (NumPlace, IdSpectacleP) "
+                              "SELECT NumSiege, :idSpectacle FROM Sieges ");
+                queryInsertPlaces.bindValue(":idSpectacle", idSpectacle);
+                queryInsertPlaces.exec();
             }
-            //QDEBUG
-            qDebug() << "idSpectacle au debut : " <<idSpectacle;
-
-            //Insérer la liste des sieges a la tables Places pour le spectacle créé
-            QSqlQuery queryInsertPlaces;
-            queryInsertPlaces.prepare("INSERT INTO Places (NumPlace, IdSpectacleP) "
-                          "SELECT NumSiege, :idSpectacle FROM Sieges ");
-            queryInsertPlaces.bindValue(":idSpectacle", idSpectacle);
-            queryInsertPlaces.exec();
-
-//*************************************************************************************************************************************
-        // Création de la table dynamique
-            /*    Coder l'insertion dans une table Seance qui stockera le spectacle et la jauge (ici j'ai seance qui contient IdSpectacle
-                    et IdConfigSalle
-
-                    Etudier la possibilité d'utiliser une vue à la place d'une table supplémentaire ?????
-
-                    //La requete est fonctionnelle sur le Browser
-                        Insert into Seances (IdSpectacle, IdConfigSalle)
-                                    values ((select max(IdSpectacle) from Spectacles),
-                                    (select IdConfigSalle from Spectacles order by IdSpectacle desc ))
-             */
-/*
-            connexion.openConnexion();
-
-
-            //tableSeanceDynamique = QString("%1 %2 %3 %4").arg(seance).arg(idSpecatacle).arg(annee).arg(date);
-
-
-            QSqlQuery query2;
-            query2.prepare("CREATE TABLE Spectacle_Seance "
-                                "(IdSeance INTEGER PRIMARY KEY NOT NULL, "
-                                "NumPlace INTEGER , "
-                                "Reserve INTEGER NOT NULL DEFAULT 0, ) ");
-            //query.bindValue(":seance", seance);
-
-
-            query2.exec();
-
-            if(query2.exec())
-                qDebug() << "requête fonctionnelle";
             else
-                qDebug() << "requête plantée: " << query2.lastError();
-*/
-            //*************************************************************************************************************************************
-        //   connexion.closeConnexion();
+            {
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+            }
         }
         else
         {
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());
+            ui->sLabelAlerte->show();
+            ui->sLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+            ui->sLabelAlerte->setText("Impossible de créer un nouveau spectacle à partir d'un spectacle existant !");
         }
+
     }
     else
     {

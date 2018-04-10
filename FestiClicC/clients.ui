@@ -6,12 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1069</width>
-    <height>681</height>
+    <width>971</width>
+    <height>721</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Spectateurs</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#QLabel {
+font-size: 10px;
+}</string>
   </property>
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
@@ -19,7 +24,7 @@
      <x>10</x>
      <y>10</y>
      <width>951</width>
-     <height>611</height>
+     <height>701</height>
     </rect>
    </property>
    <property name="widgetResizable">
@@ -31,48 +36,9 @@
       <x>0</x>
       <y>0</y>
       <width>949</width>
-      <height>609</height>
+      <height>699</height>
      </rect>
     </property>
-    <widget class="QPushButton" name="cltBtnSupprimer">
-     <property name="geometry">
-      <rect>
-       <x>780</x>
-       <y>520</y>
-       <width>151</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Supprimer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="cltBtnModifier">
-     <property name="geometry">
-      <rect>
-       <x>620</x>
-       <y>520</y>
-       <width>151</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Modifier</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="cltBtnAjouter">
-     <property name="geometry">
-      <rect>
-       <x>460</x>
-       <y>520</y>
-       <width>151</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ajouter</string>
-     </property>
-    </widget>
     <widget class="QTableView" name="cltTabV">
      <property name="geometry">
       <rect>
@@ -89,8 +55,13 @@
        <x>10</x>
        <y>220</y>
        <width>931</width>
-       <height>301</height>
+       <height>341</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#QLabel {
+font-size: 10px;
+}</string>
      </property>
      <property name="title">
       <string>Fiche client</string>
@@ -98,8 +69,8 @@
      <widget class="QLabel" name="cltLabelIdClient">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>23</y>
+        <x>20</x>
+        <y>20</y>
         <width>37</width>
         <height>16</height>
        </rect>
@@ -111,8 +82,8 @@
      <widget class="QComboBox" name="cltCBoxCivilite">
       <property name="geometry">
        <rect>
-        <x>12</x>
-        <y>45</y>
+        <x>100</x>
+        <y>60</y>
         <width>48</width>
         <height>20</height>
        </rect>
@@ -132,7 +103,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>190</y>
+        <y>220</y>
         <width>341</width>
         <height>20</height>
        </rect>
@@ -145,7 +116,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>230</y>
+        <y>260</y>
         <width>133</width>
         <height>20</height>
        </rect>
@@ -158,7 +129,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>190</y>
+        <y>220</y>
         <width>39</width>
         <height>16</height>
        </rect>
@@ -171,7 +142,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>230</y>
+        <y>260</y>
         <width>57</width>
         <height>16</height>
        </rect>
@@ -184,7 +155,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>70</y>
+        <y>100</y>
         <width>21</width>
         <height>16</height>
        </rect>
@@ -197,7 +168,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>70</y>
+        <y>100</y>
         <width>133</width>
         <height>20</height>
        </rect>
@@ -209,8 +180,8 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>270</x>
-        <y>70</y>
+        <x>250</x>
+        <y>100</y>
         <width>36</width>
         <height>16</height>
        </rect>
@@ -223,7 +194,7 @@
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>70</y>
+        <y>100</y>
         <width>131</width>
         <height>20</height>
        </rect>
@@ -236,7 +207,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>110</y>
+        <y>140</y>
         <width>66</width>
         <height>16</height>
        </rect>
@@ -249,7 +220,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>110</y>
+        <y>140</y>
         <width>341</width>
         <height>20</height>
        </rect>
@@ -261,9 +232,9 @@
      <widget class="QPushButton" name="cltBtnViderChamps">
       <property name="geometry">
        <rect>
-        <x>550</x>
-        <y>180</y>
-        <width>311</width>
+        <x>450</x>
+        <y>50</y>
+        <width>471</width>
         <height>91</height>
        </rect>
       </property>
@@ -271,50 +242,11 @@
        <string>Vider les champs</string>
       </property>
      </widget>
-     <widget class="QLabel" name="cLabelAlerte">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>10</y>
-        <width>461</width>
-        <height>151</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-     <widget class="QWidget" name="">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>230</y>
-        <width>159</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_9">
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Ville</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="cltTxtVille">
-         <property name="placeholderText">
-          <string>Ville</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>270</y>
+        <y>300</y>
         <width>421</width>
         <height>22</height>
        </rect>
@@ -323,7 +255,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Type abonnement</string>
+          <string>Statut client</string>
          </property>
         </widget>
        </item>
@@ -347,7 +279,7 @@
       <property name="geometry">
        <rect>
         <x>21</x>
-        <y>151</y>
+        <y>181</y>
         <width>30</width>
         <height>16</height>
        </rect>
@@ -359,21 +291,21 @@
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>248</x>
-        <y>150</y>
+        <x>250</x>
+        <y>180</y>
         <width>56</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>PTéléphone</string>
+       <string>Téléphone</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="cltTxtTel">
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>150</y>
+        <y>180</y>
         <width>133</width>
         <height>20</height>
        </rect>
@@ -386,7 +318,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>150</y>
+        <y>180</y>
         <width>133</width>
         <height>20</height>
        </rect>
@@ -395,27 +327,128 @@
        <string>Mobile</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="cltBtnAjouter">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>200</y>
+        <width>151</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ajouter</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cltBtnModifier">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>200</y>
+        <width>151</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Modifier</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cltBtnSupprimer">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>200</y>
+        <width>151</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Supprimer</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Civilité</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="cltTxtVille">
+      <property name="geometry">
+       <rect>
+        <x>305</x>
+        <y>261</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Ville</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>260</y>
+        <width>18</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ville</string>
+      </property>
+     </widget>
     </widget>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>640</y>
-     <width>911</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
-    <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>580</y>
+       <width>931</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
      <widget class="QPushButton" name="cltBtnQuitter">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>151</width>
+        <height>91</height>
+       </rect>
+      </property>
       <property name="text">
        <string>Quitter</string>
       </property>
      </widget>
-    </item>
-   </layout>
+     <widget class="QLabel" name="cLabelAlerte">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>10</y>
+        <width>741</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <tabstops>
@@ -432,7 +465,6 @@
   <tabstop>cltBtnAjouter</tabstop>
   <tabstop>cltBtnModifier</tabstop>
   <tabstop>cltBtnSupprimer</tabstop>
-  <tabstop>cltBtnQuitter</tabstop>
   <tabstop>cltTabV</tabstop>
  </tabstops>
  <resources/>

@@ -35,6 +35,15 @@ Clients::Clients(QWidget *parent) :
     MAJTableV();
     ViderLesChamps();
 
+    //Définir un masque pour encadrer la saisie utilisateur
+    ui->cltTxtCp->setInputMask("00000");
+    ui->cltTxtTel->setInputMask("0000000000");
+    ui->cltTxtMob->setInputMask("0000000000");
+
+    //Pour le champs mail déclarer une variable qui
+    //ui->cltTxtEmail->setInputMask("@");
+
+
 /*
     Login connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
@@ -112,8 +121,6 @@ void Clients::on_cltBtnQuitter_clicked()
 //Bouton ajouter nouveau client
 void Clients::on_cltBtnAjouter_clicked()
 {
-   // Login connexion;
-
     QString civilite;
     QString nom;
     QString prenom;
@@ -121,9 +128,11 @@ void Clients::on_cltBtnAjouter_clicked()
     QString cp;
     QString ville;
     QString email;
-    QString tel;
-    QString mob;
+    int tel;
+    int mob;
     QString abonne;
+
+
 
     civilite = ui->cltCBoxCivilite->currentText();
     nom = ui->cltTxtNom->text();
@@ -132,62 +141,73 @@ void Clients::on_cltBtnAjouter_clicked()
     cp = ui->cltTxtCp->text();
     ville = ui->cltTxtVille->text();
     email = ui->cltTxtEmail->text();
-    tel = ui->cltTxtTel->text();
-    mob = ui->cltTxtMob->text();
+    tel = ui->cltTxtTel->text().toInt();
+    mob = ui->cltTxtMob->text().toInt();
     abonne = ui->cltCBoxAbonne->currentText();
 
-/*    if(!connexion.openConnexion())
+    if(!civilite.isEmpty() && !nom.isEmpty()
+            && !prenom.isEmpty() && !abonne.isEmpty()
+            && !email.isEmpty())
     {
-        qDebug() << "Echec de la connexion";
-        return;
-    }
-*/
- //   connexion.openConnexion();
-
-    if(!ui->cltCBoxCivilite->currentText().isEmpty() && !ui->cltTxtNom->text().isEmpty()
-            && !ui->cltTxtPrenom->text().isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
-    {
-        QSqlQuery query;
-
-        query.prepare("INSERT INTO Clients (Civilite, NomClient, "
-                      "PrenomClient, AdresseClient, Cp, Ville, "
-                      "EmailClient, TelClient, MobClient, Abonne) "
-                      "VALUES (:civilite, :nom, :prenom, :adresse, "
-                      ":cp, :ville, :email, :tel, :mob, :abonne)");
-
-        query.bindValue(":civilite", civilite);
-        query.bindValue(":nom", nom);
-        query.bindValue(":prenom", prenom);
-        query.bindValue(":adresse", adresse);
-        query.bindValue(":cp", cp);
-        query.bindValue(":ville", ville);
-        query.bindValue(":email", email);
-        query.bindValue(":tel", tel);
-        query.bindValue(":mob", mob);
-        query.bindValue(":abonne", abonne);
-
-
-
-
-        if(query.exec())
+        //Encadrer la saisie utilisateur dans le champ mail
+        if (email.contains("@"))
         {
-           ViderLesChamps();
-           //Affichage si ajouter ou pas dans un MessageBox
-           QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
+            //Ne pas créer de client à partir d'un client existant
+            if(ui->cltLabelIdClient->text().isEmpty())
+            {
 
-            MAJTableV();
+                QSqlQuery query;
+
+                query.prepare("INSERT INTO Clients (Civilite, NomClient, "
+                              "PrenomClient, AdresseClient, Cp, Ville, "
+                              "EmailClient, TelClient, MobClient, Abonne) "
+                              "VALUES (:civilite, :nom, :prenom, :adresse, "
+                              ":cp, :ville, :email, :tel, :mob, :abonne)");
+
+                query.bindValue(":civilite", civilite);
+                query.bindValue(":nom", nom);
+                query.bindValue(":prenom", prenom);
+                query.bindValue(":adresse", adresse);
+                query.bindValue(":cp", cp);
+                query.bindValue(":ville", ville);
+                query.bindValue(":email", email);
+                query.bindValue(":tel", tel);
+                query.bindValue(":mob", mob);
+                query.bindValue(":abonne", abonne);
+
+                if(query.exec())
+                {
+                   ViderLesChamps();
+                   //Affichage si ajouter ou pas dans un MessageBox
+                   QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
+
+                    MAJTableV();
+                }
+                else
+                {
+                    //en cas de non execution de la requete
+                    QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+                }
+            }
+            else
+            {
+                ui->cLabelAlerte->show();
+                ui->cLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+                ui->cLabelAlerte->setText("Impossible de créer un nouveau client à partir d'un client existant !");
+            }
         }
         else
         {
-            //en cas de non execution de la requete
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            ui->cLabelAlerte->show();
+            ui->cLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+            ui->cLabelAlerte->setText("Le format de l'adresse mail n'est pas correct");
         }
     }
     else
     {
         ui->cLabelAlerte->show();
-        ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-        ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
+        ui->cLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+        ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Adresse Email et Abonnement sont obligatoires");
     }
 }
 
@@ -206,7 +226,7 @@ void Clients::on_cltBtnModifier_clicked()
     int tel;
     int mob;
     QString abonne;
-    QString idClient;
+    int idClient;
 
     civilite = ui->cltCBoxCivilite->currentText();
     nom = ui->cltTxtNom->text();
@@ -218,62 +238,64 @@ void Clients::on_cltBtnModifier_clicked()
     tel = ui->cltTxtTel->text().toInt();
     mob = ui->cltTxtMob->text().toInt();
     abonne = ui->cltCBoxAbonne->currentText();
-    idClient = ui->cltLabelIdClient->text();
+    idClient = ui->cltLabelIdClient->text().toInt();
 
-/*    if(!connexion.openConnexion())
+    if(!civilite.isEmpty() && !nom.isEmpty()
+            && !prenom.isEmpty() && !abonne.isEmpty()
+            && !email.isEmpty())
     {
-        qDebug() << "Echec de la connexion";
-        return;
-    }
-*/
-//    connexion.openConnexion();
-
-    //requete ok dans le browzer mais ne fonctionne pas depuis l'application
-
-    if(!ui->cltCBoxCivilite->currentText().isEmpty() && !ui->cltTxtNom->text().isEmpty()
-            && !ui->cltTxtPrenom->text().isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
-    {
-
-        QSqlQuery query;
-        //Requête de mise à jour
-        query.prepare("UPDATE Clients SET "
-                                            "Civilite = :civilite, NomClient = :nom, PrenomClient = :prenom, "
-                                            "EmailClient = :email, AdresseClient = :adresse, Cp = :cp, Ville = :ville, "
-                                            "TelClient = :tel, MobClient = :mob, Abonne = :abonne "
-                      "WHERE IdClient = :idClient");
-
-
-        query.bindValue(":civilite", civilite);
-        query.bindValue(":nom", nom);
-        query.bindValue(":prenom", prenom);
-        query.bindValue(":email", email);
-        query.bindValue(":adresse", adresse);
-        query.bindValue(":cp", cp);
-        query.bindValue(":ville", ville);
-        query.bindValue(":tel", tel);
-        query.bindValue(":mob", mob);
-        query.bindValue(":abonne", abonne);
-        query.bindValue(":idClient", idClient);
-
-        if(query.exec())
+        //Encadrer la saisie utilisateur dans le champ mail
+        if (email.contains("@"))
         {
-            ViderLesChamps();
+            QSqlQuery query;
+            //Requête de mise à jour
+            query.prepare("UPDATE Clients SET Civilite = :civilite, "
+                          "NomClient = :nom, "
+                          "PrenomClient = :prenom, "
+                          "EmailClient = :email, "
+                          "AdresseClient = :adresse, "
+                          "Cp = :cp, Ville = :ville, "
+                          "TelClient = :tel, "
+                          "MobClient = :mob, "
+                          "Abonne = :abonne "
+                          "WHERE IdClient = :idClient");
 
-            QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
+            query.bindValue(":civilite", civilite);
+            query.bindValue(":nom", nom);
+            query.bindValue(":prenom", prenom);
+            query.bindValue(":email", email);
+            query.bindValue(":adresse", adresse);
+            query.bindValue(":cp", cp);
+            query.bindValue(":ville", ville);
+            query.bindValue(":tel", tel);
+            query.bindValue(":mob", mob);
+            query.bindValue(":abonne", abonne);
+            query.bindValue(":idClient", idClient);
 
-            MAJTableV();
+            if(query.exec())
+            {
+                ViderLesChamps();
+                QMessageBox::information(this, tr("Modification client"), tr("Fiche client midifié avec succes"));
+                MAJTableV();
+            }
+            else
+            {
+                //en cas de non execution de la requete
+                QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            }
         }
         else
         {
-            //en cas de non execution de la requete
-            QMessageBox::warning(this,tr("Erreur:"),query.lastError().text());	//msgBox avec comme titre erreur et le text de l'erreur generé par la requete
+            ui->cLabelAlerte->show();
+            ui->cLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+            ui->cLabelAlerte->setText("Le format de l'adresse mail n'est pas correct");
         }
     }
     else
     {
         ui->cLabelAlerte->show();
         ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-        ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Abonnement sont obligatoires");
+        ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Adresse Email et Abonnement sont obligatoires");
     }
 }
 
@@ -285,8 +307,8 @@ void Clients::on_cltBtnSupprimer_clicked()
     nomClient = ui->cltTxtNom->text();
     prenomClient = ui->cltTxtPrenom->text();
 
-    if(!ui->cltCBoxCivilite->currentText().isEmpty() && !ui->cltTxtNom->text().isEmpty()
-            && !ui->cltTxtPrenom->text().isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
+    if(!ui->cltCBoxCivilite->currentText().isEmpty() && !nomClient.isEmpty()
+            && !prenomClient.isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
     {
 
         QMessageBox msgBox;
@@ -297,20 +319,9 @@ void Clients::on_cltBtnSupprimer_clicked()
         msgBox.exec();
         if (msgBox.clickedButton()==(QAbstractButton*)pButtonYes)
         {
+            int idClient;
 
-      //      Login connexion;
-
-            QString idClient;
-
-            idClient = ui->cltLabelIdClient->text();
-
-    /*        if(!connexion.openConnexion())
-            {
-                qDebug() << "Echec de connexion";
-                return;
-            }
-    */
-    //        connexion.openConnexion();
+            idClient = ui->cltLabelIdClient->text().toInt();
 
             QSqlQuery query;
             query.prepare("DELETE FROM Clients WHERE IdClient = :idClient"); //requete suppression dans la bdd
@@ -319,13 +330,8 @@ void Clients::on_cltBtnSupprimer_clicked()
             if(query.exec())
             {
                 ViderLesChamps();
-
                 QMessageBox::information(this,tr("Suppression"), tr("Enregistrement supprimé")); 	//(Suppression) est le titre de le msgBox - (Enregistrement supprimé) est le message affiché dans le msgBox
-
                 MAJTableV();
-
-     //           connexion.closeConnexion();  //Fermeture de la connexion
-
             }
             else
             {
@@ -342,7 +348,7 @@ void Clients::on_cltBtnSupprimer_clicked()
     else
     {
         ui->cLabelAlerte->show();
-        ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->cLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->cLabelAlerte->setText("Sélectionner un enregistrement ");
     }
 }
@@ -355,17 +361,18 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
     valeurs = ui->cltTabV->model()->data(index).toString();
 
     QSqlQuery query;
-    query.prepare("SELECT * FROM Clients WHERE IdClient = '"+valeurs+"'"
-                                            "OR Civilite = '"+valeurs+"'"
-                                            "OR NomClient = '"+valeurs+"'"
-                                            "OR PrenomClient = '"+valeurs+"'"
-                                            "OR AdresseClient = '"+valeurs+"'"
-                                            "OR Cp = '"+valeurs+"'"
-                                            "OR Ville = '"+valeurs+"'"
-                                            "OR EmailClient = '"+valeurs+"'"
-                                            "OR TelClient = '"+valeurs+"'"
-                                            "OR MobClient = '"+valeurs+"'"
-                                            "OR Abonne = '"+valeurs+"'");
+    query.prepare("SELECT * FROM Clients WHERE IdClient = :valeurs "
+                                            "OR Civilite = :valeurs "
+                                            "OR NomClient = :valeurs "
+                                            "OR PrenomClient = :valeurs "
+                                            "OR AdresseClient = :valeurs "
+                                            "OR Cp = :valeurs "
+                                            "OR Ville = :valeurs "
+                                            "OR EmailClient = :valeurs "
+                                            "OR TelClient = :valeurs "
+                                            "OR MobClient = :valeurs "
+                                            "OR Abonne = :valeurs ");
+    query.bindValue(":valeurs", valeurs);
 
     if(query.exec())
     {
@@ -382,7 +389,6 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
             ui->cltTxtTel->setText(query.value(8).toString());
             ui->cltTxtMob->setText(query.value(9).toString());
             ui->cltCBoxAbonne->setCurrentText(query.value(10).toString());
-
         }
     }
     else

@@ -16,10 +16,10 @@ bool Database::openConnexion()
     maBaseDeDonnee=QSqlDatabase::addDatabase("QSQLITE");
 
     //CCI C:
-    //maBaseDeDonnee.setDatabaseName("C:/Users/adai10/Desktop/projet Qt C++/FestiClic3/database.db");
+    maBaseDeDonnee.setDatabaseName("C:/Users/adai10/Desktop/projet Qt C++/FestiClic3/database.db");
 
     //Maison Projet C
-    maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");
+    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/ADAI/FestiClic3/database.db");
 
 
     if(maBaseDeDonnee.open())

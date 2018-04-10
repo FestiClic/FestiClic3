@@ -149,7 +149,11 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QLineEdit" name="AdBTxtPrix"/>
+                       <widget class="QLineEdit" name="AdBTxtPrix">
+                        <property name="echoMode">
+                         <enum>QLineEdit::Normal</enum>
+                        </property>
+                       </widget>
                       </item>
                      </layout>
                     </item>
