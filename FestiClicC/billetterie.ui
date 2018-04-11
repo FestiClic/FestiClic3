@@ -9334,12 +9334,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">    background-color: transparent;
-    border-image: url(:BilletTemplate.png);
-    background: none;
-    border: none;
-    background-repeat: no-repeat;
-	font-siza: 15px;
+    <string notr="true">
 </string>
    </property>
    <property name="widgetResizable">
@@ -9350,16 +9345,16 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>821</width>
-      <height>271</height>
+      <width>819</width>
+      <height>269</height>
      </rect>
     </property>
     <widget class="QLabel" name="LabelNomSurBillet_7">
      <property name="geometry">
       <rect>
-       <x>8</x>
+       <x>648</x>
        <y>240</y>
-       <width>811</width>
+       <width>171</width>
        <height>25</height>
       </rect>
      </property>
@@ -9380,30 +9375,13 @@ border-image: none;</string>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>53</y>
-       <width>321</width>
+       <x>50</x>
+       <y>40</y>
+       <width>591</width>
        <height>181</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
-      <item>
-       <widget class="QLabel" name="LabelNomSurBillet">
-        <property name="styleSheet">
-         <string notr="true">color: white;
-background-color: none;
-background: none;
-border: none;
-border-image: none;</string>
-        </property>
-        <property name="text">
-         <string>Label1</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QLabel" name="LabelNomSurBillet_2">
         <property name="styleSheet">
@@ -9417,7 +9395,7 @@ border-image: none;</string>
          <string>Label2</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -9434,7 +9412,7 @@ border-image: none;</string>
          <string>Label4</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -9452,7 +9430,7 @@ border-image: none;
          <string>Label5</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -9469,29 +9447,84 @@ border-image: none;</string>
          <string>Label3</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="LabelNomSurBillet_6">
-        <property name="styleSheet">
-         <string notr="true">color: white;
-background-color: transparent;
-background: none;
-border: none;
-border-image: none;</string>
-        </property>
-        <property name="text">
-         <string>Label6</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
+    <widget class="QLabel" name="bLabelBillet">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>821</width>
+       <height>271</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">    background-color: transparent;
+    border-image: url(:BilletTemplate2.png);
+    background: none;
+    border: none;
+    background-repeat: no-repeat;
+	font-siza: 15px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LabelNomSurBillet">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>619</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+background-color: none;
+background: none;
+border: none;
+border-image: none;</string>
+     </property>
+     <property name="text">
+      <string>Label1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LabelNomSurBillet_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>619</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+background-color: transparent;
+background: none;
+border: none;
+border-image: none;</string>
+     </property>
+     <property name="text">
+      <string>Label6</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <zorder>bLabelBillet</zorder>
+    <zorder>LabelNomSurBillet_7</zorder>
+    <zorder>layoutWidget</zorder>
+    <zorder>LabelNomSurBillet</zorder>
+    <zorder>LabelNomSurBillet_6</zorder>
    </widget>
   </widget>
   <widget class="QWidget" name="widgetPartieGauche" native="true">

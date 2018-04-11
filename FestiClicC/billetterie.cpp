@@ -93,14 +93,13 @@ Billetterie::Billetterie(QWidget *parent) :
 
 }
 
+//Affecter les données des représentations au ComboBox
 void Billetterie::AffecterDonneesRepresentation()
 {
-    //Affecter les données des représentations au ComboBox
 
     Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
-    //connexion.openConnexion();
 
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -117,9 +116,9 @@ void Billetterie::AffecterDonneesRepresentation()
     ui->bCBoxRepresentations->setCurrentIndex(-1);
 }
 
+//Affecter le nomClient a la comboBox client
 void Billetterie::AffecterLesNomsClients()
 {
-    //Affecter le nomClient a la comboBox client
     Database connexion;
     QSqlQueryModel * modal1 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
@@ -140,13 +139,11 @@ void Billetterie::AffecterLesNomsClients()
     ui->bCBoxSpectacteur->setCurrentIndex(-1);
 }
 
+//Affecter le tarif a la comboBox tarif
 void Billetterie::AffecterLesTarifs()
 {
-    //Affecter le tarif a la comboBox tarif
     Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
-
-    //connexion2.openConnexion();
 
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -159,9 +156,9 @@ void Billetterie::AffecterLesTarifs()
     qDebug() << (modal->rowCount());
 }
 
+//Affecter les num sieges a la comboBox numSiege
 void Billetterie::AffecterLesNumerosDesSieges()
 {
-    //Affecter les num sieges a la comboBox numSiege
     Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
@@ -174,9 +171,9 @@ void Billetterie::AffecterLesNumerosDesSieges()
     qDebug() << (modal->rowCount());
 }
 
+//Affecter les modes de paiement a la comboBox
 void Billetterie::AffecterLesModesDePaiement()
 {
-    //Affecter les modes de paiement a la comboBox
     Database connexion;
     QSqlQueryModel * modalModePaiement = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
@@ -424,15 +421,7 @@ void Billetterie::on_bBtnSuivant_clicked()
             ui->bTxtCb->setText(tarifTotal);
 
 
-
-
-
-
-
     //******************************************
-
-
-
 
 //***********************************************************************************************************************
     //Ouverture plan de salle
@@ -458,12 +447,6 @@ void Billetterie::on_bBtnSuivant_clicked()
         }
     }
 
-//***********************************************************************************************************************
-
-
-
-//***********************************************************************************************************************
-
 }
 
 void Billetterie::on_bBtnPaiement_clicked()
@@ -477,6 +460,9 @@ void Billetterie::on_bBtnPaiement_clicked()
         spectacle = ui->bLabelIdSpectacle->text().toInt();
         client = ui->bLabelIdClient->text();
         tarif = ui->bCBoxTarif->currentText();
+
+        //Desactiver le groupe box Paiemement
+        ui->bGBoxModePaiement->setEnabled(false);
 
 
         //Récuperation date systeme pour l'inclure dans le billet
@@ -597,17 +583,16 @@ void Billetterie::on_bBtnPaiement_clicked()
              ui->scrollArea->show();
 
     //Requete pour données à afficher sur le billet
-//Attention la requette affiche toujours le même client le même numSiege et un seul siège !!!!!
 
              QSqlQuery queryDonneesBillet;
-             queryDonneesBillet.prepare("SELECT IdTransaction, IdBillet, Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
+             queryDonneesBillet.prepare("SELECT MAX(IdTransaction), MAX(IdBillet), Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
                                         "FROM Transactions tr , Billets b, Clients c, Spectacles s, Tarifs t, Places p "
                                         "Where b.IdClient = c.IdClient "
                                         "AND b.IdSpectacle = s.IdSpectacle "
                                         "AND b.IdTarif = t.IdTarif "
                                         "AND b.IdPlace = p.IdPlace "
-                                        "AND tr.IdSpectacle = s.IdSpectacle "
-                                        "group by NumPlace ");
+                                        "AND tr.IdSpectacle = s.IdSpectacle ");
+
 
     // Ajouter total a payer prix*nbPlaces
 
@@ -616,7 +601,6 @@ void Billetterie::on_bBtnPaiement_clicked()
     //Affecter les données au billet
              if(queryDonneesBillet.next())
              {
-
                  ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(1).toString());
                  ui->LabelNomSurBillet_2->setText(ui->bLabelNomClient->text()); //(queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
                  ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
@@ -627,14 +611,13 @@ void Billetterie::on_bBtnPaiement_clicked()
                  ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
                  //ui->LabelNomSurBillet_7->setText("Transaction no : "+ queryDonneesBillet.value(8).toString() + queryDonneesBillet.value(9).toString()+ queryDonneesBillet.value(10).toString());
 
-                 ui->LabelNomSurBillet->setStyleSheet("color:white; font-size: 15px; background-image: none;");
-                 ui->LabelNomSurBillet_2->setStyleSheet("color:white; font-size: 15px;");
-                 ui->LabelNomSurBillet_3->setStyleSheet("color:white; font-size: 15px;");
-                 ui->LabelNomSurBillet_4->setStyleSheet("color:white; font-size: 15px;");
-                 ui->LabelNomSurBillet_5->setStyleSheet("color:white; font-size: 15px;");
-                 ui->LabelNomSurBillet_6->setStyleSheet("color:white; font-size: 15px;");
-                 ui->LabelNomSurBillet_7->setStyleSheet("color:white; front-size: 20px, background-image: none;");
-
+                 ui->LabelNomSurBillet->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_2->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_3->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_4->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_5->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_6->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_7->setStyleSheet("color:rgb(236, 112, 99); front-size: 20px,");
              }
 
              qDebug() << nbPlaces;
