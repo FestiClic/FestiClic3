@@ -20,16 +20,13 @@ private slots:
 
     void ChangerStatutSiege();
 
-    void on_P_001_clicked();
-
-    void on_pBtnVisualiser_clicked();
-
     void on_pCBoxSpectacle_currentIndexChanged(const QString &arg1);
 
-    void on_pBtnValider_clicked();
-
     void steelChange(int);
+    
     void SetSiege();
+
+    void on_cltBtnQuitter_clicked();
 
 private:
     Ui::PlanDeSalle *ui;

@@ -59,7 +59,7 @@
        <string>Jauge</string>
       </property>
      </widget>
-     <widget class="QLabel" name="sLabelIdConfigSalle">
+     <widget class="QLabel" name="sLabelIdConfigSalle1">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -193,7 +193,7 @@
        <string>Heure</string>
       </property>
      </widget>
-     <widget class="QLabel" name="sLabelIdConfigSalle_2">
+     <widget class="QLabel" name="sLabelIdConfigSalle2">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -243,6 +243,19 @@
       </property>
       <property name="text">
        <string>Ajouter</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="sLabelIdConfigSalle">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>180</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
       </property>
      </widget>
     </widget>

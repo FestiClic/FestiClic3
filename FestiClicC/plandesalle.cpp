@@ -25,6 +25,9 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     ui->setupUi(this);
 
     VerifierSiReserve();
+
+    //Masquer le label IdSpectacle
+    ui->pLabelIdSpectacle->hide();
 // ////////////////////
 /*    QButtonGroup* group = new QButtonGroup(this);
        group->addButton(ui->PA1);
@@ -166,37 +169,57 @@ void PlanDeSalle::SetSiege()
 
 void PlanDeSalle::InitialisationEtatDesSieges()
 {
-    ui->P1->setStyleSheet("background-color: none;");
-    ui->P2->setStyleSheet("background-color: none;");
-    ui->P3->setStyleSheet("background-color: none;");
-    ui->P4->setStyleSheet("background-color: none;");
-    ui->P5->setStyleSheet("background-color: none;");
-    ui->P6->setStyleSheet("background-color: none;");
-    ui->P7->setStyleSheet("background-color: none;");
-    ui->P8->setStyleSheet("background-color: none;");
-    ui->P9->setStyleSheet("background-color: none;");
-    ui->P10->setStyleSheet("background-color: none;");
-
-    ui->P11->setStyleSheet("background-color: none;");
-    ui->P12->setStyleSheet("background-color: none;");
-    ui->P13->setStyleSheet("background-color: none;");
-    ui->P14->setStyleSheet("background-color: none;");
-    ui->P15->setStyleSheet("background-color: none;");
-    ui->P16->setStyleSheet("background-color: none;");
-    ui->P17->setStyleSheet("background-color: none;");
-    ui->P18->setStyleSheet("background-color: none;");
-    ui->P19->setStyleSheet("background-color: none;");
-    ui->P20->setStyleSheet("background-color: none;");
-
-    ui->P21->setStyleSheet("background-color: none;");
-    ui->P22->setStyleSheet("background-color: none;");
-    ui->P23->setStyleSheet("background-color: none;");
-    ui->P24->setStyleSheet("background-color: none;");
-    ui->P25->setStyleSheet("background-color: none;");
-    ui->P26->setStyleSheet("background-color: none;");
-    ui->P27->setStyleSheet("background-color: none;");
-    ui->P28->setStyleSheet("background-color: none;");
-
+    ui->P1->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P2->setStyleSheet("border-image: url(:wheelchairVert.png);");   //Fauteuil handicapé
+    ui->P3->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P4->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P5->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P6->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P7->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P8->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P9->setStyleSheet("border-image: url(:wheelchairVert.png);");   //Fauteuil handicapé
+    ui->P10->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P11->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P12->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P13->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P14->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P15->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P16->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P17->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P18->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P19->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P20->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P21->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P22->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P23->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P24->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P25->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P26->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P27->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P28->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P29->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P30->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P31->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P31->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P32->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P33->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P34->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P35->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P36->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P37->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P38->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P39->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P40->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P41->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P42->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P43->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P44->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P45->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P46->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P47->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P48->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P49->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P50->setStyleSheet("border-image: url(:CircPlusGreen.png);");
 
     ui->P1->setEnabled(true);
     ui->P2->setEnabled(true);
@@ -226,7 +249,28 @@ void PlanDeSalle::InitialisationEtatDesSieges()
     ui->P26->setEnabled(true);
     ui->P27->setEnabled(true);
     ui->P28->setEnabled(true);
-
+    ui->P29->setEnabled(true);
+    ui->P30->setEnabled(true);
+    ui->P31->setEnabled(true);
+    ui->P32->setEnabled(true);
+    ui->P33->setEnabled(true);
+    ui->P34->setEnabled(true);
+    ui->P35->setEnabled(true);
+    ui->P36->setEnabled(true);
+    ui->P37->setEnabled(true);
+    ui->P38->setEnabled(true);
+    ui->P39->setEnabled(true);
+    ui->P40->setEnabled(true);
+    ui->P41->setEnabled(true);
+    ui->P42->setEnabled(true);
+    ui->P43->setEnabled(true);
+    ui->P44->setEnabled(true);
+    ui->P45->setEnabled(true);
+    ui->P46->setEnabled(true);
+    ui->P47->setEnabled(true);
+    ui->P48->setEnabled(true);
+    ui->P49->setEnabled(true);
+    ui->P50->setEnabled(true);
 }
 
 void PlanDeSalle::VerifierSiReserve()
@@ -244,13 +288,11 @@ void PlanDeSalle::VerifierSiReserve()
 
     // TEST OBJECT NAME ////////////////////////////////////////////////////////////////////////////////////
 
-
                            // QList<QButtonGroup> tousLesBoutons = PlanDeSalle().findChildren<QButtonGroup>("");
                             //QList<QButtonGroup>::iterator it;
 
-
-
                             //qDebug() << "tousLesBoutons : " << tousLesBoutons;
+
 
     //Remplir le vecteur
     for(int i = 1; i <= numSiege; i++)
@@ -287,18 +329,15 @@ void PlanDeSalle::VerifierSiReserve()
         query.bindValue(":idSpectacle", idSpectacle);
         if(query.exec())
         {
-
-
-            InitialisationEtatDesSieges();
+           // InitialisationEtatDesSieges();
             bool trouver = false;
             while(query.next())
             {
                 siege = query.value(1).toString();
                 qDebug() << "siege : " << siege;
 
-
                 trouver = true;
-            // Si le statut du siège est Réservé
+            // Si la requete revoie des données
             if(trouver)
             {
                 // la variable reserve recoit le resultat boolean de la requête(statut du siège)
@@ -308,8 +347,6 @@ void PlanDeSalle::VerifierSiReserve()
                     // Si réservé
                     if(reserve == 1)
                     {
-
-
                         //si nom d'objet = intituleSiege
                      //  if (objectName() == intituleSiege)
                        //{
@@ -320,137 +357,137 @@ void PlanDeSalle::VerifierSiReserve()
 
                         if(siege == "PA1")
                         {
-                            ui->P1->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P1->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P1->setEnabled(false);
                         }
                         if(siege == "PA2")
                         {
-                            ui->P2->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P2->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
                             ui->P2->setEnabled(false);
                         }
                         if(siege == "PA3")
                         {
-                            ui->P3->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P3->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P3->setEnabled(false);
                         }
                         if(siege == "PA4")
                         {
-                            ui->P4->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P4->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P4->setEnabled(false);
                         }
                         if(siege == "PA5")
                         {
-                            ui->P5->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P5->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P5->setEnabled(false);
                         }
                         if(siege == "PA6")
                         {
-                            ui->P6->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P6->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P6->setEnabled(false);
                         }
                         if(siege == "PA7")
                         {
-                            ui->P7->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P7->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P7->setEnabled(false);
                         }
                         if(siege == "PA8")
                         {
-                            ui->P8->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P8->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P8->setEnabled(false);
                         }
                         if(siege == "PA9")
                         {
-                            ui->P9->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P9->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
                             ui->P9->setEnabled(false);
                         }
                         if(siege == "PA10")
                         {
-                            ui->P10->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P10->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P10->setEnabled(false);
                         }
                         if(siege == "PA11")
                         {
-                            ui->P11->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P11->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P11->setEnabled(false);
                         }
                         if(siege == "PA12")
                         {
-                            ui->P12->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P12->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P12->setEnabled(false);
                         }
                         if(siege == "PA13")
                         {
-                            ui->P13->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P13->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P13->setEnabled(false);
                         }
                         if(siege == "PA14")
                         {
-                            ui->P14->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P14->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P14->setEnabled(false);
                         }
                         if(siege == "PA15")
                         {
-                            ui->P15->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P15->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P15->setEnabled(false);
                         }
                         if(siege == "PA16")
                         {
-                            ui->P16->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P16->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P16->setEnabled(false);
                         }
                         if(siege == "PA17")
                         {
-                            ui->P17->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P17->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P17->setEnabled(false);
                         }
                         if(siege == "PA18")
                         {
-                            ui->P18->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P18->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P18->setEnabled(false);
                         }
                         if(siege == "PA19")
                         {
-                            ui->P19->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P19->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P19->setEnabled(false);
                         }
                         if(siege == "PA20")
                         {
-                            ui->P20->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P20->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P20->setEnabled(false);
                         }
                         if(siege == "PA21")
                         {
-                            ui->P21->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P21->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P21->setEnabled(false);
                         }
                         if(siege == "PA22")
                         {
-                            ui->P22->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P22->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P22->setEnabled(false);
                         }
                         if(siege == "PA23")
                         {
-                            ui->P23->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P23->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P23->setEnabled(false);
                         }
                         if(siege == "PA24")
                         {
-                            ui->P24->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P24->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P24->setEnabled(false);
                         }
                         if(siege == "PA25")
                         {
-                            ui->P25->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P25->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P25->setEnabled(false);
                         }
                         if(siege == "PA26")
                         {
-                            ui->P26->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P26->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P26->setEnabled(false);
                         }
                         if(siege == "PA27")
                         {
-                            ui->P27->setStyleSheet("background-color: rgb(255, 99, 71);");
+                            ui->P27->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P27->setEnabled(false);
                         }
                         if(siege == "PA28")
@@ -458,130 +495,121 @@ void PlanDeSalle::VerifierSiReserve()
                             ui->P28->setStyleSheet("border-image: url(:UserMenRed.png);");
                             ui->P28->setEnabled(false);
                         }
-                       //}
+                        if(siege == "PA29")
+                        {
+                            ui->P29->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P29->setEnabled(false);
+                        }
+                        if(siege == "PA30")
+                        {
+                            ui->P30->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P30->setEnabled(false);
+                        }
+                        if(siege == "PA31")
+                        {
+                            ui->P31->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P31->setEnabled(false);
+                        }
+                        if(siege == "PA32")
+                        {
+                            ui->P32->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P32->setEnabled(false);
+                        }
+                        if(siege == "PA33")
+                        {
+                            ui->P33->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P33->setEnabled(false);
+                        }
+                        if(siege == "PA34")
+                        {
+                            ui->P34->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P34->setEnabled(false);
+                        }
+                        if(siege == "PA35")
+                        {
+                            ui->P35->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P35->setEnabled(false);
+                        }
+                        if(siege == "PA36")
+                        {
+                            ui->P36->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P36->setEnabled(false);
+                        }
+                        if(siege == "PA37")
+                        {
+                            ui->P37->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P37->setEnabled(false);
+                        }
+                        if(siege == "PA38")
+                        {
+                            ui->P38->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P38->setEnabled(false);
+                        }
+                        if(siege == "PA39")
+                        {
+                            ui->P39->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P39->setEnabled(false);
+                        }
+                        if(siege == "PA40")
+                        {
+                            ui->P40->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P40->setEnabled(false);
+                        }
+                        if(siege == "PA41")
+                        {
+                            ui->P41->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P41->setEnabled(false);
+                        }
+                        if(siege == "PA42")
+                        {
+                            ui->P42->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P42->setEnabled(false);
+                        }
+                        if(siege == "PA43")
+                        {
+                            ui->P43->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P43->setEnabled(false);
+                        }
+                        if(siege == "PA44")
+                        {
+                            ui->P44->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P44->setEnabled(false);
+                        }
+                        if(siege == "PA45")
+                        {
+                            ui->P45->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P45->setEnabled(false);
+                        }
+                        if(siege == "PA46")
+                        {
+                            ui->P46->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P46->setEnabled(false);
+                        }
+                        if(siege == "PA47")
+                        {
+                            ui->P47->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P47->setEnabled(false);
+                        }
+                        if(siege == "PA48")
+                        {
+                            ui->P48->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P48->setEnabled(false);
+                        }
+                        if(siege == "PA49")
+                        {
+                            ui->P49->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P49->setEnabled(false);
+                        }
+                        if(siege == "PA50")
+                        {
+                            ui->P50->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P50->setEnabled(false);
+                        }
                     }
-                    if(reserve == 0)
-                    {
-                        //Si pas réservé
-                        if(siege == "PA1")
-                        {
-                            ui->P1->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA2")
-                        {
-                            ui->P2->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA3")
-                        {
-                            ui->P3->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA4")
-                        {
-                            ui->P4->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA5")
-                        {
-                            ui->P5->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA6")
-                        {
-                            ui->P6->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA7")
-                        {
-                            ui->P7->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA8")
-                        {
-                            ui->P8->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA9")
-                        {
-                            ui->P9->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA10")
-                        {
-                            ui->P10->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA11")
-                        {
-                            ui->P11->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA12")
-                        {
-                            ui->P12->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA13")
-                        {
-                            ui->P13->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA14")
-                        {
-                            ui->P14->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA15")
-                        {
-                            ui->P15->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA16")
-                        {
-                            ui->P16->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA17")
-                        {
-                            ui->P17->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA18")
-                        {
-                            ui->P18->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA19")
-                        {
-                            ui->P19->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA20")
-                        {
-                            ui->P20->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA21")
-                        {
-                            ui->P21->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA22")
-                        {
-                            ui->P22->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA23")
-                        {
-                            ui->P23->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA24")
-                        {
-                            ui->P24->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA25")
-                        {
-                            ui->P25->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA26")
-                        {
-                            ui->P26->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA27")
-                        {
-                            ui->P27->setStyleSheet("background-color: rgb(60, 60, 60);");
-                        }
-                        if(siege == "PA28")
-                        {
-                            ui->P28->setStyleSheet("border-image: url(:UserMenGreen.png);");
-                        }
-                   }
-                    //}
             }
-           }
+            }
         }
     }
-
 }
 
 PlanDeSalle::~PlanDeSalle()
@@ -591,27 +619,6 @@ PlanDeSalle::~PlanDeSalle()
     delete ui;
 }
 
-
-
-void PlanDeSalle::on_P_001_clicked()
-{
-    //Créer un methode dans laquelle je déclare mon Qvector
-    //Appeler la methode
-
-    //si mon élément = 0 fait ce qui suit(btn setStyleSheet = Green)
-    ui->P_010->setStyleSheet("background-color: rgb(20, 100, 20);");
-
-    //Sinon change la couleur en gris
-
-
-}
-
-void PlanDeSalle::on_pBtnVisualiser_clicked()
-{
-    InitialisationEtatDesSieges();
-    VerifierSiReserve();
-
-}
 
 void PlanDeSalle::on_pCBoxSpectacle_currentIndexChanged(const QString &arg1)
 {
@@ -632,7 +639,9 @@ void PlanDeSalle::on_pCBoxSpectacle_currentIndexChanged(const QString &arg1)
     VerifierSiReserve();
 }
 
-void PlanDeSalle::on_pBtnValider_clicked()
-{
 
+
+void PlanDeSalle::on_cltBtnQuitter_clicked()
+{
+    this->close();
 }

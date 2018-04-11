@@ -48,7 +48,8 @@ Billetterie::Billetterie(QWidget *parent) :
     AffecterLesTarifs();
 
     //Affecter les num sieges a la comboBox numSiege
-    AffecterLesNumerosDesSieges();
+    //Nécessaire pour le développement futur de l'application
+    //AffecterLesNumerosDesSieges();
 
     //Affecter les modes de paiement a la comboBox
     AffecterLesModesDePaiement();
@@ -91,15 +92,19 @@ Billetterie::Billetterie(QWidget *parent) :
 
     ui->bLabelEuro_2->setStyleSheet("color: green;");
 
+    //Masquer le combo NbPlace - ilpeut être utilisé pour le développement future de l'appli
+    //Le combo est nécessaire car il stock le nombre total de place dans la liste widget
+    ui->bCBoxNbPlaces->hide();
+
+    ui->bCBoxNumSiege->hide();
+
 }
 
 //Affecter les données des représentations au ComboBox
 void Billetterie::AffecterDonneesRepresentation()
 {
-
     Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
-
 
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -108,9 +113,6 @@ void Billetterie::AffecterDonneesRepresentation()
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
     ui->bCBoxRepresentations->setModel(modal);     //Envoyer les données en combo
 
-
-    //fermeture de la connexion
-    //connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 
     ui->bCBoxRepresentations->setCurrentIndex(-1);
@@ -120,21 +122,20 @@ void Billetterie::AffecterDonneesRepresentation()
 void Billetterie::AffecterLesNomsClients()
 {
     Database connexion;
-    QSqlQueryModel * modal1 = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
-    //connexion1.openConnexion();
 
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query1 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query1->prepare("SELECT NomClient FROM Clients");
     query1->exec();  //Execution de la requête
-    modal1->setQuery(*query1);    //Récuperation des valeurs pointeur de requete
-    ui->bCBoxSpectacteur->setModel(modal1);     //Envoyer les données en combo
+    modal->setQuery(*query1);    //Récuperation des valeurs pointeur de requete
+    ui->bCBoxSpectacteur->setModel(modal);     //Envoyer les données en combo
 
 
     //fermeture de la connexion
    // connexion1.closeConnexion();
-    qDebug() << (modal1->rowCount());
+    qDebug() << (modal->rowCount());
 
     ui->bCBoxSpectacteur->setCurrentIndex(-1);
 }
@@ -156,7 +157,10 @@ void Billetterie::AffecterLesTarifs()
     qDebug() << (modal->rowCount());
 }
 
+
 //Affecter les num sieges a la comboBox numSiege
+//Nécessaire pour le développement futur de l'application
+/*
 void Billetterie::AffecterLesNumerosDesSieges()
 {
     Database connexion;
@@ -170,7 +174,7 @@ void Billetterie::AffecterLesNumerosDesSieges()
     ui->bCBoxNumSiege->setModel(modal);     //Envoyer les données en combo
     qDebug() << (modal->rowCount());
 }
-
+*/
 //Affecter les modes de paiement a la comboBox
 void Billetterie::AffecterLesModesDePaiement()
 {
@@ -196,7 +200,6 @@ void Billetterie::MAJListeDesSieges()
     spectacle = ui->bLabelIdSpectacle->text();
     idSpectacle = ui->bLabelIdSpectacle->text().toInt();
 
-
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
     query->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0 "
                     "AND IdSpectacleP = :idSpectacle");
@@ -215,7 +218,7 @@ Billetterie::~Billetterie()
 }
 
 
-//Affecter les valeur ComboBox aux labels
+//Affecter les données spectacle depuis le ComboBox vers les labels
 void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg1)
 {
     QString spectacle;
@@ -225,7 +228,8 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
     QSqlQuery query;
 
     //Je prepare ma requete
-    query.prepare("SELECT * FROM Spectacles WHERE Spectacle = '"+spectacle+"'");	//requete insertion de la valeur spectacle du combobox
+    query.prepare("SELECT * FROM Spectacles WHERE Spectacle = :spectacle ");	//requete insertion de la valeur spectacle du combobox
+    query.bindValue(":spectacle", spectacle);
 
     if(query.exec())
     {
@@ -240,9 +244,6 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
         }
 
         MAJListeDesSieges();
-
-  //-------------------------------------------------------------------------------------------------------------
-
     }
     else
     {
@@ -256,8 +257,7 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
     }
 }
 
-//************************************************************************************************************************
-
+//Affecter les données spectateur depuis le ComboBox vers les labels
 void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
 {
 
@@ -303,9 +303,8 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
         ui->bBtnSuivant->show();
     }
 }
-
 //************************************************************************************************************************
-
+//Trouver un moyen d'update le combo ou supprimer le bouton !
 //Bouton ajouter nouveau client Avant réservation
 void Billetterie::on_bBtnAjouter_clicked()
 {
@@ -316,9 +315,9 @@ void Billetterie::on_bBtnAjouter_clicked()
 
 //************************************************************************************************************************
 
+//Affecter les données tarif depuis le ComboBox vers les labels
 void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
 {
-    //Affecter les tarif a ComboBox
 
     QString tarif;
     tarif = ui->bCBoxTarif->currentText();
@@ -395,16 +394,14 @@ void Billetterie::on_bBtnSuivant_clicked()
 */
 //***********************************************************************************************************************
 
-    // Initialiser les champs
+    // Initialiser le champs
     ui->bTxtCb->clear();
 
-
-    //changer la valeur d'index de la comboNbPlace pour
+    //changer la valeur d'index du comboNbPlace
     if(ui->listWidget->count() != 0)
     {
         ui->bCBoxNbPlaces->setCurrentIndex(ui->listWidget->count());
     }
-
         //Calcule total prix
             double prixTotal, prix, NbPlaces;
 
@@ -419,9 +416,6 @@ void Billetterie::on_bBtnSuivant_clicked()
 
             QString tarifTotal = QString::number(prixTotal);
             ui->bTxtCb->setText(tarifTotal);
-
-
-    //******************************************
 
 //***********************************************************************************************************************
     //Ouverture plan de salle
@@ -440,7 +434,7 @@ void Billetterie::on_bBtnSuivant_clicked()
         }
         else
         {
-            // Afficher le groupeBox modede paiment
+            // Afficher le groupeBox mode de paiment
             ui->bGBoxModePaiement->show();
             ui->bGBoxPlanSalle->hide();
             ui->widgetPartieGauche->hide();
@@ -515,26 +509,6 @@ void Billetterie::on_bBtnPaiement_clicked()
 
             query.exec();
 
-                  //******************************************************************************
-    //Requete insertion données dans la table SiegeSpectacleClient
-
-       /*                   for(int k = 0; k<ui->bCBoxNbPlaces->currentText().toInt(); k++)
-                          {
-                              QSqlQuery queryInserrtInSiegeSpectacleClient;
-
-                              queryInserrtInSiegeSpectacleClient.prepare("INSERT INTO SiegeSpectacleClient (IdSpectacle, IdClient, IdSiege) "
-                                            "VALUES ( (SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle ), "
-                                                    "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
-                                                    "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
-                              queryInserrtInSiegeSpectacleClient.bindValue(":spectacle", spectacle);
-                              queryInserrtInSiegeSpectacleClient.bindValue(":client", client);
-                              queryInserrtInSiegeSpectacleClient.bindValue(":siege", numPlace);
-
-                              queryInserrtInSiegeSpectacleClient.exec();
-                              }
-    */
-                  //******************************************************************************
-
     // Requête décrémentation Jauge spectacle dans la table Spectacle BDD
 
             QSqlQuery queryDecrementationJauge;
@@ -548,7 +522,7 @@ void Billetterie::on_bBtnPaiement_clicked()
             qDebug() << nbPlaces;
          }
              //********************************************************************************
-                      //Faire requet pour insertion dans table Mode Paiement
+                      //Coder une requet pour insertion dans table Mode Paiement
             //********************************************************************************
     //Requete insertion données dans la table Transaction
 
@@ -579,7 +553,7 @@ void Billetterie::on_bBtnPaiement_clicked()
 
              siegesCommande.pop_back();
 
-             //Zone billet
+             //Afficher le billet
              ui->scrollArea->show();
 
     //Requete pour données à afficher sur le billet
@@ -593,9 +567,6 @@ void Billetterie::on_bBtnPaiement_clicked()
                                         "AND b.IdPlace = p.IdPlace "
                                         "AND tr.IdSpectacle = s.IdSpectacle ");
 
-
-    // Ajouter total a payer prix*nbPlaces
-
              queryDonneesBillet.exec();
 
     //Affecter les données au billet
@@ -605,11 +576,9 @@ void Billetterie::on_bBtnPaiement_clicked()
                  ui->LabelNomSurBillet_2->setText(ui->bLabelNomClient->text()); //(queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
                  ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
                  ui->LabelNomSurBillet_4->setText(ui->bLabelRepresentation->text());//queryDonneesBillet.value(5).toString());
-
                  ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(7).toString() );
-
                  ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
-                 //ui->LabelNomSurBillet_7->setText("Transaction no : "+ queryDonneesBillet.value(8).toString() + queryDonneesBillet.value(9).toString()+ queryDonneesBillet.value(10).toString());
+
 
                  ui->LabelNomSurBillet->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
                  ui->LabelNomSurBillet_2->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
@@ -633,6 +602,7 @@ void Billetterie::on_bBtnQuitter_clicked()
 
 void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
 {
+    //Affecter les numéros de sièges à la listeView
     QString valeurs;
 
     valeurs = ui->bListVNumSiege->model()->data(index).toString();
@@ -646,7 +616,6 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
         query.next();
 
         ui->listWidget->addItem(query.value(1).toString());
-
     }
     else
     {
@@ -665,11 +634,10 @@ void Billetterie::on_bBtnSuivantPlan_2_clicked()
         ui->bCBoxNbPlaces->setCurrentIndex(ui->listWidget->count());
     }
 
-//Calcule .....
+//Calcule du prix total
     double prixTotal, prix, NbPlaces;
 
     prix = std::stod(ui->bLabelPrix->text().toStdString());
-
     NbPlaces = std::stod(ui->bCBoxNbPlaces->currentText().toStdString());
 
     prixTotal = (NbPlaces * prix);
@@ -685,6 +653,7 @@ void Billetterie::on_bBtnSuivantPlan_2_clicked()
 
 void Billetterie::on_bBtnClientConcert_clicked()
 {
+    //Ajouter des données fixes d'un client fectif pour l'impression de billets concert à l'avance
     ui->bLabelNomClient->setText("Flow");
     ui->bLabelIdClient->setText("21");
     ui->bTxtInfosClient->setText("Flow Billet <br> Billetterie concerts et festivals  ");
@@ -707,25 +676,765 @@ void Billetterie::on_bRBtnPlacementPlan_clicked()
 }
 
 
-//Les boutons du plan de salle
-
-void Billetterie::on_PA1_clicked()
-{
-    ui->listWidget->addItem("PA1");
-    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
-}
-
-void Billetterie::on_PA2_clicked()
-{
-    ui->listWidget->addItem("PA2");
-    ui->PA1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
-}
-
-
 void Billetterie::on_bBtnAnnulerPaiement_clicked()
 {
     ui->widgetPartieGauche->show();
     ui->bGBoxModePaiement->hide();
+}
+
+//Bouton annuler du plan
+void Billetterie::on_bBtnAnnulerPlan_clicked()
+{
+    InitialisationEtatDesSieges();
+    ui->bGBoxPlanSalle->hide();
+}
+// §§§§§§§§§§§§ Plan a finir §§§§§§§§§§§§§§§
+//Identifier les sièges réservés sur le plan
+void Billetterie::VerifierSiReserve()
+{
+    int idSpectacle;
+
+    idSpectacle = ui->bLabelIdSpectacle->text().toInt();
+
+    QVector <int> numeroPlace;
+    //QVector <QString> listeSieges;
+    int numSiege = 10;
+    QString siege;
+    QString prefixNomSiege = "PA";
+    QString intituleSiege;
+
+    // TEST OBJECT NAME ////////////////////////////////////////////////////////////////////////////////////
+
+                           // QList<QButtonGroup> tousLesBoutons = PlanDeSalle().findChildren<QButtonGroup>("");
+                            //QList<QButtonGroup>::iterator it;
+
+                            //qDebug() << "tousLesBoutons : " << tousLesBoutons;
+
+
+    //Remplir le vecteur
+    for(int i = 1; i <= numSiege; i++)
+    {
+        numeroPlace.push_back(i);
+        qDebug() << "numeroPlace : " << numeroPlace;
+        QString siegeNum = QString::number(i);
+
+        //Affecter la concatenation du prefex et i eme élement à la variable intituleSiege
+        intituleSiege = prefixNomSiege+siegeNum;
+
+        qDebug() << "siegeNum : " << siegeNum;
+        qDebug() << "intituleSiege : " << intituleSiege;
+
+
+// //////////////////////
+
+/*        for (it = tousLesBoutons.begin(); it != tousLesBoutons.end(); it++) {
+
+            if(siege == intituleSiege)
+            {
+            //(it)->setStyleSheet("background-color: rgb(255, 99, 71);");;
+            //(it)->setEnabled(false);
+            }
+
+        }
+
+*/
+
+
+        // Requête pour tester le statut des sièges
+        QSqlQuery query;
+        query.prepare("SELECT * FROM Places WHERE IdSpectacleP = :idSpectacle AND Reserve = 1 ");
+        query.bindValue(":idSpectacle", idSpectacle);
+        if(query.exec())
+        {
+           // InitialisationEtatDesSieges();
+            bool trouver = false;
+            while(query.next())
+            {
+                siege = query.value(1).toString();
+                qDebug() << "siege : " << siege;
+
+                trouver = true;
+            // Si la requete revoie des données
+            if(trouver)
+            {
+                // la variable reserve recoit le resultat boolean de la requête(statut du siège)
+                int reserve;
+                reserve = query.value(3).toInt();
+
+                    // Si réservé
+                    if(reserve == 1)
+                    {
+                        //si nom d'objet = intituleSiege
+                     //  if (objectName() == intituleSiege)
+                       //{
+
+                     //    QPushButton *bouton = new QPushButton;
+                     //    bouton->setObjectName(intituleSiege.tos);
+
+
+                        if(siege == "PA1")
+                        {
+                            ui->P1->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P1->setEnabled(false);
+                        }
+                        if(siege == "PA2")
+                        {
+                            ui->P2->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
+                            ui->P2->setEnabled(false);
+                        }
+                        if(siege == "PA3")
+                        {
+                            ui->P3->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P3->setEnabled(false);
+                        }
+                        if(siege == "PA4")
+                        {
+                            ui->P4->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P4->setEnabled(false);
+                        }
+                        if(siege == "PA5")
+                        {
+                            ui->P5->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P5->setEnabled(false);
+                        }
+                        if(siege == "PA6")
+                        {
+                            ui->P6->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P6->setEnabled(false);
+                        }
+                        if(siege == "PA7")
+                        {
+                            ui->P7->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P7->setEnabled(false);
+                        }
+                        if(siege == "PA8")
+                        {
+                            ui->P8->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P8->setEnabled(false);
+                        }
+                        if(siege == "PA9")
+                        {
+                            ui->P9->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
+                            ui->P9->setEnabled(false);
+                        }
+                        if(siege == "PA10")
+                        {
+                            ui->P10->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P10->setEnabled(false);
+                        }
+                        if(siege == "PA11")
+                        {
+                            ui->P11->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P11->setEnabled(false);
+                        }
+                        if(siege == "PA12")
+                        {
+                            ui->P12->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P12->setEnabled(false);
+                        }
+                        if(siege == "PA13")
+                        {
+                            ui->P13->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P13->setEnabled(false);
+                        }
+                        if(siege == "PA14")
+                        {
+                            ui->P14->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P14->setEnabled(false);
+                        }
+                        if(siege == "PA15")
+                        {
+                            ui->P15->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P15->setEnabled(false);
+                        }
+                        if(siege == "PA16")
+                        {
+                            ui->P16->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P16->setEnabled(false);
+                        }
+                        if(siege == "PA17")
+                        {
+                            ui->P17->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P17->setEnabled(false);
+                        }
+                        if(siege == "PA18")
+                        {
+                            ui->P18->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P18->setEnabled(false);
+                        }
+                        if(siege == "PA19")
+                        {
+                            ui->P19->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P19->setEnabled(false);
+                        }
+                        if(siege == "PA20")
+                        {
+                            ui->P20->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P20->setEnabled(false);
+                        }
+                        if(siege == "PA21")
+                        {
+                            ui->P21->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P21->setEnabled(false);
+                        }
+                        if(siege == "PA22")
+                        {
+                            ui->P22->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P22->setEnabled(false);
+                        }
+                        if(siege == "PA23")
+                        {
+                            ui->P23->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P23->setEnabled(false);
+                        }
+                        if(siege == "PA24")
+                        {
+                            ui->P24->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P24->setEnabled(false);
+                        }
+                        if(siege == "PA25")
+                        {
+                            ui->P25->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P25->setEnabled(false);
+                        }
+                        if(siege == "PA26")
+                        {
+                            ui->P26->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P26->setEnabled(false);
+                        }
+                        if(siege == "PA27")
+                        {
+                            ui->P27->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P27->setEnabled(false);
+                        }
+                        if(siege == "PA28")
+                        {
+                            ui->P28->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P28->setEnabled(false);
+                        }
+                        if(siege == "PA29")
+                        {
+                            ui->P29->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P29->setEnabled(false);
+                        }
+                        if(siege == "PA30")
+                        {
+                            ui->P30->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P30->setEnabled(false);
+                        }
+                        if(siege == "PA31")
+                        {
+                            ui->P31->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P31->setEnabled(false);
+                        }
+                        if(siege == "PA32")
+                        {
+                            ui->P32->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P32->setEnabled(false);
+                        }
+                        if(siege == "PA33")
+                        {
+                            ui->P33->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P33->setEnabled(false);
+                        }
+                        if(siege == "PA34")
+                        {
+                            ui->P34->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P34->setEnabled(false);
+                        }
+                        if(siege == "PA35")
+                        {
+                            ui->P35->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P35->setEnabled(false);
+                        }
+                        if(siege == "PA36")
+                        {
+                            ui->P36->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P36->setEnabled(false);
+                        }
+                        if(siege == "PA37")
+                        {
+                            ui->P37->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P37->setEnabled(false);
+                        }
+                        if(siege == "PA38")
+                        {
+                            ui->P38->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P38->setEnabled(false);
+                        }
+                        if(siege == "PA39")
+                        {
+                            ui->P39->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P39->setEnabled(false);
+                        }
+                        if(siege == "PA40")
+                        {
+                            ui->P40->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P40->setEnabled(false);
+                        }
+                        if(siege == "PA41")
+                        {
+                            ui->P41->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P41->setEnabled(false);
+                        }
+                        if(siege == "PA42")
+                        {
+                            ui->P42->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P42->setEnabled(false);
+                        }
+                        if(siege == "PA43")
+                        {
+                            ui->P43->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P43->setEnabled(false);
+                        }
+                        if(siege == "PA44")
+                        {
+                            ui->P44->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P44->setEnabled(false);
+                        }
+                        if(siege == "PA45")
+                        {
+                            ui->P45->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P45->setEnabled(false);
+                        }
+                        if(siege == "PA46")
+                        {
+                            ui->P46->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P46->setEnabled(false);
+                        }
+                        if(siege == "PA47")
+                        {
+                            ui->P47->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P47->setEnabled(false);
+                        }
+                        if(siege == "PA48")
+                        {
+                            ui->P48->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P48->setEnabled(false);
+                        }
+                        if(siege == "PA49")
+                        {
+                            ui->P49->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P49->setEnabled(false);
+                        }
+                        if(siege == "PA50")
+                        {
+                            ui->P50->setStyleSheet("border-image: url(:UserMenRed.png);");
+                            ui->P50->setEnabled(false);
+                        }
+                    }
+            }
+            }
+        }
+    }
+}
+
+//Initialisation etat des siéges
+void Billetterie::InitialisationEtatDesSieges()
+{
+    ui->P1->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P2->setStyleSheet("border-image: url(:wheelchairVert.png);");   //Fauteuil handicapé
+    ui->P3->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P4->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P5->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P6->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P7->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P8->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P9->setStyleSheet("border-image: url(:wheelchairVert.png);");   //Fauteuil handicapé
+    ui->P10->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P11->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P12->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P13->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P14->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P15->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P16->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P17->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P18->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P19->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P20->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P21->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P22->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P23->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P24->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P25->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P26->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P27->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P28->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P29->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P30->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P31->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P31->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P32->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P33->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P34->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P35->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P36->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P37->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P38->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P39->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P40->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P41->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P42->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P43->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P44->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P45->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P46->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P47->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P48->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P49->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+    ui->P50->setStyleSheet("border-image: url(:CircPlusGreen.png);");
+
+    ui->P1->setEnabled(true);
+    ui->P2->setEnabled(true);
+    ui->P3->setEnabled(true);
+    ui->P4->setEnabled(true);
+    ui->P5->setEnabled(true);
+    ui->P6->setEnabled(true);
+    ui->P7->setEnabled(true);
+    ui->P8->setEnabled(true);
+    ui->P9->setEnabled(true);
+    ui->P10->setEnabled(true);
+    ui->P11->setEnabled(true);
+    ui->P12->setEnabled(true);
+    ui->P13->setEnabled(true);
+    ui->P14->setEnabled(true);
+    ui->P15->setEnabled(true);
+    ui->P16->setEnabled(true);
+    ui->P17->setEnabled(true);
+    ui->P18->setEnabled(true);
+    ui->P19->setEnabled(true);
+    ui->P20->setEnabled(true);
+    ui->P21->setEnabled(true);
+    ui->P22->setEnabled(true);
+    ui->P23->setEnabled(true);
+    ui->P24->setEnabled(true);
+    ui->P25->setEnabled(true);
+    ui->P26->setEnabled(true);
+    ui->P27->setEnabled(true);
+    ui->P28->setEnabled(true);
+    ui->P29->setEnabled(true);
+    ui->P30->setEnabled(true);
+    ui->P31->setEnabled(true);
+    ui->P32->setEnabled(true);
+    ui->P33->setEnabled(true);
+    ui->P34->setEnabled(true);
+    ui->P35->setEnabled(true);
+    ui->P36->setEnabled(true);
+    ui->P37->setEnabled(true);
+    ui->P38->setEnabled(true);
+    ui->P39->setEnabled(true);
+    ui->P40->setEnabled(true);
+    ui->P41->setEnabled(true);
+    ui->P42->setEnabled(true);
+    ui->P43->setEnabled(true);
+    ui->P44->setEnabled(true);
+    ui->P45->setEnabled(true);
+    ui->P46->setEnabled(true);
+    ui->P47->setEnabled(true);
+    ui->P48->setEnabled(true);
+    ui->P49->setEnabled(true);
+    ui->P50->setEnabled(true);
+}
+
+//Les boutons du plan
+void Billetterie::on_P1_clicked()
+{
+    ui->listWidget->addItem("PA1");
+    ui->P1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P2_clicked()
+{
+    ui->listWidget->addItem("PA2");
+    ui->P2->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P3_clicked()
+{
+    ui->listWidget->addItem("PA3");
+    ui->P3->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P4_clicked()
+{
+    ui->listWidget->addItem("PA4");
+    ui->P4->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P5_clicked()
+{
+    ui->listWidget->addItem("PA5");
+    ui->P5->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P6_clicked()
+{
+    ui->listWidget->addItem("PA6");
+    ui->P6->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P7_clicked()
+{
+    ui->listWidget->addItem("PA7");
+    ui->P7->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P8_clicked()
+{
+    ui->listWidget->addItem("PA8");
+    ui->P8->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P9_clicked()
+{
+    ui->listWidget->addItem("PA9");
+    ui->P9->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P10_clicked()
+{
+    ui->listWidget->addItem("PA10");
+    ui->P10->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P11_clicked()
+{
+    ui->listWidget->addItem("PA11");
+    ui->P11->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P12_clicked()
+{
+    ui->listWidget->addItem("PA12");
+    ui->P12->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P13_clicked()
+{
+    ui->listWidget->addItem("PA13");
+    ui->P13->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P14_clicked()
+{
+    ui->listWidget->addItem("PA14");
+    ui->P14->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P15_clicked()
+{
+    ui->listWidget->addItem("PA15");
+    ui->P15->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P16_clicked()
+{
+    ui->listWidget->addItem("PA16");
+    ui->P16->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P17_clicked()
+{
+    ui->listWidget->addItem("PA17");
+    ui->P17->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P18_clicked()
+{
+    ui->listWidget->addItem("PA18");
+    ui->P18->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P19_clicked()
+{
+    ui->listWidget->addItem("PA19");
+    ui->P19->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P20_clicked()
+{
+    ui->listWidget->addItem("PA20");
+    ui->P20->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P21_clicked()
+{
+    ui->listWidget->addItem("PA21");
+    ui->P21->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P22_clicked()
+{
+    ui->listWidget->addItem("PA22");
+    ui->P22->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P23_clicked()
+{
+    ui->listWidget->addItem("PA23");
+    ui->P23->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P24_clicked()
+{
+    ui->listWidget->addItem("PA24");
+    ui->P24->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P25_clicked()
+{
+    ui->listWidget->addItem("PA25");
+    ui->P25->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P26_clicked()
+{
+    ui->listWidget->addItem("PA26");
+    ui->P26->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P27_clicked()
+{
+    ui->listWidget->addItem("PA27");
+    ui->P27->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P28_clicked()
+{
+    ui->listWidget->addItem("PA28");
+    ui->P28->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P29_clicked()
+{
+    ui->listWidget->addItem("PA29");
+    ui->P29->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P30_clicked()
+{
+    ui->listWidget->addItem("PA30");
+    ui->P30->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P31_clicked()
+{
+    ui->listWidget->addItem("PA31");
+    ui->P31->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P32_clicked()
+{
+    ui->listWidget->addItem("PA32");
+    ui->P32->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P33_clicked()
+{
+    ui->listWidget->addItem("PA33");
+    ui->P33->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P34_clicked()
+{
+    ui->listWidget->addItem("PA34");
+    ui->P34->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P35_clicked()
+{
+    ui->listWidget->addItem("PA35");
+    ui->P35->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P36_clicked()
+{
+    ui->listWidget->addItem("PA36");
+    ui->P36->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P37_clicked()
+{
+    ui->listWidget->addItem("PA37");
+    ui->P37->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P38_clicked()
+{
+    ui->listWidget->addItem("PA38");
+    ui->P38->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P39_clicked()
+{
+    ui->listWidget->addItem("PA39");
+    ui->P39->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P40_clicked()
+{
+    ui->listWidget->addItem("PA40");
+    ui->P40->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P41_clicked()
+{
+    ui->listWidget->addItem("PA41");
+    ui->P41->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P42_clicked()
+{
+    ui->listWidget->addItem("PA42");
+    ui->P42->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P43_clicked()
+{
+    ui->listWidget->addItem("PA43");
+    ui->P43->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P44_clicked()
+{
+    ui->listWidget->addItem("PA44");
+    ui->P44->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P45_clicked()
+{
+    ui->listWidget->addItem("PA45");
+    ui->P45->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P46_clicked()
+{
+    ui->listWidget->addItem("PA46");
+    ui->P46->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P47_clicked()
+{
+    ui->listWidget->addItem("PA47");
+    ui->P47->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P48_clicked()
+{
+    ui->listWidget->addItem("PA48");
+    ui->P48->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P49_clicked()
+{
+    ui->listWidget->addItem("PA49");
+    ui->P49->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+}
+
+void Billetterie::on_P50_clicked()
+{
+    ui->listWidget->addItem("PA50");
+    ui->P50->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
 }
 
 

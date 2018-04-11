@@ -15,7 +15,7 @@
 //***********
 //*************
 //***************
-//****************
+//****************  //Remplacer Le sCBoxIdConfigSalle par un comboBox avec les intitulés
 //********************
 //**********************
 //*************************
@@ -30,6 +30,7 @@ Spectacles::Spectacles(QWidget *parent) :
     connexion.openConnexion();
 
     MAJTableV();
+
     ui->sTxtIntituleConfig->setEnabled(false);
 
     //Requette pour remplir le ComboBox
@@ -50,6 +51,9 @@ Spectacles::Spectacles(QWidget *parent) :
 
     //Définir un masque pour encadrer la saisie utilisateur
     ui->sTxtJauge->setInputMask("000");
+
+    //Masquer le label ID configSalle (label necessaire uniquement pour le traitement)
+    ui->sLabelIdConfigSalle->hide();
 }
 
 void Spectacles::ViderLesChamps()
@@ -70,8 +74,6 @@ void Spectacles::MAJTableV()
     //Affecter les données des spectacles dans la TableView
     Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
-
-    //connexion.openConnexion();
 
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
@@ -109,11 +111,6 @@ void Spectacles::on_sBtnQuitter_clicked()
 //Inserer des données en base de données - bouton ajouter
 void Spectacles::on_sBtnAjouter_clicked()
 {
-    //Condition sur le comboBox *****A CODER*****
-    //while (ui->sCBoxIdConfidSalle->currentText().isEmpty())
-
-    //Login connexion;
-
     QString spectacle;
     QString date;
     QString heure;
@@ -125,10 +122,11 @@ void Spectacles::on_sBtnAjouter_clicked()
     date = ui->dateEdit->text();
     heure = ui->timeEdit->text();
 
-    idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
+    idConfigSalle = ui->sLabelIdConfigSalle->text().toInt();
 
     jauge = ui->sTxtJauge->text().toInt();
 
+    //Créer le spectacle uniquement si les champs sont remplis
     if(!ui->sTxtIntituleConfig->text().isEmpty() && !ui->sTxtJauge->text().isEmpty() && !ui->sTxtSpectacle->text().isEmpty())
     {
         //Ne pas créer de spectacle à partir d'un spectacle existant
@@ -216,11 +214,11 @@ void Spectacles::on_sBtnModifier_clicked()
     date = ui->dateEdit->text();
     heure = ui->timeEdit->text();
     jauge = ui->sTxtJauge->text().toInt();
-    idConfigSalle = ui->sCBoxIdConfidSalle->currentText().toInt();
+    idConfigSalle = ui->sLabelIdConfigSalle->text().toInt();
 
     idSpectacle = ui->sLabelIdSpectacle->text().toInt();
 
-
+    //Modifier le spectacle uniquement si les champs sont remplis
     if(!ui->sTxtIntituleConfig->text().isEmpty() && !ui->sTxtJauge->text().isEmpty() && !ui->sTxtSpectacle->text().isEmpty())
     {
         QSqlQuery query;
@@ -281,6 +279,9 @@ void Spectacles::on_sCBoxIdConfidSalle_currentIndexChanged(const QString &arg1)
         //tant que la requete reçoit des données je les affectes aux champs
         while (query.next())
         {
+            //Affecter l'ID configuration de salle au label caché
+            ui->sLabelIdConfigSalle->setText(query.value(0).toString());
+
             ui->sTxtIntituleConfig->setText(query.value(1).toString());
             ui->sTxtJauge->setText(query.value(2).toString());
         }
