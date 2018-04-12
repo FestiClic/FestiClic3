@@ -28,5 +28,8 @@
         <file>Spectateur.jpg</file>
         <file>Utilisateurs.jpg</file>
         <file>Fond-bleu.jpg</file>
+        <file>CodeBarre.jpg</file>
+        <file>CodeBarre.png</file>
+        <file>plus.png</file>
     </qresource>
 </RCC>

@@ -90,14 +90,13 @@ Billetterie::Billetterie(QWidget *parent) :
     ui->bTxtCb->setEnabled(false);
     ui->bTxtCb->setStyleSheet("color: green; font-size: 15px;");
 
+    //Changer la couleur du text du champs total a payer
     ui->bLabelEuro_2->setStyleSheet("color: green;");
 
     //Masquer le combo NbPlace - ilpeut être utilisé pour le développement future de l'appli
     //Le combo est nécessaire car il stock le nombre total de place dans la liste widget
     ui->bCBoxNbPlaces->hide();
-
     ui->bCBoxNumSiege->hide();
-
 }
 
 //Affecter les données des représentations au ComboBox
@@ -124,7 +123,6 @@ void Billetterie::AffecterLesNomsClients()
     Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
-
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query1 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query1->prepare("SELECT NomClient FROM Clients");
@@ -132,9 +130,6 @@ void Billetterie::AffecterLesNomsClients()
     modal->setQuery(*query1);    //Récuperation des valeurs pointeur de requete
     ui->bCBoxSpectacteur->setModel(modal);     //Envoyer les données en combo
 
-
-    //fermeture de la connexion
-   // connexion1.closeConnexion();
     qDebug() << (modal->rowCount());
 
     ui->bCBoxSpectacteur->setCurrentIndex(-1);
@@ -175,6 +170,7 @@ void Billetterie::AffecterLesNumerosDesSieges()
     qDebug() << (modal->rowCount());
 }
 */
+
 //Affecter les modes de paiement a la comboBox
 void Billetterie::AffecterLesModesDePaiement()
 {
@@ -207,6 +203,8 @@ void Billetterie::MAJListeDesSieges()
     query->exec();
     modal->setQuery(*query);
     ui->bListVNumSiege->setModel(modal);
+
+    VerifierSiReserve();
 }
 
 
@@ -573,20 +571,22 @@ void Billetterie::on_bBtnPaiement_clicked()
              if(queryDonneesBillet.next())
              {
                  ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(1).toString());
-                 ui->LabelNomSurBillet_2->setText(ui->bLabelNomClient->text()); //(queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
+                 ui->LabelNomSurBillet_2->setText(ui->bLabelNomClient->text()); //queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
                  ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
                  ui->LabelNomSurBillet_4->setText(ui->bLabelRepresentation->text());//queryDonneesBillet.value(5).toString());
                  ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(7).toString() );
                  ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
+                 ui->LabelNomSurBillet_8->setText(ui->bTxtDateEtHeure->text());
 
 
-                 ui->LabelNomSurBillet->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_2->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_3->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_4->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_5->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_6->setStyleSheet("color:rgb(236, 112, 99); font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_7->setStyleSheet("color:rgb(236, 112, 99); front-size: 20px,");
+                 ui->LabelNomSurBillet->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_2->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_3->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_4->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_5->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+                 ui->LabelNomSurBillet_6->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+                //ui->LabelNomSurBillet_7->setStyleSheet(" border-image: url(:CodeBarre.jpg);");
+                 ui->LabelNomSurBillet_8->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
              }
 
              qDebug() << nbPlaces;
@@ -693,67 +693,27 @@ void Billetterie::on_bBtnAnnulerPlan_clicked()
 void Billetterie::VerifierSiReserve()
 {
     int idSpectacle;
+    QString siege;
 
     idSpectacle = ui->bLabelIdSpectacle->text().toInt();
 
-    QVector <int> numeroPlace;
-    //QVector <QString> listeSieges;
-    int numSiege = 10;
-    QString siege;
-    QString prefixNomSiege = "PA";
-    QString intituleSiege;
+    // Requête pour tester le statut des sièges
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Places WHERE IdSpectacleP = :idSpectacle AND Reserve = 1 ");
+    query.bindValue(":idSpectacle", idSpectacle);
 
-    // TEST OBJECT NAME ////////////////////////////////////////////////////////////////////////////////////
-
-                           // QList<QButtonGroup> tousLesBoutons = PlanDeSalle().findChildren<QButtonGroup>("");
-                            //QList<QButtonGroup>::iterator it;
-
-                            //qDebug() << "tousLesBoutons : " << tousLesBoutons;
-
-
-    //Remplir le vecteur
-    for(int i = 1; i <= numSiege; i++)
+    if(query.exec())
     {
-        numeroPlace.push_back(i);
-        qDebug() << "numeroPlace : " << numeroPlace;
-        QString siegeNum = QString::number(i);
+       InitialisationEtatDesSieges();
+        bool trouver = false;
 
-        //Affecter la concatenation du prefex et i eme élement à la variable intituleSiege
-        intituleSiege = prefixNomSiege+siegeNum;
-
-        qDebug() << "siegeNum : " << siegeNum;
-        qDebug() << "intituleSiege : " << intituleSiege;
-
-
-// //////////////////////
-
-/*        for (it = tousLesBoutons.begin(); it != tousLesBoutons.end(); it++) {
-
-            if(siege == intituleSiege)
-            {
-            //(it)->setStyleSheet("background-color: rgb(255, 99, 71);");;
-            //(it)->setEnabled(false);
-            }
-
-        }
-
-*/
-
-
-        // Requête pour tester le statut des sièges
-        QSqlQuery query;
-        query.prepare("SELECT * FROM Places WHERE IdSpectacleP = :idSpectacle AND Reserve = 1 ");
-        query.bindValue(":idSpectacle", idSpectacle);
-        if(query.exec())
+        while(query.next())
         {
-           // InitialisationEtatDesSieges();
-            bool trouver = false;
-            while(query.next())
-            {
-                siege = query.value(1).toString();
-                qDebug() << "siege : " << siege;
+            siege = query.value(1).toString();
+            qDebug() << "siege : " << siege;
 
-                trouver = true;
+            trouver = true;
+
             // Si la requete revoie des données
             if(trouver)
             {
@@ -761,269 +721,261 @@ void Billetterie::VerifierSiReserve()
                 int reserve;
                 reserve = query.value(3).toInt();
 
-                    // Si réservé
-                    if(reserve == 1)
+                // Si réservé
+                if(reserve == 1)
+                {
+                    if(siege == "PA1")
                     {
-                        //si nom d'objet = intituleSiege
-                     //  if (objectName() == intituleSiege)
-                       //{
-
-                     //    QPushButton *bouton = new QPushButton;
-                     //    bouton->setObjectName(intituleSiege.tos);
-
-
-                        if(siege == "PA1")
-                        {
-                            ui->P1->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P1->setEnabled(false);
-                        }
-                        if(siege == "PA2")
-                        {
-                            ui->P2->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
-                            ui->P2->setEnabled(false);
-                        }
-                        if(siege == "PA3")
-                        {
-                            ui->P3->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P3->setEnabled(false);
-                        }
-                        if(siege == "PA4")
-                        {
-                            ui->P4->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P4->setEnabled(false);
-                        }
-                        if(siege == "PA5")
-                        {
-                            ui->P5->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P5->setEnabled(false);
-                        }
-                        if(siege == "PA6")
-                        {
-                            ui->P6->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P6->setEnabled(false);
-                        }
-                        if(siege == "PA7")
-                        {
-                            ui->P7->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P7->setEnabled(false);
-                        }
-                        if(siege == "PA8")
-                        {
-                            ui->P8->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P8->setEnabled(false);
-                        }
-                        if(siege == "PA9")
-                        {
-                            ui->P9->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
-                            ui->P9->setEnabled(false);
-                        }
-                        if(siege == "PA10")
-                        {
-                            ui->P10->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P10->setEnabled(false);
-                        }
-                        if(siege == "PA11")
-                        {
-                            ui->P11->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P11->setEnabled(false);
-                        }
-                        if(siege == "PA12")
-                        {
-                            ui->P12->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P12->setEnabled(false);
-                        }
-                        if(siege == "PA13")
-                        {
-                            ui->P13->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P13->setEnabled(false);
-                        }
-                        if(siege == "PA14")
-                        {
-                            ui->P14->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P14->setEnabled(false);
-                        }
-                        if(siege == "PA15")
-                        {
-                            ui->P15->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P15->setEnabled(false);
-                        }
-                        if(siege == "PA16")
-                        {
-                            ui->P16->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P16->setEnabled(false);
-                        }
-                        if(siege == "PA17")
-                        {
-                            ui->P17->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P17->setEnabled(false);
-                        }
-                        if(siege == "PA18")
-                        {
-                            ui->P18->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P18->setEnabled(false);
-                        }
-                        if(siege == "PA19")
-                        {
-                            ui->P19->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P19->setEnabled(false);
-                        }
-                        if(siege == "PA20")
-                        {
-                            ui->P20->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P20->setEnabled(false);
-                        }
-                        if(siege == "PA21")
-                        {
-                            ui->P21->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P21->setEnabled(false);
-                        }
-                        if(siege == "PA22")
-                        {
-                            ui->P22->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P22->setEnabled(false);
-                        }
-                        if(siege == "PA23")
-                        {
-                            ui->P23->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P23->setEnabled(false);
-                        }
-                        if(siege == "PA24")
-                        {
-                            ui->P24->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P24->setEnabled(false);
-                        }
-                        if(siege == "PA25")
-                        {
-                            ui->P25->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P25->setEnabled(false);
-                        }
-                        if(siege == "PA26")
-                        {
-                            ui->P26->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P26->setEnabled(false);
-                        }
-                        if(siege == "PA27")
-                        {
-                            ui->P27->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P27->setEnabled(false);
-                        }
-                        if(siege == "PA28")
-                        {
-                            ui->P28->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P28->setEnabled(false);
-                        }
-                        if(siege == "PA29")
-                        {
-                            ui->P29->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P29->setEnabled(false);
-                        }
-                        if(siege == "PA30")
-                        {
-                            ui->P30->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P30->setEnabled(false);
-                        }
-                        if(siege == "PA31")
-                        {
-                            ui->P31->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P31->setEnabled(false);
-                        }
-                        if(siege == "PA32")
-                        {
-                            ui->P32->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P32->setEnabled(false);
-                        }
-                        if(siege == "PA33")
-                        {
-                            ui->P33->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P33->setEnabled(false);
-                        }
-                        if(siege == "PA34")
-                        {
-                            ui->P34->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P34->setEnabled(false);
-                        }
-                        if(siege == "PA35")
-                        {
-                            ui->P35->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P35->setEnabled(false);
-                        }
-                        if(siege == "PA36")
-                        {
-                            ui->P36->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P36->setEnabled(false);
-                        }
-                        if(siege == "PA37")
-                        {
-                            ui->P37->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P37->setEnabled(false);
-                        }
-                        if(siege == "PA38")
-                        {
-                            ui->P38->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P38->setEnabled(false);
-                        }
-                        if(siege == "PA39")
-                        {
-                            ui->P39->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P39->setEnabled(false);
-                        }
-                        if(siege == "PA40")
-                        {
-                            ui->P40->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P40->setEnabled(false);
-                        }
-                        if(siege == "PA41")
-                        {
-                            ui->P41->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P41->setEnabled(false);
-                        }
-                        if(siege == "PA42")
-                        {
-                            ui->P42->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P42->setEnabled(false);
-                        }
-                        if(siege == "PA43")
-                        {
-                            ui->P43->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P43->setEnabled(false);
-                        }
-                        if(siege == "PA44")
-                        {
-                            ui->P44->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P44->setEnabled(false);
-                        }
-                        if(siege == "PA45")
-                        {
-                            ui->P45->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P45->setEnabled(false);
-                        }
-                        if(siege == "PA46")
-                        {
-                            ui->P46->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P46->setEnabled(false);
-                        }
-                        if(siege == "PA47")
-                        {
-                            ui->P47->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P47->setEnabled(false);
-                        }
-                        if(siege == "PA48")
-                        {
-                            ui->P48->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P48->setEnabled(false);
-                        }
-                        if(siege == "PA49")
-                        {
-                            ui->P49->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P49->setEnabled(false);
-                        }
-                        if(siege == "PA50")
-                        {
-                            ui->P50->setStyleSheet("border-image: url(:UserMenRed.png);");
-                            ui->P50->setEnabled(false);
-                        }
+                        ui->P1->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P1->setEnabled(false);
                     }
-            }
+                    if(siege == "PA2")
+                    {
+                        ui->P2->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
+                        ui->P2->setEnabled(false);
+                    }
+                    if(siege == "PA3")
+                    {
+                        ui->P3->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P3->setEnabled(false);
+                    }
+                    if(siege == "PA4")
+                    {
+                        ui->P4->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P4->setEnabled(false);
+                    }
+                    if(siege == "PA5")
+                    {
+                        ui->P5->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P5->setEnabled(false);
+                    }
+                    if(siege == "PA6")
+                    {
+                        ui->P6->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P6->setEnabled(false);
+                    }
+                    if(siege == "PA7")
+                    {
+                        ui->P7->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P7->setEnabled(false);
+                    }
+                    if(siege == "PA8")
+                    {
+                        ui->P8->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P8->setEnabled(false);
+                    }
+                    if(siege == "PA9")
+                    {
+                        ui->P9->setStyleSheet("border-image: url(:wheelchairCircRouge.png);");
+                        ui->P9->setEnabled(false);
+                    }
+                    if(siege == "PA10")
+                    {
+                        ui->P10->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P10->setEnabled(false);
+                    }
+                    if(siege == "PA11")
+                    {
+                        ui->P11->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P11->setEnabled(false);
+                    }
+                    if(siege == "PA12")
+                    {
+                        ui->P12->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P12->setEnabled(false);
+                    }
+                    if(siege == "PA13")
+                    {
+                        ui->P13->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P13->setEnabled(false);
+                    }
+                    if(siege == "PA14")
+                    {
+                        ui->P14->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P14->setEnabled(false);
+                    }
+                    if(siege == "PA15")
+                    {
+                        ui->P15->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P15->setEnabled(false);
+                    }
+                    if(siege == "PA16")
+                    {
+                        ui->P16->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P16->setEnabled(false);
+                    }
+                    if(siege == "PA17")
+                    {
+                        ui->P17->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P17->setEnabled(false);
+                    }
+                    if(siege == "PA18")
+                    {
+                        ui->P18->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P18->setEnabled(false);
+                    }
+                    if(siege == "PA19")
+                    {
+                        ui->P19->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P19->setEnabled(false);
+                    }
+                    if(siege == "PA20")
+                    {
+                        ui->P20->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P20->setEnabled(false);
+                    }
+                    if(siege == "PA21")
+                    {
+                        ui->P21->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P21->setEnabled(false);
+                    }
+                    if(siege == "PA22")
+                    {
+                        ui->P22->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P22->setEnabled(false);
+                    }
+                    if(siege == "PA23")
+                    {
+                        ui->P23->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P23->setEnabled(false);
+                    }
+                    if(siege == "PA24")
+                    {
+                        ui->P24->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P24->setEnabled(false);
+                    }
+                    if(siege == "PA25")
+                    {
+                        ui->P25->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P25->setEnabled(false);
+                    }
+                    if(siege == "PA26")
+                    {
+                        ui->P26->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P26->setEnabled(false);
+                    }
+                    if(siege == "PA27")
+                    {
+                        ui->P27->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P27->setEnabled(false);
+                    }
+                    if(siege == "PA28")
+                    {
+                        ui->P28->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P28->setEnabled(false);
+                    }
+                    if(siege == "PA29")
+                    {
+                        ui->P29->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P29->setEnabled(false);
+                    }
+                    if(siege == "PA30")
+                    {
+                        ui->P30->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P30->setEnabled(false);
+                    }
+                    if(siege == "PA31")
+                    {
+                        ui->P31->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P31->setEnabled(false);
+                    }
+                    if(siege == "PA32")
+                    {
+                        ui->P32->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P32->setEnabled(false);
+                    }
+                    if(siege == "PA33")
+                    {
+                        ui->P33->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P33->setEnabled(false);
+                    }
+                    if(siege == "PA34")
+                    {
+                        ui->P34->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P34->setEnabled(false);
+                    }
+                    if(siege == "PA35")
+                    {
+                        ui->P35->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P35->setEnabled(false);
+                    }
+                    if(siege == "PA36")
+                    {
+                        ui->P36->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P36->setEnabled(false);
+                    }
+                    if(siege == "PA37")
+                    {
+                        ui->P37->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P37->setEnabled(false);
+                    }
+                    if(siege == "PA38")
+                    {
+                        ui->P38->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P38->setEnabled(false);
+                    }
+                    if(siege == "PA39")
+                    {
+                        ui->P39->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P39->setEnabled(false);
+                    }
+                    if(siege == "PA40")
+                    {
+                        ui->P40->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P40->setEnabled(false);
+                    }
+                    if(siege == "PA41")
+                    {
+                        ui->P41->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P41->setEnabled(false);
+                    }
+                    if(siege == "PA42")
+                    {
+                        ui->P42->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P42->setEnabled(false);
+                    }
+                    if(siege == "PA43")
+                    {
+                        ui->P43->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P43->setEnabled(false);
+                    }
+                    if(siege == "PA44")
+                    {
+                        ui->P44->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P44->setEnabled(false);
+                    }
+                    if(siege == "PA45")
+                    {
+                        ui->P45->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P45->setEnabled(false);
+                    }
+                    if(siege == "PA46")
+                    {
+                        ui->P46->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P46->setEnabled(false);
+                    }
+                    if(siege == "PA47")
+                    {
+                        ui->P47->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P47->setEnabled(false);
+                    }
+                    if(siege == "PA48")
+                    {
+                        ui->P48->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P48->setEnabled(false);
+                    }
+                    if(siege == "PA49")
+                    {
+                        ui->P49->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P49->setEnabled(false);
+                    }
+                    if(siege == "PA50")
+                    {
+                        ui->P50->setStyleSheet("border-image: url(:UserMenRed.png);");
+                        ui->P50->setEnabled(false);
+                    }
+
+                }
             }
         }
     }
@@ -1140,301 +1092,301 @@ void Billetterie::InitialisationEtatDesSieges()
 void Billetterie::on_P1_clicked()
 {
     ui->listWidget->addItem("PA1");
-    ui->P1->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P1->setStyleSheet("border-image:url(:plus.png);");
 }
 
 void Billetterie::on_P2_clicked()
 {
     ui->listWidget->addItem("PA2");
-    ui->P2->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P2->setStyleSheet("border-image:url(:plus.png);");
 }
 
 void Billetterie::on_P3_clicked()
 {
     ui->listWidget->addItem("PA3");
-    ui->P3->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P3->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P4_clicked()
 {
     ui->listWidget->addItem("PA4");
-    ui->P4->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P4->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P5_clicked()
 {
     ui->listWidget->addItem("PA5");
-    ui->P5->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P5->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P6_clicked()
 {
     ui->listWidget->addItem("PA6");
-    ui->P6->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P6->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P7_clicked()
 {
     ui->listWidget->addItem("PA7");
-    ui->P7->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P7->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P8_clicked()
 {
     ui->listWidget->addItem("PA8");
-    ui->P8->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P8->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P9_clicked()
 {
     ui->listWidget->addItem("PA9");
-    ui->P9->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P9->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P10_clicked()
 {
     ui->listWidget->addItem("PA10");
-    ui->P10->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P10->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P11_clicked()
 {
     ui->listWidget->addItem("PA11");
-    ui->P11->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P11->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P12_clicked()
 {
     ui->listWidget->addItem("PA12");
-    ui->P12->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P12->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P13_clicked()
 {
     ui->listWidget->addItem("PA13");
-    ui->P13->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P13->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P14_clicked()
 {
     ui->listWidget->addItem("PA14");
-    ui->P14->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P14->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P15_clicked()
 {
     ui->listWidget->addItem("PA15");
-    ui->P15->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P15->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P16_clicked()
 {
     ui->listWidget->addItem("PA16");
-    ui->P16->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P16->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P17_clicked()
 {
     ui->listWidget->addItem("PA17");
-    ui->P17->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P17->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P18_clicked()
 {
     ui->listWidget->addItem("PA18");
-    ui->P18->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P18->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P19_clicked()
 {
     ui->listWidget->addItem("PA19");
-    ui->P19->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P19->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P20_clicked()
 {
     ui->listWidget->addItem("PA20");
-    ui->P20->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P20->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P21_clicked()
 {
     ui->listWidget->addItem("PA21");
-    ui->P21->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P21->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P22_clicked()
 {
     ui->listWidget->addItem("PA22");
-    ui->P22->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P22->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P23_clicked()
 {
     ui->listWidget->addItem("PA23");
-    ui->P23->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P23->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P24_clicked()
 {
     ui->listWidget->addItem("PA24");
-    ui->P24->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P24->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P25_clicked()
 {
     ui->listWidget->addItem("PA25");
-    ui->P25->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P25->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P26_clicked()
 {
     ui->listWidget->addItem("PA26");
-    ui->P26->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P26->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P27_clicked()
 {
     ui->listWidget->addItem("PA27");
-    ui->P27->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P27->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P28_clicked()
 {
     ui->listWidget->addItem("PA28");
-    ui->P28->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P28->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P29_clicked()
 {
     ui->listWidget->addItem("PA29");
-    ui->P29->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P29->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P30_clicked()
 {
     ui->listWidget->addItem("PA30");
-    ui->P30->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P30->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P31_clicked()
 {
     ui->listWidget->addItem("PA31");
-    ui->P31->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P31->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P32_clicked()
 {
     ui->listWidget->addItem("PA32");
-    ui->P32->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P32->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P33_clicked()
 {
     ui->listWidget->addItem("PA33");
-    ui->P33->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P33->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P34_clicked()
 {
     ui->listWidget->addItem("PA34");
-    ui->P34->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P34->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P35_clicked()
 {
     ui->listWidget->addItem("PA35");
-    ui->P35->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P35->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P36_clicked()
 {
     ui->listWidget->addItem("PA36");
-    ui->P36->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P36->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P37_clicked()
 {
     ui->listWidget->addItem("PA37");
-    ui->P37->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P37->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P38_clicked()
 {
     ui->listWidget->addItem("PA38");
-    ui->P38->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P38->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P39_clicked()
 {
     ui->listWidget->addItem("PA39");
-    ui->P39->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P39->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P40_clicked()
 {
     ui->listWidget->addItem("PA40");
-    ui->P40->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P40->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P41_clicked()
 {
     ui->listWidget->addItem("PA41");
-    ui->P41->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P41->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P42_clicked()
 {
     ui->listWidget->addItem("PA42");
-    ui->P42->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P42->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P43_clicked()
 {
     ui->listWidget->addItem("PA43");
-    ui->P43->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P43->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P44_clicked()
 {
     ui->listWidget->addItem("PA44");
-    ui->P44->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P44->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P45_clicked()
 {
     ui->listWidget->addItem("PA45");
-    ui->P45->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P45->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P46_clicked()
 {
     ui->listWidget->addItem("PA46");
-    ui->P46->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P46->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P47_clicked()
 {
     ui->listWidget->addItem("PA47");
-    ui->P47->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P47->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P48_clicked()
 {
     ui->listWidget->addItem("PA48");
-    ui->P48->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P48->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P49_clicked()
 {
     ui->listWidget->addItem("PA49");
-    ui->P49->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P49->setStyleSheet("border-image:url(:plus.png); ");
 }
 
 void Billetterie::on_P50_clicked()
 {
     ui->listWidget->addItem("PA50");
-    ui->P50->setStyleSheet("background-image:url(:UserMenRed.png); background-color: cornflowerblue;");
+    ui->P50->setStyleSheet("border-image:url(:plusplus.png); ");
 }
 
 
