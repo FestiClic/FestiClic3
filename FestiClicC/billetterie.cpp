@@ -28,12 +28,12 @@ Billetterie::Billetterie(QWidget *parent) :
     Database connexion;
     connexion.openConnexion();
 
-//Masquer les deux listes des numSienges
-    ui->bListVNumSiege->hide();
-    ui->listWidget->hide();
-    ui->bBtnClearList->hide();
+    //Radio bouton placement libre au chargement de la page
+    ui->bRBtnPlacementLibre->setChecked(true);
 
-    ui->bRBtnPlacementPlan->setChecked(true);
+    //Rendre les zones de text inaccessible
+    ui->bTxtDateEtHeure->setEnabled(false);
+    ui->bTxtInfosClient->setEnabled(false);
 
     //cacher le label billet
     ui->scrollArea->hide();
@@ -55,21 +55,22 @@ Billetterie::Billetterie(QWidget *parent) :
     AffecterLesModesDePaiement();
 
     //Initialisation des EditLine
+    //Le choix de text line edite à la place des Labels est dans le but de dévelepper ultérieurement
+    //une fonction de mise à jour des fiches clients et spectacles directement depuis la billetterie
     ui->bTxtInfosClient->clear();
     ui->bTxtDateEtHeure->clear();
     ui->bCBoxNbPlaces->clear();
 
-    //Initialisation des Label
+    //Initialisation des Labels
     ui->bLabelRepresentation->clear();
     ui->bLabelIdClient->clear();
     ui->bLabelNomClient->clear();
     ui->bLabelPrix->clear();
     ui->bLabelIdClient->clear();
     ui->bLabelIdSpectacle->clear();
-
+    ui->bLabelAlerte->clear();
 
     //Masquer le bouton suivant tant que les champs sont vides
-
     if(ui->bLabelNomClient->text().isEmpty()
             && ui->bLabelRepresentation->text().isEmpty()
             && ui->bLabelPrix->text().isEmpty())
@@ -93,8 +94,8 @@ Billetterie::Billetterie(QWidget *parent) :
     //Changer la couleur du text du champs total a payer
     ui->bLabelEuro_2->setStyleSheet("color: green;");
 
-    //Masquer le combo NbPlace - ilpeut être utilisé pour le développement future de l'appli
-    //Le combo est nécessaire car il stock le nombre total de place dans la liste widget
+    //Masquer le combo NbPlace - sera utilisé pour le développement future de l'appli
+    //Le combo est nécessaire dans cette version car il stock le nombre total de places dans la liste widget
     ui->bCBoxNbPlaces->hide();
     ui->bCBoxNumSiege->hide();
 }
@@ -110,51 +111,56 @@ void Billetterie::AffecterDonneesRepresentation()
     query->prepare("SELECT Spectacle FROM Spectacles");
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-    ui->bCBoxRepresentations->setModel(modal);     //Envoyer les données en combo
+    ui->bCBoxRepresentations->setModel(modal);     //Envoyer les données dans le combo
 
     qDebug() << (modal->rowCount());
 
+    //Mettre le combo sur l'index -1 pour ne rien afficher au chargement de la page
     ui->bCBoxRepresentations->setCurrentIndex(-1);
 }
 
-//Affecter le nomClient a la comboBox client
+//Affecter le nomClient au comboBox client
 void Billetterie::AffecterLesNomsClients()
 {
     Database connexion;
-    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Client)
 
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query1 = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query1->prepare("SELECT NomClient FROM Clients");
     query1->exec();  //Execution de la requête
     modal->setQuery(*query1);    //Récuperation des valeurs pointeur de requete
-    ui->bCBoxSpectacteur->setModel(modal);     //Envoyer les données en combo
+    ui->bCBoxSpectacteur->setModel(modal);     //Envoyer les données dans le combo
 
     qDebug() << (modal->rowCount());
 
+    //Mettre le combo sur l'index -1 pour ne rien afficher au chargement de la page
     ui->bCBoxSpectacteur->setCurrentIndex(-1);
 }
 
-//Affecter le tarif a la comboBox tarif
+//Affecter le tarif au comboBox tarif
 void Billetterie::AffecterLesTarifs()
 {
     Database connexion;
-    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
+    QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Tarif)
 
     //Requette pour remplir Combo Spectacles
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query->prepare("SELECT IntituleTarif FROM Tarifs");
     query->exec();  //Execution de la requête
     modal->setQuery(*query);    //Récuperation des valeurs pointeur de requete
-    ui->bCBoxTarif->setModel(modal);     //Envoyer les données en combo
+    ui->bCBoxTarif->setModel(modal);     //Envoyer les données dans le combo
 
-    ui->bCBoxTarif->setCurrentIndex(-1);
     qDebug() << (modal->rowCount());
+
+    //Mettre le combo sur l'index -1 pour ne rien afficher au chargement de la page
+    ui->bCBoxTarif->setCurrentIndex(-1);
 }
 
 
-//Affecter les num sieges a la comboBox numSiege
+//Affecter les num sieges au comboBox numSiege
 //Nécessaire pour le développement futur de l'application
+//---------------------------------------------------------------------------------------------------------------------
 /*
 void Billetterie::AffecterLesNumerosDesSieges()
 {
@@ -170,30 +176,34 @@ void Billetterie::AffecterLesNumerosDesSieges()
     qDebug() << (modal->rowCount());
 }
 */
+//---------------------------------------------------------------------------------------------------------------------
 
-//Affecter les modes de paiement a la comboBox
+//Affecter les modes de paiement au comboBox
 void Billetterie::AffecterLesModesDePaiement()
 {
     Database connexion;
-    QSqlQueryModel * modalModePaiement = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
+    QSqlQueryModel * modalModePaiement = new QSqlQueryModel();  //Model de connexion pointeur modal
 
     QSqlQuery* queryModePaiement = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     queryModePaiement->prepare("SELECT TypeModePaiement FROM ModePaiement ");
     queryModePaiement->exec();  //Execution de la requête
     modalModePaiement->setQuery(*queryModePaiement);    //Récuperation des valeurs pointeur de requete
-    ui->bCBoxModePaiement->setModel(modalModePaiement);     //Envoyer les données en combo
+    ui->bCBoxModePaiement->setModel(modalModePaiement);     //Envoyer les données dans le combo
 
     qDebug() << (modalModePaiement->rowCount());
 }
 
+//Affecter les numéro de sièges non réservés à la liste des sieges (QListView)
 void Billetterie::MAJListeDesSieges()
 {
     Database connexion;
-    QSqlQueryModel * modal = new QSqlQueryModel();
+
     QString spectacle;
     int idSpectacle;
 
-    spectacle = ui->bLabelIdSpectacle->text();
+    QSqlQueryModel * modal = new QSqlQueryModel();
+
+    //spectacle = ui->bLabelIdSpectacle->text();
     idSpectacle = ui->bLabelIdSpectacle->text().toInt();
 
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
@@ -204,6 +214,7 @@ void Billetterie::MAJListeDesSieges()
     modal->setQuery(*query);
     ui->bListVNumSiege->setModel(modal);
 
+    //Vérifier l'état de chaque siège
     VerifierSiReserve();
 }
 
@@ -220,6 +231,7 @@ Billetterie::~Billetterie()
 void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg1)
 {
     QString spectacle;
+    int jauge;
     spectacle = ui->bCBoxRepresentations->currentText();
 
     //Je crée un objet requete de QSqlQuery
@@ -239,9 +251,24 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
 
             //Version avec des zones de text
             ui->bTxtDateEtHeure->setText(query.value(2).toString() +" Heure de début "+ query.value(3).toString());
-        }
 
+            //Affecter la jauh*ge du spectectacle à la variable jauge
+            jauge = query.value(4).toInt();
+        }
         MAJListeDesSieges();
+
+        //masquer le label alert
+        ui->bLabelAlerte->hide();
+
+        //Le choix des places sur le plan est accessible uniquement si la jauge est inférieur ou égal à 50
+        if(jauge > 50)
+        {
+            ui->bRBtnPlacementPlan->setEnabled(false);
+        }
+        else
+        {
+            ui->bRBtnPlacementPlan->setEnabled(true);
+        }
     }
     else
     {
@@ -262,7 +289,7 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
     QString spectateur;
     spectateur = ui->bCBoxSpectacteur->currentText();
 
-//requete insertion de la valeur spectacle du combobox
+    //requete insertion de la valeur spectacle du combobox
     QSqlQuery query;
 
     //Je prepare ma requete
@@ -351,6 +378,12 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
     if(!ui->bLabelRepresentation->text().isEmpty() && !ui->bLabelNomClient->text().isEmpty())
     {
         ui->bBtnSuivant->show();
+
+/*        //Afficher les deux listes des numSienges
+        ui->bListVNumSiege->show();
+        ui->listWidget->show();
+        ui->bBtnClearList->show();
+*/
     }
 }
 
@@ -418,17 +451,22 @@ void Billetterie::on_bBtnSuivant_clicked()
 //***********************************************************************************************************************
     //Ouverture plan de salle
     if(ui->bRBtnPlacementPlan->isChecked())
-      {
+      {        
         // Afficher le groupeBox plan de salle
         ui->bGBoxPlanSalle->show();
         ui->bGBoxModePaiement->hide();
+
       }
     else if(ui->bRBtnPlacementLibre->isChecked())
     {
-        //Ne pas passer à la suite si le nombre de place est à 0 et la listeW aussi
+        //Ne pas passer à la suite si le nombre de place est de 0 et la listeW aussi
         if(ui->bCBoxNbPlaces->currentText().toInt() == 0)
         {
-            QMessageBox::information(this, "Info", "Vous devez choisir au minimum 1 place ");
+            //masquer l'Alert
+            ui->bLabelAlerte->show();
+            ui->bLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+            ui->bLabelAlerte->setText("Vous devez choisir au minimum 1 place !");
+            //QMessageBox::information(this, "Info", "Vous devez choisir au minimum 1 place ");
         }
         else
         {
@@ -621,6 +659,8 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
     {
             QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
+    //masquer l'Alert
+    ui->bLabelAlerte->hide();
 
 }
 

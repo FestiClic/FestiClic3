@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1603</width>
+    <width>1526</width>
     <height>865</height>
    </rect>
   </property>
@@ -237,7 +237,7 @@ border-image: none;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>721</width>
+     <width>641</width>
      <height>731</height>
     </rect>
    </property>
@@ -246,55 +246,19 @@ border-image: none;</string>
      <rect>
       <x>10</x>
       <y>350</y>
-      <width>701</width>
+      <width>621</width>
       <height>371</height>
      </rect>
     </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QScrollArea" name="scrollArea_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>240</y>
-       <width>701</width>
-       <height>111</height>
-      </rect>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>699</width>
-        <height>109</height>
-       </rect>
-      </property>
-      <widget class="QPushButton" name="bBtnSuivant">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>681</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Suivant</string>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>25</y>
-       <width>681</width>
+       <width>601</width>
        <height>191</height>
       </rect>
      </property>
@@ -302,16 +266,16 @@ border-image: none;</string>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QRadioButton" name="bRBtnPlacementPlan">
+         <widget class="QRadioButton" name="bRBtnPlacementLibre">
           <property name="text">
-           <string>Placement sur plan</string>
+           <string>Placement libre</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="bRBtnPlacementLibre">
+         <widget class="QRadioButton" name="bRBtnPlacementPlan">
           <property name="text">
-           <string>Placement libre</string>
+           <string>Placement sur plan</string>
           </property>
          </widget>
         </item>
@@ -350,13 +314,26 @@ border-image: none;</string>
       </item>
      </layout>
     </widget>
+    <widget class="QPushButton" name="bBtnSuivant">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>601</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Suivant</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
       <x>11</x>
       <y>11</y>
-      <width>701</width>
+      <width>621</width>
       <height>141</height>
      </rect>
     </property>
@@ -366,9 +343,9 @@ border-image: none;</string>
     <widget class="QLabel" name="bLabelNomClient">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>350</x>
        <y>20</y>
-       <width>301</width>
+       <width>261</width>
        <height>20</height>
       </rect>
      </property>
@@ -385,7 +362,7 @@ border-image: none;</string>
     <widget class="QLabel" name="bLabelIdClient">
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>320</x>
        <y>20</y>
        <width>31</width>
        <height>20</height>
@@ -404,9 +381,9 @@ border-image: none;</string>
     <widget class="QTextEdit" name="bTxtInfosClient">
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>320</x>
        <y>50</y>
-       <width>331</width>
+       <width>291</width>
        <height>71</height>
       </rect>
      </property>
@@ -415,45 +392,49 @@ border-image: none;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>3</y>
-       <width>331</width>
-       <height>141</height>
+       <y>20</y>
+       <width>291</width>
+       <height>22</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_27">
-          <property name="text">
-           <string>Choisir un client</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="bCBoxSpectacteur"/>
-        </item>
-       </layout>
+       <widget class="QLabel" name="label_27">
+        <property name="text">
+         <string>Choisir un client</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="bBtnAjouter">
-          <property name="text">
-           <string>Ajouter</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="bBtnClientConcert">
-          <property name="text">
-           <string>Client concert</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QComboBox" name="bCBoxSpectacteur"/>
       </item>
      </layout>
+    </widget>
+    <widget class="QPushButton" name="bBtnAjouter">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>78</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ajouter</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="bBtnClientConcert">
+     <property name="geometry">
+      <rect>
+       <x>93</x>
+       <y>60</y>
+       <width>211</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Client concert</string>
+     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox">
@@ -461,7 +442,7 @@ border-image: none;</string>
      <rect>
       <x>10</x>
       <y>170</y>
-      <width>701</width>
+      <width>621</width>
       <height>91</height>
      </rect>
     </property>
@@ -471,9 +452,9 @@ border-image: none;</string>
     <widget class="QLineEdit" name="bTxtDateEtHeure">
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>320</x>
        <y>50</y>
-       <width>331</width>
+       <width>291</width>
        <height>20</height>
       </rect>
      </property>
@@ -481,9 +462,9 @@ border-image: none;</string>
     <widget class="QLabel" name="bLabelRepresentation">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>350</x>
        <y>20</y>
-       <width>301</width>
+       <width>261</width>
        <height>20</height>
       </rect>
      </property>
@@ -500,7 +481,7 @@ border-image: none;</string>
     <widget class="QLabel" name="bLabelIdSpectacle">
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>320</x>
        <y>20</y>
        <width>31</width>
        <height>20</height>
@@ -516,12 +497,12 @@ border-image: none;</string>
       <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>23</y>
-       <width>331</width>
+       <width>291</width>
        <height>22</height>
       </rect>
      </property>
@@ -544,7 +525,7 @@ border-image: none;</string>
      <rect>
       <x>10</x>
       <y>280</y>
-      <width>701</width>
+      <width>621</width>
       <height>61</height>
      </rect>
     </property>
@@ -554,7 +535,7 @@ border-image: none;</string>
     <widget class="QLabel" name="bLabelEuro">
      <property name="geometry">
       <rect>
-       <x>670</x>
+       <x>590</x>
        <y>20</y>
        <width>21</width>
        <height>20</height>
@@ -570,12 +551,12 @@ border-image: none;</string>
       <string>€</string>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>23</y>
-       <width>331</width>
+       <width>291</width>
        <height>22</height>
       </rect>
      </property>
@@ -592,12 +573,12 @@ border-image: none;</string>
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>320</x>
        <y>20</y>
-       <width>311</width>
+       <width>271</width>
        <height>21</height>
       </rect>
      </property>
@@ -629,7 +610,7 @@ border-image: none;</string>
   <widget class="QGroupBox" name="bGBoxModePaiement">
    <property name="geometry">
     <rect>
-     <x>740</x>
+     <x>660</x>
      <y>10</y>
      <width>771</width>
      <height>311</height>
@@ -754,7 +735,7 @@ border-image: none;</string>
   <widget class="QGroupBox" name="bGBoxPlanSalle">
    <property name="geometry">
     <rect>
-     <x>730</x>
+     <x>650</x>
      <y>30</y>
      <width>861</width>
      <height>711</height>
@@ -2818,40 +2799,43 @@ color: white;</string>
     </property>
    </widget>
   </widget>
-  <widget class="QScrollArea" name="scrollArea_3">
+  <widget class="QGroupBox" name="groupBox_5">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>740</y>
-     <width>701</width>
-     <height>111</height>
+     <y>730</y>
+     <width>621</width>
+     <height>121</height>
     </rect>
    </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
+   <property name="title">
+    <string/>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents_3">
+   <widget class="QPushButton" name="bBtnQuitter">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>699</width>
-      <height>109</height>
+      <x>10</x>
+      <y>20</y>
+      <width>181</width>
+      <height>91</height>
      </rect>
     </property>
-    <widget class="QPushButton" name="bBtnQuitter">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>681</width>
-       <height>91</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Quitter</string>
-     </property>
-    </widget>
+    <property name="text">
+     <string>Quitter</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="bLabelAlerte">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>20</y>
+      <width>411</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
  </widget>
@@ -2860,7 +2844,6 @@ color: white;</string>
   <tabstop>bCBoxRepresentations</tabstop>
   <tabstop>bCBoxTarif</tabstop>
   <tabstop>bRBtnPlacementPlan</tabstop>
-  <tabstop>bRBtnPlacementLibre</tabstop>
   <tabstop>bTxtInfosClient</tabstop>
   <tabstop>bCBoxNbPlaces</tabstop>
   <tabstop>bBtnPaiement</tabstop>
