@@ -15,6 +15,8 @@
 #include <QTime>
 #include <QTabWidget>
 
+#include <QDesktopWidget>
+
 Accueil::Accueil(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Accueil)
@@ -126,3 +128,5 @@ void Accueil::on_aBtnQuitter_clicked()
 {
     this->close();
 }
+
+

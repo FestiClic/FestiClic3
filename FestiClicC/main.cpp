@@ -1,17 +1,29 @@
 #include "accueil.h"
 #include <QApplication>
 
+#include <QStyle>
+#include <QDesktopWidget>
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Accueil w;
-    //image de fond page Accueil
-    //w.setStyleSheet("background-image:url(:spactacle2.jpg); background-color: cornflowerblue;");
 
     if (w.lanceApp)
     {
-        w.showFullScreen();
+        //w.setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, w.size(), qApp->desktop()->availableGeometry()));
+        //Centrer la fenêtre sur l'ecran
+        w.setGeometry(
+            QStyle :: alignedRect (
+                Qt :: LeftToRight ,
+                Qt :: AlignCenter ,
+                w.size(),
+                qApp->desktop()->availableGeometry()
+            )
+        );
+
+        w.show();
     }
     else
     {

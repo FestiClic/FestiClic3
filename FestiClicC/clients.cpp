@@ -149,7 +149,7 @@ void Clients::on_cltBtnAjouter_clicked()
             && !prenom.isEmpty() && !abonne.isEmpty()
             && !email.isEmpty())
     {
-        //Encadrer la saisie utilisateur dans le champ mail
+        //Encadrer la saisie utilisateur dans le champ email (doit contenir @)
         if (email.contains("@"))
         {
             //Ne pas créer de client à partir d'un client existant

@@ -15,6 +15,7 @@ class Accueil : public QMainWindow
 
 public:
     explicit Accueil(QWidget *parent = 0);
+
     ~Accueil();
 
     //int valeur;

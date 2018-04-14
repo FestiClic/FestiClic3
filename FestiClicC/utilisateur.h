@@ -16,6 +16,8 @@ public:
     ~Utilisateur();
 
 private slots:
+    //Création d'un nouveau compte utilisateur
+
     void on_uBtnAjouter_clicked();
 
     void on_uBtnQuitter_clicked();
