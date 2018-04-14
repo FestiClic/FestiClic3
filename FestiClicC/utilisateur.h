@@ -36,6 +36,8 @@ private:
     void MAJTableV();
 
     void ViderLesChamps();
+
+    void RendreLesChampsUserNameEtPassWordCliquables();
 };
 
 #endif // UTILISATEUR_H

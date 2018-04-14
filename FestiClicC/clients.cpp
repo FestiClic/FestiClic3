@@ -294,7 +294,7 @@ void Clients::on_cltBtnModifier_clicked()
     else
     {
         ui->cLabelAlerte->show();
-        ui->cLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->cLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->cLabelAlerte->setText("Les champs Civilité - Nom - Prénom - Adresse Email et Abonnement sont obligatoires");
     }
 }

@@ -466,7 +466,6 @@ void Billetterie::on_bBtnSuivant_clicked()
             ui->bLabelAlerte->show();
             ui->bLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
             ui->bLabelAlerte->setText("Vous devez choisir au minimum 1 place !");
-            //QMessageBox::information(this, "Info", "Vous devez choisir au minimum 1 place ");
         }
         else
         {
@@ -710,8 +709,6 @@ void Billetterie::on_bRBtnPlacementLibre_clicked()
 void Billetterie::on_bRBtnPlacementPlan_clicked()
 {
     ui->bListVNumSiege->hide();
-    ui->listWidget->hide();
-    ui->bBtnClearList->hide();
     ui->bGBoxModePaiement->hide();
 }
 

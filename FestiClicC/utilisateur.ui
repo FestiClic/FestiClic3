@@ -216,6 +216,20 @@ background-color = rgb(255, 146, 157);
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>uTxtNom</tabstop>
+  <tabstop>uTxtPrenom</tabstop>
+  <tabstop>uTxtUsername</tabstop>
+  <tabstop>uTxtPassword</tabstop>
+  <tabstop>uBtnAjouter</tabstop>
+  <tabstop>uBtnModifier</tabstop>
+  <tabstop>uBtnSupprimer</tabstop>
+  <tabstop>uBtnViderChamps</tabstop>
+  <tabstop>uBtnQuitter</tabstop>
+  <tabstop>uTabV</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>uCBoxAdministrateur</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

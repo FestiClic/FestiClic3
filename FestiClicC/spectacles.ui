@@ -314,6 +314,21 @@
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>sTxtSpectacle</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>timeEdit</tabstop>
+  <tabstop>sCBoxIdConfidSalle</tabstop>
+  <tabstop>sTxtJauge</tabstop>
+  <tabstop>sBtnAjouter</tabstop>
+  <tabstop>sBtnModifier</tabstop>
+  <tabstop>sBtnSupprimer</tabstop>
+  <tabstop>sBtnViderChamps</tabstop>
+  <tabstop>sBtnQuitter</tabstop>
+  <tabstop>sTxtIntituleConfig</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>sTabV</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

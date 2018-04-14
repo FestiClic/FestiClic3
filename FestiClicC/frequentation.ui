@@ -283,6 +283,19 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>fCBoxSpectacleProgramme</tabstop>
+  <tabstop>fCBoxSpectaclecloture</tabstop>
+  <tabstop>cltBtnQuitter</tabstop>
+  <tabstop>fTxtRemplissage_2</tabstop>
+  <tabstop>fTxtFrequentation_2</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>fTxtJaugeInitiale</tabstop>
+  <tabstop>fTxtRemplissage</tabstop>
+  <tabstop>fTxtFrequentation</tabstop>
+  <tabstop>fTabV</tabstop>
+  <tabstop>fTxtJaugeInitiale_2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

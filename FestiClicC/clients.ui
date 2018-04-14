@@ -456,16 +456,19 @@ font-size: 10px;
   <tabstop>cltTxtNom</tabstop>
   <tabstop>cltTxtPrenom</tabstop>
   <tabstop>cltTxtEmail</tabstop>
+  <tabstop>cltTxtMob</tabstop>
+  <tabstop>cltTxtTel</tabstop>
   <tabstop>cltTxtAdresse</tabstop>
   <tabstop>cltTxtCp</tabstop>
   <tabstop>cltTxtVille</tabstop>
-  <tabstop>cltTxtTel</tabstop>
-  <tabstop>cltTxtMob</tabstop>
   <tabstop>cltCBoxAbonne</tabstop>
   <tabstop>cltBtnAjouter</tabstop>
   <tabstop>cltBtnModifier</tabstop>
   <tabstop>cltBtnSupprimer</tabstop>
+  <tabstop>cltBtnViderChamps</tabstop>
+  <tabstop>cltBtnQuitter</tabstop>
   <tabstop>cltTabV</tabstop>
+  <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
  <connections/>

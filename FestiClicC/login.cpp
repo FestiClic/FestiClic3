@@ -25,7 +25,7 @@ Login::Login(QWidget *parent) :
     else
     {
         ui->lLabConnexion->setText("Connexion non établie !");
-        ui->lLabConnexion->setStyleSheet("color: red;");
+        ui->lLabConnexion->setStyleSheet("color: rgb(255, 99, 71);");
     }
 }
 
@@ -46,7 +46,7 @@ void Login::on_lBtnSeConnecter_2_clicked()
     if(nomUtilisateur.isEmpty() && motDePasse.isEmpty())
     {
         ui->lLabConnexion->setText("Veuillez saisir le nom d'utilisateur et le mot de passe !");
-        ui->lLabConnexion->setStyleSheet("color: red;");
+        ui->lLabConnexion->setStyleSheet("color: rgb(255, 99, 71);");
     }
     else
     {
@@ -72,7 +72,7 @@ void Login::on_lBtnSeConnecter_2_clicked()
             else
             {
                 ui->lLabConnexion->setText("Le nom d'tilisateur et / ou le mot de passe ne sont pas corrects");
-                ui->lLabConnexion->setStyleSheet("color: red;");
+                ui->lLabConnexion->setStyleSheet("color: rgb(255, 99, 71);");
             }
         }
     }

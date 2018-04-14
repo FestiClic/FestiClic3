@@ -192,7 +192,7 @@ void Spectacles::on_sBtnAjouter_clicked()
 //A coder
 //sécuriser la date si date = today !!!!!
         ui->sLabelAlerte->show();
-        ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->sLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
     }
 }
@@ -258,8 +258,8 @@ void Spectacles::on_sBtnModifier_clicked()
 //A coder
 //sécuriser la date si date = today !!!!!
         ui->sLabelAlerte->show();
-        ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
-        ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
+        ui->sLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+        ui->sLabelAlerte->setText("Tous les champs sont obligatoires !");
     }
 }
 
@@ -348,7 +348,7 @@ void Spectacles::on_sBtnSupprimer_clicked()
     else
     {
         ui->sLabelAlerte->show();
-        ui->sLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->sLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->sLabelAlerte->setText("Sélectionner un enregistrement !");
     }
 }

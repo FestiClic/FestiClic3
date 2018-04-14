@@ -334,7 +334,7 @@ void AdministrationBillet::on_AdBBtnAjouter_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->labelAlert->setText("Tous les champs sont obligatoires");
     }
 }
@@ -374,7 +374,7 @@ void AdministrationBillet::on_AdBBtnModifier_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->labelAlert->setText("La jauge est obligatoire !");
     }
 }
@@ -421,7 +421,7 @@ void AdministrationBillet::on_AdBBtnSupprimer_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->labelAlert->setText("Sélectionner un enregistrement !");
     }
 }
@@ -460,8 +460,8 @@ void AdministrationBillet::on_AdBBtnAjouterTarif_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
-        ui->labelAlert->setText("Tous les champs sont obligatoires");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
+        ui->labelAlert->setText("Tous les champs sont obligatoires !");
     }
 }
 
@@ -500,7 +500,7 @@ void AdministrationBillet::on_AdBBtnModifierTarif_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->labelAlert->setText("Le prix est obligatoire !");
     }
 }
@@ -546,7 +546,7 @@ void AdministrationBillet::on_AdBBtnSupprimerTarif_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->labelAlert->setText("Sélectionner un enregistrement !");
     }
 }
@@ -581,7 +581,7 @@ void AdministrationBillet::on_AdBBtnAjouterMPaiement_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->labelAlert->setText("Tous les champs sont obligatoires");
     }
 }
@@ -626,7 +626,7 @@ void AdministrationBillet::on_AdBBtnSupprimerMPaiement_clicked()
     else
     {
         ui->labelAlert->show();
-        ui->labelAlert->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->labelAlert->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->labelAlert->setText("Sélectionner un enregistrement !");
     }
 }

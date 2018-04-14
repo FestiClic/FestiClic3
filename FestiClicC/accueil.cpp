@@ -56,7 +56,7 @@ Accueil::Accueil(QWidget *parent) :
     //Labels
    // ui->aLabelHello->setStyleSheet("background-color:white; font-size: 15px; color: orange;");
     ui->aLabelHello->setStyleSheet("color: white;");
-    ui->aLabelHello->setText("HELLO");
+    ui->aLabelHello->setText("Bonjour");
 
     ui->aLabelNomUtilisateur->setStyleSheet("color: white;");
     //ui->aLabelNomUtilisateur->setText("Connexion Monoposte \n Saison 2017 / 2018");

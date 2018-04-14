@@ -2118,8 +2118,8 @@ color: white;</string>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>P4</tabstop>
-  <tabstop>P2</tabstop>
+  <tabstop>pCBoxSpectacle</tabstop>
+  <tabstop>cltBtnQuitter</tabstop>
   <tabstop>P3</tabstop>
   <tabstop>P1</tabstop>
   <tabstop>P24</tabstop>
@@ -2146,6 +2146,31 @@ color: white;</string>
   <tabstop>P26</tabstop>
   <tabstop>P27</tabstop>
   <tabstop>P28</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>P32</tabstop>
+  <tabstop>P34</tabstop>
+  <tabstop>P46</tabstop>
+  <tabstop>P48</tabstop>
+  <tabstop>P45</tabstop>
+  <tabstop>P37</tabstop>
+  <tabstop>P50</tabstop>
+  <tabstop>P30</tabstop>
+  <tabstop>P33</tabstop>
+  <tabstop>P47</tabstop>
+  <tabstop>P41</tabstop>
+  <tabstop>P43</tabstop>
+  <tabstop>P36</tabstop>
+  <tabstop>P38</tabstop>
+  <tabstop>P44</tabstop>
+  <tabstop>P35</tabstop>
+  <tabstop>P42</tabstop>
+  <tabstop>P39</tabstop>
+  <tabstop>P40</tabstop>
+  <tabstop>P31</tabstop>
+  <tabstop>P4</tabstop>
+  <tabstop>P29</tabstop>
+  <tabstop>P49</tabstop>
+  <tabstop>P2</tabstop>
  </tabstops>
  <resources/>
  <connections/>

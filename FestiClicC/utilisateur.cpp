@@ -67,6 +67,14 @@ void Utilisateur::ViderLesChamps()
     ui->uLabelAlerte->hide();
 }
 
+//Rendre les champs cliquables
+void Utilisateur::RendreLesChampsUserNameEtPassWordCliquables()
+{
+
+    ui->uTxtUsername->setEnabled(true);
+    ui->uTxtPassword->setEnabled(true);
+}
+
 Utilisateur::~Utilisateur()
 {
     //Fermeture de la connexion
@@ -130,6 +138,8 @@ void Utilisateur::on_uBtnAjouter_clicked()
                 QMessageBox::information(this,tr("Ajout utilisateur"), tr("Utilisateur ajouter avec succès"));
 
                 MAJTableV();
+
+                RendreLesChampsUserNameEtPassWordCliquables();
 
                 //Redimensionner les colonne en fonction du contenu
                 ui->uTabV->resizeColumnsToContents();
@@ -204,6 +214,8 @@ void Utilisateur::on_uBtnModifier_clicked()
 
             MAJTableV();
 
+            RendreLesChampsUserNameEtPassWordCliquables();
+
             //Redimensionner les colonne en fonction du contenu
             ui->uTabV->resizeColumnsToContents();
         }
@@ -268,6 +280,8 @@ void Utilisateur::on_uBtnSupprimer_clicked()
 
                 MAJTableV();
 
+                RendreLesChampsUserNameEtPassWordCliquables();
+
                 //Redimensionner les colonne en fonction du contenu
                 ui->uTabV->resizeColumnsToContents();
             }
@@ -284,13 +298,15 @@ void Utilisateur::on_uBtnSupprimer_clicked()
             qDebug() << "Non Annuler";
 
             ViderLesChamps();
+
+            RendreLesChampsUserNameEtPassWordCliquables();
         }
     }
     //Si un des champs de saisi est vide
     else
     {
         ui->uLabelAlerte->show();
-        ui->uLabelAlerte->setStyleSheet("background-color:red; font-size: 15px;");
+        ui->uLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->uLabelAlerte->setText("Les champs Nom - Prénom sont obligatoires");
     }
 }
@@ -335,6 +351,8 @@ void Utilisateur::on_uTabV_activated(const QModelIndex &index)
 void Utilisateur::on_uBtnViderChamps_clicked()
 {
     ViderLesChamps();
+
+    RendreLesChampsUserNameEtPassWordCliquables();
 }
 
 //Quitter la fiche utilisateur

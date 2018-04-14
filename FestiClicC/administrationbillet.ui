@@ -333,6 +333,32 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>AdBTxtIntituleMPaiement</tabstop>
+  <tabstop>AdBBtnModifierFicheTarif</tabstop>
+  <tabstop>AdBBtnModifierFiche</tabstop>
+  <tabstop>AdBBtnAjouterMPaiement</tabstop>
+  <tabstop>AdBBtnSupprimerMPaiement</tabstop>
+  <tabstop>AdBBtnAnnulerMPaiement</tabstop>
+  <tabstop>TabVTarif</tabstop>
+  <tabstop>AdBTxtTarif</tabstop>
+  <tabstop>AdBTxtPrix</tabstop>
+  <tabstop>TabVMPaiement</tabstop>
+  <tabstop>AdBBtnAjouterTarif</tabstop>
+  <tabstop>AdBBtnModifierTarif</tabstop>
+  <tabstop>AdBBtnSupprimerTarif</tabstop>
+  <tabstop>AdBBtnAnnulerTarif</tabstop>
+  <tabstop>TabVConfigSalle</tabstop>
+  <tabstop>AdBTxtIntitule</tabstop>
+  <tabstop>AdBTxtNbPlaces</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>AdBBtnAjouter</tabstop>
+  <tabstop>AdBBtnModifier</tabstop>
+  <tabstop>AdBBtnSupprimer</tabstop>
+  <tabstop>AdBBtnAnnuler</tabstop>
+  <tabstop>AdBtnQuitter</tabstop>
+  <tabstop>AdBBtnModifierFicheMPaiement</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
