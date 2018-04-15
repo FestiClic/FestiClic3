@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include "spectacles.h"
 
+#include "billetterie.h"
 
 
 
@@ -155,7 +156,6 @@ void Clients::on_cltBtnAjouter_clicked()
             //Ne pas créer de client à partir d'un client existant
             if(ui->cltLabelIdClient->text().isEmpty())
             {
-
                 QSqlQuery query;
 
                 query.prepare("INSERT INTO Clients (Civilite, NomClient, "
@@ -178,6 +178,7 @@ void Clients::on_cltBtnAjouter_clicked()
                 if(query.exec())
                 {
                    ViderLesChamps();
+
                    //Affichage si ajouter ou pas dans un MessageBox
                    QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
 

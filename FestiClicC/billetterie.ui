@@ -16,8 +16,8 @@
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>570</y>
+     <x>660</x>
+     <y>430</y>
      <width>821</width>
      <height>271</height>
     </rect>
@@ -328,115 +328,6 @@ border-image: none;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>11</y>
-      <width>621</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Client</string>
-    </property>
-    <widget class="QLabel" name="bLabelNomClient">
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>20</y>
-       <width>261</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="bLabelIdClient">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>20</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="bTxtInfosClient">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>50</y>
-       <width>291</width>
-       <height>71</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>291</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_27">
-        <property name="text">
-         <string>Choisir un client</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="bCBoxSpectacteur"/>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QPushButton" name="bBtnAjouter">
-     <property name="geometry">
-      <rect>
-       <x>12</x>
-       <y>78</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ajouter</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="bBtnClientConcert">
-     <property name="geometry">
-      <rect>
-       <x>93</x>
-       <y>60</y>
-       <width>211</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Client concert</string>
-     </property>
-    </widget>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
@@ -538,7 +429,7 @@ border-image: none;</string>
        <x>590</x>
        <y>20</y>
        <width>21</width>
-       <height>20</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -606,11 +497,133 @@ border-image: none;</string>
      </layout>
     </widget>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>11</y>
+      <width>621</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>Client</string>
+       </property>
+       <widget class="QLabel" name="bLabelNomClient">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>20</y>
+          <width>261</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="bLabelIdClient">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>20</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="bTxtInfosClient">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>50</y>
+          <width>291</width>
+          <height>71</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>291</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_27">
+           <property name="text">
+            <string>Choisir un client</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="bCBoxSpectacteur"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="bBtnAjouter">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>60</y>
+          <width>141</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ajouter client</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="bBtnClientConcert">
+        <property name="geometry">
+         <rect>
+          <x>163</x>
+          <y>60</y>
+          <width>141</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Client concert</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bBtnActiverZoneClient">
+       <property name="text">
+        <string>Activer la zone client</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="bGBoxModePaiement">
    <property name="geometry">
     <rect>
-     <x>660</x>
+     <x>690</x>
      <y>10</y>
      <width>771</width>
      <height>311</height>
@@ -736,9 +749,9 @@ border-image: none;</string>
    <property name="geometry">
     <rect>
      <x>650</x>
-     <y>30</y>
+     <y>20</y>
      <width>861</width>
-     <height>711</height>
+     <height>721</height>
     </rect>
    </property>
    <property name="title">

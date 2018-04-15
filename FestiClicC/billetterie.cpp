@@ -18,13 +18,13 @@
 
 
 
-
 Billetterie::Billetterie(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Billetterie)
 {
     ui->setupUi(this);
 
+    //Ouverture de la connexion
     Database connexion;
     connexion.openConnexion();
 
@@ -54,21 +54,8 @@ Billetterie::Billetterie(QWidget *parent) :
     //Affecter les modes de paiement a la comboBox
     AffecterLesModesDePaiement();
 
-    //Initialisation des EditLine
-    //Le choix de text line edite à la place des Labels est dans le but de dévelepper ultérieurement
-    //une fonction de mise à jour des fiches clients et spectacles directement depuis la billetterie
-    ui->bTxtInfosClient->clear();
-    ui->bTxtDateEtHeure->clear();
-    ui->bCBoxNbPlaces->clear();
-
-    //Initialisation des Labels
-    ui->bLabelRepresentation->clear();
-    ui->bLabelIdClient->clear();
-    ui->bLabelNomClient->clear();
-    ui->bLabelPrix->clear();
-    ui->bLabelIdClient->clear();
-    ui->bLabelIdSpectacle->clear();
-    ui->bLabelAlerte->clear();
+    //Initialisation des chmaps
+    InitialisationDesChamps();
 
     //Masquer le bouton suivant tant que les champs sont vides
     if(ui->bLabelNomClient->text().isEmpty()
@@ -87,7 +74,7 @@ Billetterie::Billetterie(QWidget *parent) :
     //Affecter liste numero de sieges a la ListView
     MAJListeDesSieges();
 
-    //chanp text pour afficher le prix total avant paiement
+    //champ text pour afficher le prix total avant paiement
     ui->bTxtCb->setEnabled(false);
     ui->bTxtCb->setStyleSheet("color: green; font-size: 15px;");
 
@@ -98,6 +85,9 @@ Billetterie::Billetterie(QWidget *parent) :
     //Le combo est nécessaire dans cette version car il stock le nombre total de places dans la liste widget
     ui->bCBoxNbPlaces->hide();
     ui->bCBoxNumSiege->hide();
+
+    //Masquer le bouton nécessaire pour rafrichir la zone
+    ui->bBtnActiverZoneClient->hide();
 }
 
 //Affecter les données des représentations au ComboBox
@@ -157,10 +147,9 @@ void Billetterie::AffecterLesTarifs()
     ui->bCBoxTarif->setCurrentIndex(-1);
 }
 
-
+//---------------------------------------------------------------------------------------------------------------------
 //Affecter les num sieges au comboBox numSiege
 //Nécessaire pour le développement futur de l'application
-//---------------------------------------------------------------------------------------------------------------------
 /*
 void Billetterie::AffecterLesNumerosDesSieges()
 {
@@ -208,7 +197,7 @@ void Billetterie::MAJListeDesSieges()
 
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee);
     query->prepare("SELECT NumPlace FROM Places WHERE Reserve = 0 "
-                    "AND IdSpectacleP = :idSpectacle");
+                   "AND IdSpectacleP = :idSpectacle");
     query->bindValue(":idSpectacle", idSpectacle);
     query->exec();
     modal->setQuery(*query);
@@ -218,11 +207,32 @@ void Billetterie::MAJListeDesSieges()
     VerifierSiReserve();
 }
 
+void Billetterie::InitialisationDesChamps()
+{
+    //Initialisation des EditLine
+    //Le choix de text line edite à la place des Labels est dans le but de dévelepper ultérieurement
+    //une fonction de mise à jour des fiches clients et spectacles directement depuis la billetterie
+    ui->bTxtInfosClient->clear();
+    ui->bTxtDateEtHeure->clear();
+    ui->bCBoxNbPlaces->clear();
+
+    //Initialisation des Labels
+    ui->bLabelRepresentation->clear();
+    ui->bLabelIdClient->clear();
+    ui->bLabelNomClient->clear();
+    ui->bLabelPrix->clear();
+    ui->bLabelIdClient->clear();
+    ui->bLabelIdSpectacle->clear();
+    ui->bLabelAlerte->clear();
+}
+
 
 Billetterie::~Billetterie()
 {
+    //Ouverture de la connexion
     Database connexion;
     connexion.closeConnexion();
+
     delete ui;
 }
 
@@ -328,22 +338,24 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
         ui->bBtnSuivant->show();
     }
 }
-//************************************************************************************************************************
-//Trouver un moyen d'update le combo ou supprimer le bouton !
+
 //Bouton ajouter nouveau client Avant réservation
 void Billetterie::on_bBtnAjouter_clicked()
 {
+    //Désactiver le groupBox client et afficher le bouton nécessaire pour la mise à jour des données
+    //et pour l'activation du groupBox
+    ui->groupBox_2->setEnabled(false);
+    ui->bBtnActiverZoneClient->show();
+
+    //Ouverture de la page client
     Clients clients;
     clients.setModal(true);
     clients.exec();
 }
 
-//************************************************************************************************************************
-
 //Affecter les données tarif depuis le ComboBox vers les labels
 void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
 {
-
     QString tarif;
     tarif = ui->bCBoxTarif->currentText();
 
@@ -378,53 +390,11 @@ void Billetterie::on_bCBoxTarif_currentIndexChanged(const QString &arg1)
     if(!ui->bLabelRepresentation->text().isEmpty() && !ui->bLabelNomClient->text().isEmpty())
     {
         ui->bBtnSuivant->show();
-
-/*        //Afficher les deux listes des numSienges
-        ui->bListVNumSiege->show();
-        ui->listWidget->show();
-        ui->bBtnClearList->show();
-*/
     }
 }
 
-
 void Billetterie::on_bBtnSuivant_clicked()
 {
-    //******************************************
-    //Boite de message pour définir le nombre de place pour le spectacle
-    //La message d'information dans la boucle apparait meme si la condition est remplie !!!!A coder!!!!
-/*
-    QVariant nbPlaces;
-    do
-        {
-        nbPlaces = QInputDialog::getInt(this, "nbPlaces", "Entrez le nombre de places :", 0, 0, 99, 1);
-        if(false)
-        QMessageBox::information(this, "Info", "Vous devez choisir au minimum 1 place ");
-
-        }
-    while(nbPlaces.toInt()<1);
-
-    QMessageBox::information(this, "Infos", "Vous avez choisi "+nbPlaces.toString()+" place(s)");
-    ui->bBtnPaiement->show();
-*/    //*************************************
-/*
-    //Test calcu de prix
-    double prixTotal; //resultat
-
-    double tarif;   //prix
-    tarif = ui->bLabelPrix->text().toDouble(); //valeur a affecter
-    double quantite = nbPlaces.toDouble();        //nbDeplaces
-    prixTotal = (quantite * tarif);
-
-    //prixTotal = (tarif);
-    ui->bLabelNbPlaces->setText(QString::number(quantite));
-    ui->bLabelTotalPrix->setText(QString::number(prixTotal));
-
-    //Cacher le bouton
-    ui->bBtnSuivant->hide();
-*/
-//***********************************************************************************************************************
-
     // Initialiser le champs
     ui->bTxtCb->clear();
 
@@ -433,202 +403,211 @@ void Billetterie::on_bBtnSuivant_clicked()
     {
         ui->bCBoxNbPlaces->setCurrentIndex(ui->listWidget->count());
     }
-        //Calcule total prix
-            double prixTotal, prix, NbPlaces;
+    //Calcule du prix total
+    double prixTotal, prix, NbPlaces;
 
-            prix = std::stod(ui->bLabelPrix->text().toStdString());
+    prix = std::stod(ui->bLabelPrix->text().toStdString());
+    NbPlaces = std::stod(ui->bCBoxNbPlaces->currentText().toStdString());
+    prixTotal = (NbPlaces * prix);
 
-            //ui->bTxtNbPlaces->setText(ui->bCBoxNbPlaces->currentText()+1); //TxtNbPlaces recupere la valeur du ComboBoxNbPlaces
+    QString tarifTotal = QString::number(prixTotal);
 
-            NbPlaces = std::stod(ui->bCBoxNbPlaces->currentText().toStdString());
+    //Affecter le résultat du cacul à l'editLine du groupBox paiement
+    ui->bTxtCb->setText(tarifTotal);
 
-            prixTotal = (NbPlaces * prix);
-
-
-            QString tarifTotal = QString::number(prixTotal);
-            ui->bTxtCb->setText(tarifTotal);
-
-//***********************************************************************************************************************
-    //Ouverture plan de salle
+    //Si le radioBouton placement sur plan est sélectionné
     if(ui->bRBtnPlacementPlan->isChecked())
-      {        
-        // Afficher le groupeBox plan de salle
+    {
+        // Afficher le groupBox plan de salle
         ui->bGBoxPlanSalle->show();
-        ui->bGBoxModePaiement->hide();
 
-      }
+        //Masquer le groupBox mode de paiement et le bouton suivant
+        ui->bGBoxModePaiement->hide();
+        ui->bBtnSuivant->hide();
+
+    }
+    //Si le radioBouton placement libre est sélectionné
     else if(ui->bRBtnPlacementLibre->isChecked())
     {
-        //Ne pas passer à la suite si le nombre de place est de 0 et la listeW aussi
+        //Ne pas passer à la suite si le nombre de place dans la listeW  est de 0
         if(ui->bCBoxNbPlaces->currentText().toInt() == 0)
         {
-            //masquer l'Alert
+            //Message d'alerte
             ui->bLabelAlerte->show();
             ui->bLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
             ui->bLabelAlerte->setText("Vous devez choisir au minimum 1 place !");
         }
+        //Si le nombre de place dans la listeW  est différent de 0
         else
         {
             // Afficher le groupeBox mode de paiment
             ui->bGBoxModePaiement->show();
+
+            //Masquer le plan de salle et la partie gauche de la page
             ui->bGBoxPlanSalle->hide();
             ui->widgetPartieGauche->hide();
         }
     }
-
 }
 
+//Bouton de validation du paiement
 void Billetterie::on_bBtnPaiement_clicked()
 {
-        int spectacle;
-        QString client;
-        QString tarif;
-        int nbPlaces;
+    int spectacle;
+    QString client;
+    QString tarif;
+    int nbPlaces;
 
-        nbPlaces = ui->listWidget->count();
-        spectacle = ui->bLabelIdSpectacle->text().toInt();
-        client = ui->bLabelIdClient->text();
-        tarif = ui->bCBoxTarif->currentText();
+    //Affectation des valeurs des champs aux variables
+    nbPlaces = ui->listWidget->count();
+    spectacle = ui->bLabelIdSpectacle->text().toInt();
+    client = ui->bLabelIdClient->text();
+    tarif = ui->bCBoxTarif->currentText();
 
-        //Desactiver le groupe box Paiemement
-        ui->bGBoxModePaiement->setEnabled(false);
-
-
-        //Récuperation date systeme pour l'inclure dans le billet
-        //QDateTime dateSys = QDateTime::currentDateTime();
-        //QString dateSysA = dateSys.toString();
-
-        QVector <QString> siegesCommande;
-        QString numPlace;
-
-         //Stocker le nombre de sieges de la listeWidget dans un vecteur
-         for(int i = 0; i < ui->listWidget->count(); ++i)
-         {
-             siegesCommande.push_back(ui->listWidget->item(i)->text());
-         }
-
-         for (int j = 0; j < siegesCommande.length(); j++)
-         {
-            numPlace = siegesCommande[j];
-            qDebug() << numPlace;
+    //Desactiver le groupe box Paiemement
+    ui->bGBoxModePaiement->setEnabled(false);
 
 
-    //Requete pour changer le statut du siege dans la BDD (le passer à réservé)
-            QSqlQuery query3;
-            query3.prepare( "UPDATE Places SET Reserve = 1 "
-                                 "WHERE NumPlace = :numPlace "
-                                 "AND IdSpectacleP = :idSpectacle ");
+    //Récuperation date systeme pour l'inclure dans le billet
+    //QDateTime dateSys = QDateTime::currentDateTime();
+    //QString dateSysA = dateSys.toString();
 
-            query3.bindValue(":numPlace", numPlace);
-            query3.bindValue(":idSpectacle", spectacle);
+    QVector <QString> siegesCommande;
+    QString numPlace;
 
-            if(query3.exec())
-                qDebug() << "requête fonctionnelle";
-            else
-                qDebug() << "requête plantée: " << query3.lastError();
+    //Stocker le nombre de sieges de la listeWidget dans un vecteur
+    for(int i = 0; i < ui->listWidget->count(); ++i)
+    {
+        siegesCommande.push_back(ui->listWidget->item(i)->text());
+    }
+
+    for (int j = 0; j < siegesCommande.length(); j++)
+    {
+        numPlace = siegesCommande[j];
+        qDebug() << numPlace;
 
 
-    //Requete insertion des données dans la table billet
-            QSqlQuery query;
-            query.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
+        //Requete pour changer le statut du siege dans la BDD (le passer à réservé)
+        QSqlQuery querySiegeReserve;
+        querySiegeReserve.prepare( "UPDATE Places SET Reserve = 1 "
+                                   "WHERE NumPlace = :numPlace "
+                                   "AND IdSpectacleP = :idSpectacle ");
+
+        querySiegeReserve.bindValue(":numPlace", numPlace);
+        querySiegeReserve.bindValue(":idSpectacle", spectacle);
+
+        //qDebug
+        if(querySiegeReserve.exec())
+        {
+            qDebug() << "requête fonctionnelle";
+        }
+        else
+        {
+            qDebug() << "requête plantée: " << querySiegeReserve.lastError();
+        }
+
+
+        //Requete insertion des données dans la table billet
+        QSqlQuery queryInsertionTabBillet;
+        queryInsertionTabBillet.prepare("INSERT INTO Billets (NumBillet, IdClient, IdSpectacle, IdTarif, IdPlace) "
                                         "VALUES ( (SELECT MAX(NumBillet+1) FROM Billets), "
-                                                "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
-                                                "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
-                                                "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                                                "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
+                                        "(SELECT IdClient FROM Clients WHERE IdClient = :client), "
+                                        "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
+                                        "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
+                                        "(SELECT IdPlace FROM Places WHERE NumPlace = :siege) ) ");
 
-            query.bindValue(":client", client);
-            query.bindValue(":spectacle", spectacle);
-            query.bindValue(":tarif", tarif);
-            query.bindValue(":siege", numPlace);
+        queryInsertionTabBillet.bindValue(":client", client);
+        queryInsertionTabBillet.bindValue(":spectacle", spectacle);
+        queryInsertionTabBillet.bindValue(":tarif", tarif);
+        queryInsertionTabBillet.bindValue(":siege", numPlace);
 
-            query.exec();
+        queryInsertionTabBillet.exec();
 
-    // Requête décrémentation Jauge spectacle dans la table Spectacle BDD
+        // Requête décrémentation Jauge spectacle dans la table Spectacle BDD
+        QSqlQuery queryDecrementationJauge;
+        queryDecrementationJauge.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
+                                         "WHERE IdSpectacle = :spectacle ");
+        queryDecrementationJauge.bindValue(":nbPlaces", nbPlaces);
+        queryDecrementationJauge.bindValue(":spectacle", spectacle);
 
-            QSqlQuery queryDecrementationJauge;
-            queryDecrementationJauge.prepare("UPDATE Spectacles SET JaugeSpectacle = (JaugeSpectacle - :nbPlaces)"
-                                                                "WHERE IdSpectacle = :spectacle ");
-            queryDecrementationJauge.bindValue(":nbPlaces", nbPlaces);
-            queryDecrementationJauge.bindValue(":spectacle", spectacle);
+        queryDecrementationJauge.exec();
 
-            queryDecrementationJauge.exec();
-
-            qDebug() << nbPlaces;
-         }
-             //********************************************************************************
-                      //Coder une requet pour insertion dans table Mode Paiement
-            //********************************************************************************
+        qDebug() << nbPlaces;
+    }
+    //********************************************************************************
+    //Coder une requet pour insertion dans table Mode Paiement
+    //********************************************************************************
     //Requete insertion données dans la table Transaction
 
-             QString modePaiement;
-             int nombreDePlaces;
+    QString modePaiement;
+    int nombreDePlaces;
 
-             modePaiement = ui->bCBoxModePaiement->currentText();
-             nombreDePlaces = siegesCommande.count();
+    modePaiement = ui->bCBoxModePaiement->currentText();
+    nombreDePlaces = siegesCommande.count();
 
-             QSqlQuery queryTransaction;
+    QSqlQuery queryTransaction;
 
-             queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdTarif, IdModePaiement, NombreDePlaces ) "
-                           "VALUES ( (SELECT IdClient FROM Clients WHERE IdClient = :client ), "
-                           "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
-                           "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
-                           "(SELECT IdModePaiement FROM ModePaiement WHERE TypeModePaiement = :modePaiement), "
-                           ":nombreDePlaces ) ");
+    queryTransaction.prepare("INSERT INTO Transactions (IdClient, IdSpectacle, IdTarif, IdModePaiement, NombreDePlaces ) "
+                             "VALUES ( (SELECT IdClient FROM Clients WHERE IdClient = :client ), "
+                             "(SELECT IdSpectacle FROM Spectacles WHERE IdSpectacle = :spectacle), "
+                             "(SELECT IdTarif FROM Tarifs WHERE IntituleTarif = :tarif), "
+                             "(SELECT IdModePaiement FROM ModePaiement WHERE TypeModePaiement = :modePaiement), "
+                             ":nombreDePlaces ) ");
 
-             queryTransaction.bindValue(":client", client);
-             queryTransaction.bindValue(":spectacle", spectacle);
-             queryTransaction.bindValue(":tarif", tarif);
-             queryTransaction.bindValue(":modePaiement", modePaiement);
-             queryTransaction.bindValue(":nombreDePlaces", nombreDePlaces);
+    queryTransaction.bindValue(":client", client);
+    queryTransaction.bindValue(":spectacle", spectacle);
+    queryTransaction.bindValue(":tarif", tarif);
+    queryTransaction.bindValue(":modePaiement", modePaiement);
+    queryTransaction.bindValue(":nombreDePlaces", nombreDePlaces);
 
-             queryTransaction.exec();
+    queryTransaction.exec();
 
-             qDebug() << "Nombre de siege"<< siegesCommande.count();
+    qDebug() << "Nombre de siege"<< siegesCommande.count();
 
-             siegesCommande.pop_back();
+    //Vider le vecteur
+    siegesCommande.pop_back();
 
-             //Afficher le billet
-             ui->scrollArea->show();
+    //Afficher le billet
+    ui->scrollArea->show();
 
-    //Requete pour données à afficher sur le billet
+    //Requete pour les données à afficher sur le billet
 
-             QSqlQuery queryDonneesBillet;
-             queryDonneesBillet.prepare("SELECT MAX(IdTransaction), MAX(IdBillet), Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
-                                        "FROM Transactions tr , Billets b, Clients c, Spectacles s, Tarifs t, Places p "
-                                        "Where b.IdClient = c.IdClient "
-                                        "AND b.IdSpectacle = s.IdSpectacle "
-                                        "AND b.IdTarif = t.IdTarif "
-                                        "AND b.IdPlace = p.IdPlace "
-                                        "AND tr.IdSpectacle = s.IdSpectacle ");
+    QSqlQuery queryDonneesBillet;
+    queryDonneesBillet.prepare("SELECT MAX(IdTransaction), MAX(IdBillet), Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
+                               "FROM Transactions tr , Billets b, Clients c, Spectacles s, Tarifs t, Places p "
+                               "Where b.IdClient = c.IdClient "
+                               "AND b.IdSpectacle = s.IdSpectacle "
+                               "AND b.IdTarif = t.IdTarif "
+                               "AND b.IdPlace = p.IdPlace "
+                               "AND tr.IdSpectacle = s.IdSpectacle ");
 
-             queryDonneesBillet.exec();
+    queryDonneesBillet.exec();
 
-    //Affecter les données au billet
-             if(queryDonneesBillet.next())
-             {
-                 ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(1).toString());
-                 ui->LabelNomSurBillet_2->setText(ui->bLabelNomClient->text()); //queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
-                 ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
-                 ui->LabelNomSurBillet_4->setText(ui->bLabelRepresentation->text());//queryDonneesBillet.value(5).toString());
-                 ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(7).toString() );
-                 ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
-                 ui->LabelNomSurBillet_8->setText(ui->bTxtDateEtHeure->text());
+    //Affecter les données aux labels billet
+    if(queryDonneesBillet.next())
+    {
+        ui->LabelNomSurBillet->setText("Billet no: " + queryDonneesBillet.value(1).toString());
+        ui->LabelNomSurBillet_2->setText(ui->bLabelNomClient->text()); //queryDonneesBillet.value(2).toString() +" "+ queryDonneesBillet.value(3).toString() +" "+ queryDonneesBillet.value(4).toString() );
+        ui->LabelNomSurBillet_3->setText(ui->bTxtCb->text()  +" € ");
+        ui->LabelNomSurBillet_4->setText(ui->bLabelRepresentation->text());//queryDonneesBillet.value(5).toString());
+        ui->LabelNomSurBillet_5->setText("Siége(s) no : "+ queryDonneesBillet.value(7).toString() );
+        ui->LabelNomSurBillet_6->setText("Transaction no : "+ queryDonneesBillet.value(0).toString());
+        ui->LabelNomSurBillet_8->setText(ui->bTxtDateEtHeure->text());
 
 
-                 ui->LabelNomSurBillet->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_2->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_3->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_4->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_5->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
-                 ui->LabelNomSurBillet_6->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
-                //ui->LabelNomSurBillet_7->setStyleSheet(" border-image: url(:CodeBarre.jpg);");
-                 ui->LabelNomSurBillet_8->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
-             }
+        ui->LabelNomSurBillet->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+        ui->LabelNomSurBillet_2->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+        ui->LabelNomSurBillet_3->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+        ui->LabelNomSurBillet_4->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+        ui->LabelNomSurBillet_5->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+        ui->LabelNomSurBillet_6->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+        //ui->LabelNomSurBillet_7->setStyleSheet(" border-image: url(:CodeBarre.jpg);");
+        ui->LabelNomSurBillet_8->setStyleSheet("color:white; font-size: 15px; font-weight: bold;");
+    }
 
-             qDebug() << nbPlaces;
+    qDebug() << nbPlaces;
 
-             MAJListeDesSieges();
+    MAJListeDesSieges();
 }
 
 void Billetterie::on_bBtnQuitter_clicked()
@@ -636,14 +615,14 @@ void Billetterie::on_bBtnQuitter_clicked()
     this->close();
 }
 
-
+//Affecter les numéros de sièges à la listeView
 void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
 {
-    //Affecter les numéros de sièges à la listeView
     QString valeurs;
 
     valeurs = ui->bListVNumSiege->model()->data(index).toString();
 
+    //Requête de sélection depuis la table places
     QSqlQuery query;
     query.prepare("SELECT * FROM Places WHERE NumPlace = :valeurs ");
     query.bindValue(":valeurs", valeurs);
@@ -656,16 +635,16 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
     }
     else
     {
-            QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+        QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
-    //masquer l'Alert
+    //masquer le label d'Alert
     ui->bLabelAlerte->hide();
-
 }
 
+//Le bouton suivant du groupBox plan de salle
 void Billetterie::on_bBtnSuivantPlan_2_clicked()
 {
-    // Initialiser les champs
+    // Initialiser le champ
     ui->bTxtCb->clear();
 
     if(ui->listWidget->count() != 0)
@@ -673,7 +652,7 @@ void Billetterie::on_bBtnSuivantPlan_2_clicked()
         ui->bCBoxNbPlaces->setCurrentIndex(ui->listWidget->count());
     }
 
-//Calcule du prix total
+    //Calcul du prix total
     double prixTotal, prix, NbPlaces;
 
     prix = std::stod(ui->bLabelPrix->text().toStdString());
@@ -682,50 +661,88 @@ void Billetterie::on_bBtnSuivantPlan_2_clicked()
     prixTotal = (NbPlaces * prix);
 
     QString tarifTotal = QString::number(prixTotal);
+
+    //Affecter le résultat du cacul à l'editLine du groupBox paiement
     ui->bTxtCb->setText(tarifTotal);
 
     // Afficher le groupeBox modede paiment
     ui->bGBoxModePaiement->show();
+
+    //Masquer le plan de la salle et la partie gauche de la page
     ui->bGBoxPlanSalle->hide();
     ui->widgetPartieGauche->hide();
 }
 
 void Billetterie::on_bBtnClientConcert_clicked()
 {
-    //Ajouter des données fixes d'un client fectif pour l'impression de billets concert à l'avance
+    //Ajouter des données fixes client fectif pour l'impression de billets concert à l'avance
     ui->bLabelNomClient->setText("Flow");
     ui->bLabelIdClient->setText("21");
     ui->bTxtInfosClient->setText("Flow Billet <br> Billetterie concerts et festivals  ");
 }
 
+//RadioBouton placement libre
 void Billetterie::on_bRBtnPlacementLibre_clicked()
 {
     ui->bListVNumSiege->show();
     ui->listWidget->show();
     ui->bBtnClearList->show();
     ui->bGBoxPlanSalle->hide();
+
+    //Vider la liste de la précédente sélection
+    ui->listWidget->clear();
+
+    //Afficher le bouton suivant
+    ui->bBtnSuivant->show();
 }
 
+//RadioBouton placement sur plan
 void Billetterie::on_bRBtnPlacementPlan_clicked()
 {
     ui->bListVNumSiege->hide();
     ui->bGBoxModePaiement->hide();
+
+    //Vider la liste de la précédente sélection
+    ui->listWidget->clear();
 }
 
-
+//Bouton annuler le paiement
 void Billetterie::on_bBtnAnnulerPaiement_clicked()
 {
     ui->widgetPartieGauche->show();
     ui->bGBoxModePaiement->hide();
+
+    //Vider la liste de la précédente sélection
+    ui->listWidget->clear();
+
+    MAJListeDesSieges();
 }
 
-//Bouton annuler du plan
+//Bouton annuler su groupBox plan de salle
 void Billetterie::on_bBtnAnnulerPlan_clicked()
 {
     InitialisationEtatDesSieges();
     ui->bGBoxPlanSalle->hide();
+
+    //Afficher le bouton suivant de la parie gauche de la page
+    ui->bBtnSuivant->show();
+
+    //Vider la liste de la précédente sélection
+    ui->listWidget->clear();
+
+    MAJListeDesSieges();
 }
-// §§§§§§§§§§§§ Plan a finir §§§§§§§§§§§§§§§
+
+//Mise à jour des données client après ajout d'un nouveau compte client
+void Billetterie::on_bBtnActiverZoneClient_clicked()
+{
+    AffecterLesNomsClients();
+    InitialisationDesChamps();
+    ui->groupBox_2->setEnabled(true);
+    ui->bBtnActiverZoneClient->hide();
+}
+
+//A développer: automatisation de la vérification et exploitation du vecteur dans le btnPaiement
 //Identifier les sièges réservés sur le plan
 void Billetterie::VerifierSiReserve()
 {
@@ -741,7 +758,7 @@ void Billetterie::VerifierSiReserve()
 
     if(query.exec())
     {
-       InitialisationEtatDesSieges();
+        InitialisationEtatDesSieges();
         bool trouver = false;
 
         while(query.next())
@@ -761,6 +778,7 @@ void Billetterie::VerifierSiReserve()
                 // Si réservé
                 if(reserve == 1)
                 {
+                    //passer chaque siège réservé au rouge et le rendre incliquable
                     if(siege == "PA1")
                     {
                         ui->P1->setStyleSheet("border-image: url(:UserMenRed.png);");
@@ -1011,7 +1029,6 @@ void Billetterie::VerifierSiReserve()
                         ui->P50->setStyleSheet("border-image: url(:UserMenRed.png);");
                         ui->P50->setEnabled(false);
                     }
-
                 }
             }
         }
@@ -1125,7 +1142,11 @@ void Billetterie::InitialisationEtatDesSieges()
     ui->P50->setEnabled(true);
 }
 
-//Les boutons du plan
+//Les boutons du plan (chaque bouton = 1 siege)
+//A l'évenement clic de chaque bouton, il passe à un statut intermédiaire (orange)
+//dans l'attente de la validation du statut dans la BDD
+
+//A chaque clic le numéro du siège et affecté à la listeW
 void Billetterie::on_P1_clicked()
 {
     ui->listWidget->addItem("PA1");
@@ -1425,5 +1446,3 @@ void Billetterie::on_P50_clicked()
     ui->listWidget->addItem("PA50");
     ui->P50->setStyleSheet("border-image:url(:plusplus.png); ");
 }
-
-

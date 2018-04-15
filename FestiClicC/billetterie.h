@@ -151,6 +151,8 @@ private slots:
 
     void on_P50_clicked();
 
+    void on_bBtnActiverZoneClient_clicked();
+
 private:
     Ui::Billetterie *ui;
 
@@ -168,6 +170,8 @@ private:
     void InitialisationEtatDesSieges();
 
     void VerifierSiReserve();
+
+    void InitialisationDesChamps();
 };
 
 #endif // BILLETTERIE_H

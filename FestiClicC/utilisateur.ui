@@ -120,42 +120,56 @@ background-color = rgb(255, 146, 157);
          <x>510</x>
          <y>10</y>
          <width>471</width>
-         <height>255</height>
+         <height>261</height>
         </rect>
        </property>
        <property name="title">
         <string>Actions sur utilisateurs</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
          <widget class="QLabel" name="uLabelIditUtilisateur">
           <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Nom</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
          <widget class="QLineEdit" name="uTxtNom">
           <property name="placeholderText">
            <string>Nom</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Prénom</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
          <widget class="QLineEdit" name="uTxtPrenom">
           <property name="placeholderText">
            <string>Prénom</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="5" column="0">
          <widget class="QLabel" name="uLabelAdministrateur">
           <property name="text">
            <string>Administrateur</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="6" column="0">
          <widget class="QComboBox" name="uCBoxAdministrateur">
           <item>
            <property name="text">
@@ -169,17 +183,31 @@ background-color = rgb(255, 146, 157);
           </item>
          </widget>
         </item>
-        <item>
+        <item row="8" column="1">
          <widget class="QLineEdit" name="uTxtUsername">
           <property name="placeholderText">
            <string>Username</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="10" column="1">
          <widget class="QLineEdit" name="uTxtPassword">
           <property name="placeholderText">
            <string>Password</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Mot de passe</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Nom d'utilisateur</string>
           </property>
          </widget>
         </item>

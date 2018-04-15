@@ -14,7 +14,6 @@
 #include <QDateTime>
 #include <QTime>
 #include <QTabWidget>
-
 #include <QDesktopWidget>
 
 Accueil::Accueil(QWidget *parent) :
@@ -23,6 +22,7 @@ Accueil::Accueil(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //Ouverture de la connexion
     Database connexion;
     connexion.openConnexion();
 
@@ -30,12 +30,14 @@ Accueil::Accueil(QWidget *parent) :
     Login login;
     login.setModal(true);
 
+
     if (login.exec() == QDialog::Accepted)
     {
         //Ok
         lanceApp=true;
 
-        //Affectation nom et prenom utilisateur
+/*      Recupérer les données utilisateur pour les affecter au label NomUtilisateur
+ *      //Affectation nom et prenom utilisateur
         QSqlQuery query;
         query.prepare("SELECT NomUtilisateur, PrenomUtilisateur FROM Utilisateurs "
                       "WHERE IdUtilisateur = 1 ");
@@ -45,22 +47,24 @@ Accueil::Accueil(QWidget *parent) :
             {
                 ui->aLabelNomUtilisateur->setText(query.value(1).toString() + " " + query.value(2).toString());
             }
-          //  connexion.closeConnexion();
         }
+*/
     }
     else
     {
         //Echec
         lanceApp=false;
     }
-    //Labels
-   // ui->aLabelHello->setStyleSheet("background-color:white; font-size: 15px; color: orange;");
+
+    //Label Bonjour
     ui->aLabelHello->setStyleSheet("color: white;");
     ui->aLabelHello->setText("Bonjour");
 
+    //Label saison culturelle
     ui->aLabelNomUtilisateur->setStyleSheet("color: white;");
-    //ui->aLabelNomUtilisateur->setText("Connexion Monoposte \n Saison 2017 / 2018");
+    ui->aLabelNomUtilisateur->setText("Connexion Monoposte \n Saison 2017 / 2018");
 
+    //Affectation de la date du jour
     ui->aLabelDate->setStyleSheet("color: white;");
     ui->aLabelDate->setText(QDate::currentDate().toString("dd - MM - yyyy"));
 

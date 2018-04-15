@@ -70,7 +70,6 @@ void Utilisateur::ViderLesChamps()
 //Rendre les champs cliquables
 void Utilisateur::RendreLesChampsUserNameEtPassWordCliquables()
 {
-
     ui->uTxtUsername->setEnabled(true);
     ui->uTxtPassword->setEnabled(true);
 }
@@ -119,6 +118,7 @@ void Utilisateur::on_uBtnAjouter_clicked()
 
             query.prepare("INSERT INTO Utilisateurs (NomUtilisateur, PrenomUtilisateur, Username, Password, Administrateur) "
                           "VALUES (:nomUtilisateur, :prenomUtilisateur, :username, :passeword, :adminGroup)");
+
             query.bindValue(":nomUtilisateur", nomUtilisateur);
             query.bindValue(":prenomUtilisateur", prenomUtilisateur);
             query.bindValue(":username", username);
@@ -193,7 +193,6 @@ void Utilisateur::on_uBtnModifier_clicked()
         QSqlQuery query;
 
         query.prepare("UPDATE Utilisateurs SET "
-
                       "NomUtilisateur = :nomUtilisateur, "
                       "PrenomUtilisateur = :prenomUtilisateur, "
                       "Administrateur = :adminGroup "
