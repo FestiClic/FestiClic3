@@ -56,6 +56,11 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lTxtNomUtilisateur_2">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="placeholderText">
               <string>Nom utilisateur</string>
              </property>
@@ -63,6 +68,11 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lTxtMotDePasse_2">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="echoMode">
               <enum>QLineEdit::Password</enum>
              </property>
@@ -73,6 +83,13 @@
            </item>
            <item>
             <widget class="QPushButton" name="lBtnSeConnecter_2">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Se connecter</string>
              </property>
@@ -80,6 +97,13 @@
            </item>
            <item>
             <widget class="QPushButton" name="lBtnAnnuler_2">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Annuler</string>
              </property>
@@ -90,7 +114,7 @@
              <property name="font">
               <font>
                <family>Verdana</family>
-               <pointsize>10</pointsize>
+               <pointsize>12</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>

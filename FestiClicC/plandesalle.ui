@@ -1503,6 +1503,12 @@ color: white;</string>
            <height>22</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Verdana</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
         </widget>
         <widget class="QLabel" name="pLabelIdSpectacle">
          <property name="geometry">
@@ -1512,6 +1518,12 @@ color: white;</string>
            <width>47</width>
            <height>13</height>
           </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Verdana</family>
+           <pointsize>12</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>LabelIdSpectacle</string>
@@ -2106,6 +2118,14 @@ color: white;</string>
           <width>391</width>
           <height>91</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Quitter</string>

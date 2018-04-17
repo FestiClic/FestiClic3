@@ -33,53 +33,53 @@ void AdministrationBillet::MAJTablesViewPage()
 {
     Database connexion;
     //Affecter les données des configurations Salle dans la colomnView
-        QSqlQueryModel * modelConfigSalle = new QSqlQueryModel();  //Model de connexion pointeur modal
+    QSqlQueryModel * modelConfigSalle = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-        //Affecter les données Tarifs dans la colomnView
-            QSqlQueryModel * modelTarif = new QSqlQueryModel();  //Model de connexion pointeur modal
+    //Affecter les données Tarifs dans la colomnView
+    QSqlQueryModel * modelTarif = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-            //Affecter les données Mode de paiement dans la colomnView
-                QSqlQueryModel * modelPaiementMode = new QSqlQueryModel();  //Model de connexion pointeur modal
+    //Affecter les données Mode de paiement dans la colomnView
+    QSqlQueryModel * modelPaiementMode = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        QSqlQuery* queryConfigSalle = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        queryConfigSalle->prepare("SELECT (IntituleConfigSalle) AS ' Configuration des salles ', (Jauge) AS ' Nombre de places ' "
-                       "FROM ConfigSalle ");
-        // /////////////
-        QSqlQuery* queryTarif = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        queryTarif->prepare("SELECT (IntituleTarif) AS '  Intitulé Tarif  ', (Prix) AS 'Prix en euro' "
-                       "FROM Tarifs ");
-        // /////////////
-        QSqlQuery* queryModePaiement = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
-        queryModePaiement->prepare("SELECT (TypeModePaiement) AS '  Modes de paiement acceptés  ' "
-                       "FROM ModePaiement ");
-        // /////////////
+    QSqlQuery* queryConfigSalle = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    queryConfigSalle->prepare("SELECT (IntituleConfigSalle) AS ' Configuration des salles ', (Jauge) AS ' Nombre de places ' "
+                              "FROM ConfigSalle ");
+    // /////////////
+    QSqlQuery* queryTarif = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    queryTarif->prepare("SELECT (IntituleTarif) AS '  Intitulé Tarif  ', (Prix) AS 'Prix en euro' "
+                        "FROM Tarifs ");
+    // /////////////
+    QSqlQuery* queryModePaiement = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
+    queryModePaiement->prepare("SELECT (TypeModePaiement) AS '  Modes de paiement acceptés  ' "
+                               "FROM ModePaiement ");
+    // /////////////
 
-        queryConfigSalle->exec();  //Execution de la requête
-        modelConfigSalle->setQuery(*queryConfigSalle);    //Récuperation des valeurs pointeur de requete
-        ui->TabVConfigSalle->setModel(modelConfigSalle);     //Envoyer les données dans la TabView
-        //Redimentionner les colonnes en fonction du contenu
-        ui->TabVConfigSalle->resizeColumnsToContents();
-        qDebug() << (modelConfigSalle->rowCount());
+    queryConfigSalle->exec();  //Execution de la requête
+    modelConfigSalle->setQuery(*queryConfigSalle);    //Récuperation des valeurs pointeur de requete
+    ui->TabVConfigSalle->setModel(modelConfigSalle);     //Envoyer les données dans la TabView
+    //Redimentionner les colonnes en fonction du contenu
+    ui->TabVConfigSalle->resizeColumnsToContents();
+    qDebug() << (modelConfigSalle->rowCount());
 
-        // //////////
+    // //////////
 
-        queryTarif->exec();  //Execution de la requête
-        modelTarif->setQuery(*queryTarif);    //Récuperation des valeurs pointeur de requete
-        ui->TabVTarif->setModel(modelTarif);     //Envoyer les données dans la TabView
-        //Redimentionner les colonnes en fonction du contenu
-        ui->TabVTarif->resizeColumnsToContents();
-        qDebug() << (modelTarif->rowCount());
+    queryTarif->exec();  //Execution de la requête
+    modelTarif->setQuery(*queryTarif);    //Récuperation des valeurs pointeur de requete
+    ui->TabVTarif->setModel(modelTarif);     //Envoyer les données dans la TabView
+    //Redimentionner les colonnes en fonction du contenu
+    ui->TabVTarif->resizeColumnsToContents();
+    qDebug() << (modelTarif->rowCount());
 
-        // //////////
+    // //////////
 
-        queryModePaiement->exec();  //Execution de la requête
-        modelPaiementMode->setQuery(*queryModePaiement);    //Récuperation des valeurs pointeur de requete
-        ui->TabVMPaiement->setModel(modelPaiementMode);     //Envoyer les données dans la TabView
-        //Redimentionner les colonnes en fonction du contenu
-        ui->TabVMPaiement->resizeColumnsToContents();
-        qDebug() << (modelPaiementMode->rowCount());
+    queryModePaiement->exec();  //Execution de la requête
+    modelPaiementMode->setQuery(*queryModePaiement);    //Récuperation des valeurs pointeur de requete
+    ui->TabVMPaiement->setModel(modelPaiementMode);     //Envoyer les données dans la TabView
+    //Redimentionner les colonnes en fonction du contenu
+    ui->TabVMPaiement->resizeColumnsToContents();
+    qDebug() << (modelPaiementMode->rowCount());
 
 }
 
@@ -221,30 +221,30 @@ void AdministrationBillet::on_AdBBtnAnnulerMPaiement_clicked()
 //Affecté les données aux chanps txt apartir de la tableView ConfigSalle
 void AdministrationBillet::on_TabVConfigSalle_activated(const QModelIndex &index)
 {
-        QString valeur;
-        valeur = ui->TabVConfigSalle->model()->data(index).toString();
+    QString valeur;
+    valeur = ui->TabVConfigSalle->model()->data(index).toString();
 
-        QSqlQuery query;
-        query.prepare("SELECT * FROM ConfigSalle "
-                      "WHERE  IntituleConfigSalle = :valeur "
-                      "OR Jauge = :valeur ");
-        query.bindValue(":valeur", valeur);
-        if(query.exec())
+    QSqlQuery query;
+    query.prepare("SELECT * FROM ConfigSalle "
+                  "WHERE  IntituleConfigSalle = :valeur "
+                  "OR Jauge = :valeur ");
+    query.bindValue(":valeur", valeur);
+    if(query.exec())
+    {
+        while (query.next())
         {
-            while (query.next())
-            {
-                ui->AdBTxtIntitule->setText(query.value(1).toString());
-                ui->AdBTxtNbPlaces->setText(query.value(2).toString());
+            ui->AdBTxtIntitule->setText(query.value(1).toString());
+            ui->AdBTxtNbPlaces->setText(query.value(2).toString());
 
-                //Afficher les champs qui recoivent les données de la requête
-                AfficherLesChampsConfigSalle();
-                ui->AdBBtnModifierFiche->hide();
-            }
+            //Afficher les champs qui recoivent les données de la requête
+            AfficherLesChampsConfigSalle();
+            ui->AdBBtnModifierFiche->hide();
         }
-        else
-        {
-                QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
-        }
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+    }
 }
 
 //Affecté les données aux chanps txt apartir de la tableView Tarif
@@ -272,7 +272,7 @@ void AdministrationBillet::on_TabVTarif_activated(const QModelIndex &index)
     }
     else
     {
-            QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+        QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
 }
 
@@ -297,7 +297,7 @@ void AdministrationBillet::on_TabVMPaiement_activated(const QModelIndex &index)
     }
     else
     {
-            QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+        QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
 }
 
@@ -320,11 +320,11 @@ void AdministrationBillet::on_AdBBtnAjouter_clicked()
 
         if(query.exec())
         {
-           ViderLesChampsConfigSalle();
+            ViderLesChampsConfigSalle();
 
-           QMessageBox::information(this,tr("Ajout nouvelle configuration de salle"), tr("Ajouté avec succès "));
+            QMessageBox::information(this,tr("Ajout nouvelle configuration de salle"), tr("Ajouté avec succès "));
 
-           MAJTablesViewPage();
+            MAJTablesViewPage();
         }
         else
         {
@@ -414,8 +414,8 @@ void AdministrationBillet::on_AdBBtnSupprimer_clicked()
         }
         else
         {
-                qDebug() << "Non Annuler";
-                ViderLesChampsConfigSalle();
+            qDebug() << "Non Annuler";
+            ViderLesChampsConfigSalle();
         }
     }
     else
@@ -445,11 +445,11 @@ void AdministrationBillet::on_AdBBtnAjouterTarif_clicked()
 
         if(query.exec())
         {
-           ViderLesChampsTarif();
+            ViderLesChampsTarif();
 
-           QMessageBox::information(this,tr("Ajout nouveau tarif "), tr("Ajouté avec succès "));
+            QMessageBox::information(this,tr("Ajout nouveau tarif "), tr("Ajouté avec succès "));
 
-           MAJTablesViewPage();
+            MAJTablesViewPage();
 
         }
         else
@@ -539,8 +539,8 @@ void AdministrationBillet::on_AdBBtnSupprimerTarif_clicked()
         }
         else
         {
-                qDebug() << "Non Annuler";
-                ViderLesChampsTarif();
+            qDebug() << "Non Annuler";
+            ViderLesChampsTarif();
         }
     }
     else
@@ -567,11 +567,11 @@ void AdministrationBillet::on_AdBBtnAjouterMPaiement_clicked()
 
         if(query.exec())
         {
-           ViderLesChampsModePaiemenet();
+            ViderLesChampsModePaiemenet();
 
-           QMessageBox::information(this,tr("Ajout nouveau mode de paiement"), tr("Ajouté avec succès "));
+            QMessageBox::information(this,tr("Ajout nouveau mode de paiement"), tr("Ajouté avec succès "));
 
-           MAJTablesViewPage();
+            MAJTablesViewPage();
         }
         else
         {
@@ -620,7 +620,7 @@ void AdministrationBillet::on_AdBBtnSupprimerMPaiement_clicked()
         }
         else
         {
-                qDebug() << "Non Annuler";
+            qDebug() << "Non Annuler";
         }
     }
     else

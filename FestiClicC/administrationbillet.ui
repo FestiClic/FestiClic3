@@ -27,7 +27,7 @@
           <x>0</x>
           <y>0</y>
           <width>1062</width>
-          <height>725</height>
+          <height>722</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -52,7 +52,14 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_8">
                   <item>
-                   <widget class="QTableView" name="TabVMPaiement"/>
+                   <widget class="QTableView" name="TabVMPaiement">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -73,6 +80,14 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AdBBtnModifierFicheMPaiement">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Modifier la fiche</string>
                     </property>
@@ -82,6 +97,14 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_10">
                     <item>
                      <widget class="QPushButton" name="AdBBtnAjouterMPaiement">
+                      <property name="font">
+                       <font>
+                        <family>Verdana</family>
+                        <pointsize>12</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ajouter </string>
                       </property>
@@ -89,6 +112,14 @@
                     </item>
                     <item>
                      <widget class="QPushButton" name="AdBBtnSupprimerMPaiement">
+                      <property name="font">
+                       <font>
+                        <family>Verdana</family>
+                        <pointsize>12</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Supprimer</string>
                       </property>
@@ -98,6 +129,14 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AdBBtnAnnulerMPaiement">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Annuler</string>
                     </property>
@@ -125,7 +164,14 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_6">
                   <item>
-                   <widget class="QTableView" name="TabVTarif"/>
+                   <widget class="QTableView" name="TabVTarif">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -161,6 +207,14 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AdBBtnModifierFicheTarif">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Modifier la fiche</string>
                     </property>
@@ -170,6 +224,14 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_7">
                     <item>
                      <widget class="QPushButton" name="AdBBtnAjouterTarif">
+                      <property name="font">
+                       <font>
+                        <family>Verdana</family>
+                        <pointsize>12</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ajouter </string>
                       </property>
@@ -177,6 +239,14 @@
                     </item>
                     <item>
                      <widget class="QPushButton" name="AdBBtnModifierTarif">
+                      <property name="font">
+                       <font>
+                        <family>Verdana</family>
+                        <pointsize>12</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Modifier</string>
                       </property>
@@ -184,6 +254,14 @@
                     </item>
                     <item>
                      <widget class="QPushButton" name="AdBBtnSupprimerTarif">
+                      <property name="font">
+                       <font>
+                        <family>Verdana</family>
+                        <pointsize>12</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Supprimer</string>
                       </property>
@@ -193,6 +271,14 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AdBBtnAnnulerTarif">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Annuler</string>
                     </property>
@@ -222,7 +308,14 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_2">
                 <item>
-                 <widget class="QTableView" name="TabVConfigSalle"/>
+                 <widget class="QTableView" name="TabVConfigSalle">
+                  <property name="font">
+                   <font>
+                    <family>Verdana</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -254,6 +347,14 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="AdBBtnModifierFiche">
+                  <property name="font">
+                   <font>
+                    <family>Verdana</family>
+                    <pointsize>12</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Modifier la fiche</string>
                   </property>
@@ -263,6 +364,14 @@
                  <layout class="QHBoxLayout" name="horizontalLayout">
                   <item>
                    <widget class="QPushButton" name="AdBBtnAjouter">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Ajouter </string>
                     </property>
@@ -270,6 +379,14 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AdBBtnModifier">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Modifier</string>
                     </property>
@@ -277,6 +394,14 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AdBBtnSupprimer">
+                    <property name="font">
+                     <font>
+                      <family>Verdana</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Supprimer</string>
                     </property>
@@ -286,6 +411,14 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="AdBBtnAnnuler">
+                  <property name="font">
+                   <font>
+                    <family>Verdana</family>
+                    <pointsize>12</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Annuler</string>
                   </property>
@@ -306,6 +439,14 @@
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QPushButton" name="AdBtnQuitter">
+         <property name="font">
+          <font>
+           <family>Verdana</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="text">
           <string>Quitter</string>
          </property>

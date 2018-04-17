@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1232</width>
-    <height>776</height>
+    <width>1505</width>
+    <height>952</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,10 +27,10 @@
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>90</y>
-      <width>891</width>
-      <height>621</height>
+      <x>9</x>
+      <y>9</y>
+      <width>921</width>
+      <height>631</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -45,8 +45,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>889</width>
-       <height>619</height>
+       <width>919</width>
+       <height>629</height>
       </rect>
      </property>
      <widget class="QPushButton" name="aBtnFrequentation">
@@ -670,13 +670,24 @@
      </widget>
     </widget>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>2</width>
+      <height>2</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1232</width>
+     <width>1505</width>
      <height>21</height>
     </rect>
    </property>
@@ -712,7 +723,6 @@
   <tabstop>aBtnAdministratioBillet</tabstop>
   <tabstop>aBtnQuitter</tabstop>
   <tabstop>aBtnFrequentation</tabstop>
-  <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
  <connections/>

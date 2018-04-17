@@ -36,7 +36,7 @@ Accueil::Accueil(QWidget *parent) :
         //Ok
         lanceApp=true;
 
-/*      Recupérer les données utilisateur pour les affecter au label NomUtilisateur
+        /*      Recupérer les données utilisateur pour les affecter au label NomUtilisateur
  *      //Affectation nom et prenom utilisateur
         QSqlQuery query;
         query.prepare("SELECT NomUtilisateur, PrenomUtilisateur FROM Utilisateurs "

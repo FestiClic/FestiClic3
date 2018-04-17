@@ -37,17 +37,29 @@
          <height>291</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="title">
         <string>Actions sur spectacles</string>
        </property>
        <widget class="QLineEdit" name="sTxtJauge">
         <property name="geometry">
          <rect>
-          <x>100</x>
+          <x>150</x>
           <y>210</y>
           <width>133</width>
           <height>20</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="placeholderText">
          <string>Jauge</string>
@@ -58,9 +70,15 @@
          <rect>
           <x>20</x>
           <y>170</y>
-          <width>65</width>
+          <width>121</width>
           <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>Configuration</string>
@@ -69,11 +87,17 @@
        <widget class="QComboBox" name="sCBoxIdConfidSalle">
         <property name="geometry">
          <rect>
-          <x>100</x>
+          <x>150</x>
           <y>170</y>
           <width>31</width>
           <height>20</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
        </widget>
        <widget class="QLabel" name="sLabelIdSpectacle">
@@ -85,6 +109,12 @@
           <height>16</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>IdSpectacle</string>
         </property>
@@ -92,11 +122,17 @@
        <widget class="QLineEdit" name="sTxtIntituleConfig">
         <property name="geometry">
          <rect>
-          <x>140</x>
+          <x>190</x>
           <y>170</y>
           <width>133</width>
           <height>20</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="placeholderText">
          <string>Configuration salle</string>
@@ -105,11 +141,17 @@
        <widget class="QLineEdit" name="sTxtSpectacle">
         <property name="geometry">
          <rect>
-          <x>100</x>
+          <x>150</x>
           <y>50</y>
-          <width>321</width>
+          <width>271</width>
           <height>20</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="placeholderText">
          <string>Spectacle</string>
@@ -124,6 +166,14 @@
           <height>91</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Vider champs</string>
         </property>
@@ -133,9 +183,15 @@
          <rect>
           <x>20</x>
           <y>90</y>
-          <width>23</width>
+          <width>71</width>
           <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>Date</string>
@@ -144,21 +200,33 @@
        <widget class="QTimeEdit" name="timeEdit">
         <property name="geometry">
          <rect>
-          <x>100</x>
+          <x>150</x>
           <y>130</y>
           <width>131</width>
           <height>20</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
        </widget>
        <widget class="QDateEdit" name="dateEdit">
         <property name="geometry">
          <rect>
-          <x>100</x>
+          <x>150</x>
           <y>90</y>
           <width>131</width>
           <height>20</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
        </widget>
        <widget class="QLabel" name="sLabelIdSpectacle_2">
@@ -166,9 +234,15 @@
          <rect>
           <x>20</x>
           <y>50</y>
-          <width>56</width>
+          <width>81</width>
           <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>Spectacle</string>
@@ -179,9 +253,15 @@
          <rect>
           <x>20</x>
           <y>130</y>
-          <width>23</width>
+          <width>71</width>
           <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>Heure</string>
@@ -196,6 +276,12 @@
           <height>16</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Jauge</string>
         </property>
@@ -208,6 +294,14 @@
           <width>151</width>
           <height>91</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Modifier</string>
@@ -222,6 +316,14 @@
           <height>91</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Supprimer</string>
         </property>
@@ -235,6 +337,14 @@
           <height>91</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Ajouter</string>
         </property>
@@ -242,11 +352,17 @@
        <widget class="QLabel" name="sLabelIdConfigSalle">
         <property name="geometry">
          <rect>
-          <x>310</x>
-          <y>180</y>
-          <width>47</width>
-          <height>13</height>
+          <x>340</x>
+          <y>170</y>
+          <width>81</width>
+          <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>TextLabel</string>
@@ -274,6 +390,14 @@
           <height>91</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Quitter</string>
         </property>
@@ -286,6 +410,12 @@
           <width>731</width>
           <height>91</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>TextLabel</string>
@@ -303,6 +433,12 @@
          <width>931</width>
          <height>192</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
       </widget>
      </widget>

@@ -45,7 +45,7 @@ Clients::Clients(QWidget *parent) :
     //ui->cltTxtEmail->setInputMask("@");
 
 
-/*
+    /*
     Login connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
@@ -86,7 +86,7 @@ void Clients::MAJTableV()
     ui->cltTabV->resizeColumnsToContents();
 
     //fermeture de la connexion
-   // connexion.closeConnexion();
+    // connexion.closeConnexion();
     qDebug() << (modal->rowCount());
 }
 
@@ -133,8 +133,6 @@ void Clients::on_cltBtnAjouter_clicked()
     int mob;
     QString abonne;
 
-
-
     civilite = ui->cltCBoxCivilite->currentText();
     nom = ui->cltTxtNom->text();
     prenom = ui->cltTxtPrenom->text();
@@ -177,10 +175,10 @@ void Clients::on_cltBtnAjouter_clicked()
 
                 if(query.exec())
                 {
-                   ViderLesChamps();
+                    ViderLesChamps();
 
-                   //Affichage si ajouter ou pas dans un MessageBox
-                   QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
+                    //Affichage si ajouter ou pas dans un MessageBox
+                    QMessageBox::information(this,tr("Nouveau client"), tr("Nouveau client enregistré"));
 
                     MAJTableV();
                 }
@@ -215,8 +213,6 @@ void Clients::on_cltBtnAjouter_clicked()
 //Bouton modifier client
 void Clients::on_cltBtnModifier_clicked()
 {
-//    Login connexion;
-
     QString civilite;
     QString nom;
     QString prenom;
@@ -311,7 +307,6 @@ void Clients::on_cltBtnSupprimer_clicked()
     if(!ui->cltCBoxCivilite->currentText().isEmpty() && !nomClient.isEmpty()
             && !prenomClient.isEmpty() && !ui->cltCBoxAbonne->currentText().isEmpty())
     {
-
         QMessageBox msgBox;
         msgBox.setText("Voulez-vous vraiment supprimer "+nomClient+ " "+prenomClient+ " ?");
         QPushButton* pButtonYes = msgBox.addButton("Oui", QMessageBox::YesRole);
@@ -342,8 +337,8 @@ void Clients::on_cltBtnSupprimer_clicked()
         }
         else
         {
-                qDebug() << "Non Annuler";
-                ViderLesChamps();
+            qDebug() << "Non Annuler";
+            ViderLesChamps();
         }
     }
     else
@@ -363,16 +358,16 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
 
     QSqlQuery query;
     query.prepare("SELECT * FROM Clients WHERE IdClient = :valeurs "
-                                            "OR Civilite = :valeurs "
-                                            "OR NomClient = :valeurs "
-                                            "OR PrenomClient = :valeurs "
-                                            "OR AdresseClient = :valeurs "
-                                            "OR Cp = :valeurs "
-                                            "OR Ville = :valeurs "
-                                            "OR EmailClient = :valeurs "
-                                            "OR TelClient = :valeurs "
-                                            "OR MobClient = :valeurs "
-                                            "OR Abonne = :valeurs ");
+                  "OR Civilite = :valeurs "
+                  "OR NomClient = :valeurs "
+                  "OR PrenomClient = :valeurs "
+                  "OR AdresseClient = :valeurs "
+                  "OR Cp = :valeurs "
+                  "OR Ville = :valeurs "
+                  "OR EmailClient = :valeurs "
+                  "OR TelClient = :valeurs "
+                  "OR MobClient = :valeurs "
+                  "OR Abonne = :valeurs ");
     query.bindValue(":valeurs", valeurs);
 
     if(query.exec())
@@ -394,7 +389,7 @@ void Clients::on_cltTabV_activated(const QModelIndex &index)
     }
     else
     {
-            QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+        QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
     }
 }
 

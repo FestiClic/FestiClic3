@@ -267,6 +267,12 @@ border-image: none;</string>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QRadioButton" name="bRBtnPlacementLibre">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Placement libre</string>
           </property>
@@ -274,6 +280,12 @@ border-image: none;</string>
         </item>
         <item>
          <widget class="QRadioButton" name="bRBtnPlacementPlan">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Placement sur plan</string>
           </property>
@@ -284,10 +296,24 @@ border-image: none;</string>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QComboBox" name="bCBoxNbPlaces"/>
+         <widget class="QComboBox" name="bCBoxNbPlaces">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="bCBoxNumSiege"/>
+         <widget class="QComboBox" name="bCBoxNumSiege">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -295,16 +321,37 @@ border-image: none;</string>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="1">
          <widget class="QPushButton" name="bBtnClearList">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>X</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QListWidget" name="listWidget"/>
+         <widget class="QListWidget" name="listWidget">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item row="0" column="0">
          <widget class="QListView" name="bListVNumSiege">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::SingleSelection</enum>
           </property>
@@ -323,6 +370,14 @@ border-image: none;</string>
        <height>91</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Suivant</string>
      </property>
@@ -337,6 +392,12 @@ border-image: none;</string>
       <height>91</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>Représentations</string>
     </property>
@@ -349,6 +410,12 @@ border-image: none;</string>
        <height>20</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
     </widget>
     <widget class="QLabel" name="bLabelRepresentation">
      <property name="geometry">
@@ -358,6 +425,12 @@ border-image: none;</string>
        <width>261</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -378,6 +451,12 @@ border-image: none;</string>
        <height>20</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
@@ -394,19 +473,32 @@ border-image: none;</string>
        <x>10</x>
        <y>23</y>
        <width>291</width>
-       <height>22</height>
+       <height>26</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="label_31">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Choisir un spectacle</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="bCBoxRepresentations"/>
+       <widget class="QComboBox" name="bCBoxRepresentations">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -420,6 +512,12 @@ border-image: none;</string>
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>Tarif</string>
     </property>
@@ -431,6 +529,12 @@ border-image: none;</string>
        <width>21</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -448,19 +552,32 @@ border-image: none;</string>
        <x>10</x>
        <y>23</y>
        <width>291</width>
-       <height>22</height>
+       <height>26</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label_45">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Choisir un tarif</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="bCBoxTarif"/>
+       <widget class="QComboBox" name="bCBoxTarif">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -476,6 +593,12 @@ border-image: none;</string>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QLabel" name="bLabelNbPlaces_2">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Prix</string>
         </property>
@@ -483,6 +606,12 @@ border-image: none;</string>
       </item>
       <item>
        <widget class="QLabel" name="bLabelPrix">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
@@ -497,7 +626,7 @@ border-image: none;</string>
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>11</x>
@@ -509,6 +638,12 @@ border-image: none;</string>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QGroupBox" name="groupBox_2">
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="title">
         <string>Client</string>
        </property>
@@ -566,19 +701,32 @@ border-image: none;</string>
           <x>10</x>
           <y>20</y>
           <width>291</width>
-          <height>22</height>
+          <height>26</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QLabel" name="label_27">
+           <property name="font">
+            <font>
+             <family>Verdana</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Choisir un client</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="bCBoxSpectacteur"/>
+          <widget class="QComboBox" name="bCBoxSpectacteur">
+           <property name="font">
+            <font>
+             <family>Verdana</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -590,6 +738,12 @@ border-image: none;</string>
           <width>141</width>
           <height>51</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>Ajouter client</string>
@@ -604,6 +758,12 @@ border-image: none;</string>
           <height>51</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Client concert</string>
         </property>
@@ -612,6 +772,12 @@ border-image: none;</string>
      </item>
      <item>
       <widget class="QPushButton" name="bBtnActiverZoneClient">
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Activer la zone client</string>
        </property>
@@ -628,6 +794,12 @@ border-image: none;</string>
      <width>771</width>
      <height>311</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="title">
     <string>Mode de paiement</string>
@@ -727,6 +899,12 @@ border-image: none;</string>
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Paiement</string>
     </property>
@@ -740,6 +918,12 @@ border-image: none;</string>
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Annuler</string>
     </property>
@@ -749,10 +933,16 @@ border-image: none;</string>
    <property name="geometry">
     <rect>
      <x>650</x>
-     <y>20</y>
+     <y>30</y>
      <width>861</width>
-     <height>721</height>
+     <height>711</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="title">
     <string/>
@@ -2788,6 +2978,14 @@ color: white;</string>
       <height>91</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Annuler</string>
     </property>
@@ -2800,6 +2998,14 @@ color: white;</string>
       <width>181</width>
       <height>91</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">
@@ -2832,6 +3038,14 @@ color: white;</string>
       <width>181</width>
       <height>91</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Quitter</string>

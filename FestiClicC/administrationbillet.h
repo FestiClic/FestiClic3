@@ -16,32 +16,10 @@ public:
     ~AdministrationBillet();
 
 private slots:
+
     void on_AdBBtnModifierFiche_clicked();
 
     void on_AdBBtnAnnuler_clicked();
-
-    //Mise a jour des TableView de la page
-    void MAJTablesViewPage();
-
-    //masquer les champs et boutons
-    void MasquerLesChampsConfigSalle();
-
-    //afficher les champs et boutons
-    void AfficherLesChampsConfigSalle();
-
-    void ViderLesChampsConfigSalle();
-
-    void MasquerLesChampsTarif();
-
-    void AfficherLesChampsTarif();
-
-    void ViderLesChampsTarif();
-
-    void MasquerLesChampsModePaiement();
-
-    void AfficherLesChampsModePaiement();
-
-    void ViderLesChampsModePaiemenet();
 
     void on_AdBBtnModifierFicheTarif_clicked();
 
@@ -77,6 +55,37 @@ private slots:
 
 private:
     Ui::AdministrationBillet *ui;
+
+    //Mise a jour des TableView de la page
+    void MAJTablesViewPage();
+
+    //masquer les champs et boutons
+    void MasquerLesChampsConfigSalle();
+
+    //afficher les champs et boutons
+    void AfficherLesChampsConfigSalle();
+
+    //Vider les champs de la configuration de salle
+    void ViderLesChampsConfigSalle();
+
+    //Masquer les champs tarif
+    void MasquerLesChampsTarif();
+
+    //Afficher les champs tarif
+    void AfficherLesChampsTarif();
+
+    //Vider les champs tarif
+    void ViderLesChampsTarif();
+
+    //Masquer les champs du GroupBox mode de paiement
+    void MasquerLesChampsModePaiement();
+
+    //Afficher les champs du GroupBox mode de paiement
+    void AfficherLesChampsModePaiement();
+
+    //Vider les champs du GroupBox mode de paiement
+    void ViderLesChampsModePaiemenet();
+
 };
 
 #endif // ADMINISTRATIONBILLET_H

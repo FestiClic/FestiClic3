@@ -51,6 +51,8 @@ private slots:
 
     void on_bBtnAnnulerPlan_clicked();
 
+    void on_bBtnActiverZoneClient_clicked();
+
     void on_P1_clicked();
 
     void on_P2_clicked();
@@ -150,8 +152,6 @@ private slots:
     void on_P49_clicked();
 
     void on_P50_clicked();
-
-    void on_bBtnActiverZoneClient_clicked();
 
 private:
     Ui::Billetterie *ui;

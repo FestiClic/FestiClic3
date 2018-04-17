@@ -10,6 +10,12 @@
     <height>560</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Utilisateurs</string>
   </property>
@@ -50,9 +56,15 @@ background-color = rgb(255, 146, 157);
          <rect>
           <x>190</x>
           <y>19</y>
-          <width>731</width>
+          <width>741</width>
           <height>91</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>TextLabel</string>
@@ -69,6 +81,14 @@ background-color = rgb(255, 146, 157);
           <width>151</width>
           <height>91</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color = rgb(255, 146, 157);</string>
@@ -87,6 +107,17 @@ background-color = rgb(255, 146, 157);
          <height>91</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>Ajouter</string>
        </property>
@@ -99,6 +130,25 @@ background-color = rgb(255, 146, 157);
          <width>411</width>
          <height>91</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">    background-color: #58D68D ;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+border-radius: 12px;</string>
        </property>
        <property name="text">
         <string>Vider champs</string>
@@ -113,6 +163,12 @@ background-color = rgb(255, 146, 157);
          <height>255</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
       <widget class="QGroupBox" name="groupBox">
        <property name="geometry">
@@ -123,12 +179,24 @@ background-color = rgb(255, 146, 157);
          <height>261</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="title">
         <string>Actions sur utilisateurs</string>
        </property>
        <layout class="QFormLayout" name="formLayout">
         <item row="0" column="0">
          <widget class="QLabel" name="uLabelIditUtilisateur">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -136,6 +204,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Nom</string>
           </property>
@@ -143,6 +217,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="uTxtNom">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="placeholderText">
            <string>Nom</string>
           </property>
@@ -150,6 +230,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Prénom</string>
           </property>
@@ -157,6 +243,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="uTxtPrenom">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="placeholderText">
            <string>Prénom</string>
           </property>
@@ -164,6 +256,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="uLabelAdministrateur">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Administrateur</string>
           </property>
@@ -171,6 +269,11 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="6" column="0">
          <widget class="QComboBox" name="uCBoxAdministrateur">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <item>
            <property name="text">
             <string>0</string>
@@ -185,6 +288,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="8" column="1">
          <widget class="QLineEdit" name="uTxtUsername">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="placeholderText">
            <string>Username</string>
           </property>
@@ -192,6 +301,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="10" column="1">
          <widget class="QLineEdit" name="uTxtPassword">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="placeholderText">
            <string>Password</string>
           </property>
@@ -199,6 +314,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="10" column="0">
          <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Mot de passe</string>
           </property>
@@ -206,6 +327,12 @@ background-color = rgb(255, 146, 157);
         </item>
         <item row="8" column="0">
          <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Nom d'utilisateur</string>
           </property>
@@ -222,6 +349,14 @@ background-color = rgb(255, 146, 157);
          <height>91</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Supprimer</string>
        </property>
@@ -234,6 +369,14 @@ background-color = rgb(255, 146, 157);
          <width>151</width>
          <height>91</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>Modifier</string>

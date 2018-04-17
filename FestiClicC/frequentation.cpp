@@ -35,7 +35,7 @@ Frequentation::Frequentation(QWidget *parent) :
     ui->fCBoxSpectacleProgramme->setCurrentIndex(-1);
 
     //***********************************************************************
-/*    //Affecter les données des utilisateurs dans la TableView
+    /*    //Affecter les données des utilisateurs dans la TableView
 
     QSqlQueryModel * modal2 = new QSqlQueryModel();
 
@@ -61,7 +61,6 @@ Frequentation::Frequentation(QWidget *parent) :
 void Frequentation::AffecterSpectaclesCloturesDansCombo()
 {
     //Requette pour remplir la ComboBox des spectacles cloturés
-
     QDate aujourdhui;
 
     aujourdhui = QDate::currentDate();
@@ -138,9 +137,7 @@ void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(const QString &
             query.next();
             ui->fTxtRemplissage->setText(query.value(0).toString());
 
-
             //Calculer le pourcentage de la fréquentation du spectacle
-
             double pourcentage;
             double valeurRemplissage;
             double jauge;
@@ -157,7 +154,6 @@ void Frequentation::on_fCBoxSpectaclecloture_currentIndexChanged(const QString &
             ui->progressBar->setMaximum(100);
             ui->progressBar->setMinimum(0);
             ui->progressBar->setValue(pourcentage);
-
         }
     }
     else
@@ -195,7 +191,6 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(const QString
             query.exec();
             query.next();
             ui->fTxtRemplissage_2->setText(query.value(0).toString());
-
 
             //Calculer le pourcentage de la fréquentation du spectacle
 

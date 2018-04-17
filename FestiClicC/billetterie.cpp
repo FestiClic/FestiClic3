@@ -1039,14 +1039,14 @@ void Billetterie::VerifierSiReserve()
 void Billetterie::InitialisationEtatDesSieges()
 {
     ui->P1->setStyleSheet("border-image: url(:CircPlusGreen.png);");
-    ui->P2->setStyleSheet("border-image: url(:wheelchairVert.png);");   //Fauteuil handicapé
+    ui->P2->setStyleSheet("border-image: url(:wheelchairCircVert.png);");   //Fauteuil handicapé
     ui->P3->setStyleSheet("border-image: url(:CircPlusGreen.png);");
     ui->P4->setStyleSheet("border-image: url(:CircPlusGreen.png);");
     ui->P5->setStyleSheet("border-image: url(:CircPlusGreen.png);");
     ui->P6->setStyleSheet("border-image: url(:CircPlusGreen.png);");
     ui->P7->setStyleSheet("border-image: url(:CircPlusGreen.png);");
     ui->P8->setStyleSheet("border-image: url(:CircPlusGreen.png);");
-    ui->P9->setStyleSheet("border-image: url(:wheelchairVert.png);");   //Fauteuil handicapé
+    ui->P9->setStyleSheet("border-image: url(:wheelchairCircVert.png);");   //Fauteuil handicapé
     ui->P10->setStyleSheet("border-image: url(:CircPlusGreen.png);");
     ui->P11->setStyleSheet("border-image: url(:CircPlusGreen.png);");
     ui->P12->setStyleSheet("border-image: url(:CircPlusGreen.png);");
