@@ -48,6 +48,9 @@ private slots:
 
 private:
     Ui::Accueil *ui;
+
+    //Insérer données dans la base de données
+    void InsererDonneesDansBDD();
 };
 
 #endif // ACCUEIL_H

@@ -26,6 +26,9 @@ Accueil::Accueil(QWidget *parent) :
     Database connexion;
     connexion.openConnexion();
 
+    //Insérer un compte utilisateur de démonstartion
+    InsererDonneesDansBDD();
+
     //ouverture de la page login
     Login login;
     login.setModal(true);
@@ -68,9 +71,14 @@ Accueil::Accueil(QWidget *parent) :
     ui->aLabelDate->setStyleSheet("color: white;");
     ui->aLabelDate->setText(QDate::currentDate().toString("dd - MM - yyyy"));
 
+}
 
+void Accueil::InsererDonneesDansBDD()
+{
+    QSqlQuery query;
 
-
+    query.exec("INSERT INTO Utilisateurs (IdUtilisateur, NomUtilisateur, PrenomUtilisateur, Username, Password) "
+                  "VALUES (1, 'CompteDemonstration', 'Demonstation', 'demo', 'demo')");
 }
 
 Accueil::~Accueil()
