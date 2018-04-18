@@ -30,7 +30,7 @@ bool Database::openConnexion()
 
 
 
-/*
+
     if(maBaseDeDonnee.open())
     {
         qDebug()<<("Connexion...");
@@ -41,7 +41,7 @@ bool Database::openConnexion()
         qDebug()<<("Connexion a ouvrir");
         return false;
     }
- */
+
 }
 
 void Database::CreerLesTablesDeLaBDD()
@@ -86,25 +86,17 @@ void Database::CreerLesTablesDeLaBDD()
                               "`Abonne` TEXT );");
 
     //Créer la table configuration des salles
-    //QSqlQuery creerTableConfigSalle;
-
     query.exec("CREATE TABLE IF NOT EXISTS ConfigSalle ( "
                                   "`IdConfigSalle` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                                   "`IntituleConfigSalle` TEXT, "
-                                  "`Jauge` INTEGER, "
-                                  "`IdPlace` INTEGER, "
-                                  "FOREIGN KEY(`IdPlace`) REFERENCES `Places`(`IdPlace`) );");
+                                  "`Jauge` INTEGER );");
 
     //Créer la table modes de paiement
-    //QSqlQuery creerTableModePaiement;
-
     query.exec("CREATE TABLE IF NOT EXISTS ModePaiement ( "
                                    "`IdModePaiement` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
                                    "`TypeModePaiement` TEXT );");
 
     //Créer la table places
-    //QSqlQuery creerTablePlaces;
-
     query.exec("CREATE TABLE IF NOT EXISTS Places ( "
                              "`IdPlace` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                              "`NumPlace` TEXT NOT NULL, "
@@ -114,15 +106,11 @@ void Database::CreerLesTablesDeLaBDD()
                              "FOREIGN KEY(`IdSpectacleP`) REFERENCES `Spectacles`(`IdSpectacle`) );");
 
     //Créer la table Sièges
-    //QSqlQuery creerTableSieges;
-
     query.exec("CREATE TABLE IF NOT EXISTS Sieges ( "
                              "`IdSiege` INTEGER NOT NULL, "
                              "`NumSiege` TEXT, PRIMARY KEY(`IdSiege`) );");
 
     //Créer la table Spectacles
-    //QSqlQuery creerTableSpectacles;
-
     query.exec("CREATE TABLE IF NOT EXISTS Spectacles ( "
                                  "`IdSpectacle` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
                                  "`Spectacle` TEXT NOT NULL, "
@@ -132,16 +120,12 @@ void Database::CreerLesTablesDeLaBDD()
                                  "`IdConfigSalle` INTEGER, FOREIGN KEY(`IdConfigSalle`) REFERENCES `ConfigSalle`(`IdConfigSalle`) );");
 
     //Créer la table Tarifs
-    //QSqlQuery creerTableTarifs;
-
     query.exec("CREATE TABLE IF NOT EXISTS Tarifs ( "
                              "`IdTarif` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
                              "`IntituleTarif` TEXT NOT NULL, "
                              "`Prix` REAL );");
 
     //Créer la table Transactions
-    //QSqlQuery creerTableTransactions;
-
     query.exec("CREATE TABLE IF NOT EXISTS Transactions ( "
                                    "`IdTransaction` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
                                    "`IdClient` INTEGER, "
@@ -155,8 +139,6 @@ void Database::CreerLesTablesDeLaBDD()
                                    "FOREIGN KEY(`IdClient`) REFERENCES `Clients`(`IdClient`) );");
 
     //Créer la table Utilisateurs
-    //QSqlQuery creerTableUtilisateurs;
-
     query.exec("CREATE TABLE IF NOT EXISTS Utilisateurs ( "
                                    "`IdUtilisateur` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
                                    "`NomUtilisateur` TEXT NOT NULL, "
@@ -164,7 +146,6 @@ void Database::CreerLesTablesDeLaBDD()
                                    "`Administrateur` NUMERIC DEFAULT 0, "
                                    "`Username` TEXT NOT NULL, "
                                    "`Password` TEXT );");
-
 
 
 
