@@ -16,6 +16,9 @@ public:
     //fermeture de la connexion bdd
     void closeConnexion();
 
+    //Création des tables de la Base de données
+    void CreerLesTablesDeLaBDD();
+
 private:
 
 };

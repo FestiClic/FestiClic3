@@ -72,8 +72,6 @@ void Clients::MAJTableV()
     Database connexion;
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-    //connexion.openConnexion();
-
     //Requette pour remplir la TableView
     QSqlQuery* query = new QSqlQuery(connexion.maBaseDeDonnee); //Création de la variable query qui pointe sur QSqlquery
     query->prepare("SELECT * FROM Clients ORDER BY NomClient");
