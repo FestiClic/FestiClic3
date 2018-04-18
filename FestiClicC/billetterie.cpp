@@ -397,6 +397,7 @@ void Billetterie::on_bBtnSuivant_clicked()
 {
     // Initialiser le champs
     ui->bTxtCb->clear();
+    ui->bLabelAlerte->hide();
 
     //changer la valeur d'index du comboNbPlace
     if(ui->listWidget->count() != 0)

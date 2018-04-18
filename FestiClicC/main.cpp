@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
             )
         );
 
-        w.show();
+        w.showFullScreen();
     }
     else
     {

@@ -31,12 +31,10 @@ SOURCES += \
     spectacles.cpp \
     clients.cpp \
     billetterie.cpp \
-    modepaiement.cpp \
     plandesalle.cpp \
     utilisateur.cpp \
     administrationbillet.cpp \
-    frequentation.cpp \
-    recttes.cpp
+    frequentation.cpp
 
 HEADERS += \
         accueil.h \
@@ -45,12 +43,10 @@ HEADERS += \
     spectacles.h \
     clients.h \
     billetterie.h \
-    modepaiement.h \
     plandesalle.h \
     utilisateur.h \
     administrationbillet.h \
-    frequentation.h \
-    recttes.h
+    frequentation.h
 
 FORMS += \
         accueil.ui \
@@ -58,13 +54,10 @@ FORMS += \
     spectacles.ui \
     clients.ui \
     billetterie.ui \
-    modepaiement.ui \
     plandesalle.ui \
-    basededonnee.ui \
     utilisateur.ui \
     administrationbillet.ui \
-    frequentation.ui \
-    recttes.ui
+    frequentation.ui
 
 RESOURCES += \
     images.qrc

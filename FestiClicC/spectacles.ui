@@ -62,7 +62,7 @@
          </font>
         </property>
         <property name="placeholderText">
-         <string>Jauge</string>
+         <string/>
         </property>
        </widget>
        <widget class="QLabel" name="sLabelIdConfigSalle1">
@@ -154,7 +154,7 @@
          </font>
         </property>
         <property name="placeholderText">
-         <string>Spectacle</string>
+         <string/>
         </property>
        </widget>
        <widget class="QPushButton" name="sBtnViderChamps">

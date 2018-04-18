@@ -133,22 +133,12 @@ background-color = rgb(255, 146, 157);
        </property>
        <property name="font">
         <font>
-         <pointsize>-1</pointsize>
          <underline>false</underline>
          <strikeout>false</strikeout>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">    background-color: #58D68D ;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-border-radius: 12px;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Vider champs</string>
@@ -224,7 +214,7 @@ border-radius: 12px;</string>
            </font>
           </property>
           <property name="placeholderText">
-           <string>Nom</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -250,7 +240,7 @@ border-radius: 12px;</string>
            </font>
           </property>
           <property name="placeholderText">
-           <string>Prénom</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -295,7 +285,7 @@ border-radius: 12px;</string>
            </font>
           </property>
           <property name="placeholderText">
-           <string>Username</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -308,7 +298,7 @@ border-radius: 12px;</string>
            </font>
           </property>
           <property name="placeholderText">
-           <string>Password</string>
+           <string/>
           </property>
          </widget>
         </item>

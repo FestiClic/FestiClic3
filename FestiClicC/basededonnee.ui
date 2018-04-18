@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>BaseDeDonnee</class>
- <widget name="BaseDeDonnee" class="QDialog">
+ <widget class="QDialog" name="BaseDeDonnee">
   <property name="geometry">
    <rect>
     <x>0</x>
