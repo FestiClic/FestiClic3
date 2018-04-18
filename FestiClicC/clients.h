@@ -31,8 +31,6 @@ private slots:
 
     void on_cltBtnViderChamps_clicked();
 
-
-
 private:
     Ui::Clients *ui;
 

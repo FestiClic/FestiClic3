@@ -15,6 +15,8 @@
 #include <QTime>
 #include <QTabWidget>
 #include <QDesktopWidget>
+#include <QVector>
+#include <QDebug>
 
 Accueil::Accueil(QWidget *parent) :
     QMainWindow(parent),
@@ -75,120 +77,120 @@ Accueil::Accueil(QWidget *parent) :
 
 void Accueil::InsererDonneesDansBDD()
 {
+    //Données en dur pour la démonstration de l'application
+
     //Insérer un compte utilisateur de démonstartion
     QSqlQuery query;
 
     query.exec("INSERT INTO Utilisateurs (IdUtilisateur, NomUtilisateur, PrenomUtilisateur, Username, Password) "
-                            "VALUES (1, 'CompteDemonstration', 'Demonstation', 'demo', 'demo')");
-
+               "VALUES (1, 'CompteDemonstration', 'Demonstation', 'demo', 'demo')");
 
 
     //Insérer données pour le compte de démonstration
- /*
+
     //Billet
-    query.exec("INSERT INTO Billets ( "
-                       "`IdBillet` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-                       "`NumBillet` TEXT, "
-                       "`IdClient` INTEGER, "
-                       "`IdSpectacle` INTEGER, "
-                       "`IdTarif` INTEGER, "
-                       "`IdPlace` INTEGER, FOREIGN KEY(`IdSpectacle`) "
-                       "REFERENCES `Spectacles`(`IdSpectacle`), "
-                       "FOREIGN KEY(`IdPlace`) REFERENCES `Places`(`IdPlace`), "
-                       "FOREIGN KEY(`IdClient`) REFERENCES `Clients`(`IdClient`), "
-                       "FOREIGN KEY(`IdTarif`) REFERENCES `Tarifs`(`IdTarif`) );");
-*/
+    query.exec("INSERT INTO Billets (`IdBillet`, `NumBillet`) "
+               "VALUES (1, 1) ");
 
     //Clients
     query.exec("INSERT INTO Clients (`IdClient`, `Civilite`, `NomClient`, `PrenomClient`, `EmailClient`, "
-                              "`AdresseClient`, `Cp`,`Ville`, `TelClient`, `MobClient`, `Abonne` )"
-                              "VALUES (1, 'Mme', 'ADNET', 'Francoise', 'adnet.francoise@yahoo.fr',"
-                              "'Route de Scherwiller', '67600', 'Sélestat', '0301234567', '0601234567', 'Abonné(e)' )");
+               "`AdresseClient`, `Cp`,`Ville`, `TelClient`, `MobClient`, `Abonne` )"
+               "VALUES (1, 'Mme', 'ADNET', 'Francoise', 'adnet.francoise@yahoo.fr',"
+               "'Route de Scherwiller', '67600', 'Sélestat', '0301234567', '0601234567', 'Abonné(e)' ), "
+               "(2, 'Mme', 'ADNES', 'Emmanuelle', 'addes.emmanuelle@yahoo.fr',"
+               "'Route des Blés', '68000', 'Colmar', '0381234568', '0681234569', 'Non abonné(e)' ), "
+               "(3, 'Mr', 'PIGNON', 'François', 'ddc@lediner.fr',"
+               "'Route George Van Brugel', '67000', 'Strasbourg', '0388234568', '0681234569', 'Abonné(e)' ) ");
 
-    query.exec("INSERT INTO Clients (`IdClient`, `Civilite`, `NomClient`, `PrenomClient`, `EmailClient`, "
-                              "`AdresseClient`, `Cp`,`Ville`, `TelClient`, `MobClient`, `Abonne` )"
-                              "VALUES (2, 'Mme', 'ADNES', 'Emmanuelle', 'addes.emmanuelle@yahoo.fr',"
-                              "'Route des Blés', '68000', 'Colmar', '0381234568', '0681234569', 'Non abonné(e)' )");
-
-    query.exec("INSERT INTO Clients (`IdClient`, `Civilite`, `NomClient`, `PrenomClient`, `EmailClient`, "
-                              "`AdresseClient`, `Cp`,`Ville`, `TelClient`, `MobClient`, `Abonne` )"
-                              "VALUES (3, 'Mr', 'PIGNON', 'François', 'ddc@lediner.fr',"
-                              "'Route George Van Brugel', '67000', 'Strasbourg', '0388234568', '0681234569', 'Abonné(e)' )");
 
     //Configuration des salles
-    query.exec("INSERT INTO Clients (`IdConfigSalle`, `IntituleConfigSalle`, `Jauge` )"
-                              "VALUES (1, 'Placement numérotée', '50' )");
-
-    query.exec("INSERT INTO Clients (`IdConfigSalle`, `IntituleConfigSalle`, `Jauge` )"
-                              "VALUES (2, 'Placement libre', '50' )");
-
-    query.exec("INSERT INTO Clients (`IdConfigSalle`, `IntituleConfigSalle`, `Jauge` )"
-                              "VALUES (3, 'Assis debout', '150' )");
-
-    query.exec("INSERT INTO Clients (`IdConfigSalle`, `IntituleConfigSalle`, `Jauge` )"
-                              "VALUES (4, 'Fosse concert', '300' )");
-
-    query.exec("INSERT INTO Clients (`IdConfigSalle`, `IntituleConfigSalle`, `Jauge` )"
-                              "VALUES (5, 'Café concert', '40' )");
-
-/*
+    query.exec("INSERT INTO ConfigSalle (`IdConfigSalle`, `IntituleConfigSalle`, `Jauge` )"
+               "VALUES (1, 'Placement numérotée', '50' ), "
+               "(2, 'Placement libre', '50' ) ");
 
     //Modes de paiement
-    query.exec("CREATE TABLE IF NOT EXISTS ModePaiement ( "
-                                   "`IdModePaiement` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-                                   "`TypeModePaiement` TEXT );");
+    query.exec("INSERT INTO ModePaiement (`IdModePaiement`, `TypeModePaiement` )"
+               "VALUES (1, 'Carte bancaire' ), "
+               "(2, 'Espèces' ), "
+               "(3, 'Chèque' ), "
+               "(4, 'Chèque culture' ), "
+               "(5, 'Chèque cadeau' ) ");
 
-    //Places
-    query.exec("CREATE TABLE IF NOT EXISTS Places ( "
-                             "`IdPlace` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-                             "`NumPlace` TEXT NOT NULL, "
-                             "`NumPlacePlan` TEXT, "
-                             "`Reserve` NUMERIC DEFAULT 0, "
-                             "`IdSpectacleP` INTEGER, "
-                             "FOREIGN KEY(`IdSpectacleP`) REFERENCES `Spectacles`(`IdSpectacle`) );");
 
-    //Sièges
-    query.exec("CREATE TABLE IF NOT EXISTS Sieges ( "
-                             "`IdSiege` INTEGER NOT NULL, "
-                             "`NumSiege` TEXT, PRIMARY KEY(`IdSiege`) );");
 
-    //Spectacles
-    query.exec("CREATE TABLE IF NOT EXISTS Spectacles ( "
-                                 "`IdSpectacle` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-                                 "`Spectacle` TEXT NOT NULL, "
-                                 "`Date` TEXT NOT NULL, "
-                                 "`Heure` NUMERIC NOT NULL, "
-                                 "`JaugeSpectacle` INTEGER, "
-                                 "`IdConfigSalle` INTEGER, FOREIGN KEY(`IdConfigSalle`) REFERENCES `ConfigSalle`(`IdConfigSalle`) );");
+    /*
+    //Transactions
+    query.exec("INSERT INTO Transactions (`IdTransaction` )"
+                              "VALUES (100 )");
+*/
 
     //Tarifs
-    query.exec("CREATE TABLE IF NOT EXISTS Tarifs ( "
-                             "`IdTarif` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-                             "`IntituleTarif` TEXT NOT NULL, "
-                             "`Prix` REAL );");
+    query.exec("INSERT INTO Tarifs (`IdTarif`, `IntituleTarif`, `Prix` )"
+               "VALUES (1, 'Plein Tarif', '21.00' ),"
+               "(2, 'Tarif Réduit', '12.60' ), "
+               "(3, 'Carte Culture', '6.00' ), "
+               "(4, 'Carte VitaCulture', '5.50' ), "
+               "(5, 'Les scolaires', '4.50' ), "
+               "(6, 'Invité Cie', '0.00' ), "
+               "(7, 'Presse', '0.00' ) ");
 
-    //Transactions
-    query.exec("CREATE TABLE IF NOT EXISTS Transactions ( "
-                                   "`IdTransaction` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-                                   "`IdClient` INTEGER, "
-                                   "`IdSpectacle` INTEGER, "
-                                   "`IdTarif` INTEGER, "
-                                   "`IdModePaiement` INTEGER, "
-                                   "`NombreDePlaces` INTEGER, "
-                                   "FOREIGN KEY(`IdTarif`) REFERENCES `Tarifs`(`IdTarif`), "
-                                   "FOREIGN KEY(`IdSpectacle`) REFERENCES `Spectacles`(`IdSpectacle`), "
-                                   "FOREIGN KEY(`IdModePaiement`) REFERENCES `ModePaiement`(`IdModePaiement`), "
-                                   "FOREIGN KEY(`IdClient`) REFERENCES `Clients`(`IdClient`) );");
+    //Sièges
+    query.exec("INSERT INTO Sieges (`IdSiege`, `NumSiege` )"
+               "VALUES (1 , 'PA1' ), "
+               "(2 , 'PA2' ), "
+               "(3 , 'PA3' ), "
+               "(4 , 'PA4' ), "
+               "(5 , 'PA5' ), "
+               "(6 , 'PA6' ), "
+               "(7 , 'PA7' ), "
+               "(8 , 'PA8' ), "
+               "(9 , 'PA9' ), "
+               "(10 , 'PA10' ), "
+               "(11 , 'PA11' ), "
+               "(12 , 'PA12' ), "
+               "(13 , 'PA13' ), "
+               "(14 , 'PA14' ), "
+               "(15 , 'PA15' ), "
+               "(16 , 'PA16' ), "
+               "(17 , 'PA17' ), "
+               "(18 , 'PA18' ), "
+               "(19 , 'PA19' ), "
+               "(20 , 'PA20' ), "
+               "(21 , 'PA21' ), "
+               "(22 , 'PA22' ), "
+               "(23 , 'PA23' ), "
+               "(24 , 'PA24' ), "
+               "(25 , 'PA25' ), "
+               "(26 , 'PA26' ), "
+               "(27 , 'PA27' ), "
+               "(28 , 'PA28' ), "
+               "(29 , 'PA29' ), "
+               "(30 , 'PA30' ), "
+               "(31 , 'PA31' ), "
+               "(32 , 'PA32' ), "
+               "(33 , 'PA33' ), "
+               "(34 , 'PA34' ), "
+               "(35 , 'PA35' ), "
+               "(36 , 'PA36' ), "
+               "(37 , 'PA37' ), "
+               "(38 , 'PA38' ), "
+               "(39 , 'PA39' ), "
+               "(40 , 'PA40' ), "
+               "(41 , 'PA41' ), "
+               "(42 , 'PA42' ), "
+               "(43 , 'PA43' ), "
+               "(44 , 'PA44' ), "
+               "(45 , 'PA45' ), "
+               "(46 , 'PA46' ), "
+               "(47 , 'PA47' ), "
+               "(48 , 'PA48' ), "
+               "(49 , 'PA49' ), "
+               "(50 , 'PA50' ) ");
 
-    //Utilisateurs
-    query.exec("CREATE TABLE IF NOT EXISTS Utilisateurs ( "
-                                   "`IdUtilisateur` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
-                                   "`NomUtilisateur` TEXT NOT NULL, "
-                                   "`PrenomUtilisateur` TEXT NOT NULL, "
-                                   "`Administrateur` NUMERIC DEFAULT 0, "
-                                   "`Username` TEXT NOT NULL, "
-                                   "`Password` TEXT );");
- */
+    //Spectacles
+    query.exec("INSERT INTO Spectacles (IdSpectacle, Spectacle, Date, Heure, IdConfigSalle, JaugeSpectacle) "
+               "VALUES (1, 'INFERNO', '12/05/2016', '16:00', 1, 50), "
+               "(2, 'CEUX QUI ERRENT NE SE TROMPENT PAS', '15/05/2016', '20:00', 2, 50 ) ");
 
 }
 

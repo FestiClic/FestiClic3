@@ -83,6 +83,9 @@
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
                     <property name="placeholderText">
                      <string/>
                     </property>
@@ -107,6 +110,9 @@
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
                     <property name="placeholderText">
                      <string/>
                     </property>
@@ -130,6 +136,9 @@
                      <font>
                       <pointsize>12</pointsize>
                      </font>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                     <property name="placeholderText">
                      <string/>
@@ -251,6 +260,9 @@
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
                     <property name="placeholderText">
                      <string/>
                     </property>
@@ -275,6 +287,9 @@
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
                     <property name="placeholderText">
                      <string/>
                     </property>
@@ -298,6 +313,9 @@
                      <font>
                       <pointsize>12</pointsize>
                      </font>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                     <property name="placeholderText">
                      <string/>

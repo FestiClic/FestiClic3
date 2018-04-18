@@ -15,13 +15,13 @@ int main(int argc, char *argv[])
         //w.setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, w.size(), qApp->desktop()->availableGeometry()));
         //Centrer la fenêtre sur l'ecran
         w.setGeometry(
-            QStyle :: alignedRect (
-                Qt :: LeftToRight ,
-                Qt :: AlignCenter ,
-                w.size(),
-                qApp->desktop()->availableGeometry()
-            )
-        );
+                    QStyle :: alignedRect (
+                        Qt :: LeftToRight ,
+                        Qt :: AlignCenter ,
+                        w.size(),
+                        qApp->desktop()->availableGeometry()
+                        )
+                    );
 
         w.showFullScreen();
     }

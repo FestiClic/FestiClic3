@@ -225,10 +225,3 @@ void Frequentation::on_cltBtnQuitter_clicked()
 {
     this->close();
 }
-
-/*Requete
- *
-*/
-
-
-

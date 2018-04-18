@@ -146,9 +146,9 @@ void Spectacles::on_sBtnAjouter_clicked()
             {
                 ViderLesChamps();
 
-               QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
+                QMessageBox::information(this,tr("Ajout spectacle"), tr("Spectacle ajouter au catalague"));
 
-               MAJTableV();
+                MAJTableV();
 
                 // parie id spectacle necessaire pour tab places
                 int idSpectacle;
@@ -169,7 +169,7 @@ void Spectacles::on_sBtnAjouter_clicked()
                 //Insérer la liste des sieges a la tables Places pour le spectacle créé
                 QSqlQuery queryInsertPlaces;
                 queryInsertPlaces.prepare("INSERT INTO Places (NumPlace, IdSpectacleP) "
-                              "SELECT NumSiege, :idSpectacle FROM Sieges ");
+                                          "SELECT NumSiege, :idSpectacle FROM Sieges ");
                 queryInsertPlaces.bindValue(":idSpectacle", idSpectacle);
                 queryInsertPlaces.exec();
             }
@@ -189,8 +189,8 @@ void Spectacles::on_sBtnAjouter_clicked()
     else
     {
 
-//A coder
-//sécuriser la date si date = today !!!!!
+        //A coder
+        //sécuriser la date si date = today !!!!!
         ui->sLabelAlerte->show();
         ui->sLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->sLabelAlerte->setText("Tous les champs sont obligatoires");
@@ -200,7 +200,7 @@ void Spectacles::on_sBtnAjouter_clicked()
 //Modification a corriger pb requete ajout ou non de champ ID
 void Spectacles::on_sBtnModifier_clicked()
 {
-   // Login connexion;
+    // Login connexion;
 
     QString spectacle;
     QString date;
@@ -255,8 +255,8 @@ void Spectacles::on_sBtnModifier_clicked()
     else
     {
 
-//A coder
-//sécuriser la date si date = today !!!!!
+        //A coder
+        //sécuriser la date si date = today !!!!!
         ui->sLabelAlerte->show();
         ui->sLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
         ui->sLabelAlerte->setText("Tous les champs sont obligatoires !");
@@ -341,8 +341,8 @@ void Spectacles::on_sBtnSupprimer_clicked()
         }
         else
         {
-          qDebug() << "Non Annuler";
-          ViderLesChamps();
+            qDebug() << "Non Annuler";
+            ViderLesChamps();
         }
     }
     else
@@ -358,33 +358,33 @@ void Spectacles::on_sTabV_activated(const QModelIndex &index)
 {
 
 
-        QString valeur;
+    QString valeur;
 
-        valeur = ui->sTabV->model()->data(index).toString();
+    valeur = ui->sTabV->model()->data(index).toString();
 
-        QSqlQuery query;
-        query.prepare("SELECT * FROM Spectacles "
-                      "WHERE  IdSpectacle = '"+valeur+"'"
-                                                "OR Spectacle = '"+valeur+"'"
-                                                "OR Date = '"+valeur+"'"
-                                                "OR Heure = '"+valeur+"'"
-                                                "OR JaugeSpectacle = '"+valeur+"' ");
-        if(query.exec())
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Spectacles "
+                  "WHERE  IdSpectacle = '"+valeur+"'"
+                                                  "OR Spectacle = '"+valeur+"'"
+                                                                            "OR Date = '"+valeur+"'"
+                                                                                                 "OR Heure = '"+valeur+"'"
+                                                                                                                       "OR JaugeSpectacle = '"+valeur+"' ");
+    if(query.exec())
+    {
+        while (query.next())
         {
-            while (query.next())
-            {
-                ui->sLabelIdSpectacle->setText(query.value(0).toString());
-                ui->sTxtSpectacle->setText(query.value(1).toString());
-                ui->dateEdit->setDate(query.value(2).toDate());
-                ui->timeEdit->setTime(query.value(3).toTime());
-                ui->sTxtJauge->setText(query.value(4).toString());
-                ui->sCBoxIdConfidSalle->setCurrentText(query.value(5).toString());
-            }
+            ui->sLabelIdSpectacle->setText(query.value(0).toString());
+            ui->sTxtSpectacle->setText(query.value(1).toString());
+            ui->dateEdit->setDate(query.value(2).toDate());
+            ui->timeEdit->setTime(query.value(3).toTime());
+            ui->sTxtJauge->setText(query.value(4).toString());
+            ui->sCBoxIdConfidSalle->setCurrentText(query.value(5).toString());
         }
-        else
-        {
-                QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
-        }
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Erreur:"), query.lastError().text());
+    }
 }
 
 void Spectacles::on_sBtnViderChamps_clicked()

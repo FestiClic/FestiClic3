@@ -89,7 +89,7 @@
          <rect>
           <x>150</x>
           <y>170</y>
-          <width>31</width>
+          <width>51</width>
           <height>20</height>
          </rect>
         </property>
@@ -122,9 +122,9 @@
        <widget class="QLineEdit" name="sTxtIntituleConfig">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>210</x>
           <y>170</y>
-          <width>133</width>
+          <width>211</width>
           <height>20</height>
          </rect>
         </property>
@@ -353,7 +353,7 @@
         <property name="geometry">
          <rect>
           <x>340</x>
-          <y>170</y>
+          <y>130</y>
           <width>81</width>
           <height>16</height>
          </rect>
@@ -437,7 +437,7 @@
        <property name="font">
         <font>
          <family>Verdana</family>
-         <pointsize>12</pointsize>
+         <pointsize>11</pointsize>
         </font>
        </property>
       </widget>

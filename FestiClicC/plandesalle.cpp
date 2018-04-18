@@ -28,8 +28,8 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
 
     //Masquer le label IdSpectacle
     ui->pLabelIdSpectacle->hide();
-// ////////////////////
-/*    QButtonGroup* group = new QButtonGroup(this);
+    // ////////////////////
+    /*    QButtonGroup* group = new QButtonGroup(this);
        group->addButton(ui->PA1);
        group->addButton(ui->PA2);
        group->addButton(ui->PA3);
@@ -38,7 +38,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
        group->connect(group, SIGNAL(buttonClicked(QAbstractButton*)),
                                     this, SLOT(steelChange(int)));
 */
-/*
+    /*
 //Vecteur pour stocker mes sieges
     QVector <int*> *numeroPlace = new QVector <int*>;
     int* adresseS = new int;
@@ -60,8 +60,6 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
         qDebug() << "adresseS " << adresseS;
 
 
-
-
         qDebug() << listeSieges;
 
 
@@ -69,14 +67,14 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
         delete adresseS;
 
 */
-/*        qDebug() << "valeur de i" << i;
+    /*        qDebug() << "valeur de i" << i;
         intituleSiege = ((nomSiege.right(4)=i )+numeroPlace.value(i));
         qDebug() << "valeur intitule siege" << intituleSiege;
 */
 
- /*
+    /*
 
-        // Affecter les num sièges au vector tant que les dernier 4 caractères correspon,dent à i.
+        // Affecter les num sièges au vector tant que les dernier 4 caractères correspondent à i.
         QString nomPlace;
         nomPlace = (nomSiege.right(4).toInt() = [i]);
 
@@ -89,13 +87,11 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
             qDebug () << numeroPlace;
 
     }
-   ui->buttonGroup->connect(ui->buttonGroup, SIGNAL(buttonClicked(QAbstractButton* )),
+    ui->buttonGroup->connect(ui->buttonGroup, SIGNAL(buttonClicked(QAbstractButton* )),
                              this, SLOT(ChangerStatutSiege(QAbstractButton* )));
-
-
     }
 */
-//Requette pour remplir Combo Spectacles
+    //Requette pour remplir Combo Spectacles
     QSqlQueryModel * modal = new QSqlQueryModel();  //Model de connexion pointeur modal (Spectacle)
 
 
@@ -112,12 +108,12 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     ui->pCBoxSpectacle->setCurrentIndex(-1);
     ui->pLabelIdSpectacle->clear();
 
-// ////////////////////////////////////////////
+    // ////////////////////////////////////////////
 }
 
 void PlanDeSalle::steelChange(int buttonID)
 {
-/*    qDebug() << "buttonID : " << buttonID;
+    /*    qDebug() << "buttonID : " << buttonID;
     QButtonGroup* group = new QButtonGroup(this);
     (this)->setStyleSheet("background-color: rgb(255, 99, 71);");
 
@@ -125,7 +121,7 @@ void PlanDeSalle::steelChange(int buttonID)
     //QButtonGroup::buttonClicked(objectName());
 
 */    //objectName(buttonID)
-/*
+    /*
     QList<QPushButton *> allWidgets = PlanDeSalle().findChildren<QPushButton *>("");
     QList<QPushButton*>::iterator it;
     for (it = allWidgets.begin(); it != allWidgets.end(); it++) {
@@ -152,14 +148,14 @@ void PlanDeSalle::steelChange(int buttonID)
 //changer aspect btn
 void PlanDeSalle::ChangerStatutSiege()
 {
-//    QVector <QString> NomPlace;
-//    NomPlace.push_back(ui->buttonGroup->objectName());
-//    qDebug() <<"Sieges dans vector" << NomPlace;
+    //    QVector <QString> NomPlace;
+    //    NomPlace.push_back(ui->buttonGroup->objectName());
+    //    qDebug() <<"Sieges dans vector" << NomPlace;
 }
 
 void PlanDeSalle::SetSiege()
 {
-/*    ui->PA1->setStyleSheet("background-color: rgb(255, 99, 71);");
+    /*    ui->PA1->setStyleSheet("background-color: rgb(255, 99, 71);");
     ui->PA1->setEnabled(false);
 
     ui->PA2->setStyleSheet("background-color: rgb(255, 99, 71);");
@@ -288,10 +284,10 @@ void PlanDeSalle::VerifierSiReserve()
 
     // TEST OBJECT NAME ////////////////////////////////////////////////////////////////////////////////////
 
-                           // QList<QButtonGroup> tousLesBoutons = PlanDeSalle().findChildren<QButtonGroup>("");
-                            //QList<QButtonGroup>::iterator it;
+    // QList<QButtonGroup> tousLesBoutons = PlanDeSalle().findChildren<QButtonGroup>("");
+    //QList<QButtonGroup>::iterator it;
 
-                            //qDebug() << "tousLesBoutons : " << tousLesBoutons;
+    //qDebug() << "tousLesBoutons : " << tousLesBoutons;
 
 
     //Remplir le vecteur
@@ -308,9 +304,9 @@ void PlanDeSalle::VerifierSiReserve()
         qDebug() << "intituleSiege : " << intituleSiege;
 
 
-// //////////////////////
+        // //////////////////////
 
-/*        for (it = tousLesBoutons.begin(); it != tousLesBoutons.end(); it++) {
+        /*        for (it = tousLesBoutons.begin(); it != tousLesBoutons.end(); it++) {
 
             if(siege == intituleSiege)
             {
@@ -329,7 +325,7 @@ void PlanDeSalle::VerifierSiReserve()
         query.bindValue(":idSpectacle", idSpectacle);
         if(query.exec())
         {
-           // InitialisationEtatDesSieges();
+            // InitialisationEtatDesSieges();
             bool trouver = false;
             while(query.next())
             {
@@ -337,22 +333,22 @@ void PlanDeSalle::VerifierSiReserve()
                 qDebug() << "siege : " << siege;
 
                 trouver = true;
-            // Si la requete revoie des données
-            if(trouver)
-            {
-                // la variable reserve recoit le resultat boolean de la requête(statut du siège)
-                int reserve;
-                reserve = query.value(3).toInt();
+                // Si la requete revoie des données
+                if(trouver)
+                {
+                    // la variable reserve recoit le resultat boolean de la requête(statut du siège)
+                    int reserve;
+                    reserve = query.value(3).toInt();
 
                     // Si réservé
                     if(reserve == 1)
                     {
                         //si nom d'objet = intituleSiege
-                     //  if (objectName() == intituleSiege)
-                       //{
+                        //  if (objectName() == intituleSiege)
+                        //{
 
-                     //    QPushButton *bouton = new QPushButton;
-                     //    bouton->setObjectName(intituleSiege.tos);
+                        //    QPushButton *bouton = new QPushButton;
+                        //    bouton->setObjectName(intituleSiege.tos);
 
 
                         if(siege == "PA1")
@@ -606,7 +602,7 @@ void PlanDeSalle::VerifierSiReserve()
                             ui->P50->setEnabled(false);
                         }
                     }
-            }
+                }
             }
         }
     }

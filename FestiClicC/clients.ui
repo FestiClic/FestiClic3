@@ -45,7 +45,7 @@ font-size: 10px;
        <property name="font">
         <font>
          <family>Verdana</family>
-         <pointsize>10</pointsize>
+         <pointsize>11</pointsize>
         </font>
        </property>
       </widget>
@@ -609,7 +609,7 @@ font-size: 10px;
           <x>180</x>
           <y>10</y>
           <width>741</width>
-          <height>81</height>
+          <height>91</height>
          </rect>
         </property>
         <property name="font">

@@ -17,17 +17,8 @@ class Login : public QDialog
 
 public:
 
-    //QSqlDatabase maBaseDeDonnee;
-
-    //ouverture de la connexion bdd
-    //bool openConnexion();
-
-    //fermeture de la connexion bdd
-    //void closeConnexion();
-
     explicit Login(QWidget *parent = 0);
     ~Login();
-    //int valeur = 10;
 
 private slots:
     void on_lBtnSeConnecter_2_clicked();
