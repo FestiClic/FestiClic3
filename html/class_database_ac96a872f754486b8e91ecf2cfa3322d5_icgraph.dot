@@ -1,0 +1,27 @@
+digraph "Database::openConnexion"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node28 [label="Database::openConnexion",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node28 -> Node29 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node29 [label="Accueil::Accueil",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_accueil.html#a581158b51548b6c3e60892035e9b656b"];
+  Node28 -> Node30 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node30 [label="AdministrationBillet\l::AdministrationBillet",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_administration_billet.html#a1af4f91bd5a54b93a06cb0e78c12e1dd"];
+  Node28 -> Node31 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node31 [label="Billetterie::Billetterie",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_billetterie.html#a7c350e369f0553b976820aa588cc4810"];
+  Node28 -> Node32 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 [label="Clients::Clients",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_clients.html#a54497700846be58ff511736c500897d8"];
+  Node28 -> Node33 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node33 [label="Database::Database",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_database.html#a4703c80e6969d33565ea340f768fdadf"];
+  Node28 -> Node34 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node34 [label="Frequentation::Frequentation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_frequentation.html#ace801c6d03fbc76d6f5d6c31ad157976"];
+  Node28 -> Node35 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node35 [label="Login::Login",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_login.html#a021ebcfd29b2a30e3f5c5bbb36589381"];
+  Node28 -> Node36 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node36 [label="PlanDeSalle::PlanDeSalle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_plan_de_salle.html#a5f86bf9d8c64574fdc6da00c8dbb489f"];
+  Node28 -> Node37 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node37 [label="Spectacles::Spectacles",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_spectacles.html#a10ad8dda4d575fccd467fe5332dd5383"];
+  Node28 -> Node38 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node38 [label="Utilisateur::Utilisateur",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_utilisateur.html#a5c46541a8ef37455fec82eaccd43c6a1"];
+}

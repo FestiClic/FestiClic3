@@ -10,7 +10,7 @@ namespace Ui {
 class Clients;
 }
 /**
- * @brief The Clients class
+ * @brief La class Clients est un fichier client
  */
 
 class Clients : public QDialog
@@ -43,7 +43,7 @@ private slots:
     void on_cltBtnSupprimer_clicked();
 
     /**
-     * @brief on_cltTabV_activated Affecté les données aux champs de texte à partir de la tableView
+     * @brief on_cltTabV_activated Exécute la requête qui affecte les données aux champs de texte à partir de la tableView
      * @param index
      */
     void on_cltTabV_activated(const QModelIndex &index);

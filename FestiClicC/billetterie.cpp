@@ -182,7 +182,7 @@ void Billetterie::AffecterLesModesDePaiement()
     qDebug() << (modalModePaiement->rowCount());
 }
 
-//Affecter les numéro de sièges non réservés à la liste des sieges (QListView)
+//Affecter les numéros de sièges non réservés à la liste des sièges (QListView)
 void Billetterie::MAJListeDesSieges()
 {
     Database connexion;
@@ -210,7 +210,7 @@ void Billetterie::MAJListeDesSieges()
 void Billetterie::InitialisationDesChamps()
 {
     //Initialisation des EditLine
-    //Le choix de text line edite à la place des Labels est dans le but de dévelepper ultérieurement
+    //Le choix de texte line edite à la place des Labels est dans le but de développer ultérieurement
     //une fonction de mise à jour des fiches clients et spectacles directement depuis la billetterie
     ui->bTxtInfosClient->clear();
     ui->bTxtDateEtHeure->clear();
@@ -237,7 +237,7 @@ Billetterie::~Billetterie()
 }
 
 
-//Affecter les données spectacle depuis le ComboBox vers les labels
+//Affecter les données des spectacles dans les labels depuis la sélection dans le ComboBox
 void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg1)
 {
     QString spectacle;
@@ -292,7 +292,7 @@ void Billetterie::on_bCBoxRepresentations_currentIndexChanged(const QString &arg
     }
 }
 
-//Affecter les données spectateur depuis le ComboBox vers les labels
+//Affecter les données des clients dans les labels depuis la sélection dans le ComboBox
 void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
 {
 
@@ -339,7 +339,7 @@ void Billetterie::on_bCBoxSpectacteur_currentIndexChanged(const QString &arg1)
     }
 }
 
-//Bouton ajouter nouveau client Avant réservation
+//Bouton ajouter nouveau client avant réservation si nouveau client
 void Billetterie::on_bBtnAjouter_clicked()
 {
     //Désactiver le groupBox client et afficher le bouton nécessaire pour la mise à jour des données
@@ -438,7 +438,7 @@ void Billetterie::on_bBtnSuivant_clicked()
             ui->bLabelAlerte->setStyleSheet("background-color: rgb(255, 99, 71); font-size: 15px;");
             ui->bLabelAlerte->setText("Vous devez choisir au minimum 1 place !");
         }
-        //Si le nombre de place dans la listeW  est différent de 0
+        //Si le nombre de place dans la listeV  est différent de 0
         else
         {
             // Afficher le groupeBox mode de paiment
@@ -572,7 +572,6 @@ void Billetterie::on_bBtnPaiement_clicked()
     ui->scrollArea->show();
 
     //Requete pour les données à afficher sur le billet
-
     QSqlQuery queryDonneesBillet;
     queryDonneesBillet.prepare("SELECT MAX(IdTransaction), MAX(IdBillet), Civilite, NomClient, PrenomClient, Spectacle, Prix, NumPlace "
                                "FROM Transactions tr , Billets b, Clients c, Spectacles s, Tarifs t, Places p "
@@ -642,7 +641,7 @@ void Billetterie::on_bListVNumSiege_activated(const QModelIndex &index)
     ui->bLabelAlerte->hide();
 }
 
-//Le bouton suivant du groupBox plan de salle
+//Le bouton suivant du GroupBox plan de salle
 void Billetterie::on_bBtnSuivantPlan_2_clicked()
 {
     // Initialiser le champ
@@ -676,7 +675,7 @@ void Billetterie::on_bBtnSuivantPlan_2_clicked()
 
 void Billetterie::on_bBtnClientConcert_clicked()
 {
-    //Ajouter des données fixes client fectif pour l'impression de billets concert à l'avance
+    //Ajouter des données fixes client fictif pour l'impression des billets concert à l'avance
     ui->bLabelNomClient->setText("Flow");
     ui->bLabelIdClient->setText("21");
     ui->bTxtInfosClient->setText("Flow Billet <br> Billetterie concerts et festivals  ");
@@ -719,7 +718,7 @@ void Billetterie::on_bBtnAnnulerPaiement_clicked()
     MAJListeDesSieges();
 }
 
-//Bouton annuler su groupBox plan de salle
+//Bouton annuler sur GroupBox plan de salle
 void Billetterie::on_bBtnAnnulerPlan_clicked()
 {
     InitialisationEtatDesSieges();
@@ -1036,7 +1035,7 @@ void Billetterie::VerifierSiReserve()
     }
 }
 
-//Initialisation etat des siéges
+//Initialisation état des sièges
 void Billetterie::InitialisationEtatDesSieges()
 {
     ui->P1->setStyleSheet("border-image: url(:CircPlusGreen.png);");
@@ -1147,7 +1146,7 @@ void Billetterie::InitialisationEtatDesSieges()
 //A l'évenement clic de chaque bouton, il passe à un statut intermédiaire (orange)
 //dans l'attente de la validation du statut dans la BDD
 
-//A chaque clic le numéro du siège et affecté à la listeW
+//A chaque clic le numéro du siège et affecté à la listeView
 void Billetterie::on_P1_clicked()
 {
     ui->listWidget->addItem("PA1");

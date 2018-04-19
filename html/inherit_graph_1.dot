@@ -1,0 +1,29 @@
+digraph "Graphe hiérarchique des classes"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node3 [label="QDialog",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="AdministrationBillet",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_administration_billet.html",tooltip="La class AdministrationBillet elle permet de gérer les différentes configurations de salles..."];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="BaseDeDonnee",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_base_de_donnee.html"];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Billetterie",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_billetterie.html",tooltip="La class Billetterie gère la partie billetterie, avec la réservation des sièges sur plan ou dans la l..."];
+  Node3 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Clients",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_clients.html",tooltip="La class Clients est un fichier client. "];
+  Node3 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Frequentation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_frequentation.html",tooltip="La class Frequentation permet d&#39;avoir une vision globale de la fréquentation des spectacles sur la ba..."];
+  Node3 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Login",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_login.html",tooltip="La class Login pour l&#39;identification de l&#39;utilisateur. "];
+  Node3 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="ModePaiement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_mode_paiement.html"];
+  Node3 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="PlanDeSalle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_plan_de_salle.html",tooltip="La class PlanDeSalle permet la consultation du remplissage des salles par spectacle. "];
+  Node3 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Recttes",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_recttes.html"];
+  Node3 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="Spectacles",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_spectacles.html",tooltip="La class Spectacles est un catalogue des différents spectacles. "];
+  Node3 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="Utilisateur",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_utilisateur.html",tooltip="La class Utilisateur est un fichier utilisateurs. "];
+}

@@ -337,7 +337,7 @@ void Clients::on_cltBtnSupprimer_clicked()
     }
 }
 
-//Affecté les données aux champs txt apartir de la tableView
+//Affecté les données aux champs txt à partir de la tableView
 void Clients::on_cltTabV_activated(const QModelIndex &index)
 {
     QString valeurs;

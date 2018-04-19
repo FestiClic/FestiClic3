@@ -170,6 +170,7 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(const QString
 
     spectacle = ui->fCBoxSpectacleProgramme->currentText();
 
+    //Requête de sélection
     QSqlQuery query;
     query.prepare("SELECT * FROM Spectacles WHERE Spectacle = :spectacle ");
     query.bindValue(":spectacle", spectacle);
@@ -181,7 +182,7 @@ void Frequentation::on_fCBoxSpectacleProgramme_currentIndexChanged(const QString
             ui->fTxtJaugeInitiale_2->setText(query.value(4).toString());
             idSpectale = query.value(0).toInt();    //recuparation de l'IdSpectacle dans une variable
 
-            //Reqete pour affecter la totalite des places réservées
+            //Requête pour affecter la totalité des places réservées
             QSqlQuery query;
             query.prepare("SELECT COUNT(NumPlace) "
                           "FROM Places "

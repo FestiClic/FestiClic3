@@ -111,6 +111,7 @@ PlanDeSalle::PlanDeSalle(QWidget *parent) :
     // ////////////////////////////////////////////
 }
 
+//Nécessaire pour le développement futur de l’application, pour automatiser la gestion des sièges
 void PlanDeSalle::steelChange(int buttonID)
 {
     /*    qDebug() << "buttonID : " << buttonID;
@@ -130,13 +131,9 @@ void PlanDeSalle::steelChange(int buttonID)
             qDebug()<< "allWidgets : " << allWidgets;
             (*it)->setStyleSheet("background-color: rgb(255, 99, 71);");
             (*it)->setEnabled(false);
-
         }
     }
-
 */
-
-
 
     //setEnabled(false);
     //;
@@ -145,23 +142,7 @@ void PlanDeSalle::steelChange(int buttonID)
 
 // //////////////////////////////////////////////
 
-//changer aspect btn
-void PlanDeSalle::ChangerStatutSiege()
-{
-    //    QVector <QString> NomPlace;
-    //    NomPlace.push_back(ui->buttonGroup->objectName());
-    //    qDebug() <<"Sieges dans vector" << NomPlace;
-}
 
-void PlanDeSalle::SetSiege()
-{
-    /*    ui->PA1->setStyleSheet("background-color: rgb(255, 99, 71);");
-    ui->PA1->setEnabled(false);
-
-    ui->PA2->setStyleSheet("background-color: rgb(255, 99, 71);");
-    ui->PA2->setEnabled(false);
-*/
-}
 
 void PlanDeSalle::InitialisationEtatDesSieges()
 {
@@ -615,7 +596,7 @@ PlanDeSalle::~PlanDeSalle()
     delete ui;
 }
 
-
+//Affecter les spectacles dans le ComboBox
 void PlanDeSalle::on_pCBoxSpectacle_currentIndexChanged(const QString &arg1)
 {
     // Affecter l'idSpectacle dans le Label

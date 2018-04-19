@@ -29,8 +29,6 @@ bool Database::openConnexion()
     CreerLesTablesDeLaBDD();
 
 
-
-
     if(maBaseDeDonnee.open())
     {
         qDebug()<<("Connexion...");

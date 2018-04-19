@@ -32,13 +32,13 @@ AdministrationBillet::AdministrationBillet(QWidget *parent) :
 void AdministrationBillet::MAJTablesViewPage()
 {
     Database connexion;
-    //Affecter les données des configurations Salle dans la colomnView
+    //Affecter les données des configurations Salle dans la TableView
     QSqlQueryModel * modelConfigSalle = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-    //Affecter les données Tarifs dans la colomnView
+    //Affecter les données Tarifs dans la TableView
     QSqlQueryModel * modelTarif = new QSqlQueryModel();  //Model de connexion pointeur modal
 
-    //Affecter les données Mode de paiement dans la colomnView
+    //Affecter les données Mode de paiement dans la TableView
     QSqlQueryModel * modelPaiementMode = new QSqlQueryModel();  //Model de connexion pointeur modal
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -218,7 +218,7 @@ void AdministrationBillet::on_AdBBtnAnnulerMPaiement_clicked()
     ui->AdBBtnModifierFicheMPaiement->show();
 }
 
-//Affecté les données aux chanps txt apartir de la tableView ConfigSalle
+//Affecté les données aux champs de texte à partir de la tableView ConfigSalle
 void AdministrationBillet::on_TabVConfigSalle_activated(const QModelIndex &index)
 {
     QString valeur;
@@ -301,7 +301,7 @@ void AdministrationBillet::on_TabVMPaiement_activated(const QModelIndex &index)
     }
 }
 
-//Bouton ajouter nouvau enregistrement dans ConfigSalle
+//Bouton Ajouter nouvel enregistrement dans la table ConfigSalle dans la BDD
 void AdministrationBillet::on_AdBBtnAjouter_clicked()
 {
     QString configSalle;
@@ -339,7 +339,7 @@ void AdministrationBillet::on_AdBBtnAjouter_clicked()
     }
 }
 
-//Bouton modifier un enregistrement dans ConfigSalle
+//Bouton Modifier un enregistrement dans la table ConfigSalle dans la BDD
 void AdministrationBillet::on_AdBBtnModifier_clicked()
 {
     QString configSalle;
@@ -379,7 +379,7 @@ void AdministrationBillet::on_AdBBtnModifier_clicked()
     }
 }
 
-//Bouton supprimer enregistrement dans Config Salle
+//Bouton Supprimer un enregistrement dans la table ConfigSalle dans la BDD
 void AdministrationBillet::on_AdBBtnSupprimer_clicked()
 {
     QString configSalle;
