@@ -38,7 +38,7 @@ Billetterie::Billetterie(QWidget *parent) :
     //cacher le label billet
     ui->scrollArea->hide();
 
-    //Affecter les données des représentations au ComboBox
+    //Affecter les données de la représentation au ComboBox
     AffecterDonneesRepresentation();
 
     //Affecter le nomClient a la comboBox client

@@ -31,18 +31,21 @@ Accueil::Accueil(QWidget *parent) :
     //Insérer les données en base de données
     InsererDonneesDansBDD();
 
-    //ouverture de la page login
+    //ouverture de la page login au lancement de l'application
     Login login;
     login.setModal(true);
 
-
+    //Vérification si la connexion est acceptée
     if (login.exec() == QDialog::Accepted)
     {
         //Ok
         lanceApp=true;
 
-        /*      Recupérer les données utilisateur pour les affecter au label NomUtilisateur
- *      //Affectation nom et prenom utilisateur
+        //*//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /*     //Recupérer les données utilisateur pour les affecter au label NomUtilisateur
+       //Affectation nom et prenom utilisateur
+
         QSqlQuery query;
         query.prepare("SELECT NomUtilisateur, PrenomUtilisateur FROM Utilisateurs "
                       "WHERE IdUtilisateur = 1 ");
@@ -53,7 +56,9 @@ Accueil::Accueil(QWidget *parent) :
                 ui->aLabelNomUtilisateur->setText(query.value(1).toString() + " " + query.value(2).toString());
             }
         }
-*/
+        */
+
+        //*//////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
     else
     {
@@ -69,30 +74,29 @@ Accueil::Accueil(QWidget *parent) :
     ui->aLabelNomUtilisateur->setStyleSheet("color: white;");
     ui->aLabelNomUtilisateur->setText("Connexion Monoposte \n Saison 2017 / 2018");
 
-    //Affectation de la date du jour
+    //Affectation de la date du jour dans le labelDate
     ui->aLabelDate->setStyleSheet("color: white;");
     ui->aLabelDate->setText(QDate::currentDate().toString("dd - MM - yyyy"));
-
 }
 
 void Accueil::InsererDonneesDansBDD()
 {
-    //Données en dur pour la démonstration de l'application
+    //Données fixes nécessaires pour la démonstration de l'application
 
-    //Insérer un compte utilisateur de démonstartion
     QSqlQuery query;
 
+    //Requête pour insérer un compte utilisateur de démonstartion
     query.exec("INSERT INTO Utilisateurs (IdUtilisateur, NomUtilisateur, PrenomUtilisateur, Username, Password) "
                "VALUES (1, 'CompteDemonstration', 'Demonstation', 'demo', 'demo')");
 
 
-    //Insérer données pour le compte de démonstration
+    //Insérer des données pour le compte de démonstration
 
-    //Billet
+    //Requête pour la table Billets
     query.exec("INSERT INTO Billets (`IdBillet`, `NumBillet`) "
                "VALUES (1, 1) ");
 
-    //Clients
+    //Requête pour la table Clients
     query.exec("INSERT INTO Clients (`IdClient`, `Civilite`, `NomClient`, `PrenomClient`, `EmailClient`, "
                "`AdresseClient`, `Cp`,`Ville`, `TelClient`, `MobClient`, `Abonne` )"
                "VALUES (1, 'Mme', 'ADNET', 'Francoise', 'adnet.francoise@yahoo.fr',"
@@ -103,12 +107,12 @@ void Accueil::InsererDonneesDansBDD()
                "'Route George Van Brugel', '67000', 'Strasbourg', '0388234568', '0681234569', 'Abonné(e)' ) ");
 
 
-    //Configuration des salles
+    //Requête pour la table Configuration des salles
     query.exec("INSERT INTO ConfigSalle (`IdConfigSalle`, `IntituleConfigSalle`, `Jauge` )"
                "VALUES (1, 'Placement numérotée', '50' ), "
                "(2, 'Placement libre', '50' ) ");
 
-    //Modes de paiement
+    //Requête pour la table Modes de paiement
     query.exec("INSERT INTO ModePaiement (`IdModePaiement`, `TypeModePaiement` )"
                "VALUES (1, 'Carte bancaire' ), "
                "(2, 'Espèces' ), "
@@ -116,15 +120,11 @@ void Accueil::InsererDonneesDansBDD()
                "(4, 'Chèque culture' ), "
                "(5, 'Chèque cadeau' ) ");
 
-
-
-    /*
-    //Transactions
+    //Requête pour la table Transactions
     query.exec("INSERT INTO Transactions (`IdTransaction` )"
                               "VALUES (100 )");
-*/
 
-    //Tarifs
+    //Requête pour la table Tarifs
     query.exec("INSERT INTO Tarifs (`IdTarif`, `IntituleTarif`, `Prix` )"
                "VALUES (1, 'Plein Tarif', '21.00' ),"
                "(2, 'Tarif Réduit', '12.60' ), "
@@ -134,7 +134,7 @@ void Accueil::InsererDonneesDansBDD()
                "(6, 'Invité Cie', '0.00' ), "
                "(7, 'Presse', '0.00' ) ");
 
-    //Sièges
+    //Requête pour la table Sièges
     query.exec("INSERT INTO Sieges (`IdSiege`, `NumSiege` )"
                "VALUES (1 , 'PA1' ), "
                "(2 , 'PA2' ), "
@@ -187,11 +187,10 @@ void Accueil::InsererDonneesDansBDD()
                "(49 , 'PA49' ), "
                "(50 , 'PA50' ) ");
 
-    //Spectacles
+    //Requête pour la table Spectacles
     query.exec("INSERT INTO Spectacles (IdSpectacle, Spectacle, Date, Heure, IdConfigSalle, JaugeSpectacle) "
                "VALUES (1, 'INFERNO', '12/05/2016', '16:00', 1, 50), "
                "(2, 'CEUX QUI ERRENT NE SE TROMPENT PAS', '15/05/2016', '20:00', 2, 50 ) ");
-
 }
 
 Accueil::~Accueil()
@@ -199,7 +198,7 @@ Accueil::~Accueil()
     delete ui;
 }
 
-//BOUTON Affecter les données à une TableView
+//Ouverture de la fiche Spectacles
 void Accueil::on_aBtnSpectacles_clicked()
 {
     Spectacles spectacles;
@@ -207,6 +206,7 @@ void Accueil::on_aBtnSpectacles_clicked()
     spectacles.exec();
 }
 
+//Ouverture de la fiche Clients
 void Accueil::on_aBtnClients_clicked()
 {
     Clients clients;
@@ -214,6 +214,7 @@ void Accueil::on_aBtnClients_clicked()
     clients.exec();
 }
 
+//Ouverture de la fiche Billetterie
 void Accueil::on_aBtnBilletterie_clicked()
 {
     Billetterie billetterie;
@@ -221,6 +222,7 @@ void Accueil::on_aBtnBilletterie_clicked()
     billetterie.exec();
 }
 
+//Ouverture de la fiche Plan de Salle
 void Accueil::on_aBtnPlanDeSalle_clicked()
 {
     PlanDeSalle planDeSalle;
@@ -228,6 +230,7 @@ void Accueil::on_aBtnPlanDeSalle_clicked()
     planDeSalle.exec();
 }
 
+//Ouverture de la fiche Utilisateurs
 void Accueil::on_aBtnUtilisateur_clicked()
 {
     Utilisateur utilisateur;
@@ -235,6 +238,7 @@ void Accueil::on_aBtnUtilisateur_clicked()
     utilisateur.exec();
 }
 
+//Ouverture de la fiche Administration des billet
 void Accueil::on_aBtnAdministratioBillet_clicked()
 {
     AdministrationBillet administrationBillet;
@@ -242,6 +246,7 @@ void Accueil::on_aBtnAdministratioBillet_clicked()
     administrationBillet.exec();
 }
 
+//Ouverture de la fiche des Fréquentations
 void Accueil::on_aBtnFrequentation_clicked()
 {
     Frequentation frequentation;
@@ -249,6 +254,7 @@ void Accueil::on_aBtnFrequentation_clicked()
     frequentation.exec();
 }
 
+//Quitter l'application
 void Accueil::on_aBtnQuitter_clicked()
 {
     this->close();

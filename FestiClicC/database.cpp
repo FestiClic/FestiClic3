@@ -49,8 +49,8 @@ void Database::CreerLesTablesDeLaBDD()
 
     //Creation du fichier de la base de donées.
     maBaseDeDonnee = QSqlDatabase::addDatabase("QSQLITE");
-    //maBaseDeDonnee.setDatabaseName("./festiclic.db");
-    maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/QtProject/FestiClic3/festiclic.db");
+    maBaseDeDonnee.setDatabaseName("./festiclic.db");
+    //maBaseDeDonnee.setDatabaseName("C:/Users/Mourad/Desktop/QtProject/FestiClic3/festiclic.db");
 
     maBaseDeDonnee.open();
 
